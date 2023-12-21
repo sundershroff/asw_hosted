@@ -127,7 +127,14 @@ class salesmanager(models.Model):
 
     #created on 
     created_date = models.TextField(null=True)
-
+    #my profile manager
+    my_profile_manager = models.TextField(null=True)
+    
+    #ad_provider
+    ad_provider = models.TextField(null=True)
+    
+     #ad_distributor
+    ad_distributor = models.TextField(null=True)
     #//add client//#
     # add_client=models.TextField(null=True)
 
@@ -196,6 +203,7 @@ class ad_provider(models.Model):
     personal_address = models.TextField(null=True)
     id_card = models.TextField(null=True)
     hiring_manager = models.TextField(null=True)
+    sales_manager = models.TextField(null=True)
     
     #signed document
     sign_document = models.TextField(null=True)
@@ -235,6 +243,7 @@ class ad_distributor(models.Model):
     personal_address = models.TextField(null=True)
     id_card = models.TextField(null=True)
     hiring_manager = models.TextField(null=True)
+    sales_manager = models.TextField(null=True)
     #signed document
     sign_document = models.TextField(null=True)
 

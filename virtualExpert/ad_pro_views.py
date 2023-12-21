@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 
 
-from virtualExpert import ad_pro_serializer,hm_serializer
+from virtualExpert import ad_pro_serializer,hm_serializer,sm_serializer
 from virtualExpert import models
 from virtualExpert.models import ad_provider,users
 from virtualExpert import ad_pro_extension
@@ -163,7 +163,8 @@ def ad_pro_upload_account(request,id):
             'personal_city': city,
             'personal_address': request.POST['personal_address'],           
             # 'id_card': full_path,
-            'hiring_manager': request.POST['hiring_manager']
+            'hiring_manager': request.POST['hiring_manager'],
+            'sales_manager': request.POST['sales_manager'],
            
         }
 
@@ -175,6 +176,8 @@ def ad_pro_upload_account(request,id):
             print("Valid Data")
             userdata1 = models.hiringmanager.objects.get(uid= request.POST['hiring_manager'])
             hm_data = models.hiringmanager.objects.filter(uid= request.POST['hiring_manager']).values()[0]
+            userdata2 = models.salesmanager.objects.get(uid= request.POST['sales_manager'])
+            sm_data = models.salesmanager.objects.filter(uid= request.POST['sales_manager']).values()[0]
             ad_pro_userdata = models.ad_provider.objects.filter(uid=id).values()[0]
             
             if hm_data['ad_provider'] == None:
@@ -186,15 +189,36 @@ def ad_pro_upload_account(request,id):
                 my_ad_provider = jsondec.decode(hm_data['ad_provider'])
                 # print(my_profile_add)
                 my_ad_provider.append(ad_pro_userdata)
+
+            if sm_data['ad_provider'] == None:
+                my_ad_pro = []
+                print("new")
+                my_ad_pro.append(ad_pro_userdata)
+            else:
+                print("add")
+                my_ad_pro = jsondec.decode(hm_data['ad_provider'])
+                # print(my_profile_add)
+                my_ad_pro.append(ad_pro_userdata)
             data1={
                 'ad_provider': json.dumps(my_ad_provider)
             }
+            data2={ 'ad_provider': json.dumps(my_ad_pro)}
             print(data1)
+            print(data2)
             hmdetailsserializer = hm_serializer.ad_provider_Serializer(
             instance=userdata1, data=data1, partial=True)
+            smdetailsserializer = sm_serializer.ad_provider_Serializer(
+            instance=userdata2, data=data2, partial=True)
             if hmdetailsserializer.is_valid():
                 hmdetailsserializer.save()
-                print("valid data")
+                print("valid data1")
+            else:
+                print("data1 not saved")
+            if smdetailsserializer.is_valid():
+                smdetailsserializer.save()
+                print("valid data2") 
+            else:
+                print("data2 not saved")   
             return Response(id, status=status.HTTP_200_OK)
         else:
             return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)

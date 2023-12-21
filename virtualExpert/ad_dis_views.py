@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 
 
-from virtualExpert import ad_dis_serializer,hm_serializer
+from virtualExpert import ad_dis_serializer,hm_serializer,sm_serializer
 from virtualExpert import models
 from virtualExpert.models import ad_distributor,users
 from virtualExpert import ad_dis_extension
@@ -141,23 +141,20 @@ def ad_dis_upload_account(request,id):
     try:
         jsondec = json.decoder.JSONDecoder()
         print(request.POST)
-        fs = FileSystemStorage()
+        # fs = FileSystemStorage()
         userdata = ad_dis_serializer.ad_distributor.objects.get(uid=id)
-        id_card = str(request.FILES['id_card']).replace(" ", "_")
-        path = fs.save(f"virtual_expert/ad_distributor/{id}/id_card/"+id_card, request.FILES['id_card'])
+        # id_card = str(request.FILES['id_card']).replace(" ", "_")
+        # path = fs.save(f"virtual_expert/ad_distributor/{id}/id_card/"+id_card, request.FILES['id_card'])
 
         # full_path = "http://54.159.186.219:8000"+fs.url(path)
-        full_path = all_image_url+fs.url(path)
+        # full_path = all_image_url+fs.url(path)
         # # full_path = "http://54.159.186.219:8000"+fs.url(path)
         # full_path = all_image_url+fs.url(path)
         if "personal_city" in request.POST:
             city = request.POST['personal_city']
         else:
             city = "None"
-        if "office_city" in request.POST:
-            of_city = request.POST['personal_city']
-        else:
-            of_city = "None"
+        
 
         data = {
             # 'office_name': request.POST['office_name'],
@@ -170,18 +167,22 @@ def ad_dis_upload_account(request,id):
             'personal_city': city,
             'personal_address': request.POST['personal_address'],           
             # 'id_card': full_path,
-            'hiring_manager': request.POST['hiring_manager']
+            'hiring_manager': request.POST['hiring_manager'],
+            'sales_manager': request.POST['sales_manager']
            
         }
 
-        print(data)
         basicdetailsserializer = ad_dis_serializer.upload_acc_Serializer(
             instance=userdata, data=data, partial=True)
+        print(basicdetailsserializer)
         if basicdetailsserializer.is_valid():
+            print("done")
             basicdetailsserializer.save()
             print("Valid Data")
             userdata1 = models.hiringmanager.objects.get(uid= request.POST['hiring_manager'])
             hm_data = models.hiringmanager.objects.filter(uid= request.POST['hiring_manager']).values()[0]
+            userdata2 = models.salesmanager.objects.get(uid= request.POST['sales_manager'])
+            sm_data = models.salesmanager.objects.filter(uid= request.POST['sales_manager']).values()[0]
             ad_pro_userdata = models.ad_distributor.objects.filter(uid=id).values()[0]
             
             if hm_data['ad_distributor'] == None:
@@ -193,15 +194,35 @@ def ad_dis_upload_account(request,id):
                 my_ad_provider = jsondec.decode(hm_data['ad_distributor'])
                 # print(my_profile_add)
                 my_ad_provider.append(ad_pro_userdata)
+
+            if sm_data['ad_distributor'] == None:
+                my_ad_pro = []
+                print("new")
+                my_ad_pro.append(ad_pro_userdata)
+            else:
+                print("add")
+                my_ad_pro = jsondec.decode(sm_data['ad_distributor'])
+                # print(my_profile_add)
+                my_ad_pro.append(ad_pro_userdata)
             data1={
-                'ad_distributor': json.dumps(my_ad_provider)
+                'ad_distributor': json.dumps(my_ad_provider)   
             }
+            data2={ 'ad_distributor': json.dumps(my_ad_pro)}
             print(data1)
             hmdetailsserializer = hm_serializer.ad_distributor_Serializer(
             instance=userdata1, data=data1, partial=True)
+            smdetailsserializer = sm_serializer.ad_distributor_Serializer(
+            instance=userdata2, data=data2, partial=True)
             if hmdetailsserializer.is_valid():
                 hmdetailsserializer.save()
-                print("valid data")
+                print("data1 saved")
+            else:
+                print("data1 not saved")
+            if smdetailsserializer.is_valid():
+                smdetailsserializer.save()
+                print("data2 saved") 
+            else:
+                print("data2 not saved") 
             return Response(id, status=status.HTTP_200_OK)
         else:
             return Response({"sserializer issue"}, status=status.HTTP_403_FORBIDDEN)

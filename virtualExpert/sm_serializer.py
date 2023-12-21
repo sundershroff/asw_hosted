@@ -22,6 +22,9 @@ class salesmanagerSerializer(serializers.Serializer):
     personal_city = serializers.CharField()
     personal_address = serializers.CharField()
     hiring_manager = serializers.CharField()
+    my_profile_manager = serializers.CharField()
+    ad_provider = serializers.CharField() 
+    ad_distributor = serializers.CharField()
     id_card = serializers.CharField()
     created_date = serializers.CharField()
 
@@ -80,7 +83,31 @@ class upload_acc_Serializer(serializers.Serializer):
         # instance.profile_picture= data['profile_picture']
         instance.save()
         return instance
+#my profile manager 
+class my_profile_manager_Serializer(serializers.Serializer):
+    my_profile_manager = serializers.CharField()
+    
+    def update(self, instance, data):
+        instance.my_profile_manager = data['my_profile_manager']
+        instance.save()
+        return instance
+#ad provider  
+class ad_provider_Serializer(serializers.Serializer):
+    ad_provider = serializers.CharField()
+    
+    def update(self, instance, data):
+        instance.ad_provider = data['ad_provider']
+        instance.save()
+        return instance
 
+#ad distributor  
+class ad_distributor_Serializer(serializers.Serializer):
+    ad_distributor = serializers.CharField()
+    
+    def update(self, instance, data):
+        instance.ad_distributor = data['ad_distributor']
+        instance.save()
+        return instance
 class update_acc_serializer(serializers.Serializer):
     full_name = serializers.CharField()
     personal_country = serializers.CharField()

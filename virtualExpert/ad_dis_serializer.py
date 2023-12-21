@@ -31,6 +31,7 @@ class addistributorSerializer(serializers.Serializer):
     personal_address = serializers.CharField()
     id_card = serializers.CharField()
     hiring_manager = serializers.CharField()
+    sales_manager = serializers.CharField()
     
     created_date = serializers.CharField()
     otp1 = serializers.IntegerField()
@@ -88,6 +89,7 @@ class upload_acc_Serializer(serializers.Serializer):
     personal_address = serializers.CharField()
     # id_card = serializers.CharField()
     hiring_manager = serializers.CharField()
+    sales_manager = serializers.CharField()
    
 
     def update(self, instance, data):
@@ -103,6 +105,7 @@ class upload_acc_Serializer(serializers.Serializer):
         instance.personal_address = data['personal_address']
         # instance.id_card = data['id_card']
         instance.hiring_manager = data['hiring_manager']
+        instance.sales_manager = data['sales_manager']
         instance.save()
         return instance
 
