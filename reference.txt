@@ -1,0 +1,198 @@
+POST METHOD 
+-----------
+
+signup : http://3.86.99.140:8000/signup/
+{
+    'email' : 'Value',
+    'mobile' : 'Value',
+    'password' : 'Value',
+    'referral_code' : 'Value'
+}
+
+otp : http://3.86.99.140:8000/otp/{id}
+{
+    'user_otp' : 'Value'
+}
+
+signin : http://3.86.99.140:8000/signin/{id}
+{
+    'email' : 'Value',
+    'password' : 'Value'
+}
+
+profileidcard : http://3.86.99.140:8000/profileidcard/{id}
+{
+    'id_card_1':'value',
+}
+
+profileform : http://3.86.99.140:8000/profileform/{id}
+{
+    'name' : 'Value',
+    'address' : 'Value',
+    'height' : 'Value',
+    'weight' : 'Value',
+    'marital' : 'Value',
+    'age' : 'Value',
+    'physical' : 'Value',
+    'religion' : 'Value',27.0.0.1:8000/profileidcard/$id
+    'birth_place' : 'Value',
+    'birth_country' : 'Value',
+    'birth_time' : 'Value',
+    'birth_city' : 'Value',
+    'origin' : 'Value',
+    'r_country' : 'Value',
+    'r_state' : 'Value',
+    'r_status' : 'Value',
+    'denomination' : 'Value',
+    'blood_group' : 'Value',
+    'id_card_2' : 'Value',
+    'temple_name' : 'Value',
+    'temple_street' : 'Value',
+    'temple_post_code' : 'Value',
+    'temple_country' : 'Value',
+    'temple_city' : 'Value',
+    'temple_phone_number' : 'Value',
+    'temple_diocese' : 'Value',
+    'temple_local_admin' : 'Value',
+    'emergency_name' : 'Value',
+    'emergency_relation' : 'Value',
+    'emergency_phone_number' : 'Value',
+    'emergency_email' : 'Value',
+    'emergency_marital_status' : 'Value',
+    'emergency_occupations' : 'Value'
+}
+
+
+profilepicture : http://3.86.99.140:8000/profilepicture/{id}
+{
+    'profile_picture' : 'Value'
+}
+
+primarydetails : http://3.86.99.140:8000/primarydetails/{id}
+{
+    'marital_status' : 'Value',
+    'physical_mental_status' : 'Value',
+    'primary_email' : 'Value',
+    'primary_phone_number' : 'Value',
+    'dob' : 'Value',
+    'why_marry' : 'Value',
+    'behind_decision' : 'Value',
+    'education_school' : 'Value',
+    'education_year' : 'Value',
+    'education_course' : 'Value',
+    'education_major' : 'Value',
+    'are_you_working_now' : 'Value',
+    'company_name' : 'Value',
+    'position' : 'Value',
+    'salary_range' : 'Value',
+    'your_intrest' : 'Value',
+    'non_intrest' : 'Value',
+    'complexion' : 'Value',
+    'food_taste' : 'Value',
+    'daily_diet_plan' : 'Value',
+    'carriying_after_marriage' : 'Value',
+    'tobacco' : 'Value',
+    'alcohol' : 'Value',
+    'drugs' : 'Value',
+    'criminal_offence' : 'Value',
+    'primary_country' : 'Value',
+    'selfie' : 'Value',
+    'full_size_image' : 'Value',
+    'family_image' : 'Value',
+    'gallery' : 'Value',
+    'horoscope' : 'Value',
+    'profile_tag' : 'Value',
+    'treet_mypartner' : 'Value',
+    'treet_their_side' : 'Value',
+    'orphan' : 'Value',
+    'disable' : 'Value',
+    'whichorgan' : 'Value'
+}
+
+familydetails : http://3.86.99.140:8000/familydetails/{id}
+{
+    'family_status' : 'Value',
+    'father_name' : 'Value',
+    'father_country' : 'Value',
+    'father_city' : 'Value',
+    'father_job' : 'Value',
+    'mother_name' : 'Value',
+    'mother_country' : 'Value',
+    'mother_city' : 'Value',
+    'mother_job' : 'Value',
+    'sibling_name' : 'Value',
+    'sibling_relation' : 'Value',
+    'sibling_young_or_old' : 'Value',
+    'sibling_occupation' : 'Value',
+    'sibling_marital' : 'Value',
+    'sibling_email' : 'Value',
+    'sibling_dob' : 'Value',
+    'about_candidate' : 'Value',
+    'current_status' : 'Value'
+}
+
+contactdetails : http://3.86.99.140:8000/contactdetails/{id}
+{
+    'contact_father_name' : 'Value',
+    'contact_father_street' : 'Value',
+    'contact_father_zipcode' : 'Value',
+    'contact_father_country' : 'Value',
+    'contact_father_city' : 'Value',
+    'contact_father_housename' : 'Value',
+    'contact_mother_housename' : 'Value',
+    'contact_email' : 'Value',
+    'contact_phone' : 'Value',
+    'whatsapp' : 'Value',
+    'facebook' : 'Value',
+    'linkedin' : 'Value',
+    'instagram' : 'Value',
+    'youtube' : 'Value',
+    'twitter' : 'Value',
+    'website' : 'Value'
+}
+
+
+Get Method
+----------
+alldata : http://3.86.99.140:8000/alldata/{id}
+
+
+
+ 
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
+  request.fields[] = '';
