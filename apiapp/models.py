@@ -9,6 +9,8 @@ class ProfileFinder(models.Model):
     mobile = models.TextField()
     password = models.TextField()
     referral_code = models.TextField()
+    coin = models.TextField(null=True)
+    created_time= models.TextField(null=True)
     otp = models.IntegerField()
     user_otp = models.IntegerField(null=True)
     
@@ -197,8 +199,9 @@ class ProfileFinder(models.Model):
     #status
     status = models.TextField(null=True)
     reason = models.TextField(null=True)
-
-    
+    # forget password
+    otp1 = models.IntegerField(null=True)
+    user_otp1 = models.IntegerField(null=True)
 
 class sender_list(models.Model):
     sender_uid = models.TextField(null=True)
@@ -252,6 +255,26 @@ class saved_search(models.Model):
     filterd_data = models.TextField(null=True)
 
     
+class AdsViewedUser(models.Model):
+   
+    PF_id =models.TextField(null=True)
+    Ads_id = models.TextField(null=True)
+    no_views = models.TextField(null=True)
+
+
+class profilefinder_ads_highlights(models.Model):
+    uid=models.TextField(null=True)
+    pf_data=models.TextField(null=True)
+    ads_languages=models.TextField(null=True)
+    ads_country=models.TextField(null=True)
+    ads_state=models.TextField(null=True)
+    ads_district=models.TextField(null=True)
+    ads_gender=models.TextField(null=True)
+    age_range=models.IntegerField(null=True)
+    age_to=models.IntegerField(null=True) 
+    Total_views=models.TextField(null=True)
+    ads_days_required=models.TextField(null=True)
+    ads_times_repeat=models.TextField(null=True)
 
 
 #///////////////private investigator/////////////
@@ -300,4 +323,7 @@ class private_investigator(models.Model):
     all_ratings =  models.TextField(null=True)
     #total ratings
     total_ratings = models.IntegerField(null=True)
+        # forget password
+    otp1 = models.IntegerField(null=True)
+    user_otp1 = models.IntegerField(null=True)
 

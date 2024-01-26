@@ -81,13 +81,15 @@ def get_user_id(email):
         #users
         print("users")
         usersData = models.users.objects.filter(email = email).values()[0]
-        creator = usersData['creator']
-        data={
-            'uid':creator,
-            'access_Privileges':usersData['access_Privileges']
-        }
-        print(data)
-        return data
+        # creator = usersData['creator']
+        # data={
+        #     'uid':creator,
+        #     'access_Privileges':usersData['access_Privileges']
+        # }
+        print(usersData['uid'])
+        return usersData['uid']
+    
+
 
 
 def send_mail(receiver_email, otp):
@@ -102,3 +104,37 @@ def send_mail(receiver_email, otp):
         subject=subject,
         contents=content
     )
+
+def send_mail_password(receiver_email, otp):
+    sender = 'abijithmailforjob@gmail.com'
+    password = 'kgqzxinytwbspurf'
+    subject = "Marriyo Forget Password OTP"
+    content = f"""
+    OTP : {otp}
+    """
+    yagmail.SMTP(sender, password).send(
+        to=receiver_email,
+        subject=subject,
+        contents=content
+    )
+
+def verify_forget_otp(id):
+    try:
+        specificData = models.Profilemanager.objects.get(uid = id)
+        data = pm_serializer.ProfilemanagerSerializer(specificData)
+        authentication = False
+        if data.data['otp1'] == data.data['user_otp1']:
+            authentication = True
+        return authentication
+    except:
+        authentication = True
+        return authentication
+    
+def validate_otp1(id, otp1):
+    specificUserData = models.Profilemanager.objects.get(uid = id)
+    data = pm_serializer.ProfilemanagerSerializer(specificUserData)
+    valid = False
+    if data.data['otp1'] == otp1:
+        valid = True
+   
+    return valid

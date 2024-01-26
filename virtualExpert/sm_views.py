@@ -2,9 +2,9 @@ from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse,JsonResponse
 
 
-from virtualExpert import sm_serializer,hm_serializer
+from virtualExpert import sm_serializer,hm_serializer,ad_dis_serializer,ad_pro_serializer
 from virtualExpert import models
-from virtualExpert.models import salesmanager
+from virtualExpert.models import salesmanager,users,ad_pro_ads,Create_ads,ad_provider,ad_distributor
 from virtualExpert import sm_extension
 
 from rest_framework.decorators import api_view,renderer_classes,permission_classes
@@ -88,7 +88,8 @@ def sm_signin(request):
             if sm_extension.validate_email(request.data['email']):
                 if sm_extension.verify_user(request.data['email'], request.data['password']):
                     if sm_extension.verify_user_otp(request.data['email']):
-                        return Response(sm_extension.get_user_id(request.data['email']), status=status.HTTP_200_OK)
+                        if sm_extension.get_user_id(request.data['email']):
+                            return Response(sm_extension.get_user_id(request.data['email']), status=status.HTTP_200_OK)
                     else:
                         return Response({"Didn't Completed OTP Verification"}, status=status.HTTP_401_UNAUTHORIZED)
                 else:
@@ -167,7 +168,7 @@ def sm_upload_account(request,id):
             userdata1 = models.hiringmanager.objects.get(uid= request.POST['hiring_manager'])
             hm_data = models.hiringmanager.objects.filter(uid= request.POST['hiring_manager']).values()[0]
             sm_userdata = models.salesmanager.objects.filter(uid=id).values()[0]
-            print(sm_userdata)
+            print(type(sm_userdata))
             if hm_data['sales_manager'] == None:
                 sales_manager = [] = []
                 print("new")
@@ -181,7 +182,7 @@ def sm_upload_account(request,id):
                 'sales_manager': json.dumps(sales_manager)
             }
 
-            print(data1)
+            print("data1",data1)
             
             hmdetailsserializer = hm_serializer.sales_manager_Serializer(
             instance=userdata1, data=data1, partial=True)
@@ -237,7 +238,7 @@ def sm_edit_data(request,id):
            
         }
 
-        print(data)
+        # print(data)
         basicdetailsserializer = sm_serializer.update_acc_serializer(
             instance=userdata, data=data, partial=True)
         if basicdetailsserializer.is_valid():
@@ -262,7 +263,7 @@ def add_client_data(request,id):
             path = fs.save(f"virtual_expert/ad_client/{id}/picture/"+picture, request.FILES['picture'])
             full_path = all_image_url+fs.url(path)
             sales=salesmanager.objects.filter(uid=id).values()[0]
-            print(sales)
+            # print(sales)
             
             data = {
 
@@ -276,62 +277,73 @@ def add_client_data(request,id):
                 'phone_number': request.POST['phone_number'],
                 'email': request.POST['email'],
                 'picture':full_path,
-                'otp': sm_extension.otp_client_generate(),
+                # 'otp': sm_extension.otp_client_generate(),
 
 
                 
             }
-            print(data)
+            # print(data)
             basicdetailsserializer = sm_serializer.add_client_serializer(data=data)
 
             print("done")
             if basicdetailsserializer.is_valid():
                 basicdetailsserializer.save()
-                sm_extension.send_mail(data['email'], data['otp'])
+                # sm_extension.send_mail(data['email'], data['otp'])
                 print("Email send")
                 print("Valid Data")
                 return Response(id, status=status.HTTP_200_OK)
             else:
                 print("serializers")
-                return Response({"sserializer issue"}, status=status.HTTP_403_FORBIDDEN)
-        else:
-            
-            print(request.POST)   
-
-            otp = sm_extension.otp_client_generate()
-            print(otp)
-            email=request.POST['active']
-            sender = 'abijithmailforjob@gmail.com'
-            password = 'kgqzxinytwbspurf'
-            subject = "Marriyo client OTP"
-            content = f"""
-            OTP : {otp}
-            """
-            yagmail.SMTP(sender, password).send(
-                to=email,
-                subject=subject,
-                contents=content
-            )
-            print("send email")
-            # data={
-            #     'otp': sm_extension.otp_client_generate(),
-            #     'email':request.POST['email']
-            # }
-            # print(data)
-            otp_client=request.POST['user_otp']
-            if otp == otp_client:
-                # otp_client=request.POST['user_otp']
-                print(otp_client)
-                basicdetailsserializer = sm_serializer.add_client_serializer(otp=otp)
-                print("valid")
-                if basicdetailsserializer.is_valid():
-                    basicdetailsserializer.save()
-                    print("done")
-            
-
-
+                return Response({"sserializer issue"}, status=status.HTTP_403_FORBIDDEN)        
     except:
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
+@api_view(["POST"])
+def client_otp_active(request,id):
+            
+    print(request.POST)
+       
+    userdata=models.ad_client.objects.get(email=request.POST["active"])
+    print(userdata)
+    otp = sm_extension.otp_client_generate()
+    print(otp)
+    email=request.POST['active']
+    sender = 'abijithmailforjob@gmail.com'
+    password = 'kgqzxinytwbspurf'
+    subject = "Marriyo client OTP"
+    content = f"""
+    OTP : {otp}
+    """
+    yagmail.SMTP(sender, password).send(
+        to=email,
+        subject=subject,
+        contents=content
+    )
+    print("send email")
+    data={
+        'otp': otp,
+        'email':email,
+    }
+    print(data)
+    basicdetailsserializer = sm_serializer.update_clientotp_serializer(data=data,instance=userdata,partial=True)
+    print(basicdetailsserializer)
+    if basicdetailsserializer.is_valid():
+        basicdetailsserializer.save()
+        print("done")
+        return Response("otp save",status=status.HTTP_200_OK)
+    
+    if otp == request.POST['user_otp']:
+        data={
+            'user_otp':request.POST['user_otp']
+        }
+        # print(otp_client)
+        basicdetailsserializer = sm_serializer.OTPclientSerializer(data=data,instance=userdata,partial=True)
+        print("valid")
+        if basicdetailsserializer.is_valid():
+            basicdetailsserializer.save()
+            print("done")
+    else:
+        print("otp.....")
+
 
 @api_view(['GET'])
 def all_client_data(request):
@@ -353,13 +365,14 @@ def add_client_activities(request,id):
             'date': request.POST['date'] ,
             'time': request.POST['time'] ,
             'notes': request.POST['notes'],
-            
+            # 'status':request.POST["status"],
         
         }
         print(data)
         userdata=models.ad_client.objects.get(uid=id)
-        # print(userdata)
+        print(userdata)
         basicdetailsserializer = sm_serializer.client_activities_serializer(data=data,instance=userdata, partial=True)
+        print(basicdetailsserializer)
         print("done")
         if basicdetailsserializer.is_valid():
             basicdetailsserializer.save()
@@ -372,14 +385,11 @@ def add_client_activities(request,id):
         return Response({"invalid"}, status=status.HTTP_403_FORBIDDEN)
 
 
-
-
-
 @api_view(['POST'])
 def client_otp(request, id):
     try:
         try:
-            if sm_extension.validate_otp(id, int(request.data['user_otp'])):
+            if sm_extension.validate_client_otp(id, int(request.data['user_otp'])):
                 try:
                     userSpecificData = models.ad_client.objects.get(uid=id)
                     print(userSpecificData) 
@@ -402,8 +412,6 @@ def client_otp(request, id):
 
 
 
-
-
 @api_view(['GET'])
 def all_activities(request):
     if request.method == 'GET':
@@ -419,7 +427,7 @@ def view_client_id(request,id):
         alldataserializer = sm_serializer.sm_add_client_serializer(view_id,many=False)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
-
+# sm_client status
 
 @api_view(["POST"])
 def sendmail(request,id):
@@ -431,8 +439,20 @@ def sendmail(request,id):
         return Response("success")
     except:
         return Response("nostatus")
-
-
+    
+# clent_active status
+@api_view(["POST"])
+def active_satus(request,id):
+    try:
+        user=get_object_or_404(models.ad_client,email=id)
+        print(user)
+        user.active_status=True
+        user.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
+    
+# email update
 @api_view(['POST'])
 def sm_email_update(request,id):
     try:
@@ -453,7 +473,7 @@ def sm_email_update(request,id):
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)  
 
 
-
+# sm_password reset
 @api_view(["POST"])
 def password_reset(request,id):
     try:
@@ -473,29 +493,312 @@ def password_reset(request,id):
             contents=content
         )
         print("send email")
-
+        return Response("success",status=status.HTTP_200_OK)
     except:
-        return Response("nochange")
+        return Response("nochange",status=status.HTTP_400_BAD_REQUEST)
  
 
 @api_view(["POST"])
-def pass_update(request,id):
+def pass_sales_update(request,id):
     print(request.POST)
     userdata = sm_serializer.salesmanager.objects.get(uid=id)
     print(userdata)
     if request.POST['password'] == request.POST['confirm_password']:
     
-
         data={
             'password':request.POST['password']
         }
         print(data)
         basicdetailsserializer = sm_serializer.update_password_serializer(instance=userdata, data=data, partial=True)
-        
         if basicdetailsserializer.is_valid():
-
             basicdetailsserializer.save()
             print("Valid Data")
             return Response(id, status=status.HTTP_200_OK)
         else:
             return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+
+
+# user
+@api_view(['POST'])
+def add_user(request,id):
+    try:
+        if request.method == "POST":
+            print(request.POST)
+            if "delete" in request.POST:
+                allData = users.objects.get(uid = request.POST["delete"])
+                allData.delete()
+                return Response({"Delete"}, status=status.HTTP_200_OK)
+            elif "edit" in request.POST:
+                print(request.POST)
+                print(request.POST['edit'])
+                allData = users.objects.get(uid = request.POST["edit"])
+                print(allData)
+                data={
+                    'first_name': request.POST['first_name'],
+                    'last_name':request.POST['last_name'],
+                        'email': request.POST['email'],
+                        'mobile':request.POST['mobile'],
+                            'password': request.POST['password'],
+                                'access_Privileges': json.dumps(request.POST.getlist('access_Privileges')),
+                                # 'location':request.POST['location'],
+                            
+                }
+                print(data)
+                serializer_validate = sm_serializer.salesedit_user_Serializer(
+                        instance=allData, data=data, partial=True)
+                if serializer_validate.is_valid():
+                    serializer_validate.save()
+                    print("Valid Data")
+
+                    return Response({"edited Data"}, status=status.HTTP_200_OK)
+
+            else:
+                
+                print("hello")
+                allData = users.objects.all().values()
+                for i in allData:
+                    print(i)
+                    if request.POST['email'] == i['email']:
+                        return Response({"User already Exixts"}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+                    else:
+                        pass
+                print("hii")
+                data={
+                    'uid':sm_extension.id_generate(),
+                    'aid':request.POST['creator'],
+                    'first_name': request.POST['first_name'],
+                    'last_name':request.POST['last_name'],
+                        'email': request.POST['email'],
+                        'mobile':request.POST['mobile'],
+                            'password': request.POST['password'],
+                                'access_Privileges': json.dumps(request.POST.getlist('access_Privileges')),
+                                    'work': request.POST['work'],
+                                    # 'creator':request.POST['creator'],
+                                    # 'location':request.POST['location'],                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                    
+
+
+                }
+                print(data)
+                myclientserializer = sm_serializer.add_used_Serializer( data=data)
+                print(myclientserializer)
+                if myclientserializer.is_valid():
+                    print("jjj")
+                    myclientserializer.save()
+                    print("Valid Data")
+
+                    return Response({"valid Data"}, status=status.HTTP_200_OK)
+
+    except:
+        return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def my_users_data(request,id):
+    if request.method == 'GET':
+       allDataa = users.objects.filter(aid = id)
+       alldataserializer = sm_serializer.add_used_Serializer(allDataa,many=True)
+    return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def single_users_data(request,id):
+    if request.method == 'GET':
+       allDataa = users.objects.filter(uid = id)
+       alldataserializer = sm_serializer.add_used_Serializer(allDataa,many=True)
+    return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+
+
+
+
+# ad_provider
+@api_view(["GET"])
+def ad_pro_list(request):
+    if request.method == "GET":
+        allDataa = ad_provider.objects.all()
+        alldataserializer = ad_pro_serializer.adproviderSerializer(allDataa,many=True)
+    return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+def view_adpro_id(request,id):
+    if request.method=="GET":
+        view_id = ad_pro_serializer.ad_provider.objects.filter(uid=id).values()[0]
+        alldataserializer = ad_pro_serializer.adproviderSerializer(view_id,many=False)
+    return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def adprovider_ads(request):
+    if request.method == "GET":
+        all_ads=models.ad_pro_ads.objects.all()
+        alldataserializer=ad_pro_serializer.list_ads_Serializer(all_ads,many=True)
+    return Response(data=alldataserializer.data,status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+def addpro_ads_id(request,id):
+    if request.method== "GET":
+        all_ads=models.ad_pro_ads.objects.filter(ad_id=id).values()[0]
+        alldataserializer=ad_pro_serializer.list_ads_Serializer(all_ads,many=False)
+    return Response(data=alldataserializer.data,status=status.HTTP_200_OK)
+
+@api_view(["POST"])
+def adspro_status_active(request,id):
+    try:
+        ads=get_object_or_404(models.ad_pro_ads,ad_id=id)
+        print(ads)
+        ads.status="Active"
+        ads.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["POST"])
+def adspro_status_reject(request,id):
+    try:
+        ads=get_object_or_404(models.ad_pro_ads,ad_id=id)
+        print(ads)
+        ads.status="Rejected"
+        ads.reason=request.POST["reason"]
+        print(ads.reason)
+        ads.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
+
+
+# ad_distributor
+@api_view(["GET"])
+def view_addis_id(request,id):
+    if request.method=="GET":
+        viewd_id = ad_dis_serializer.ad_distributor.objects.filter(uid=id).values()[0]
+        alldataserializer = ad_dis_serializer.addistributorSerializer(viewd_id,many=False)
+    return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def addistributor_ads(request):
+    if request.method == "GET":
+        all_ads=models.Create_ads.objects.all()
+        alldataserializer=ad_dis_serializer.list_ads_Serializer(all_ads,many=True)
+    return Response(data=alldataserializer.data,status=status.HTTP_200_OK)
+
+@api_view(["GET"])
+def addis_ads_id(request,id):
+    if request.method== "GET":
+        all_ads=models.Create_ads.objects.filter(ad_id=id).values()[0]
+        alldataserializer=ad_dis_serializer.list_ads_Serializer(all_ads,many=False)
+    return Response(data=alldataserializer.data,status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+def ad_dis_list(request):
+    if request.method == "GET":
+        allDataa = ad_distributor.objects.all()
+        alldataserializer = ad_dis_serializer.addistributorSerializer(allDataa,many=True)
+    return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+@api_view(["POST"])
+def adsdis_status_active(request,id):
+    try:
+        ads=get_object_or_404(models.Create_ads,ad_id=id)
+        print(ads)
+        ads.status="Active"
+        ads.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(["POST"])
+def adsdis_status_reject(request,id):
+    try:
+        print(request.POST)
+        ads=get_object_or_404(models.Create_ads,ad_id=id)
+        print(ads)
+        ads.status="Rejected"
+        ads.reason=request.POST["reason"]
+        print(ads.reason)
+        ads.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
+
+# sales forgetpassword
+@api_view(['POST'])
+def sales_forget_password(request): 
+    if request.method == "POST":        
+        print(request.POST)
+        userdata1 = sm_serializer.salesmanager.objects.get(email=request.POST['email'])
+        userdata = sm_serializer.salesmanager.objects.filter(email=request.POST['email']).values()[0]
+        user_id=userdata['uid']
+        data = {   
+            'email':request.POST['email'],
+            'otp1': sm_extension.otp_generate()
+                }
+            
+        print(data)
+        dataserializer = sm_serializer.update_otp_serializer(data=data, instance=userdata1,partial=True)
+        print(dataserializer)
+        if dataserializer.is_valid():
+            print("done")
+            dataserializer.save()
+            print("Valid Data")
+            sm_extension.send_mail_password(data['email'], data['otp1'])
+            print("Email send")
+            return Response(userdata['uid'], status=status.HTTP_200_OK)
+        else:
+            return Response({"serializer Issue"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)           
+      
+    
+
+@api_view(['POST'])
+def sales_forget_password_otp(request, id):
+    try:
+
+            try:
+                if sm_extension.validate_otp1(id, int(request.data['user_otp1'])):
+                    try:
+                        print("userotp",request.data['user_otp1'])
+                        userSpecificData = models.salesmanager.objects.get(uid=id)
+                        print(userSpecificData)
+                        serializer_validate = sm_serializer.OTP1Serializer(
+                            instance=userSpecificData, data=request.POST, partial=True)
+                        if serializer_validate.is_valid():
+                            print("done")
+                            serializer_validate.save()
+                            print("Valid OTP")
+                            if sm_extension.verify_forget_otp(id):
+                                print("verified")
+                                return Response(id, status=status.HTTP_200_OK)
+                            else:
+                                return Response({"Cannot Verify OTP"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                        else:
+                            return Response({"Invalid OTP"}, status=status.HTTP_404_NOT_FOUND)
+                    except:
+                        return Response({"serializer Issue"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                else:
+                    return Response({"Wrong OTP"}, status=status.HTTP_403_FORBIDDEN)
+            except:
+                return Response({"Invalid Json Format (OR) Invalid Key"}, status=status.HTTP_400_BAD_REQUEST)
+    except:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
+
+
+
+
+
+
+
+    
+   
+
+
+
+

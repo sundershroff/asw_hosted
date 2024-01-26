@@ -17,7 +17,7 @@ import requests
 import json
 from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated,AllowAny
-
+import yagmail
 import datetime
 
 jsondec = json.decoder.JSONDecoder()
@@ -263,7 +263,7 @@ def all_pm_data(request):
 @api_view(['GET'])
 def pm_my_data(request,id):
     if request.method == 'GET':
-       allDataa = pm_serializer.Profilemanager.objects.filter(uid=id)
+       allDataa = pm_serializer.Profilemanager.objects.filter(uid = id)
        alldataserializer = pm_serializer.ProfilemanagerSerializer(allDataa,many=True)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
@@ -321,7 +321,7 @@ def my_clients(request,id):
                     # rec['received_uid'] = x
                     rec_list.append(x)
                 rec_dict[id] = rec_list 
-            # print(rec_dict)
+            print(rec_dict)
             
             
 
@@ -372,7 +372,7 @@ def my_clients(request,id):
                 return Response(id, status=status.HTTP_200_OK)
 
         else:
-            return Response({"sserializer issue"}, status=status.HTTP_403_FORBIDDEN)
+            return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
     except:
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -413,7 +413,7 @@ def add_user(request,id):
                         'email': request.POST['email'],
                         'mobile':request.POST['mobile'],
                             'password': request.POST['password'],
-                                'access_Privileges': json.dumps(request.POST.getlist('access_Privileges')),
+                                'access_Privileges': json.dumps(request.POST.getlist('access_Privilegess')),
                             
                 }
                 print(data)
@@ -426,32 +426,39 @@ def add_user(request,id):
                     return Response({"edited Data"}, status=status.HTTP_200_OK)
 
             else:
-                allData = Profilemanager.objects.all().values()
+                allData = users.objects.all().values()
                 for i in allData:
                     if request.POST['email'] == i['email']:
                         return Response({"User already Exixts"}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
                     else:
                         pass
-
+                single_Data = Profilemanager.objects.filter(uid = request.POST['creator']).values()[0]
+                print(single_Data['my_client'])
+                if single_Data['my_client'] == None:
+                    my_client = "[]"
+                else:
+                    my_client = single_Data['my_client']
                 data={
+                    'aid':request.POST['creator'],
                     'uid':pm_extension.id_generate(),
                     'first_name': request.POST['first_name'],
                     'last_name':request.POST['last_name'],
                         'email': request.POST['email'],
                         'mobile':request.POST['mobile'],
                             'password': request.POST['password'],
-                                'access_Privileges': json.dumps(request.POST.getlist('access_Privileges')),
+                                'access_Privileges': json.dumps(request.POST.getlist('access_Privilegess')),
                                     'work': request.POST['work'],
-                                    'creator':request.POST['creator'],
+                                    'my_client':my_client,
                                     # 'location':request.POST['location']
 
 
                 }
                 print(data)
-                myclientserializer = pm_serializer.add_used_Serializer( data=data)
+                myclientserializer = pm_serializer.add_used_Serializer(data=data)
                 if myclientserializer.is_valid():
                     myclientserializer.save()
                     print("Valid Data")
+
 
                     return Response({"valid Data"}, status=status.HTTP_200_OK)
 
@@ -461,7 +468,7 @@ def add_user(request,id):
 @api_view(['GET'])
 def my_users_data(request,id):
     if request.method == 'GET':
-       allDataa = users.objects.filter(creator = id)
+       allDataa = users.objects.filter(aid = id)
        alldataserializer = pm_serializer.add_used_Serializer(allDataa,many=True)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
@@ -471,3 +478,130 @@ def single_users_data(request,id):
        allDataa = users.objects.filter(uid = id)
        alldataserializer = pm_serializer.add_used_Serializer(allDataa,many=True)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+
+
+# //// Email Updation ////
+@api_view(["POST"])
+def pm_email_update(request,id):
+    try:
+        userdata =  pm_serializer.Profilemanager.objects.get(uid=id)
+
+        data={
+            'email': request.data["email"],
+        }
+        basicdetailsserializer = pm_serializer.update_email_serializer(
+                    instance=userdata, data=data, partial=True)
+        if basicdetailsserializer.is_valid():
+            basicdetailsserializer.save()
+            print("Valid Data")
+            return Response(id, status=status.HTTP_200_OK)
+        else:
+            return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+    except:
+        return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST) 
+
+# //// Password Reset////
+@api_view(["POST"])
+def pm_password_reset(request,id):
+    try:
+        print(request.POST)
+        # userdata = ad_pro_serializer.ad_provider.objects.get(uid=id)
+        
+        email=request.POST['pass_reset']
+        sender = 'abijithmailforjob@gmail.com'
+        password = 'kgqzxinytwbspurf'
+        subject = "Marriyo client password"
+        content = f"""
+        PasswordResetform : {f"http://localhost:8001/pm_password_reset/{id}"}
+        """
+        yagmail.SMTP(sender, password).send(
+            to=email,
+            subject=subject,
+            contents=content
+        )
+        print("send email")
+
+    except:
+        return Response("nochange")
+    
+# /// new password updation////   
+@api_view(["POST"])
+def pm_password_update(request,id):
+    try:
+        userdata =  pm_serializer.Profilemanager.objects.get(uid=id)
+
+        data={
+            'password': request.POST["password"],
+        }
+        basicdetailsserializer = pm_serializer.update_password_serializer(
+                    instance=userdata, data=data, partial=True)
+        if basicdetailsserializer.is_valid():
+            basicdetailsserializer.save()
+            print("Valid Data")
+            return Response(id, status=status.HTTP_200_OK)
+        else:
+            return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+    except:
+        return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# /// Forget password ////
+@api_view(['POST'])
+def pm_forget_password(request): 
+    if request.method == "POST":        
+        print(request.POST)
+        userdata1 = pm_serializer.Profilemanager.objects.get(email=request.POST['email'])
+        userdata = pm_serializer.Profilemanager.objects.filter(email=request.POST['email']).values()[0]
+        user_id=userdata['uid']
+        data = {   
+             'email':request.POST['email'],
+                    'otp1': pm_extension.otp_generate()
+                    }
+            
+        print(data)
+        dataserializer = pm_serializer.update_otp_serializer(data=data, instance=userdata1,partial=True)
+        print(dataserializer)
+        if dataserializer.is_valid():
+            print("done")
+            dataserializer.save()
+            print("Valid Data")
+            pm_extension.send_mail_password(data['email'], data['otp1'])
+            print("Email send")
+            return Response(userdata['uid'], status=status.HTTP_200_OK)
+        else:
+            return Response({"serializer Issue"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)           
+      
+@api_view(['POST'])
+def pm_forget_password_otp(request, id):
+    try:
+
+            try:
+                if pm_extension.validate_otp1(id, int(request.data['user_otp1'])):
+                    try:
+                        print("userotp",request.data['user_otp1'])
+                        userSpecificData = pm_serializer.Profilemanager.objects.get(uid=id)
+                        print(userSpecificData)
+                        serializer_validate = pm_serializer.OTP1Serializer(
+                            instance=userSpecificData, data=request.POST, partial=True)
+                        if serializer_validate.is_valid():
+                            print("done")
+                            serializer_validate.save()
+                            print("Valid OTP")
+                            if pm_extension.verify_forget_otp(id):
+                                print("verified")
+                                return Response(id, status=status.HTTP_200_OK)
+                            else:
+                                return Response({"Cannot Verify OTP"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                        else:
+                            return Response({"Invalid OTP"}, status=status.HTTP_404_NOT_FOUND)
+                    except:
+                        return Response({"serializer Issue"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                else:
+                    return Response({"Wrong OTP"}, status=status.HTTP_403_FORBIDDEN)
+            except:
+                return Response({"Invalid Json Format (OR) Invalid Key"}, status=status.HTTP_400_BAD_REQUEST)
+    except:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

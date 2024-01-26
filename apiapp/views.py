@@ -1,16 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
-
 from apiapp import serializer,pi_serializer
 from apiapp import models
 from apiapp.models import ProfileFinder,sender_list,received_list,saved_search,private_investigator
-# Create your views here.
-
+from virtualExpert import models
+from virtualExpert import sm_serializer,hm_serializer,ad_dis_serializer,ad_pro_serializer
+from virtualExpert.models import salesmanager,users,ad_pro_ads,Create_ads,ad_provider,ad_distributor
 from rest_framework.decorators import api_view,renderer_classes,permission_classes
 from rest_framework.response import Response
 from rest_framework import status,generics
 from apiapp import extension
-
 
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Q
@@ -18,10 +17,9 @@ import requests
 import json
 from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated,AllowAny
-
+import yagmail
 import datetime
-
-
+# Create your views here.
 all_image_url = "http://127.0.0.1:3000/"
 @api_view(['POST'])
 def signup(request):
@@ -43,7 +41,8 @@ def signup(request):
                     'referral_code': code,
                     'uid': extension.id_generate(),
                     'otp': extension.otp_generate(),
-                    'created_date':str(x.strftime("%d"))+" "+str(x.strftime("%B"))+","+str(x.year)
+                    'created_date':str(x.strftime("%d"))+" "+str(x.strftime("%B"))+","+str(x.year),
+                    'created_time':str(x.strftime("%I:%M %p"))
                 }
                 dataserializer = serializer.SignupSerializer(data=datas)
                 print(datas['uid'])
@@ -81,7 +80,7 @@ def otp(request, id):
         try:
             if extension.validate_otp(id, int(request.data['user_otp'])):
                 try:
-                    userSpecificData = models.ProfileFinder.objects.get(uid=id)
+                    userSpecificData = ProfileFinder.objects.get(uid=id)
                     serializer_validate = serializer.OTPSerializer(
                         instance=userSpecificData, data=request.POST, partial=True)
                     if serializer_validate.is_valid():
@@ -98,7 +97,6 @@ def otp(request, id):
             return Response({"Invalid Json Format (OR) Invalid Key"}, status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
 
 @api_view(['POST'])
 def signin(request):
@@ -124,7 +122,7 @@ def signin(request):
 def profileIdCard(request, uid):
     try:
         try:
-            userdata = models.ProfileFinder.objects.get(uid=uid)
+            userdata = ProfileFinder.objects.get(uid=uid)
         except:
             return Response({"Accound Not Found"}, statusu=status.HTTP_404_NOT_FOUND)
         print(request.FILES)
@@ -157,6 +155,7 @@ def profileIdCard(request, uid):
 @api_view(['POST'])
 def profileForm(request, id):
     try:
+        print(request.POST)
         fs = FileSystemStorage()
         userdata = serializer.ProfileFinder.objects.get(uid=id)
         id_card = str(request.FILES['id_card_2']).replace(" ", "_")
@@ -2528,8 +2527,8 @@ def ratings_feedback(request,id):
             print(request.POST['investigator_uid'])
             #pi ratings
             pi_id = request.POST['investigator_uid']
-            pidata =  models.private_investigator.objects.get(uid=pi_id)
-            pidataa =  models.private_investigator.objects.filter(uid=pi_id).values()[0]
+            pidata = private_investigator.objects.get(uid=pi_id)
+            pidataa =  private_investigator.objects.filter(uid=pi_id).values()[0]
             print(pidataa['all_ratings'])
             investigator = pidataa["my_client"][1:-1].replace("'","").split(",")
             for i,x in enumerate(investigator):
@@ -2752,4 +2751,277 @@ def my_complaints(request,id):
     except:
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def adprovider_ads(request):
+    if request.method == "GET":
+        all_ads=models.ad_pro_ads.objects.all()
+        alldataserializer=ad_pro_serializer.list_ads_Serializer(all_ads,many=True)
+    return Response(data=alldataserializer.data,status=status.HTTP_200_OK)
 
+
+@api_view(['GET'])
+def addistributor_ads(request):
+    if request.method == "GET":
+        all_ads=models.Create_ads.objects.all()
+        alldataserializer=ad_dis_serializer.list_ads_Serializer(all_ads,many=True)
+    return Response(data=alldataserializer.data,status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def proads_views_count(request,id):
+    if request.method == "POST":
+        print(request.data)
+        ads_id=request.data['ads_id']
+        views_count=request.data['views_count']
+        userdata = models.ad_pro_ads.objects.get(ad_id = ads_id)
+        data1={ 'no_views':views_count,
+              }
+        
+        data2={
+            'PF_id':id,
+            'Ads_id':ads_id,
+            'no_views':views_count,
+        }
+        
+        basicdetailsserializer = ad_pro_serializer.update_views_serializer(
+                    instance=userdata, data=data1, partial=True)
+
+        if basicdetailsserializer.is_valid():
+            basicdetailsserializer.save()
+            print("Valid Data")
+
+        Userdataserializer=serializer.upload_adsviewer_Serializer(data = data2)    
+        if Userdataserializer.is_valid():
+            Userdataserializer.save()
+            print("Data saved")
+    return Response("ok", status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def disads_views_count(request,id):
+    if request.method == "POST":
+        print(request.data)
+        ads_id=request.data['ads_id']
+        views_count=request.data['views_count']
+        userdata = ad_dis_serializer.Create_ads.objects.get(ad_id = ads_id)
+        data1={ 'no_views':views_count,
+              }
+        data2={
+            'PF_id':id,
+            'Ads_id':ads_id,
+            'no_views':views_count,
+        }
+        basicdetailsserializer = ad_dis_serializer.update_views_serializer(
+                    instance=userdata, data=data1, partial=True)
+        if basicdetailsserializer.is_valid():
+            basicdetailsserializer.save()
+            print("Valid Data")
+
+        Userdataserializer=serializer.upload_adsviewer_Serializer(data = data2)    
+        if Userdataserializer.is_valid():
+            Userdataserializer.save()
+            print("Data saved")
+
+    return Response("ok", status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def ads_viewed_data(request,id):
+    if request.method == 'GET':
+       allDataa = serializer.AdsViewedUser.objects.filter(PF_id = id)
+       alldataserializer = serializer.Ads_Viewed_Serializer(allDataa,many=True)
+       print(allDataa)
+       return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+def ads_viewed_details(request,id):
+    if request.method == 'POST':
+        ad_id=request.POST['ads_user']
+        print("ad_id",ad_id)
+        viewed_data=serializer.AdsViewedUser.objects.filter(PF_id = id)
+        adsdataserializer = serializer.Ads_Viewed_Serializer(viewed_data,many=True)
+        serialized_data_list = adsdataserializer.data
+        found = any(ad_data['Ads_id'] == ad_id for ad_data in serialized_data_list)
+        print(serialized_data_list)
+        if found:
+            return Response("valid",status=status.HTTP_200_OK)
+        else:
+            return Response("No data",status=status.HTTP_404_NOT_FOUND)
+
+
+
+# ads highlights
+@api_view(["POST"])
+def ads_highlight(request,id):
+    print(request.POST)
+    userdata=ProfileFinder.objects.filter(uid=id).values()[0]
+    userdata.pop("birth_time")
+    userdata.pop("registered_date")
+    userdata.pop("dob")
+    # print("userdata",userdata)
+    if "ads_state" in request.POST:
+        ads_state = request.POST['ads_state']
+    else:
+        ads_state = "None"
+
+
+    data = {
+
+        'uid':extension.pf_id_generate(),
+        'pf_data':json.dumps(userdata),
+        'ads_languages':request.POST['ads_languages'],
+        'ads_country':request.POST['ads_country'],
+        'ads_state':ads_state,
+        'ads_district':request.POST['ads_district'],
+        'ads_gender':request.POST['ads_gender'],
+        'age_range':request.POST['age_range'],
+        'age_to':request.POST['age_to'],
+        'Total_views':request.POST['Total_views'],
+        'ads_days_required':request.POST['ads_days_required'],
+        'ads_times_repeat':request.POST['ads_times_repeat'],
+        
+        }
+
+    print("all_data",data)
+
+    basicdetailsserializer = serializer.ads_highlights_serializer(data=data)
+    print("done")
+    if basicdetailsserializer.is_valid():
+        basicdetailsserializer.save()
+        print("Valid Data")
+        return Response(id, status=status.HTTP_200_OK)
+    else:
+        print("serializer prblm")
+        return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+
+
+
+
+# password reset
+
+@api_view(["POST"])
+def password_reset(request,id):
+    try:
+        print(request.POST)
+        
+        
+        email=request.POST['pass_reset']
+        sender = 'abijithmailforjob@gmail.com'
+        password = 'kgqzxinytwbspurf'
+        subject = "Marriyo client password"
+        content = f"""
+        PasswordResetform : {f"http://localhost:8001/profilefinder_password_reset/{id}"}
+        """
+        yagmail.SMTP(sender, password).send(
+            to=email,
+            subject=subject,
+            contents=content
+        )
+        print("send email")
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nochange",status=status.HTTP_400_BAD_REQUEST)
+ 
+
+@api_view(["POST"])
+def pass_profilefinder_update(request,id):
+    print(request.POST)
+    userdata = serializer.ProfileFinder.objects.get(uid=id)
+    print(userdata)
+    if request.POST['password'] == request.POST['confirm_password']:
+    
+        data={
+            'password':request.POST['password']
+        }
+        print(data)
+        basicdetailsserializer = serializer.update_password_serializer(instance=userdata, data=data, partial=True)
+        if basicdetailsserializer.is_valid():
+            basicdetailsserializer.save()
+            print("Valid Data")
+            return Response(id, status=status.HTTP_200_OK)
+        else:
+            return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+
+
+#  forget password
+        
+@api_view(['POST'])
+def pf_forget_password(request): 
+    if request.method == "POST":        
+        print(request.POST)
+        userdata1 = serializer.ProfileFinder.objects.get(email=request.POST['email'])
+        userdata = serializer.ProfileFinder.objects.filter(email=request.POST['email']).values()[0]
+        user_id=userdata['uid']
+        print("user_id",user_id)
+        data = {   
+            'email':request.POST['email'],
+            'otp1': extension.otp_generate()
+                    }
+            
+        print(data)
+        dataserializer = serializer.update_otp_serializer(data=data, instance=userdata1,partial=True)
+        print(dataserializer)
+        if dataserializer.is_valid():
+            print("done")
+            dataserializer.save()
+            print("Valid Data")
+            extension.send_mail_password(data['email'], data['otp1'])
+            print("Email send")
+            return Response(userdata['uid'], status=status.HTTP_200_OK)
+        else:
+            return Response({"serializer Issue"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)           
+      
+    
+
+@api_view(['POST'])
+def pf_forget_password_otp(request, id):
+    try:
+
+            try:
+                print(request.POST)
+                print(id)
+                if extension.validate_otp1(id, int(request.data['user_otp1'])):
+                    try:
+                       
+                        print("userotp",request.data['user_otp1'])
+                        userSpecificData = ProfileFinder.objects.get(uid=id)
+                        print(userSpecificData)
+                        serializer_validate = serializer.OTP1Serializer(
+                            instance=userSpecificData, data=request.POST, partial=True)
+                        if serializer_validate.is_valid():
+                            print("done")
+                            serializer_validate.save()
+                            print("Valid OTP")
+                            if extension.verify_forget_otp(id):
+                                print("verified")
+                                return Response(id, status=status.HTTP_200_OK)
+                            else:
+                                return Response({"Cannot Verify OTP"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                        else:
+                            return Response({"Invalid OTP"}, status=status.HTTP_404_NOT_FOUND)
+                    except:
+                        return Response({"serializer Issue"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                else:
+                    return Response({"Wrong OTP"}, status=status.HTTP_403_FORBIDDEN)
+            except:
+                return Response({"Invalid Json Format (OR) Invalid Key"}, status=status.HTTP_400_BAD_REQUEST)
+    except:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(["POST"])
+def pf_coin(request,id):
+    userdata = serializer.ProfileFinder.objects.get(uid=id)
+    if request.method == 'POST':
+        data={
+            'coin':request.POST['coin']
+        }
+        basicdetailsserializer = serializer.pf_coin_serializer(data=data,instance=userdata, partial=True)
+        
+        if basicdetailsserializer.is_valid():
+
+            basicdetailsserializer.save()
+            print("Valid Data")
+            return Response(id, status=status.HTTP_200_OK)
+        else:
+            return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)

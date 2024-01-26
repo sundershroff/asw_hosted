@@ -32,7 +32,7 @@ class addistributorSerializer(serializers.Serializer):
     id_card = serializers.CharField()
     hiring_manager = serializers.CharField()
     sales_manager = serializers.CharField()
-    
+    type=serializers.CharField()
     created_date = serializers.CharField()
     otp1 = serializers.IntegerField()
     user_otp1 = serializers.IntegerField()
@@ -90,7 +90,7 @@ class upload_acc_Serializer(serializers.Serializer):
     # id_card = serializers.CharField()
     hiring_manager = serializers.CharField()
     sales_manager = serializers.CharField()
-   
+    type=serializers.CharField()
 
     def update(self, instance, data):
         # instance.office_name = data['office_name']
@@ -106,6 +106,7 @@ class upload_acc_Serializer(serializers.Serializer):
         # instance.id_card = data['id_card']
         instance.hiring_manager = data['hiring_manager']
         instance.sales_manager = data['sales_manager']
+        instance.type=data['type']
         instance.save()
         return instance
 
@@ -168,7 +169,7 @@ class create_ads_Serializer(serializers.Serializer):
     status=serializers.CharField()
     ad_created_date=serializers.CharField()
     ad_created_time=serializers.CharField()
-    coin=serializers.CharField()
+    # coin=serializers.CharField()
 
     def create(self, data):
         return Create_ads.objects.create(
@@ -196,7 +197,7 @@ class create_ads_Serializer(serializers.Serializer):
             status=data['status'],
             ad_created_date=data['ad_created_date'],
             ad_created_time=data['ad_created_time'],
-            coin=data['coin'],
+            # coin=data['coin'],
             )
   
 
@@ -223,7 +224,7 @@ class list_ads_Serializer(serializers.Serializer):
     other_ads=serializers.CharField()
     action_name=serializers.CharField()
     action_url=serializers.CharField()
-    # reason=serializers.CharField()
+    reason=serializers.CharField()
     status=serializers.CharField()
     ad_created_date=serializers.CharField()
     ad_created_time=serializers.CharField()
@@ -244,7 +245,7 @@ class edit_ads_Serializer(serializers.Serializer):
     age_range=serializers.CharField()
     age_to=serializers.CharField()
     id_card = serializers.CharField()
-    no_views=serializers.CharField()
+    # no_views=serializers.CharField()
     days_required=serializers.CharField()
     times_repeat=serializers.CharField()
     ad_details=serializers.CharField()
@@ -267,7 +268,7 @@ class edit_ads_Serializer(serializers.Serializer):
         instance.age_range=data['age_range']
         instance.age_to=data['age_to']
         instance.id_card=data['id_card']
-        instance.no_views=data['no_views']
+        # instance.no_views=data['no_views']
         instance.days_required=data['days_required']
         instance.times_repeat=data['times_repeat']
         instance.ad_details=data['ad_details']
@@ -278,27 +279,37 @@ class edit_ads_Serializer(serializers.Serializer):
         instance.status=data['status']
         instance.save()
         return instance
-
+# /// Email Updation//////
 class update_email_serializer(serializers.Serializer):
     email = serializers.CharField()
     def update (self,instance,data):
         instance.email=data["email"]
         instance.save()
         return instance
-
+# /// password Updation//////
 class update_password_serializer(serializers.Serializer):
     password = serializers.CharField()
     def update (self,instance,data):
         instance.password=data["password"]
         instance.save()
         return instance 
-
+    
+# /// Ads status //////
 class update_status_serializer(serializers.Serializer):
     status = serializers.CharField()
     def update (self,instance,data):
         instance.status=data["status"]
         instance.save()
         return instance   
+
+class status_active_serializer(serializers.Serializer):
+    days_required = serializers.CharField()
+    status = serializers.CharField()
+    def update (self,instance,data):
+        instance.days_required=data["days_required"]
+        instance.status=data["status"]
+        instance.save()
+        return instance
 
 
 class add_user_Serializer(serializers.Serializer):
@@ -368,3 +379,19 @@ class OTP1Serializer(serializers.Serializer):
         return instance      
         
     
+class update_views_serializer(serializers.Serializer):
+    no_views = serializers.CharField()
+    def update (self,instance,data):
+        instance.no_views=data['no_views']
+        instance.save()
+        return instance  
+    
+
+class update_coin_serializer(serializers.Serializer):
+    coin = serializers.CharField()
+    
+    def update (self,instance,data):
+        instance.coin = data['coin']
+        
+        instance.save()
+        return instance

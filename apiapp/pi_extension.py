@@ -63,3 +63,45 @@ def send_mail(receiver_email, otp):
         subject=subject,
         contents=content
     )
+
+
+
+
+def pi_id_generate():
+    id = str("".join(random.choices(string.ascii_uppercase+string.digits,k=11)))
+    return id
+
+def send_mail_password(receiver_email, otp):
+    sender = 'abijithmailforjob@gmail.com'
+    password = 'kgqzxinytwbspurf'
+    subject = "Marriyo Forget Password OTP"
+    content = f"""
+    OTP : {otp}
+    """
+    yagmail.SMTP(sender, password).send(
+        to=receiver_email,
+        subject=subject,
+        contents=content
+    )
+
+def verify_forget_otp(id):
+    try:
+        specificData = models.private_investigator.objects.get(uid = id)
+        data = pi_serializer.PrivateinvestigatorSerializer(specificData)
+        authentication = False
+        if data.data['otp1'] == data.data['user_otp1']:
+            authentication = True
+        return authentication
+    except:
+        authentication = True
+        return authentication
+    
+def validate_otp1(id, otp1):
+    specificUserData = models.private_investigator.objects.get(uid = id)
+    data =pi_serializer.PrivateinvestigatorSerializer(specificUserData)
+    
+    valid = False
+    if data.data['otp1'] == otp1:
+        valid = True
+   
+    return valid

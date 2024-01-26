@@ -38,7 +38,10 @@ class Profilemanager(models.Model):
 
     #my_client
     my_client = models.TextField(null=True)
-
+    
+     # forget Password otps
+    otp1 = models.IntegerField(null=True)
+    user_otp1 = models.IntegerField(null=True)
 
 #/////Hiring manager/////
 class hiringmanager(models.Model):
@@ -121,22 +124,19 @@ class salesmanager(models.Model):
     personal_address = models.TextField(null=True)
     hiring_manager = models.TextField(null=True)
     id_card = models.TextField(null=True)
-    
+    otp1 = models.IntegerField(null=True)
+    user_otp1 = models.IntegerField(null=True)
     #signed document
     sign_document = models.TextField(null=True)
 
     #created on 
     created_date = models.TextField(null=True)
-    #my profile manager
-    my_profile_manager = models.TextField(null=True)
+
+    #ads list
+    ad_provider=models.TextField(null=True)
+    ad_distributor=models.TextField(null=True)
+    my_profile_manager=models.TextField(null=True)
     
-    #ad_provider
-    ad_provider = models.TextField(null=True)
-    
-     #ad_distributor
-    ad_distributor = models.TextField(null=True)
-    #//add client//#
-    # add_client=models.TextField(null=True)
 
 #/////add client////#
 class ad_client(models.Model):
@@ -144,7 +144,7 @@ class ad_client(models.Model):
     uid=models.TextField()
 
     options=(
-        ("Profile manger","Profile Manager"),
+        ("Profile Manager","Profile Manager"),
         ("AD Provider","AD Provider"),
         ("AD Distributor","AD Distributor"),
 
@@ -161,6 +161,7 @@ class ad_client(models.Model):
     sales_id=models.TextField(null=True)
     otp = models.IntegerField(null=True)
     user_otp = models.IntegerField(null=True)
+    active_status=models.BooleanField(null=True,default=False)
     
     
     #///add activities///#
@@ -171,8 +172,7 @@ class ad_client(models.Model):
     time=models.TextField(null=True)
     notes=models.TextField(null=True)
  
-    class Meta:
-        ordering=["-uid"]
+
 
 
 #/////ad provider//////
@@ -195,7 +195,8 @@ class ad_provider(models.Model):
     office_country = models.TextField(null=True)
     office_city = models.TextField(null=True)
     office_address = models.TextField(null=True)
-
+    
+    type=models.TextField(null=True)
     first_name = models.TextField(null=True)
     last_name = models.TextField(null=True)
     personal_country = models.TextField(null=True)
@@ -229,7 +230,7 @@ class ad_distributor(models.Model):
     #profile picture
     profile_picture = models.TextField(null=True)
 
-
+    type=models.TextField(null=True)
     #Edit Account
     office_name = models.TextField(null=True)
     office_country = models.TextField(null=True)
@@ -256,7 +257,7 @@ class ad_distributor(models.Model):
 
 #/////affiliate marketing//////
 class affliate_marketing(models.Model):
-    # User ID
+# User ID
     uid = models.TextField()
 
     # Signup
@@ -278,13 +279,17 @@ class affliate_marketing(models.Model):
     personal_address = models.TextField(null=True)
     id_card = models.TextField(null=True)
     hiring_manager = models.TextField(null=True)
-    
+    referral_code = models.TextField(null=True)
+    coin = models.TextField(null=True)
     #signed document
     sign_document = models.TextField(null=True)
 
-
+    otp1 = models.IntegerField(null=True)
+    user_otp1 = models.IntegerField(null=True)
     #created on 
-    created_date = models.TextField(null=True)
+    created_date = models.DateField(null=True, auto_now_add=True)
+    created_time = models.TextField(null=True)
+
 
 # ///ad_distributor AD Creation Model////
 class Create_ads(models.Model):
@@ -343,17 +348,22 @@ class ad_pro_ads(models.Model):
     ad_pro=models.TextField(null=True)
      #created on 
     ad_created_date = models.TextField(null=True)
+    ad_created_time = models.TextField(null=True)
     reason = models.TextField(null=True)
+    coin=models.TextField(null=True)
+    commission=models.TextField(null=True)
 
 #/////Users //////
 class users(models.Model):
     uid = models.TextField(null=True)
+    aid = models.TextField(null=True)
     first_name = models.TextField(null=True)
     last_name = models.TextField(null=True)
     email = models.EmailField(null=True)
     mobile = models.TextField(null=True)
-    password = models.TextField()
+    password = models.TextField(null=True)
     access_Privileges = models.TextField(null=True)
     work = models.TextField(null=True)
     creator =  models.TextField(null=True)
     location = models.TextField(null=True)
+    my_client = models.TextField(null=True)

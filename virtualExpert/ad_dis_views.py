@@ -19,6 +19,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated,AllowAny
 import datetime
 import yagmail
+import math
 
 
 jsondec = json.decoder.JSONDecoder()
@@ -168,8 +169,8 @@ def ad_dis_upload_account(request,id):
             'personal_address': request.POST['personal_address'],           
             # 'id_card': full_path,
             'hiring_manager': request.POST['hiring_manager'],
-            'sales_manager': request.POST['sales_manager']
-           
+            'sales_manager': request.POST['sales_manager'],
+            'type':request.POST['type'],
         }
 
         basicdetailsserializer = ad_dis_serializer.upload_acc_Serializer(
@@ -218,17 +219,20 @@ def ad_dis_upload_account(request,id):
                 print("data1 saved")
             else:
                 print("data1 not saved")
+                
             if smdetailsserializer.is_valid():
                 smdetailsserializer.save()
                 print("data2 saved") 
-            else:
+            else: 
                 print("data2 not saved") 
             return Response(id, status=status.HTTP_200_OK)
         else:
-            return Response({"sserializer issue"}, status=status.HTTP_403_FORBIDDEN)
+            return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
     except:
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
 
+
+# /// All Distributors data ////
 @api_view(['GET'])
 def all_dis_data(request):
     if request.method == 'GET':
@@ -236,6 +240,7 @@ def all_dis_data(request):
        alldataserializer = ad_dis_serializer.addistributorSerializer(allDataa,many=True)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
+# /// Distributor data ////
 @api_view(['GET'])
 def dis_my_data(request,id):
     if request.method == 'GET':
@@ -243,7 +248,7 @@ def dis_my_data(request,id):
        alldataserializer = ad_dis_serializer.addistributorSerializer(allDataa,many=True)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
-
+# /// Distributor 
 @api_view(['POST'])
 def ad_dis_edit_account(request,id):
     try:
@@ -307,8 +312,19 @@ def create_new_ads(request,id):
     userdata=ad_distributor.objects.filter(uid=id).values()[0]
     print(userdata)
     x = datetime.datetime.now()
+
+    # if "no_views" in request.POST:
+    #     view_no=int(request.POST['no_views'])
+    #     if view_no < 1000:
+    #         view = str(view_no)
+    #     elif view_no < 1000000:
+    #         view= '{}k'.format(view_no // 1000)
+    #     else:
+    #         view= '{}M'.format(view_no // 1000000)
+    # else:
+    #     view=int(request.POST['no_views'])
+
     data = {
-        
         'ad_name': request.POST['ad_name'],
         'ad_id': ad_dis_extension.ad_id_generate(),
         'ad_dis':json.dumps(userdata),
@@ -322,14 +338,14 @@ def create_new_ads(request,id):
         'age_range': request.POST['age_range'],
         'age_to': request.POST['age_to'],           
         'id_card': full_path,
-        'no_views':request.POST['no_views'],
+        'no_views':0,
         'days_required':request.POST['days_required'],
         'times_repeat':request.POST['times_repeat'],
         'ad_details':request.POST['ad_details'],
         'other_ads':full_paths,
         'action_name':request.POST['action_name'],
         'action_url':request.POST['action_url'],
-        'coin':request.POST['coin'],
+        # 'coin':request.POST['coin'],
         # 'reason':request.POST['reason'],      
         'status':"Pending",
         'ad_created_date':str(x.strftime("%d"))+" "+str(x.strftime("%B"))+","+str(x.year),
@@ -337,7 +353,6 @@ def create_new_ads(request,id):
         }
 
     print(data)
-
     basicdetailsserializer = ad_dis_serializer.create_ads_Serializer(data=data)
     print("done")
     if basicdetailsserializer.is_valid():
@@ -398,6 +413,23 @@ def ad_dis_edit_ads(request,id):
         
         full_paths = userdataa['other_ads']
 
+    # if "no_views" in request.POST:
+    #     value=request.POST['no_views']
+    #     if value.endswith('k'):
+    #         views= int(float(value[:-1]) * 1000)
+    #     elif value.endswith('m'):
+    #         views=int(float(value[:-1]) * 1000000)
+    #     else:
+    #         views= int(value)
+    #     view_no=int(views)
+    #     if view_no < 1000:
+    #         view = str(view_no)
+    #     elif view_no < 1000000:
+    #         view= '{}k'.format(view_no // 1000)
+    #     else:
+    #         view= '{}M'.format(view_no // 1000000)
+
+
     data = {
         'ad_name': request.POST['ad_name'],
         'category': request.POST['category'],
@@ -410,7 +442,7 @@ def ad_dis_edit_ads(request,id):
         'age_range': request.POST['age_range'],
         'age_to': request.POST['age_to'],           
         'id_card': full_path,
-        'no_views':request.POST['no_views'],
+        # 'no_views':0,
         'days_required':request.POST['days_required'],
         'times_repeat':request.POST['times_repeat'],
         'ad_details':request.POST['ad_details'],
@@ -474,7 +506,7 @@ def ad_dis_password_reset(request,id):
             contents=content
         )
         print("send email")
-
+        return Response("success")
     except:
         return Response("nochange")
 
@@ -535,7 +567,30 @@ def ad_dis_deactive_update(request,id):
         return Response(id, status=status.HTTP_200_OK)
     else:
         return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
-    
+
+
+@api_view(["POST"])  
+def status_deactive_to_active(request,id):
+    print(id)
+    if request.method == 'POST':
+        renew=request.POST['renew_id']
+        userdata = ad_dis_serializer.Create_ads.objects.get(ad_id = renew)
+
+        data={  'days_required' : request.POST['days_required'],
+                'status': "Active",
+            }
+        
+        basicdetailsserializer = ad_dis_serializer.status_active_serializer(
+                        instance=userdata, data=data, partial=True)
+        if basicdetailsserializer.is_valid():
+            basicdetailsserializer.save()
+            print("Valid Data")
+            return Response(id, status=status.HTTP_200_OK)
+        else:
+            return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+
+
+# // distributor data ////   
 def ad_dis_my_data(request,id):
     if request.method == 'GET':
        allDataa = models.ad_distributor.objects.filter(uid=id)
@@ -548,8 +603,6 @@ def ad_dis_my_data(request,id):
 @api_view(['POST'])
 def ad_dis_add_user(request,id):
     try:
-        
-
         if request.method == "POST":
             print(request.POST)
             if "delete" in request.POST:
@@ -687,3 +740,37 @@ def ad_dis_forget_password_otp(request, id):
                 return Response({"Invalid Json Format (OR) Invalid Key"}, status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+# Coin Value Updation    
+@api_view(['POST'])
+def update_coin_value(request,id):
+    allDataa = ad_dis_serializer.Create_ads.objects.get(ad_id=id)
+    alldataserializer = ad_dis_serializer.list_ads_Serializer(allDataa,many=False)
+    serialized_data = alldataserializer.data
+    print(serialized_data['no_views'])
+    no_of_views = serialized_data['no_views']
+
+    # for i in range(0,len(no_of_views)):
+    if no_of_views != None:  
+            
+        if int(no_of_views) >= 4:
+            views=int(no_of_views) / 4
+            coin=math.ceil(views)
+            # commission=(coin * 10)//5
+        else:
+            coin=0
+            # commission=0
+   
+
+        data = {'coin' : coin,
+                # 'commission':commission,
+                }
+        
+        basicdetailsserializer = ad_dis_serializer.update_coin_serializer(
+        instance=allDataa, data=data, partial=True)
+        if basicdetailsserializer.is_valid():
+            print("valid")
+            basicdetailsserializer.save()
+            return Response("coin Added", status=status.HTTP_200_OK)
+        else:
+            return Response("no data", status=status.HTTP_404_NOT_FOUND)

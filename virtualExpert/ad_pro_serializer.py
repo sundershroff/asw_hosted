@@ -1,7 +1,7 @@
 
 from rest_framework import serializers
 from virtualExpert.models import ad_provider,ad_pro_ads,users
-from datetime import date
+from datetime import date,datetime
 
 
 class adproviderSerializer(serializers.Serializer):
@@ -34,7 +34,7 @@ class adproviderSerializer(serializers.Serializer):
     created_date = serializers.CharField()
     otp1 = serializers.IntegerField()
     user_otp1 = serializers.IntegerField()
-
+    type=serializers.CharField()
 
 class SignupSerializer(serializers.Serializer):
     uid = serializers.CharField()
@@ -86,7 +86,7 @@ class upload_acc_Serializer(serializers.Serializer):
     # id_card = serializers.CharField()
     hiring_manager = serializers.CharField()
     sales_manager = serializers.CharField()
-
+    type=serializers.CharField()
     def update(self, instance, data):
         # instance.office_name = data['office_name']
         # instance.office_country = data['office_country']
@@ -101,6 +101,7 @@ class upload_acc_Serializer(serializers.Serializer):
         # instance.id_card = data['id_card']
         instance.hiring_manager = data['hiring_manager']
         instance.sales_manager = data['sales_manager']
+        instance.type=data['type']
         instance.save()
         return instance
     
@@ -134,7 +135,9 @@ class edit_acc_Serializer(serializers.Serializer):
         instance.profile_picture = data['profile_picture']
         instance.save()
         return instance
-    
+
+
+#//// create new Ads ///// 
 class create_ads_Serializer(serializers.Serializer):
     ad_id = serializers.CharField()
     ad_name=serializers.CharField()
@@ -158,7 +161,9 @@ class create_ads_Serializer(serializers.Serializer):
     action_url=serializers.CharField()
     status=serializers.CharField()
     ad_created_date=serializers.CharField()
-
+    ad_created_time=serializers.CharField()
+    # coin=serializers.CharField()
+    # commission=serializers.CharField()
 
     def create(self, data):
         return ad_pro_ads.objects.create(
@@ -183,15 +188,19 @@ class create_ads_Serializer(serializers.Serializer):
             action_name=data['action_name'],
             action_url=data['action_url'],
             status=data['status'],
-            ad_created_date=data['ad_created_date']
+            ad_created_date=data['ad_created_date'],
+            ad_created_time=data['ad_created_time'],
+            # coin=data['coin'],
+            # commission=data['commission'],
             )
     
 
-    def update_status_to_deactive(self, instance):
-        if instance.days_required <= date.today():
-            instance.status = 'deactive'
-            instance.save()
-        return instance
+# def update_status_to_deactive(self, instance):
+#         last_date= datetime.strptime(instance.days_required, "%Y-%m-%d")
+#         if last_date == date.today():
+#             instance.status = "Deactive"
+#             instance.save()
+#         return instance    
 
 #/// Get Ads Details//// 
 class list_ads_Serializer(serializers.Serializer):
@@ -215,9 +224,12 @@ class list_ads_Serializer(serializers.Serializer):
     other_ads=serializers.CharField()
     action_name=serializers.CharField()
     action_url=serializers.CharField()
-    # reason=serializers.CharField()
+    reason=serializers.CharField()
     status=serializers.CharField()
     ad_created_date=serializers.CharField()
+    ad_created_time=serializers.CharField()
+    coin=serializers.CharField()
+    commission=serializers.CharField()
 
 # /// Edit Ads Details//////
 class edit_ads_Serializer(serializers.Serializer):
@@ -234,7 +246,7 @@ class edit_ads_Serializer(serializers.Serializer):
     age_range=serializers.CharField()
     age_to=serializers.CharField()
     id_card = serializers.CharField()
-    no_views=serializers.CharField()
+    # no_views=serializers.CharField()
     days_required=serializers.CharField()
     times_repeat=serializers.CharField()
     ad_details=serializers.CharField()
@@ -257,7 +269,7 @@ class edit_ads_Serializer(serializers.Serializer):
         instance.age_range=data['age_range']
         instance.age_to=data['age_to']
         instance.id_card=data['id_card']
-        instance.no_views=data['no_views']
+        # instance.no_views=data['no_views']
         instance.days_required=data['days_required']
         instance.times_repeat=data['times_repeat']
         instance.ad_details=data['ad_details']
@@ -291,7 +303,14 @@ class update_status_serializer(serializers.Serializer):
         instance.save()
         return instance 
     
-
+class status_active_serializer(serializers.Serializer):
+    days_required = serializers.CharField()
+    status = serializers.CharField()
+    def update (self,instance,data):
+        instance.days_required=data["days_required"]
+        instance.status=data["status"]
+        instance.save()
+        return instance
 
 class add_user_Serializer(serializers.Serializer):
     uid =  serializers.CharField()
@@ -352,5 +371,21 @@ class OTP1Serializer(serializers.Serializer):
     
     def update(self, instance, data):
         instance.user_otp1 = data['user_otp1']
+        instance.save()
+        return instance
+    
+class update_views_serializer(serializers.Serializer):
+    no_views = serializers.CharField()
+    def update (self,instance,data):
+        instance.no_views = data['no_views']
+        instance.save()
+        return instance
+    
+class update_coin_serializer(serializers.Serializer):
+    coin = serializers.CharField()
+    commission = serializers.CharField()
+    def update (self,instance,data):
+        instance.coin = data['coin']
+        instance.commission =  data['commission']
         instance.save()
         return instance

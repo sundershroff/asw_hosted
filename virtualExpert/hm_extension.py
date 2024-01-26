@@ -14,11 +14,21 @@ def otp_generate():
 def validate_email(id):
     allData = models.hiringmanager.objects.all()
     profile = hm_serializer.hiringmanagerSerializer(allData,many=True)
+    # users
+    usersData = models.users.objects.filter(work = "hiring_manager").values()
+
+
     data = False
     for i in profile.data:
         if id==i['email']:
             data = True
             break
+    for j in usersData:          
+        print(j['email'])
+        if id==j['email']:
+            data = True
+            break
+    print("ok")       
     return data
 
 def validate_otp(id, otp):
@@ -30,25 +40,55 @@ def validate_otp(id, otp):
     return valid
         
 def verify_user(email, password):
-    specificData = models.hiringmanager.objects.get(email = email)
-    data = hm_serializer.hiringmanagerSerializer(specificData)
-    authentication = False
-    if data.data['email'] == email and data.data['password'] == password:
-        authentication = True
-    return authentication
+    try:
+        specificData = models.hiringmanager.objects.get(email = email)
+        data = hm_serializer.hiringmanagerSerializer(specificData)
+        authentication = False
+        if data.data['email'] == email and data.data['password'] == password:
+            authentication = True
+        return authentication
+    except:
+            
+        #users
+        print("users")
+        usersData = models.users.objects.filter(email = email).values()[0]
+        print(usersData)
+        authentication = False
+        if usersData['email'] == email and usersData['password'] == password:
+            authentication = True
+            print(" correct password")
+        return authentication
+
+
 def verify_user_otp(email):
-    specificData = models.hiringmanager.objects.get(email = email)
-    data = hm_serializer.hiringmanagerSerializer(specificData)
-    authentication = False
-    if data.data['otp'] == data.data['user_otp']:
+    try:
+        specificData = models.hiringmanager.objects.get(email = email)
+        data = hm_serializer.hiringmanagerSerializer(specificData)
+        authentication = False
+        if data.data['otp'] == data.data['user_otp']:
+            authentication = True
+        return authentication
+    except:
         authentication = True
-    return authentication
+        return authentication
 
         
 def get_user_id(email):
-    specificData = models.hiringmanager.objects.get(email = email)
-    data = hm_serializer.hiringmanagerSerializer(specificData)
-    return data.data['uid']
+    try:
+        specificData = models.hiringmanager.objects.get(email = email)
+        data = hm_serializer.hiringmanagerSerializer(specificData)
+        return data.data['uid']
+    except:
+        #users
+        print("users")
+        usersData = models.users.objects.filter(email = email).values()[0]
+        creator = usersData['creator']
+        data={
+            'uid':creator,
+            'access_Privileges':usersData['access_Privileges']
+        }
+        print(data)
+        return data
 
 
 def send_mail(receiver_email, otp):

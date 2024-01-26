@@ -19,6 +19,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated,AllowAny
 import datetime
 import yagmail
+import math
 
 
 
@@ -165,7 +166,7 @@ def ad_pro_upload_account(request,id):
             # 'id_card': full_path,
             'hiring_manager': request.POST['hiring_manager'],
             'sales_manager': request.POST['sales_manager'],
-           
+            'type':request.POST['type'],
         }
 
         print(data)
@@ -224,7 +225,8 @@ def ad_pro_upload_account(request,id):
             return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
     except:
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
-    
+
+# ///All  Ad_pro Datas/////
 @api_view(['GET'])
 def all_ad_pro_data(request):
     if request.method == 'GET':
@@ -232,7 +234,7 @@ def all_ad_pro_data(request):
        alldataserializer = ad_pro_serializer.adproviderSerializer(allDataa,many=True)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
-
+# //// Provider Data ////
 @api_view(['GET'])
 def ad_pro_my_data(request,id):
     if request.method == 'GET':
@@ -240,7 +242,7 @@ def ad_pro_my_data(request,id):
        alldataserializer = ad_pro_serializer.adproviderSerializer(allDataa,many=True)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
-
+# //// Edit profile////
 @api_view(['POST'])
 def ad_pro_edit_account(request,id):
     try:
@@ -283,7 +285,8 @@ def ad_pro_edit_account(request,id):
             return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
     except:
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
-    
+
+#//// Create New ads//// 
 @api_view(['POST'])
 def create_new_ads(request,id):
     # try:
@@ -305,8 +308,20 @@ def create_new_ads(request,id):
     else:
         city = "None"
 
+    # if "no_views" in request.POST:
+    #     view_no=int(request.POST['no_views'])
+    #     if view_no < 1000:
+    #         view = str(view_no)
+    #     elif view_no < 1000000:
+    #         view= '{}k'.format(view_no // 1000)
+    #     else:
+    #         view= '{}M'.format(view_no // 1000000)
+    # else:
+    #     view=int(request.POST['no_views'])
+
+    
+
     data = {
-        
         'ad_name': request.POST['ad_name'],
         'ad_id': ad_pro_extension.ad_id_generate(),
         'ad_pro':json.dumps(userdata),
@@ -320,7 +335,7 @@ def create_new_ads(request,id):
         'age_range': request.POST['age_range'],
         'age_to': request.POST['age_to'],           
         'id_card': full_path,
-        'no_views':request.POST['no_views'],
+        'no_views':0,
         'days_required':request.POST['days_required'],
         'times_repeat':request.POST['times_repeat'],
         'ad_details':request.POST['ad_details'],
@@ -329,7 +344,11 @@ def create_new_ads(request,id):
         'action_url':request.POST['action_url'],
         # 'reason':request.POST['reason'],      
         'status':"Pending",
-        'ad_created_date':str(x.strftime("%d"))+" "+str(x.strftime("%B"))+","+str(x.year)
+        # 'coin':request.POST['coin'],
+        # 'commission':request.POST['commission'],
+        'ad_created_date':str(x.strftime("%d"))+" "+str(x.strftime("%B"))+","+str(x.year),
+        'ad_created_time':str(x.strftime("%I : %M %p"))
+
         }
 
     print(data)
@@ -343,21 +362,21 @@ def create_new_ads(request,id):
     else:
         print("serializer prblm")
         return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
-    # except:
-    #     return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
+   
 
 
-
+# //// All Ads Data ////
 @api_view(['GET'])
 def all_pro_ads_data(request):
     if request.method == 'GET':
-       allDataa = ad_pro_serializer.ad_pro_ads.objects.all()
+        allDataa = ad_pro_serializer.ad_pro_ads.objects.all()
     #    recent_added=ad_pro_serializer.ad_pro_ads.objects.ordered_by('ad_created_date')[:10]
-       alldataserializer = ad_pro_serializer.list_ads_Serializer(allDataa,many=True)
-
+        alldataserializer = ad_pro_serializer.list_ads_Serializer(allDataa,many=True)
+        
+        
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
-
+# //// Single Ad Data ////
 @api_view(['GET'])
 def ad_pro_ad_details(request,id):
     if request.method == 'GET':
@@ -366,6 +385,7 @@ def ad_pro_ad_details(request,id):
        
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
+# /// Edit Ads data/////
 @api_view(['POST'])
 def ad_pro_edit_ads(request,id):
     # try:
@@ -396,6 +416,22 @@ def ad_pro_edit_ads(request,id):
         
         full_paths = userdataa['other_ads']
 
+    # if "no_views" in request.POST:
+    #     value=request.POST['no_views']
+    #     if value.endswith('k'):
+    #         views= int(float(value[:-1]) * 1000)
+    #     elif value.endswith('m'):
+    #         views=int(float(value[:-1]) * 1000000)
+    #     else:
+    #         views= int(value)
+    #     view_no=int(views)
+    #     if view_no < 1000:
+    #         view = str(view_no)
+    #     elif view_no < 1000000:
+    #         view= '{}k'.format(view_no // 1000)
+    #     else:
+    #         view= '{}M'.format(view_no // 1000000)
+        
     data = {
         'ad_name': request.POST['ad_name'],
         'category': request.POST['category'],
@@ -408,7 +444,7 @@ def ad_pro_edit_ads(request,id):
         'age_range': request.POST['age_range'],
         'age_to': request.POST['age_to'],           
         'id_card': full_path,
-        'no_views':request.POST['no_views'],
+        # 'no_views':0,
         'days_required':request.POST['days_required'],
         'times_repeat':request.POST['times_repeat'],
         'ad_details':request.POST['ad_details'],
@@ -429,6 +465,8 @@ def ad_pro_edit_ads(request,id):
     else:
         return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
 
+
+# //// paovider Email Updation ////
 @api_view(["POST"])
 def ad_pro_email_update(request,id):
     try:
@@ -448,8 +486,7 @@ def ad_pro_email_update(request,id):
     except:
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST) 
 
-
-
+# //// Provider Password Reset////
 @api_view(["POST"])
 def ad_pro_password_reset(request,id):
     try:
@@ -469,12 +506,11 @@ def ad_pro_password_reset(request,id):
             contents=content
         )
         print("send email")
-
+        return Response("success")
     except:
         return Response("nochange")
     
-
-    
+# /// new password updation////   
 @api_view(["POST"])
 def ad_pro_password_update(request,id):
     try:
@@ -494,6 +530,7 @@ def ad_pro_password_update(request,id):
     except:
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
 
+# /// Ads Status change ////
 @api_view(["POST"])
 def ad_status_close(request,id):
     try:
@@ -527,8 +564,29 @@ def ad_pro_deactive_update(request,id):
         return Response(id, status=status.HTTP_200_OK)
     else:
         return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+
+@api_view(["POST"])  
+def status_deactive_to_active(request,id):
+    print(id)
+    if request.method == 'POST':
+        renew=request.POST['renew_id']
+        userdata = ad_pro_serializer.ad_pro_ads.objects.get(ad_id = renew)
+
+        data={  'days_required' : request.POST['days_required'],
+                'status': "Active",
+            }
+        
+        basicdetailsserializer = ad_pro_serializer.status_active_serializer(
+                        instance=userdata, data=data, partial=True)
+        if basicdetailsserializer.is_valid():
+            basicdetailsserializer.save()
+            print("Valid Data")
+            return Response(id, status=status.HTTP_200_OK)
+        else:
+            return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
     
 
+# /// Providers User ///
 @api_view(['POST'])
 def ad_pro_add_user(request,id):
     try:
@@ -600,7 +658,7 @@ def ad_pro_add_user(request,id):
     except:
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
     
-
+# /// All Users Data ////
 @api_view(['GET'])
 def ad_pro_my_users_data(request,id):
     if request.method == 'GET':
@@ -608,6 +666,7 @@ def ad_pro_my_users_data(request,id):
        alldataserializer = ad_pro_serializer.add_user_Serializer(allDataa,many=True)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
+# /// Single user data ////
 @api_view(['GET'])
 def ad_pro_single_users_data(request,id):
     if request.method == 'GET':
@@ -616,7 +675,7 @@ def ad_pro_single_users_data(request,id):
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
 
-
+# /// Forget password ////
 @api_view(['POST'])
 def ad_pro_forget_password(request): 
     if request.method == "POST":        
@@ -644,8 +703,6 @@ def ad_pro_forget_password(request):
     else:
         return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)           
       
-    
-
 @api_view(['POST'])
 def ad_pro_forget_password_otp(request, id):
     try:
@@ -677,3 +734,40 @@ def ad_pro_forget_password_otp(request, id):
                 return Response({"Invalid Json Format (OR) Invalid Key"}, status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+# Coin Value and commission Updation
+    
+@api_view(['POST'])
+def update_coin_value(request,id):
+    allDataa = models.ad_pro_ads.objects.get(ad_id = id)
+    # recent_added=ad_pro_serializer.ad_pro_ads.objects.ordered_by('ad_created_date')[:10]
+    alldataserializer = ad_pro_serializer.list_ads_Serializer(allDataa,many=False)
+    serialized_data = alldataserializer.data
+    print(serialized_data['no_views'])
+    no_of_views=serialized_data['no_views']
+    # for i in range(0,len(no_of_views)):
+    if no_of_views != None:  
+            
+        if int(no_of_views) >= 4:
+            views=int(no_of_views) / 4
+            coin=math.ceil(views)  
+            commission=10
+
+        else:
+            coin= 0
+            commission= 10
+   
+
+        data = {'coin' : coin,
+                'commission':commission,
+                }
+        basicdetailsserializer = ad_pro_serializer.update_coin_serializer(
+        instance=allDataa, data=data, partial=True)
+        if basicdetailsserializer.is_valid():
+            print("valid")
+            basicdetailsserializer.save()
+            return Response("coin Added", status=status.HTTP_200_OK)
+        else:
+            return Response("no data", status=status.HTTP_404_NOT_FOUND)
+        
+

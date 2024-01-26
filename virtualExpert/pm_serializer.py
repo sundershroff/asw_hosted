@@ -31,6 +31,8 @@ class ProfilemanagerSerializer(serializers.Serializer):
     id_card = serializers.CharField()
     
     created_date = serializers.CharField()
+    otp1 = serializers.IntegerField()
+    user_otp1 = serializers.IntegerField()
 
 class SignupSerializer(serializers.Serializer):
     uid = serializers.CharField()
@@ -138,6 +140,7 @@ class my_client_serializer(serializers.Serializer):
 
 class add_used_Serializer(serializers.Serializer):
     uid =  serializers.CharField()
+    aid = serializers.CharField()
     first_name = serializers.CharField()
     last_name = serializers.CharField()
     email = serializers.EmailField()
@@ -145,13 +148,15 @@ class add_used_Serializer(serializers.Serializer):
     access_Privileges = serializers.CharField()
     password = serializers.CharField()
     work = serializers.CharField()
-    creator = serializers.CharField()
+    # creator = serializers.CharField()
+    my_client = serializers.CharField()
     # location = serializers.CharField()
 
     
     def create(self, data):
         return users.objects.create(
             uid = data['uid'],
+            aid = data['aid'],
             first_name = data['first_name'],
             last_name = data['last_name'],
             email = data['email'],
@@ -159,7 +164,8 @@ class add_used_Serializer(serializers.Serializer):
             access_Privileges = data['access_Privileges'],
             password = data['password'],
             work = data['work'],
-            creator = data['creator'],
+            # creator = data['creator'],
+            my_client = data['my_client'],
             # location = data['location'],
         )
 class eedit_user_Serializer(serializers.Serializer):
@@ -181,3 +187,32 @@ class eedit_user_Serializer(serializers.Serializer):
         instance.save()
         return instance
 
+class update_email_serializer(serializers.Serializer):
+    email = serializers.CharField()
+    def update (self,instance,data):
+        instance.email=data["email"]
+        instance.save()
+        return instance
+    
+class update_password_serializer(serializers.Serializer):
+    password = serializers.CharField()
+    def update (self,instance,data):
+        instance.password=data["password"]
+        instance.save()
+        return instance   
+    
+class update_otp_serializer(serializers.Serializer):
+    otp1 = serializers.IntegerField()
+   
+    def update(self, instance, data):
+        instance.otp1 = data['otp1']
+        instance.save()
+        return instance
+    
+class OTP1Serializer(serializers.Serializer):
+    user_otp1 = serializers.IntegerField()
+    
+    def update(self, instance, data):
+        instance.user_otp1 = data['user_otp1']
+        instance.save()
+        return instance

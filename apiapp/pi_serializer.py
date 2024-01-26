@@ -33,7 +33,8 @@ class PrivateinvestigatorSerializer(serializers.Serializer):
     tagline = serializers.CharField()
     my_client=serializers.CharField()
     total_ratings=serializers.IntegerField()
-
+    otp1 = serializers.IntegerField()
+    user_otp1 = serializers.IntegerField()
 
 class SignupSerializer(serializers.Serializer):
     uid = serializers.CharField()
@@ -152,5 +153,39 @@ class all_ratings_serializer(serializers.Serializer):
     def update(self, instance, data):
         instance.all_ratings = data['all_ratings']
         instance.total_ratings = data['total_ratings']
+        instance.save()
+        return instance
+
+
+class update_password_serializer(serializers.Serializer):
+    password = serializers.CharField()
+    
+    def update (self,instance,data):
+        instance.password=data["password"]
+        instance.save()
+        return instance
+    
+
+class update_email_serializer(serializers.Serializer):
+    email = serializers.CharField()
+    def update (self,instance,data):
+        instance.email=data["email"]
+        instance.save()
+        return instance
+    
+
+class update_otp_serializer(serializers.Serializer):
+    otp1 = serializers.IntegerField()
+   
+    def update(self, instance, data):
+        instance.otp1 = data['otp1']
+        instance.save()
+        return instance
+    
+class OTP1Serializer(serializers.Serializer):
+    user_otp1 = serializers.IntegerField()
+    
+    def update(self, instance, data):
+        instance.user_otp1 = data['user_otp1']
         instance.save()
         return instance

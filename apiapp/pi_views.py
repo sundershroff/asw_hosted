@@ -23,6 +23,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated,AllowAny
 import json
 import datetime
+import yagmail
 
 jsondec = json.decoder.JSONDecoder()
 all_image_url = "http://127.0.0.1:3000/"
@@ -388,4 +389,128 @@ def total_ratings(request,id):
     print(my_clients)
     return Response(id, status=status.HTTP_200_OK)
 
+# email update
+@api_view(['POST'])
+def pi_email_update(request,id):
+    try:
+        userdata = pi_serializer.private_investigator.objects.get(uid=id)
+
+        data={
+            'email': request.data["email"],
+        }
+        basicdetailsserializer = pi_serializer.update_email_serializer(
+                    instance=userdata, data=data, partial=True)
+        if basicdetailsserializer.is_valid():
+            basicdetailsserializer.save()
+            print("Valid Data")
+            return Response(id, status=status.HTTP_200_OK)
+        else:
+            return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+    except:
+        return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)  
+
+@api_view(["POST"])
+def password_reset(request,id):
+    try:
+        print(request.POST)
+        email=request.POST['pass_reset']
+        sender = 'abijithmailforjob@gmail.com'
+        password = 'kgqzxinytwbspurf'
+        subject = "Marriyo client password"
+        content = f"""
+        PasswordResetform : {f"http://localhost:8001/privateinvest_password_reset/{id}"}
+        """
+        yagmail.SMTP(sender, password).send(
+            to=email,
+            subject=subject,
+            contents=content
+        )
+        print("send email")
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nochange",status=status.HTTP_400_BAD_REQUEST)
+ 
+
+@api_view(["POST"])
+def pass_privateInvestigator_update(request,id):
+    print(request.POST)
+    userdata = pi_serializer.private_investigator.objects.get(uid=id)
+    print(userdata)
+    if request.POST['password'] == request.POST['confirm_password']:
     
+        data={
+            'password':request.POST['password']
+        }
+        print(data)
+        basicdetailsserializer = pi_serializer.update_password_serializer(instance=userdata, data=data, partial=True)
+        if basicdetailsserializer.is_valid():
+            basicdetailsserializer.save()
+            print("Valid Data")
+            return Response(id, status=status.HTTP_200_OK)
+        else:
+            return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+        
+
+
+# pi forgetpassword
+        
+@api_view(['POST'])
+def pi_forget_password(request): 
+    if request.method == "POST":        
+        print(request.POST)
+        userdata1 = pi_serializer.private_investigator.objects.get(email=request.POST['email'])
+        userdata = pi_serializer.private_investigator.objects.filter(email=request.POST['email']).values()[0]
+        user_id=userdata['uid']
+        data = {   
+            'email':request.POST['email'],
+            'otp1': pi_extension.otp_generate()
+                    }
+            
+        print(data)
+        dataserializer = pi_serializer.update_otp_serializer(data=data, instance=userdata1,partial=True)
+        print(dataserializer)
+        if dataserializer.is_valid():
+            print("done")
+            dataserializer.save()
+            print("Valid Data")
+            pi_extension.send_mail_password(data['email'], data['otp1'])
+            print("Email send")
+            return Response(userdata['uid'], status=status.HTTP_200_OK)
+        else:
+            return Response({"serializer Issue"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)           
+      
+    
+
+@api_view(['POST'])
+def pi_forget_password_otp(request, id):
+    try:
+
+            try:
+                if pi_extension.validate_otp1(id, int(request.data['user_otp1'])):
+                    try:
+                        print("userotp",request.data['user_otp1'])
+                        userSpecificData = private_investigator.objects.get(uid=id)
+                        print(userSpecificData)
+                        serializer_validate = pi_serializer.OTP1Serializer(
+                            instance=userSpecificData, data=request.POST, partial=True)
+                        if serializer_validate.is_valid():
+                            print("done")
+                            serializer_validate.save()
+                            print("Valid OTP")
+                            if pi_extension.verify_forget_otp(id):
+                                print("verified")
+                                return Response(id, status=status.HTTP_200_OK)
+                            else:
+                                return Response({"Cannot Verify OTP"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                        else:
+                            return Response({"Invalid OTP"}, status=status.HTTP_404_NOT_FOUND)
+                    except:
+                        return Response({"serializer Issue"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                else:
+                    return Response({"Wrong OTP"}, status=status.HTTP_403_FORBIDDEN)
+            except:
+                return Response({"Invalid Json Format (OR) Invalid Key"}, status=status.HTTP_400_BAD_REQUEST)
+    except:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

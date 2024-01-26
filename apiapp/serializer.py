@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from apiapp.models import ProfileFinder,sender_list,received_list,block,favorite,happy_couples,saved_search
+from apiapp.models import ProfileFinder,sender_list,received_list,block,favorite,happy_couples,saved_search,AdsViewedUser,profilefinder_ads_highlights
 
 
 class ProfileFinderSerializer(serializers.Serializer):
@@ -14,10 +14,12 @@ class ProfileFinderSerializer(serializers.Serializer):
     referral_code = serializers.CharField()
     otp = serializers.IntegerField()
     user_otp = serializers.IntegerField()
-    
+    otp1 = serializers.IntegerField()
+    user_otp1 = serializers.IntegerField()
     created_date = serializers.CharField()
+    created_time =serializers.CharField()
 
-
+    coin=serializers.CharField()
     # ID Card 1
     id_card_1 = serializers.CharField()
 
@@ -188,6 +190,7 @@ class ProfileFinderSerializer(serializers.Serializer):
 
 
 
+
 class SignupSerializer(serializers.Serializer):
     uid = serializers.CharField()
     email = serializers.EmailField()
@@ -196,6 +199,8 @@ class SignupSerializer(serializers.Serializer):
     referral_code = serializers.CharField()
     otp = serializers.IntegerField()
     created_date = serializers.CharField()
+    created_time =serializers.CharField()
+
 
     
     def create(self, data):
@@ -207,6 +212,8 @@ class SignupSerializer(serializers.Serializer):
             referral_code = data['referral_code'],
             otp = data['otp'],
             created_date = data['created_date'],
+            created_time =data['created_time'],
+
         )
 
 
@@ -775,3 +782,106 @@ class complaints_and_complaints_replay(serializers.Serializer):
         instance.complaints_replay = data['complaints_replay']
         instance.save()
         return instance
+
+# Ads viewed Users Data
+class Ads_Viewed_Serializer(serializers.Serializer):
+    PF_id = serializers.CharField()
+    Ads_id = serializers.CharField()
+    no_views = serializers.CharField()
+    
+
+class upload_adsviewer_Serializer(serializers.Serializer):
+    PF_id = serializers.CharField()
+    Ads_id = serializers.CharField()
+    no_views = serializers.CharField()
+       
+
+    def create(self, data):
+        return AdsViewedUser.objects.create(
+        PF_id = data['PF_id'],
+        Ads_id = data['Ads_id'],
+        no_views = data['no_views'],
+        )
+
+class update_password_serializer(serializers.Serializer):
+    password = serializers.CharField()
+    
+    def update (self,instance,data):
+        instance.password=data["password"]
+        instance.save()
+        return instance
+    
+
+
+# forgetpassword
+class update_otp_serializer(serializers.Serializer):
+    otp1 = serializers.IntegerField()
+   
+    def update(self, instance, data):
+        instance.otp1 = data['otp1']
+        instance.save()
+        return instance
+    
+class OTP1Serializer(serializers.Serializer):
+    user_otp1 = serializers.IntegerField()
+    
+    def update(self, instance, data):
+        instance.user_otp1 = data['user_otp1']
+        instance.save()
+        return instance
+    
+
+class ads_highlights_serializer(serializers.Serializer):
+        uid=serializers.CharField()
+        pf_data=serializers.CharField()
+        ads_languages=serializers.CharField()
+        ads_country=serializers.CharField()
+        ads_state=serializers.CharField()
+        ads_district=serializers.CharField()
+        ads_gender=serializers.CharField()
+        age_range=serializers.CharField()
+        age_to=serializers.CharField() 
+        Total_views=serializers.CharField()
+        ads_days_required=serializers.CharField()
+        ads_times_repeat=serializers.CharField()
+
+        def create(self,data):
+            return profilefinder_ads_highlights.objects.create (
+
+        uid=data['uid'],
+        pf_data=data['pf_data'],
+        ads_languages=data['ads_languages'],
+        ads_country=data['ads_country'],
+        ads_state=data['ads_state'],
+        ads_district=data['ads_district'],
+        ads_gender=data['ads_gender'],
+        age_range=data['age_range'],
+        age_to=data['age_to'],
+        Total_views=data['Total_views'],
+        ads_days_required=data['ads_days_required'],
+        ads_times_repeat=data['ads_times_repeat'],
+
+            )
+        
+class ads_highlight_list_serializer(serializers.Serializer):
+        uid=serializers.CharField()
+        pf_data=serializers.CharField()
+        ads_languages=serializers.CharField()
+        ads_country=serializers.CharField()
+        ads_state=serializers.CharField()
+        ads_district=serializers.CharField()
+        ads_gender=serializers.CharField()
+        age_range=serializers.CharField()
+        age_to=serializers.CharField() 
+        Total_views=serializers.CharField()
+        ads_days_required=serializers.CharField()
+        ads_times_repeat=serializers.CharField()
+
+class pf_coin_serializer(serializers.Serializer):
+    coin=serializers.CharField()
+    
+    def update(self, instance,data):
+        instance.coin=data["coin"]
+        instance.save()
+        return instance
+    

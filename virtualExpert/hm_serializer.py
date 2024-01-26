@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from virtualExpert.models import hiringmanager
+from virtualExpert.models import hiringmanager,users
 
 class hiringmanagerSerializer(serializers.Serializer):
     # User ID
@@ -272,7 +272,6 @@ class private_investigator_acc_Serializer(serializers.Serializer):
     office_country = serializers.CharField()
     office_city = serializers.CharField()
     office_address = serializers.CharField()
-
     id_card = serializers.CharField()
     sign_document = serializers.CharField()
 
@@ -349,6 +348,53 @@ class private_investigator_Serializer(serializers.Serializer):
         instance.private_investigator = data['private_investigator']
         instance.save()
         return instance
+class add_used_Serializer(serializers.Serializer):
+    uid =  serializers.CharField()
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+    email = serializers.EmailField()
+    mobile = serializers.CharField()
+    access_Privileges = serializers.CharField()
+    password = serializers.CharField()
+    work = serializers.CharField()
+    creator = serializers.CharField()
+    # location=serializers.CharField()
+    def create(self, data):
+        return users.objects.create(
+            uid = data['uid'],
+            first_name = data['first_name'],
+            last_name = data['last_name'],
+            email = data['email'],
+            mobile = data['mobile'],
+            access_Privileges = data['access_Privileges'],
+            password = data['password'],
+            work = data['work'],
+            creator = data['creator'],
+            # location=data['location'],
+
+        )
+    
+class hiringedit_user_Serializer(serializers.Serializer):
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+    email = serializers.EmailField()
+    mobile = serializers.CharField()
+    access_Privileges = serializers.CharField()
+    password = serializers.CharField()
+    # location=serializers.CharField()
+
+
+    def update(self, instance, data):
+        instance.first_name = data['first_name']
+        instance.last_name = data['last_name']
+        instance.email = data['email']
+        instance.mobile = data['mobile']
+        instance.access_Privileges = data['access_Privileges']
+        instance.password = data['password']
+        # instance.location=data['location']
+        instance.save()
+        return instance
+    
 
 class update_email_serializer(serializers.Serializer):
     email = serializers.CharField()

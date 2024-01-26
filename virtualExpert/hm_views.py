@@ -3,7 +3,7 @@ from django.http import HttpResponse,JsonResponse
 
 from apiapp import models
 from virtualExpert import hm_serializer
-from virtualExpert.models import hiringmanager,Profilemanager,salesmanager,affliate_marketing,ad_distributor,ad_provider
+from virtualExpert.models import hiringmanager,Profilemanager,salesmanager,affliate_marketing,ad_distributor,ad_provider,users
 from virtualExpert import hm_extension
 
 from rest_framework.decorators import api_view,renderer_classes,permission_classes
@@ -647,7 +647,7 @@ def affiliate_upload_account(request,id):
         print(request.FILES)
         fs = FileSystemStorage()
         userdata = affliate_marketing.objects.get(uid=id)
-        
+        userdata.pop('created_date')
         id_card = str(request.FILES['id_card']).replace(" ", "_")
         path_one = fs.save(f"virtual_expert/affliate_marketing/{id}/id_card/"+id_card, request.FILES['id_card'])
 
@@ -681,13 +681,14 @@ def affiliate_upload_account(request,id):
 
             #hiring manager
             get_uid = affliate_marketing.objects.filter(uid=id).values()[0]
+            get_uid.pop('created_date')
             print(get_uid["hiring_manager"])
             userdata1 = hiringmanager.objects.get(uid= get_uid["hiring_manager"])
             print(userdata1)
             hm_data = hiringmanager.objects.filter(uid= get_uid["hiring_manager"]).values()[0]
             # hm_userdata = hiringmanager.objects.filter(uid=id).values()[0]
             print(hm_data['affiliate_marketing'])
-        
+            
             affiliate_marketing = jsondec.decode(hm_data['affiliate_marketing']) 
             alter_values = []
             print("new")
@@ -786,6 +787,91 @@ def private_investigator_upload_account(request,id):
             return Response({"sserializer issue"}, status=status.HTTP_403_FORBIDDEN)
     except:
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def add_user(request,id):
+    try:
+        if request.method == "POST":
+            print(request.POST)
+            if "delete" in request.POST:
+                allData = users.objects.get(uid = request.POST["delete"])
+                allData.delete()
+                return Response({"Delete"}, status=status.HTTP_200_OK)
+            elif "edit" in request.POST:
+                print(request.POST)
+                print(request.POST['edit'])
+                allData = users.objects.get(uid = request.POST["edit"])
+                print(allData)
+                data={
+                    'first_name': request.POST['first_name'],
+                    'last_name':request.POST['last_name'],
+                        'email': request.POST['email'],
+                        'mobile':request.POST['mobile'],
+                            'password': request.POST['password'],
+                                'access_Privileges': json.dumps(request.POST.getlist('access_Privileges')),
+                                # 'location':request.POST['location'],
+                            
+                }
+                print(data)
+                serializer_validate = hm_serializer.hiringedit_user_Serializer(
+                        instance=allData, data=data, partial=True)
+                if serializer_validate.is_valid():
+                    serializer_validate.save()
+                    print("Valid Data")
+
+                    return Response({"edited Data"}, status=status.HTTP_200_OK)
+
+            else:
+                allData = hiringmanager.objects.all().values()
+                for i in allData:
+                    if request.POST['email'] == i['email']:
+                        return Response({"User already Exixts"}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+                    else:
+                        pass
+
+                data={
+                    'uid':hm_extension.id_generate(),
+                    'first_name': request.POST['first_name'],
+                    'last_name':request.POST['last_name'],
+                        'email': request.POST['email'],
+                        'mobile':request.POST['mobile'],
+                            'password': request.POST['password'],
+                                'access_Privileges': json.dumps(request.POST.getlist('access_Privileges')),
+                                    'work': request.POST['work'],
+                                    'creator':request.POST['creator'],
+                                    # 'location':request.POST['location'],                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+                                    
+
+
+                }
+                print(data)
+                myclientserializer = hm_serializer.add_used_Serializer( data=data)
+                if myclientserializer.is_valid():
+                    myclientserializer.save()
+                    print("Valid Data")
+
+                    return Response({"valid Data"}, status=status.HTTP_200_OK)
+
+    except:
+        return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET'])
+def my_users_data(request,id):
+    if request.method == 'GET':
+       allDataa = users.objects.filter(creator = id)
+       alldataserializer = hm_serializer.add_used_Serializer(allDataa,many=True)
+    return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def single_users_data(request,id):
+    if request.method == 'GET':
+       allDataa = users.objects.filter(uid = id)
+       alldataserializer = hm_serializer.add_used_Serializer(allDataa,many=True)
+    return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+
 
 
 #///// Email Updation////// 
