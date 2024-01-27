@@ -313,6 +313,7 @@ class status_active_serializer(serializers.Serializer):
 
 
 class add_user_Serializer(serializers.Serializer):
+    aid =  serializers.CharField()
     uid =  serializers.CharField()
     first_name = serializers.CharField()
     last_name = serializers.CharField()
@@ -321,12 +322,13 @@ class add_user_Serializer(serializers.Serializer):
     access_Privileges = serializers.CharField()
     password = serializers.CharField()
     work = serializers.CharField()
-    creator = serializers.CharField()
+    # creator = serializers.CharField()
     # location = serializers.CharField()
 
     
     def create(self, data):
         return users.objects.create(
+            aid = data['aid'],
             uid = data['uid'],
             first_name = data['first_name'],
             last_name = data['last_name'],
@@ -335,7 +337,7 @@ class add_user_Serializer(serializers.Serializer):
             access_Privileges = data['access_Privileges'],
             password = data['password'],
             work = data['work'],
-            creator = data['creator'],
+            # creator = data['creator'],
             # location = data['location'],
         )
     

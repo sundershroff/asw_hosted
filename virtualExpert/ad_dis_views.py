@@ -641,6 +641,7 @@ def ad_dis_add_user(request,id):
                         pass
 
                 data={
+                    'aid':request.POST['creator'],
                     'uid':ad_dis_extension.id_generate(),
                     'first_name': request.POST['first_name'],
                     'last_name':request.POST['last_name'],
@@ -649,7 +650,7 @@ def ad_dis_add_user(request,id):
                             'password': request.POST['password'],
                                 'access_Privileges': json.dumps(request.POST.getlist('access_Privileges')),
                                     'work': request.POST['work'],
-                                    'creator':request.POST['creator'],
+                                    # 'creator':request.POST['creator'],
                                     # 'location':request.POST['location']
 
                 }
@@ -667,7 +668,7 @@ def ad_dis_add_user(request,id):
 @api_view(['GET'])
 def ad_dis_my_users_data(request,id):
     if request.method == 'GET':
-       allDataa = users.objects.filter(creator = id)
+       allDataa = users.objects.filter(aid = id)
        alldataserializer = ad_dis_serializer.add_user_Serializer(allDataa,many=True)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 

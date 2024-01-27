@@ -81,13 +81,8 @@ def get_user_id(email):
         # user
         print("users")
         usersData = models.users.objects.filter(email = email).values()[0]
-        creator = usersData['creator']
-        data1={
-            'uid':creator,
-            'access_Privileges':usersData['access_Privileges']
-        }
-        print(data1)
-        return data1
+        print(usersData['uid'])
+        return usersData['uid']
 
 
 def send_mail(receiver_email, otp):

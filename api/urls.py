@@ -186,7 +186,7 @@ urlpatterns = [
     path("affiliate_upload_account/<id>",hm_views.affiliate_upload_account),
     path("private_investigator_upload_account/<id>",hm_views.private_investigator_upload_account),
 
-    path("add_user/<id>",hm_views.add_user),
+    path("hm_add_user/<id>",hm_views.add_user),
     path("hm_my_users_data/<id>",hm_views.my_users_data),
     path("single_users_data/<id>",hm_views.single_users_data),
 

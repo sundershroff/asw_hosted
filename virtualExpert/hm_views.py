@@ -801,7 +801,7 @@ def add_user(request,id):
                 print(request.POST)
                 print(request.POST['edit'])
                 allData = users.objects.get(uid = request.POST["edit"])
-                print(allData)
+                print(request.POST.getlist('access_Privileges'))
                 data={
                     'first_name': request.POST['first_name'],
                     'last_name':request.POST['last_name'],
@@ -822,14 +822,17 @@ def add_user(request,id):
                     return Response({"edited Data"}, status=status.HTTP_200_OK)
 
             else:
-                allData = hiringmanager.objects.all().values()
+                print("hm")
+                allData = users.objects.all().values()
+                print(allData)
                 for i in allData:
                     if request.POST['email'] == i['email']:
                         return Response({"User already Exixts"}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
                     else:
                         pass
-
+                print("jii")
                 data={
+                    'aid':request.POST['creator'],
                     'uid':hm_extension.id_generate(),
                     'first_name': request.POST['first_name'],
                     'last_name':request.POST['last_name'],
@@ -838,7 +841,7 @@ def add_user(request,id):
                             'password': request.POST['password'],
                                 'access_Privileges': json.dumps(request.POST.getlist('access_Privileges')),
                                     'work': request.POST['work'],
-                                    'creator':request.POST['creator'],
+                                    # 'creator':request.POST['creator'],
                                     # 'location':request.POST['location'],                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
                                     
 
@@ -860,7 +863,7 @@ def add_user(request,id):
 @api_view(['GET'])
 def my_users_data(request,id):
     if request.method == 'GET':
-       allDataa = users.objects.filter(creator = id)
+       allDataa = users.objects.filter(aid = id)
        alldataserializer = hm_serializer.add_used_Serializer(allDataa,many=True)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
