@@ -260,7 +260,7 @@ urlpatterns = [
     path("password_aff_reset/<id>",am_views.password_reset),
     path("pass_aff_update/<id>",am_views.pass_aff_update),
     path("af_my_data/<id>",am_views.af_my_data),
-    path("add_user/<id>",am_views.add_user),
+    path("am_add_user/<id>",am_views.add_user),
     path("am_my_users_data/<id>",am_views.my_users_data),
     path("single_users_data/<id>",am_views.single_users_data),
     path("all_aff_details",am_views.all_aff_details),

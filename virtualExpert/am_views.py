@@ -395,7 +395,7 @@ def add_user(request,id):
                     return Response({"edited Data"}, status=status.HTTP_200_OK)
 
             else:
-                allData = affliate_marketing.objects.all().values()
+                allData = users.objects.all().values()  
                 for i in allData:
                     if request.POST['email'] == i['email']:
                         return Response({"User already Exixts"}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
@@ -404,6 +404,7 @@ def add_user(request,id):
 
                 data={
                     'uid':am_extension.id_generate(),
+                    'aid':request.POST['creator'],
                     'first_name': request.POST['first_name'],
                     'last_name':request.POST['last_name'],
                         'email': request.POST['email'],
@@ -411,7 +412,7 @@ def add_user(request,id):
                             'password': request.POST['password'],
                                 'access_Privileges': json.dumps(request.POST.getlist('access_Privileges')),
                                     'work': request.POST['work'],
-                                    'creator':request.POST['creator'],
+                                    # 'creator':request.POST['creator'],
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 
 
@@ -432,7 +433,7 @@ def add_user(request,id):
 @api_view(['GET'])
 def my_users_data(request,id):
     if request.method == 'GET':
-       allDataa = users.objects.filter(creator = id)
+       allDataa = users.objects.filter(aid = id)
        alldataserializer = am_serializer.add_used_Serializer(allDataa,many=True)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
 
