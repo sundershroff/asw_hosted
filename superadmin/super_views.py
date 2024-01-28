@@ -2,12 +2,16 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from apiapp.models import ProfileFinder,private_investigator
 from virtualExpert.models import hiringmanager,Profilemanager,salesmanager,ad_provider,ad_distributor,affliate_marketing
-from superadmin.models import superadmin_data,emra_coin,subscription,commision,third_party_user,insentives_settings,external_expenses
+from superadmin.models import superadmin_data,emra_coin,subscription,commision,third_party_user,pi_performance_calculation,insentives_settings,pi_settings,external_expenses
 from superadmin import serializer
 from superadmin import extension
 from django.core.files.storage import FileSystemStorage
 from datetime import datetime
+import datetime
 import json
+import yagmail
+from virtualExpert import hm_extension
+from virtualExpert import hm_serializer
 # from apiapp.models import *
 # from virtualExpert.models import *
 
@@ -177,7 +181,7 @@ def hirirng_user_delete(request,id):
         if request.method == "POST":
                 print(request.POST)
                 data = hiringmanager.objects.get(uid=request.POST['delete'])
-                # data.delete()
+                data.delete()
                 print(data)
                 return Response("Delete Data", status=status.HTTP_200_OK)
         else:
@@ -571,3 +575,98 @@ def incentive_settingss(request,id):
                 return Response({"Valid data"}, status=status.HTTP_200_OK)
     except:
             return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+@api_view(['GET','POST'])
+def pi_settingss(request,id):
+    try:
+            if request.method == 'GET':
+                dataa = pi_settings.objects.filter(id = 1).values()
+                return Response(data=dataa[0], status=status.HTTP_200_OK)
+            if request.method == 'POST':
+                data = pi_settings.objects.get(id = 1)
+                print(request.POST)
+                default_amount = request.POST['default_amount']
+                to_Admin = request.POST['to_Admin']
+                to_investigator = request.POST['to_investigator']
+                data.default_amount = default_amount
+                data.to_Admin = to_Admin
+                data.to_investigator = to_investigator
+                data.save()
+                return Response({"Valid data"}, status=status.HTTP_200_OK)
+    except:
+            return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+@api_view(['GET','POST'])
+def pi_performance_calculations(request,id):
+    try:
+            if request.method == 'GET':
+                dataa = pi_performance_calculation.objects.filter(id = 1).values()
+                return Response(data=dataa[0], status=status.HTTP_200_OK)
+            if request.method == 'POST':
+                data = pi_performance_calculation.objects.get(id = 1)
+                print(request.POST)
+                Calculation_Period = request.POST['Calculation_Period']
+                default_amount = request.POST['default_amount']
+                fifty_Good_Review = request.POST['fifty_Good_Review']
+                eighty_Good_Review = request.POST['eighty_Good_Review']
+                fifty_bad_Review = request.POST['fifty_bad_Review']
+                eighty_bad_Review = request.POST['eighty_bad_Review']
+                data.Calculation_Period = Calculation_Period
+                data.default_amount = default_amount
+                data.fifty_Good_Review = fifty_Good_Review
+                data.eighty_Good_Review = eighty_Good_Review
+                data.fifty_bad_Review = fifty_bad_Review
+                data.eighty_bad_Review = eighty_bad_Review
+                data.save()
+                return Response({"Valid data"}, status=status.HTTP_200_OK)
+    except:
+            return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+@api_view(['POST'])
+def super_admin_hm_signup(request):
+    try:
+        try:
+            if hm_extension.validate_email(request.data['email']):
+                return Response("User Already Exists", status=status.HTTP_302_FOUND)
+            else:
+                print(request.POST)
+                x = datetime.datetime.now()
+                datas = {
+                    'email': request.POST["email"],
+                    'mobile': request.POST["mobile"],
+                    'password': request.POST["password"],
+                    'uid': hm_extension.id_generate(),
+                    'otp': hm_extension.otp_generate(),
+                    'created_date':str(x.strftime("%d"))+" "+str(x.strftime("%B"))+","+str(x.year)
+                }
+                print(datas)
+                dataserializer = serializer.hm_SignupSerializer(data=datas)
+                print(datas['uid'])
+                if dataserializer.is_valid():
+                    dataserializer.save()
+                    print("Valid Data")
+                    # hm_extension.send_mail(datas['email'], datas['otp'])
+                    sender = 'abijithmailforjob@gmail.com'
+                    password = 'kgqzxinytwbspurf'
+                    subject = "This is Marriyo Sign Up OTP"
+                    content = f"""
+                    hii : {request.POST['name']}  
+                    your email:{datas['email']}
+                    your password : {datas['password']}
+                    Click Link: {f"http://127.0.0.1:8001/hiring_manager/signin/"}
+                    """
+                    yagmail.SMTP(sender, password).send(
+                        to=datas['email'],
+                        subject=subject,
+                        contents=content
+                    )
+
+                    print("Email send")
+                    return Response(datas['uid'], status=status.HTTP_200_OK)
+                else:
+                    return Response({"Bad Request"}, status=status.HTTP_403_FORBIDDEN)
+        except:
+            return Response({"Invalid Json Format (OR) Invalid Key"}, status=status.HTTP_400_BAD_REQUEST)
+    except:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+

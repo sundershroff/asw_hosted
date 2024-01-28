@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from superadmin.models import superadmin_data,emra_coin,external_expenses,subscription,commision,third_party_user
 from apiapp.models import ProfileFinder
+from virtualExpert.models import hiringmanager
 class superadminSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     email = serializers.EmailField()
@@ -142,3 +143,23 @@ class profile_manager_serializer(serializers.ModelSerializer):
     class Meta:
         model = ProfileFinder
         fields = "__all__"
+        
+class hm_SignupSerializer(serializers.Serializer):
+    uid = serializers.CharField()
+    email = serializers.EmailField()
+    mobile = serializers.CharField()
+    password = serializers.CharField()
+    otp = serializers.IntegerField()
+    # user_otp = serializers.IntegerField()
+    created_date = serializers.CharField()
+    
+    def create(self, data):
+        return hiringmanager.objects.create(
+            uid = data['uid'],
+            email = data['email'],
+            mobile = data['mobile'],
+            password = data['password'],
+            otp = data['otp'],
+            user_otp = data['otp'],
+            created_date = data['created_date'],
+        )

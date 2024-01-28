@@ -69,3 +69,16 @@ class insentives_settings(models.Model):
     sales_target = models.TextField(null=True)
     Incentives_Amount_INR = models.TextField(null=True)
     Incentives_Amount_USD = models.TextField(null=True)
+    
+class pi_settings(models.Model):
+    default_amount = models.TextField(null=True)
+    to_Admin = models.TextField(null=True)
+    to_investigator = models.TextField(null=True)
+    
+class pi_performance_calculation(models.Model):
+    Calculation_Period = models.TextField(null=True)
+    default_amount = models.TextField(null=True)
+    fifty_Good_Review = models.TextField(null=True)
+    eighty_Good_Review = models.TextField(null=True)
+    fifty_bad_Review = models.TextField(null=True)
+    eighty_bad_Review = models.TextField(null=True)

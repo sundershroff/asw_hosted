@@ -105,6 +105,12 @@ urlpatterns = [
     path('superadmin/single_third_party_userrr/<id>',super_views.single_third_party_userrr),
     path('superadmin/all_complaint_list/<id>',super_views.all_complaint_list),
     path('superadmin/incentive_settings/<id>',super_views.incentive_settingss),  
+    path('superadmin/pi_settings/<id>',super_views.pi_settingss),  
+    path('superadmin/pi_performance_calculations/<id>',super_views.pi_performance_calculations),  
+    path('superadmin/super_admin_hm_signup',super_views.super_admin_hm_signup),  
+
+
+
 
 
 
