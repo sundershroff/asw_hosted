@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Bootstrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" ></script>   
+        <!-- Template Main CSS File --> 
+    <link href="/media/css/pi_payment_Table.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/media/css/pi_style.css">
+
+    <!--nav bar icon-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.css" />
+    <!-- search icon link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+  </head>
+</head>
+<body>
+  <!-- ======= Mobile nav toggle button ======= -->
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+       <img src="/media/img/Logo.png" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+        {% include 'pi_nav.html' %}
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+  </header>
+
+  <!-- End Header -->
+  <main id="main">
+    {% include 'pi_header.html'%}
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+     <div class="container">
+       <!-- <div class="d-flex justify-content-between align-items-center">
+         <h2>Client details</h2>
+       </div> -->
+     </div>
+   </section>
+   <!-- End Breadcrumbs -->
+
+   <section class="Clients mb-3">
+     <div class="container Clients ">
+       <div class="row">
+        <div class="row ">
+          <div class="col-md-8">
+            <h5 class="accsett">
+              <a href="/pi_profile/{{key.uid}}" style="text-decoration: none;"><span class="Account" style="color: grey;"> Account </span></a>
+              <a href="/pi_payment_table/{{key.uid}}" style="text-decoration: none;">  <span class="Payment  ms-2" style="color: #121b9c;"> Payment History </span></a>
+              <a href="/edit_profile/{{key.uid}}" style="text-decoration: none;"><span class="Accountsett text-muted ms-2">Account Settings</span></a>
+            </h5>          </div>
+       </div>
+         <div class="col-md-6 mt-3 mb-3">
+           <h4>Psyments</h4>
+         </div>
+         
+
+       <div class="table-responsive" id="no-more-tables">
+        <table class="table ">
+            <thead class="bg-dark text-light">
+                <tr class="">
+                    <th  style="background-color: #f5f3fe;border: 0px;"  >#No</th>
+                    <th  style="background-color: #f5f3fe;border: 0px;">Detail</th>
+                    <th  style="background-color: #f5f3fe;border: 0px;">Date</th>
+                    <th  style="background-color: #f5f3fe;border: 0px;">Time</th>
+                    <th  style="background-color: #f5f3fe;border: 0px;">Status</th>
+                    <th  style="background-color: #f5f3fe;border: 0px;"><span class="thamount">Amount</span> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-title="#No" style="background-color: white;border: 0px;" class="rollno " ><span class="rolln" id="rollno">1</span></td>
+                    <td data-title="Detail" style="background-color: white;border: 0px;"> 
+                        <div class="row">
+                        <div class="col-md-2">
+                        <img src="/media/images/man3.jpeg" alt="" class="imgg text-center responsive-image">
+                        </div>
+                        <div class="col-md-10 namee">
+                        <span class="name"  id="name">Albert Flores</span>
+                        </div>
+                      </div></td>
+                    <td data-title="Date" style="background-color: white;border: 0px;">07/11/2019</td>
+                    <td data-title="Time" style="background-color: white;border: 0px;">5:45 Am</td>
+                    <td data-title="Status" style="background-color: white;border: 0px;"><i class="bi bi-check checkicon ">Succeeded</i></td>
+                    <td data-title="Amount" style="background-color: white;border: 0px; color: #454f85; font-weight: 600;" class="money"><i class="bi bi-currency-rupee" id="rupee"><span class="moneys">100</span></i></td>
+                </tr>
+                <tr>
+                    <td data-title="#No" style="background-color: #f5f3fe;border: 0px;" class="rollno "><span class="rolln" id="rollno">2</span></td>
+                    <td data-title="Detail" style="background-color: #f5f3fe;border: 0px;"> 
+                        <div class="row">
+                        <div class="col-md-2">
+                        <img src="/media/images/man2.webp" alt="" class="imgg text-center responsive-image">
+                        </div>
+                        <div class="col-md-10 namee">
+                        <span class="name" id="name">Cody Fisher</span>
+                        </div>
+                      </div></td>
+                    <td data-title="Date"   style="background-color: #f5f3fe;border: 0px;">06/12/2017</td>
+                    <td data-title="Time"   style="background-color: #f5f3fe;border: 0px;">6:50 Am</td>
+                    <td data-title="Status" style="background-color: #f5f3fe;border: 0px;"><i class="bi bi-check checkicon ">Succeeded</i></td>
+                    <td data-title="Amount" style="background-color: #f5f3fe;border: 0px; color: #454f85; font-weight: 600;" class="money"><i class="bi bi-currency-rupee"  id="rupee"><span class="moneys">100</span></i></td>
+                </tr>
+                <tr>
+                    <td data-title="#No" style="background-color: white;border: 0px;" class="rollno "><span class="rolln" id="rollno">3</span></td>
+                    <td data-title="Detail" style="background-color: white;border: 0px;"> 
+                        <div class="row">
+                        <div class="col-md-2">
+                        <img src="/media/images/man4.jpg" alt="" class="imgg text-center responsive-image">
+                        </div>
+                        <div class="col-md-10 namee">
+                        <span class="name"  id="name">Darrell Steward</span>
+                        </div>
+                      </div></td>
+                    <td data-title="Date" style="background-color: white;border: 0px;">02/08/2015</td>
+                    <td data-title="Time" style="background-color: white;border: 0px;">5:45 Pm</td>
+                    <td data-title="Status" style="background-color: white;border: 0px;"><i class="bi bi-check checkicon ">Succeeded</i></td>
+                    <td data-title="Amount" style="background-color: white;border: 0px; color: #454f85; font-weight: 600;" class="money"><i class="bi bi-currency-rupee"  id="rupee"><span class="moneys">100</span></i></td>
+                </tr>
+                <tr>
+                    <td data-title="#No" style="background-color: #f5f3fe;border: 0px;" class="rollno "><span class="rolln" id="rollno">4</span></td>
+                    <td data-title="Detail" style="background-color: #f5f3fe;border: 0px;"> 
+                        <div class="row">
+                        <div class="col-md-2">
+                        <img src="/media/images/man1.jpg" alt="" class="imgg text-center responsive-image">
+                        </div>
+                        <div class="col-md-10 namee">
+                        <span class="name"  id="name">Kathryn Murphy</span>
+                        </div>
+                      </div></td>
+                    <td data-title="Date" style="background-color: #f5f3fe;border: 0px;">08/03/2012</td>
+                    <td data-title="Time" style="background-color: #f5f3fe;border: 0px;">8:25 Pm</td>
+                    <td data-title="Status" style="background-color: #f5f3fe;border: 0px;"><i class="bi bi-check checkicon ">Succeeded</i></td>
+                    <td data-title="Amount" style="background-color: #f5f3fe ;border: 0px; color: #454f85; font-weight: 600;" class="money"><i class="bi bi-currency-rupee"  id="rupee"><span class="moneys">100</span></i></td>
+                </tr>
+                <tr>
+                    <td data-title="#No" style="background-color: white;border: 0px;" class="rollno "><span class="rolln" id="rollno">5</span></td>
+                    <td data-title="Detail" style="background-color: white;border: 0px;"> 
+                        <div class="row">
+                        <div class="col-md-2">
+                        <img src="/media/images/man5.jpg" alt="" class="imgg text-center responsive-image">
+                        </div>
+                        <div class="col-md-10 namee" >
+                        <span class="name"  id="name">Ariene McCoy</span>
+                        </div>
+                      </div></td>
+                    <td data-title="Date" style="background-color: white;border: 0px;">04/04/2013</td>
+                    <td data-title="Time" style="background-color: white;border: 0px;">5:45 Am</td>
+                    <td data-title="Status" style="background-color: white;border: 0px;"><i class="bi bi-check checkicon ">Succeeded</i></td>
+                    <td data-title="Amount" style="background-color: white;border: 0px; color: #454f85; font-weight: 600;" class="money"><i class="bi bi-currency-rupee"  id="rupee"><span class="moneys">100</span></i></td>
+                  </tr>
+           
+            </tbody>
+            
+        </table>
+        <div class="col-md-12 ">
+            <p class="totalamt">Total Amount &nbsp;₹800</p>
+          </div>
+    </div>
+
+
+       </div>
+       <!-- ... (rest of your "Clients" section content) ... -->
+
+      
+  
+     </div>
+   </section>
+   <!-- End Breadcrumbs -->
+   
+
+  </main>
+  <!-- End #main -->
+  
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Mariyoo</span></strong>
+      </div>
+      <div class="credits">
+        All Right Reserved
+      </div>
+    </div>
+  </footer>
+  <!-- End  Footer -->
+
+  <!-- Template Main JS File -->
+  <script src="/media/js/main.js"></script>
+</body>
+</html>
+
+
+

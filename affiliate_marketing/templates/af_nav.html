@@ -1,0 +1,99 @@
+{% if "Add User" in access %}
+<ul>
+  <li><a href="/affiliate_marketing/af_marketingdashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/affiliate_marketing/af_commisions/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Commission</span></a></li>
+  <li><a href="/affiliate_marketing/am_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{% elif "Edit User" in access %}
+
+<ul>
+  <li><a href="/affiliate_marketing/af_marketingdashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/affiliate_marketing/af_commisions/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Commission</span></a></li>
+  <li><a href="/affiliate_marketing/am_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{% elif "Delete User" in access %}
+
+<ul>
+  <li><a href="/affiliate_marketing/af_marketingdashboard/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/affiliate_marketing/af_commisions/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Commission</span></a></li>
+  <li><a href="/affiliate_marketing/am_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{% else %}
+
+{% if "affiliate_marketing/af_marketingdashboard" in current_path %}
+  <ul>
+      <li><a href="/affiliate_marketing/af_marketingdashboard/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/affiliate_marketing/af_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/affiliate_marketing/af_commisions/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Commission</span></a></li>
+      <li><a href="/affiliate_marketing/am_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+      <li><a href="/affiliate_marketing/af_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+{% elif  "affiliate_marketing/af_profile"  in current_path %}
+  <ul>
+    <li><a href="/affiliate_marketing/af_marketingdashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/affiliate_marketing/af_profile/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/affiliate_marketing/af_commisions/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Commission</span></a></li>
+    <li><a href="/affiliate_marketing/am_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/affiliate_marketing/af_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+{% elif  "affiliate_marketing/af_editprofile" in current_path %}
+<ul>
+  <li><a href="/affiliate_marketing/af_marketingdashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/affiliate_marketing/af_profile/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/affiliate_marketing/af_commisions/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Commission</span></a></li>
+  <li><a href="/affiliate_marketing/am_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="/affiliate_marketing/af_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{% elif  "affiliate_marketing/af_commisions" in current_path %}
+<ul>
+  <li><a href="/affiliate_marketing/af_marketingdashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/affiliate_marketing/af_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/affiliate_marketing/af_commisions/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Commission</span></a></li>
+  <li><a href="/affiliate_marketing/am_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="/affiliate_marketing/af_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{% elif "affiliate_marketing/am_users" in current_path %}
+<ul>
+  <li><a href="/affiliate_marketing/af_marketingdashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/affiliate_marketing/af_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/affiliate_marketing/af_commisions/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Commission</span></a></li>
+  <li><a href="/affiliate_marketing/am_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="/affiliate_marketing/af_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{% elif "affiliate_marketing/am_addusers" in current_path %}
+<ul>
+  <li><a href="/affiliate_marketing/af_marketingdashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/affiliate_marketing/af_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/affiliate_marketing/af_commisions/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Commission</span></a></li>
+  <li><a href="/affiliate_marketing/am_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="/affiliate_marketing/af_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{% elif "affiliate_marketing/am_user_edit" in current_path %}
+<ul>
+  <li><a href="/affiliate_marketing/af_marketingdashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/affiliate_marketing/af_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/affiliate_marketing/af_commisions/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Commission</span></a></li>
+  <li><a href="/affiliate_marketing/am_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="/affiliate_marketing/af_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{% elif "affiliate_marketing/af_setting" in current_path %}
+<ul>
+  <li><a href="/affiliate_marketing/af_marketingdashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/affiliate_marketing/af_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/affiliate_marketing/af_commisions/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Commission</span></a></li>
+  <li><a href="/affiliate_marketing/am_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="/affiliate_marketing/af_setting/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{% endif %}
+{% endif %}

@@ -1,0 +1,141 @@
+.sub_sec1{
+	background-color:rgba(0, 0, 255, 0.1);
+}
+
+.set_amt_par1{
+	display:flex;
+	flex-wrap:wrap;
+	justify-content:center;
+	gap:30px;
+}
+
+.set_amt_chi1,.set_amt_chi2{
+
+	border-radius:10px;
+	background-color:white;
+
+}
+
+.set_amt_chi1{
+
+	height:650px;
+	width:850px;
+}
+.set_amt_chi2{
+	height:500px;
+	width:400px;
+}
+
+.set_amt_price li{
+
+	list-style:none;
+   cursor:pointer;
+	border-radius:10px;
+	padding:8px 20px;
+	color:#7B61FF;
+	font-weight:700;
+	background-color:rgba(123, 97, 255, 0.3);
+
+}
+
+.set_amt_price ul{
+	margin:40px 0;
+	display:flex;
+    flex-wrap:wrap;
+	gap:20px;
+
+}
+.set_amt_chi1 p{
+	color:#2B3674;
+	font-weight:500;
+}
+
+.user_amt{
+	width:300px;
+	border:1px solid #E5E5E5;
+    padding:10px 5px;
+    border-radius:10px;
+    color:#6E717A;
+    font-weight:500;
+}
+
+/*checkbox*/
+.set_amt_payment{
+	display:flex;
+	flex-direction:column;
+}
+
+.set_amt_payment label{
+	color:#6E717A;
+	margin:8px 0;
+}
+
+.set_amt_payment input[type="radio"]{
+  display: none;
+}
+
+/* Custom radio button style */
+.packmark {
+  display: inline-block;
+  width: 25px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid lightslategray;
+  margin-right: 10px;
+  position: relative;
+  top: 5px;
+}
+
+/* Custom radio button checked state */
+.set_amt_payment input[type="radio"]:checked + .packmark::after{
+  content: "";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color:#7B61FF;
+}
+/*over*/
+.set_amt_chi1 button{
+	padding:8px 12px;
+	border-radius:10px;
+    border:none;
+    color:white;
+    font-weight:500;
+    background:linear-gradient(45deg,#2B44CC,#E487F3);
+}
+
+.set_amt_bord{
+	width:350px;
+	border:1px solid #E1E1E1;
+}
+
+.set_amt_chi2 button{
+	background:linear-gradient(45deg,#2B44CC,#E487F3);
+    border-radius:10px;
+    border:none;
+    font-weight:500px;
+    color:white;
+    width:90%;
+    opacity:0.3;
+    margin:0 20px;
+	padding:8px 12px;
+}
+
+.set_amt_chi2 p{
+    font-weight:500;
+    color:#6E717A;
+}
+
+.set_amt_foot p{
+	font-size:0.9em;
+}
+
+.set_amt_foot{
+	display:flex;
+	gap:20px;
+	align-items:top;
+}

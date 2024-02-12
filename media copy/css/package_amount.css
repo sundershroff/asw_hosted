@@ -1,0 +1,99 @@
+.pack_amo_sec1,.pack_amo_sec2{
+
+  border-radius:10px;
+}
+.pack_amo_color{
+	background:#E3DFFD;
+}
+.pack_amo_bord{
+	border:1px solid #E1E1E1;
+  border-radius:10px;
+
+}
+/*checkbox*/
+.pack_amo_bor2 input[type="radio"],
+.pack_amo_bord input[type="checkbox"] {
+  display: none;
+}
+
+/* Custom radio button style */
+.packmark {
+  display: inline-block;
+  width: 25px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid lightslategray;
+  margin-right: 10px;
+  position: relative;
+  top: 5px;
+}
+
+/* Custom radio button checked state */
+.pack_amo_bor2 input[type="radio"]:checked + .packmark::after,
+.pack_amo_bord input[type="checkbox"]:checked + .packmark::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color:#7B61FF;
+}
+/*over*/
+
+.pack_amo_bor1{
+  display:flex;
+  justify-content:space-between;
+
+}
+.pack_amo_bor2{
+  display:flex;
+  justify-content:space-between;
+  flex-direction:column;
+  row-gap:10px;
+}
+
+.pack_amo_sec1 button{
+  background: linear-gradient(63deg,blue,#b772b7 );
+  color:white;
+  padding:10px 20px;
+  font-weight:500;
+  border:none;
+  border-radius:10px;
+ }
+
+.pack_amo_sec1 h3{
+  font-weight:600;
+}
+
+.pack_amo_sec1 h6,label{
+  color:#6E717A;
+  font-weight:500;
+}
+.pack_amo_sec2 button{
+  background: linear-gradient(63deg,blue,#b772b7 );
+  color:white;
+  padding:10px 20px;
+  font-weight:500;
+  border:none;
+  width:100%;
+  border-radius:10px;
+}
+.pack_amo_bor3{
+  display:flex;
+}
+.pack_amo_bor3 p{
+  font-size:0.9em;
+  font-weight:500;
+  color:#6E717A;
+}
+.pack_amo_sec2 h6{
+  color:#6E717A;
+  font-weight:500;
+}
+
+
+
+/**/

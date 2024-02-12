@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Local Admin Dashboard</title>
+	  <link rel="stylesheet" type="text/css" href="/media/css/pi_style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <link href="/media/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- over -->
+
+</head>
+<body style=" background-color:rgba(0, 0, 255, 0.1);">
+   
+ <div class="dash_bor_sec1">
+
+  <div class="dash_bor_sdbr" id="dashsidebar">
+
+      <header id="header">
+    <div class="d-flex flex-column">
+       <img src="/media/images/Logo.png" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+       {% include 'pi_nav.html' %}
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+    <h5 style="position:absolute;bottom:20px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+  </header>
+  
+  </div>
+
+  <div class="dash_bor_main1">
+    <!-- start1-->
+
+   {% include 'pi_header.html'%}
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
+    <!-- over -->
+
+    <!-- start2 -->
+    <div class="dash_par2 my-5 px-3"> 
+         
+        <h4>Dashboard</h4>
+
+        <button>Download Report <i class="fa-solid fa-file-excel"></i></button>
+
+    </div>
+    <!-- over -->
+
+    <!-- start3 -->
+      <div class="dash_par3 my-4 px-3"> 
+         
+        <div class="dash_bor_box">
+           
+           <div>
+             
+             <i class="fa-solid fa-users dash_users"></i>
+           </div>
+
+          <div>
+            <h4>{{my_client|length}}</h4>
+            <h5>Total Investigations</h5>
+          </div>
+
+        </div>
+
+          <div class="dash_bor_box">
+
+            <div>
+             <i class="fa-solid fa-circle-minus dash_dot"></i>
+            </div>
+
+            <div>
+             
+            <h4 id="">{{closed}}</h4>
+            <h5>Closed Investigations</h5>
+          </div>
+          
+        </div>
+        <div class="dash_bor_box">
+
+          <div>
+           <i class="fas fa-map-marker-alt dash_dot" style="color:green"></i>
+          </div>
+
+          <div>
+          <h4 id="">{{pending}}</h4>
+          <h5>Pending Investigations</h5>
+        </div>
+        
+      </div>
+
+    
+
+         <div class="dash_bor_box">
+
+          <div>
+            <i class="fas fa-user-friends dash_db_user"></i>
+          </div>
+          
+           <div class="dash_ratstr">
+           
+            <div class="dash_strpos">
+               <h4>{{total_ratings}}</h4>
+            </div>
+            <h5>Current Ratings</h5>
+          </div> 
+
+
+        </div>
+
+          <div class="dash_bor_box">
+
+           <div>
+             <i class="fa-solid fa-comment-dollar dash_dlr"></i>
+           </div>
+
+           <div>
+             <h4>₹ 2,500</h4>
+            <h5>Total Earnings</h5>
+           </div>
+
+
+        </div>
+
+
+    </div>
+    <!-- over -->
+    <!-- start -->
+    <div class="dash_bor_rsp my-4 px-3">
+
+      <div>
+        <h4>Recently Started profiles</h4>
+      </div>
+
+
+      <div class="dash_bor_rsp_1">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+
+        <select class="form-select">
+          <option value="Indian">Indian</option>
+        </select>
+      </div>
+      
+
+      
+    </div>
+    <!-- over -->
+
+    <!-- start -->
+     <div class="dash_bor_table px-4" style="
+     height: 30rem;
+     overflow-y: scroll;
+     position: relative;">
+      <table class=" table table-borderless ">
+
+      <tr style="
+      position: sticky;
+      top: 0px;
+  ">
+        <th class="py-4">#No</th>
+        <th class="py-4">User Id</th>
+        <th class="py-4">Name</th>
+        <th class="py-4">Email Id</th>
+      </tr>
+      {% for i in my_client %}
+
+      <tr>
+        <td class="dash_bor_table_img"><img src="{{i.profile_picture}}" class="mx-2"> {{forloop.counter}}</td>
+        <td class="py-4">{{i.uid}}</td>
+        <td class="py-4">{{i.name}}</td>
+        <td class="py-4">{{i.email}}</td>
+      </tr>
+      {% endfor %}
+
+
+      
+
+        {% comment %} <div class="py-4"> {% endcomment %}
+      
+
+    </table>
+  
+
+    <div class="dash_bor_rsp_va my-3" style="
+    height: auto;
+    position: sticky;
+    bottom: 0px;
+    border-top: 9px solid rgba(0, 0, 255, 0.1);
+    border-radius: 0px;
+">
+      <a href="#" class="mx-3">View All</a>
+    </div>
+
+     </div>
+    <!-- over -->
+
+    <!-- start -->
+
+    <div class="dash_bor_tables my-5">
+
+      <div class="dash_bor_table1">
+
+        <div class="dash_bor_split px-4">
+          <h5>Closed Investigation List</h5>
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+
+        <div class="px-4 my-3" style="
+        height: 30rem;
+        overflow-y: scroll;
+    ">
+          <table class="table table-borderless">
+
+            <tr style="
+            position: sticky;
+            top: 0px;
+        ">
+              <th class="py-4">User Name</th>
+              <th class="py-4">Local Admin</th>
+              <th class="py-4">Date Of Approved</th>
+            </tr>
+{% for i in my_client %}
+{% if "empty" not in i.answer %}
+            <tr>  
+              <td class="py-4"><span class="dash_bor_table_img1"><img src="{{i.profile_picture}}"> {{i.name}}</span></td>
+              <td  class="py-4">Environmental Specialist</td>
+              <td class="py-4">18/09/2016</td>
+         
+            </tr>
+            {% endif %}
+
+            {% endfor %}
+            
+            
+          
+           
+
+          </table>
+             <div class="dash_bor_rsp_va my-3" style="height: auto;position: sticky;bottom: 0;border-top: 9px solid rgba(0, 0, 255, 0.1);border-radius: 0 0px;">
+      <a href="#" class="mx-3">View All</a>
+    </div>
+        </div>
+        
+      </div>
+
+      <div class="dash_bor_table2" >
+          
+          
+        <div class="dash_bor_split px-4">
+          <h5>Review From Clients</h5>
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+
+        <div class="px-4 my-3" style="
+        overflow: scroll;
+        height: 30rem;
+        overflow-x: hidden;
+    ">
+          <table class="table table-borderless " >
+
+            <tr style="position: sticky;top: 0;">
+              <th class="py-4"> No</th>
+
+              <th class="py-4">User Id</th>
+              <th class="py-4">Name </th>
+              <th class="py-4">Ratings</th>
+            </tr>
+            {% for i in filtered_clients %}
+
+            <tr>
+              
+              <td  class="py-4">{{forloop.counter}}</td>
+              <td  class="py-4">{{i.uid}}</td>
+              <td class="py-4"><span class="dash_bor_table_img1"><img src="{{i.profile_picture}}"> {{i.name}}</span></td>
+              <td class="py-4"> 
+                {% if i.rating == "5.0" %}
+                <div class="ratings mt-3 mb-3 ms-4">
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star rating-color"></i>
+            </div>
+            {% elif i.rating == "4.0" %}
+                <div class="ratings mt-3 mb-3 ms-4">
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star"></i>
+            </div>
+            {% elif i.rating == "3.0" %}
+                <div class="ratings mt-3 mb-3 ms-4">
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+            </div>
+            {% elif i.rating == "2.0" %}
+                <div class="ratings mt-3 mb-3 ms-4">
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+            </div>
+            {% elif i.rating == "1.0" %}
+                <div class="ratings mt-3 mb-3 ms-4">
+                <i class="fa fa-star rating-color"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+            </div>
+            {% elif i.rating == "0" %}
+                <div class="ratings mt-3 mb-3 ms-4">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+            </div>
+            {% elif i.rating == "empty" %}
+                <div class="ratings mt-3 mb-3 ms-4">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+            </div>
+          {% endif %}
+          </td>
+            </tr>
+            {% endfor %}
+
+  
+   
+
+          </table>
+             <div class="dash_bor_rsp_va my-3" style="
+             height: 11%;
+             position: sticky;
+             bottom: 0px;
+             /* margin-top: 10px; */
+             border-top: 5px solid rgba(0, 0, 255, 0.1);
+             border-top-left-radius: 0;
+             border-top-right-radius: 0;
+         ">
+      <a href="#" class="mx-3">View All</a>
+    </div>
+        </div>
+
+
+      </div>
+      
+    </div>
+    <!-- over -->
+  </div>
+</div>
+{% block javascript %} 
+
+
+<script>
+a = {{ my_client_script|safe }};
+  //closed investigation
+text=0;
+for(i=0;i<a;i++){
+  if(a[i]['answer'].indexOf("empty") == -1){
+    text += a[i]['answer'].split().length;
+  }
+  else{
+    text+=0;
+  }
+
+}   
+document.getElementById("closed").innerHTML=;
+
+
+//pending investigations
+text_a=0;
+for(i=0;ia;i++){
+  if(a[i]['answer'].indexOf("empty") != -1){
+    text_a += a[i]['answer'].split().length;
+  }
+  else{
+    text_a+=0;
+  }
+
+}   
+document.getElementById("pending").innerHTML=text_a;
+
+</script>
+{% endblock %}
+<script src="/media/js/mainn.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Bootstrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" ></script>   
+     <!-- Template Main CSS File --> 
+    <link href="/media/css/pi_subscription.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/media/css/pi_style.css">
+
+    <!--nav bar icon-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.css" />
+
+    
+
+  </head>
+</head>
+<body>
+   <!-- ======= Mobile nav toggle button ======= -->
+   <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+   <!-- ======= Header ======= -->
+   <header id="header">
+     <div class="d-flex flex-column">
+        <img src="/media/img/Logo.png" alt="" class="Logo mt-4 ms-3">
+       <nav id="navbar" class="nav-menu navbar">
+        
+        {% include 'pi_nav.html' %}
+
+       </nav>
+       <!-- .nav-menu -->
+     </div>
+   </header>
+ 
+   <!-- End Header -->
+   <main id="main">
+    {% include 'pi_header.html'%}
+
+     <!-- ======= Breadcrumbs ======= -->
+     <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Client Payment</h2>
+        </div>
+      </div>
+    </section>
+    <!-- End Breadcrumbs -->
+ 
+    <section class="Subscription mt-4">
+     <div class="container">
+       <div class="col-md-12 mt-3 mb-5">
+         <h5><a href="/pi_client_list/{{key.uid}}" style="text-decoration: none;"><span class="text-muted">Client Details ></span></a><span class="text-primary"> Details</span></h5>
+       </div>
+       <div class="col-md-12 mb-5">
+         <h4 >Choose Your Subscription Plan</h4>
+      </div>
+ 
+ 
+      <div class="row my-4">
+       <div  class="sub_sec2">
+         <div class="sub_par2 ">
+           <h4 class="my-3 text-center" style="color:#56CCF2;font-weight:700;">Basic</h4>
+           <h6 class="my-2 text-center" style="color:#6E717A;">(Valid for 1 Month)</h6>
+           <h3 class="mt-3 mb-4 text-center" style="font-weight:700;">₹ 1,500</h3>
+     
+           <div class="row">
+             <div class="sub_pos">
+             <div class="col-9 sub_chi1">
+             <h6 style="color:#6E717A;" class="px-2">Profiles View</h6>
+             <h6 style="color:#6E717A;" class="px-2">Profiles Request</h6>
+             </div>
+             <div class="col-3 sub_chi2">
+               <h6 class="text-end pr-5" style="color:#6E717A;"><span style="color:black;">10</span>(Day)</h6>
+               <h6 class="text-end px-2">20</h6>
+             </div>
+             </div>
+           </div>
+          <a href="/pi_payment_screen/{{key.uid}}"> <button class="sub_btn2">Choose Plan</button></a>
+         </div>
+     
+         <div class="sub_par3">
+           <h4 class="my-3 text-center" style="color:#F2994A;font-weight:700;">Standard</h4>   
+           <h6 class="my-2 text-center" style="color:#6E717A;">(Valid for 3 Months)</h6>   
+           <h3 class="mt-3 mb-4 text-center" style="font-weight:700;">₹ 2,500</h3>  
+           <div class="row">  
+             <div class="sub_pos">                   
+             <div class="col-9 sub_chi1">              
+             <h6 style="color:#6E717A;" >Profiles View</h6>
+             <h6 style="color:#6E717A;" >Profiles Request</h6>
+             </div>   
+             <div class="col-3 sub_chi2">
+               <h6 class="text-end " style="color:#6E717A;"><span style="color:black;">20</span>(Day)</h6>
+               <h6 class="text-end ">40</h6>
+             </div>          
+             </div>
+           </div>
+           <button class="sub_btn3">Choose Plan</button>
+         </div>
+ 
+         <div class="sub_par4">
+           <h4 class="my-3 text-center" style="color:#2F80ED;font-weight:700;">Premium</h4>
+           <h6 class="my-2 text-center" style="color:#6E717A;">(Valid for 6 Months)</h6>
+           <h3 class="mt-3 mb-4 text-center" style="font-weight:700;">₹ 3,500</h3>
+           <div class="row"> 
+              <div class="sub_pos">             
+             <div class="col-9 sub_chi1">             
+             <h6 style="color:#6E717A;" >Profiles View</h6>
+             <h6 style="color:#6E717A;" >Profiles Request</h6>
+             <h6 style="color:#6E717A;">Profiles Highlight</h6>
+             </div>    
+             <div class="col-3 sub_chi2">
+               <h6 class="text-end " style="color:#6E717A;"><span style="color:black;">30</span>(Day)</h6>
+               <h6 class="text-end " >60</h6>
+               <h6 class="text-end " style="color:#27AE60;">Yes</h6>
+             </div>           
+             </div>                       
+           </div>    
+           <button class="sub_btn4 ">Choose Plan</button>          
+         </div>
+     
+         <div class="sub_par5 ">    
+           <h4 class="my-3 text-center" style="color:#7B61FF;font-weight:700;">Special</h4>    
+           <h6 class="my-2 text-center" style="color:#6E717A;">(Valid for 1 Year)</h6>    
+           <h3 class="mt-3 mb-4 text-center" style="font-weight:700;">₹ 4,500</h3>    
+      <div class="row">
+                      
+              <div class="sub_pos">             
+             <div class="col-9 sub_chi1">              
+             <h6 style="color:#6E717A;" >Profiles View</h6>
+             <h6 style="color:#6E717A;" >Profiles Request</h6>
+             <h6 style="color:#6E717A;">Profiles Highlight</h6>
+             </div>   
+             <div class="col-3 sub_chi2">
+               <h6 class="text-end "  style="color:#6E717A;"><span style="color:black;">50</span>(Day)</h6>
+               <h6 class="text-end " >100</h6>
+               <h6 class="text-end " style="color:#27AE60;">Yes</h6>
+             </div>            
+             </div>  
+                          
+           </div>  
+         
+           <button class="sub_btn5">Choose Plan</button>         
+        </div> 
+             
+       </div>     
+     </div>
+     
+     
+ 
+ 
+     </div>
+ </section>
+ 
+    <!-- End Breadcrumbs -->
+    
+ 
+   </main>
+   <!-- End #main -->
+   
+   <!-- ======= Footer ======= -->
+   <footer id="footer">
+     <div class="container">
+       <div class="copyright">
+         &copy; Copyright <strong><span>Mariyoo</span></strong>
+       </div>
+       <div class="credits">
+         All Right Reserved
+       </div>
+     </div>
+   </footer>
+   <!-- End  Footer -->
+ 
+   <!-- Template Main JS File -->
+   <script src="/media/js/main.js"></script>
+</body>
+</html>
+
+
+

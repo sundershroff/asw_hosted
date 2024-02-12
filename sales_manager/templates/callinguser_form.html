@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Sales-Profile</title>
+	  <link rel="stylesheet" type="text/css" href="{% static 'css/sales_manager_sales_rest.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sales_manager_style.css' %}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- over -->
+ <script src="js/jquery.js"></script>
+ <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+
+
+</head>
+<body style=" background-color:#F4F2FF;">
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+  
+   
+
+<div class="locl_adm_sec1 px-4 my-4 py-5">
+  <img src="{% static 'images/Logo_2.png'%}">
+</div>
+  <div class="dash_bor_main1">
+
+    <div class="locl_adm_sec1 px-4 my-4">
+
+     <h4 style="color:#3247CE"><span style="color: #6E717A"></span>Complete Profile</h4>
+    
+    </div>
+    <div class="locl_adm_sec2 px-4 my-2">
+        <div class="rowbg1">
+            
+              
+                <form method="POST" enctype="multipart/form-data" id="myform">
+                  {% csrf_token %}
+         <div class="row py-3">
+                    <div class="col-lg-4 col-md-4">
+                     <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Full Name</b><sup style="color: #9B51E0">*</sup></label>
+                     <input type="text" value="{{key.full_name}}" name="full_name" class="form-control" placeholder="Enter" required>
+                     </div>
+                     <div class="col-lg-4 col-md-4">
+                     <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Country</b><sup style="color: #9B51E0">*</sup></label>
+                     <select id="countrytwo" class="form-select" name="personal_country" onchange="fun2.call(this,event)">
+                        <option value="default">Select</option>
+                        {% for j in all %}
+                    <option value="{{j.name}}">{{j.name}}</option>
+                    {% endfor %}
+                      </select>
+                      </div>
+                     <div class="col-lg-4 col-md-4">
+                     <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>City</b><sup style="color: #9B51E0">*</sup></label>
+                     <select id="res3" class="form-select " name="personal_city">
+                        <option value="default">Select</option>
+                        <script>
+                          stat = {{ states|safe }};
+                      ttt = stat[0].states;
+                      for (i=0;i<ttt.length;i++){
+                         tt = ttt[i].name;
+                         document.write("<option value="tt">"+tt+"</option>");
+                      }
+                    </script>
+                      </select>
+                    </div>
+                </div>
+                <div class="py-3">
+                <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Address</b><sup style="color: #9B51E0">*</sup></label>
+                     <input type="text" name="personal_address" class="form-control" placeholder="Enter" required>
+                     </div>
+                     {% comment %} <div>
+                     <label for="exampleFormControlInput1" class="form-label editpro_formhed py-3"><b>ID Card</b><sup style="color: #9B51E0">*</sup></label>
+         <div class="editpro_id">
+           <input type="file" name="id_card" id="" style=" opacity: 0;
+           position: absolute;">
+           <!-- display: flex;
+          position: absolute;
+          opacity: 0;
+          /* visibility: collapse; */
+          max-width: 100%;
+          height: 166px;
+      "> -->
+                   <center><div class="editpro_id_inner">
+                    
+                    <i class='fas fa-file-alt' style='font-size:40px;color: #3247CE'></i>
+                   </div></center>
+                   <p style="color:#6E717A">Drag Or Click here to Upload Yout ID</p>
+                   <!-- <input type="file" name="id_card" style="
+                   opacity: 0;
+                   position: absolute;"> -->
+                   
+         </div> {% endcomment %}
+                    {% comment %} </div> {% endcomment %}
+                    <div class="row py-3">
+                        <div class="col-lg-5 col-md-5">
+                            <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Hiring Manager</b><sup style="color: #9B51E0">*</sup></label>
+                            <select class="form-select " name="hiring_manager">
+                               <option value="default">Select</option>
+                               {% for i in hiring_manager %}
+                               <option value="{{i.uid}}">{{i.first_name}} {{i.last_name}}</option>
+                               {% endfor %}
+                             </select>
+                        </div>
+                        <div class="col-lg-7 col-md-7"></div>
+                        
+                    </div>
+                    <div class="row py-3">
+                        <div class="form-check">
+                            <div class="col-lg-5 col-md-5">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                            <label class="form-check-label" for="flexCheckChecked">
+                              I agree to the Terms of Service and Privacy Policy
+                            </label>
+                          </div>
+                          
+                    </div>
+                    <div class="prof_personal_savefilt1">
+                      <button class="prof_personal_filbtn1 my-3" type="reset">Cancel</button>
+                      <button class="prof_personal_filbtn2 my-3" data-bs-toggle="modal" data-bs-target="#exampleModal" >Update</button>
+                    </div>
+                      <div class="col-lg-7 col-md-7"></div>
+                    </div>
+
+              </form>
+
+            </div>
+            
+        
+             </div>      
+      </div>
+    <!-- over -->
+<!-- start -->
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+  <!-- over -->
+  <script>
+    // just for the demos, avoids form submit
+    jQuery.validator.setDefaults({
+      debug: true,
+      success: "valid"
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+          return arg !== value;
+        }, "Select Any One");
+    $( "#myform" ).validate({
+      rules: {
+        full_name: {
+          required: true
+        },
+        personal_country: {
+          valueNotEquals: "default"
+        },
+
+        personal_address: {
+          required: true
+        },
+        hiring_manager: {
+          valueNotEquals: "default"
+        },
+        id_card: {
+          required: true
+        }
+
+      },
+      submitHandler: function (form) {
+                console.log('test');
+                form.submit();
+            }
+    });
+    </script>
+  <script>
+    $(document).ready(function () {
+        $("#success").click(function(){
+            setTimeout(function() {
+                $('#exampleModal').modal('toggle');
+            }, 2000);
+        });
+    });
+</script>
+<style>
+label.valid {
+background: url(images/checked.gif) no-repeat;
+display: none;
+width: 16px;
+height: 16px;
+}
+</style>
+
+
+ <script src="{% static 'js/main.js'%}"></script>
+
+
+</body>
+</html>
+
+<!--   -->

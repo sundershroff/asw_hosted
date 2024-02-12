@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="{% static 'css/hand_list.css' %}">
+
+  <link href=" {% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+
+	<title>Local Admin Dashboard</title>
+	  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <!-- <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- over -->
+  <!-- jquery validation -->
+  <script src="js/jquery.js"></script>
+  <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+ <style>
+  a:link {
+    text-decoration: none;
+  }
+  </style>
+</head>
+<body style=" background-color:#F4F2FF;">
+   
+ <div class="dash_bor_sec1">
+
+  <div class="dash_bor_sdbr" id="dashsidebar">
+
+      <header id="header">
+    <div class="d-flex flex-column">
+       <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+        {% include 'sm_nav.html' %}
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+    <h5 style="position:absolute;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+  </header>
+  
+  </div>
+
+  <div class="dash_bor_main1">
+    {% include 'sm_header.html' %}
+
+    <!-- start1-->
+
+    <!-- <div class="dash_par1" style="background:white;">
+
+          <i class="fa-regular fa-bell"></i>
+
+        <div class="dash_brd_img1">
+         <img src="{% static 'images/girl1.png'%}">
+         <i class="fa-solid fa-caret-down"></i>
+         </div>
+
+    </div>
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i> -->
+    <!-- over -->
+
+    <!-- start -->
+    <div class="locl_adm_sec1 px-4 my-4">
+
+      <div>
+        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{all_client_data|length}}</span> Hand in the list</h3>
+      </div>
+
+      <div class="locl_adm_form">
+        <form>
+        
+        <div class="locl_adm_align">
+          <input type="text" autofocus>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        </form>
+        <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
+
+      {% if "Add Clients" in access %}
+        <button data-bs-toggle="modal" data-bs-target="#AddnewClient">Add New <i class="fa-solid fa-circle-plus"></i></button>
+      {%else%}
+      <!-- <button >Add New <i class="fa-solid fa-circle-plus"></i></button> -->
+      {%endif%}
+  {% if access == "" %}
+    <button data-bs-toggle="modal" data-bs-target="#AddnewClient">Add New <i class="fa-solid fa-circle-plus"></i></button>
+  {%endif%}
+
+      </div>
+      
+    </div>
+    <!-- over -->
+<!-- start -->
+<div class="locl_adm_sec2 px-4 my-5">
+  <div style="background-color:#fff;margin-top:15px;height:60px;padding:17px;">
+    <button style="color:#7B61Ff;background-color:#ede9ff;border-radius:6px;border:none"><b>Clients</b> </button> <a href="/sales_manager/sm_ads_list/{{key.uid}}" style="
+    text-decoration: none;
+"><span style="color: #6E717A;" class="p-3">Activities</span></a><button style="color:#3a1268;background-color:#ede9ff;border-radius:6px;border:none"><a href="/sales_manager/ad_pro_ads/{{key.uid}}"><b>Adds</b></a> </button> 
+    </div>
+</div>
+ <!-- over -->
+    <!-- start -->
+    <div class="locl_adm_sec2 my-5">
+
+      <div class="locl_adm_table px-3">
+
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>ID</th>
+              <th>Client Name</th>
+              <th>Type</th>
+              <th>Email ID</th>
+              <th>Phone Number</th>
+              <th>Location</th>
+              <th>Actions</th>
+              
+            </tr>
+          </thead>
+           <tbody>
+            
+            {% for i in all_client_data %}
+            <tr>
+             <td data-label = "No">{{forloop.counter}}</td>
+             <td data-label = "User ID">{{i.uid}}</td>
+             <td data-label = "Name"><img src="{{i.picture}}">{{i.client_name}}</td>
+             <td>{{i.client_type}}</td>
+             <td data-label = "Email ID">{{i.email}}</td>
+             <td data-label = "Phone Number">(+91){{i.phone_number}}</td>
+             <td data-label = "Location">{{i.client_location}}</td>
+             
+             <td data-label ="Actions"> <form action="" method="POST" enctype="multipart/form-data"> {%csrf_token%} <a href="/sales_manager/sm_client_details/{{i.uid}}"> <button type="submit" class="btn btn-outline-light" name="view_client" value="{{i.uid}}"><img src="{% static 'images/More.png'%}"></button></a><span class="pe-3"></span></form>
+              
+              <form action="" method="POST" enctype="multipart/form-data">
+              {%csrf_token%}
+              {% if i.active_status == False %}
+              <td><button  data-bs-toggle="modal" data-bs-target="#activateModal" style="color: #7B61FF;border-color:#7B61FF;border-radius:5px;border-width:1px;background-color: #FFF;" name="active" value="{{i.email}}"> Activate </button></form></td>
+              {% elif i.active_status == True %}
+              <td data-label = "Actions"> <i class="fa-solid fa-circle pe-2" style="color:green;font-size:10px"></i><span style="color: #000;"> <b>Activate</b></span> </td>
+
+              {%endif%}
+
+            </td>
+                           
+            </tr>
+            {%endfor%}
+
+            </tr>
+
+            <!-- <tr>
+
+             <td data-label = "No">1</td>
+             <td data-label = "User ID">A0B1C036</td>
+             <td data-label = "Name"><img src="{% static 'images/girl6.png'%}"> Noah</td>
+             <td>Local Admin</td>
+             <td data-label = "Email ID">farber@sbcglobal.net</td>
+             <td data-label = "Phone Number">(+33)6 55 52 72 55</td>
+             <td data-label = "Location">Iraq</td>
+             <td data-label = "Actions"><img src="{% static 'images/More.png'%}" class="mx-2"> <i class="fa-solid fa-circle pe-2" style="color:green;font-size:10px"></i><span style="color: #000;"> <b>Activate</b></span> </td>
+
+              
+            </tr> -->
+
+
+          </tbody>
+        </table>
+
+      </div>
+      
+    </div>
+    <!-- over -->
+
+  </div>
+   
+ </div>
+ <!-- modal -->
+ <div class="modal fade modal-md" id="filter_modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header prof_personal_filt">
+          <h4 class="modal-title" id="exampleModalLabel" style="font-weight:700;" >Filter</h4>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times-circle" style="color:black;"></i></button>
+        </div>
+        <div class="modal-body prof_personal_filt2">
+           
+           <form method="POST" action="" enctype="multipart/form-data">
+            {%csrf_token%}
+          
+             <div class="my-3">
+              <!-- <label for="exampleFormControlInput1" class="form-label">ID</label> -->
+              <label for="id_select" class="form-label">ID</label>
+        <select class="form-select py-3" name="uid" id="id_select">
+            <option value="default">Select</option>
+            {% for i in all_client_data %}
+                <option value="{{ i.uid }}">{{ i.uid }}</option>
+            {% endfor %}
+        </select>
+             </div>
+            
+             <div class="my-4">
+              <label for="client_name" class="form-label">Name</label>
+              <input type="text" name="client_name" class="form-control" id="client_name">
+          </div>
+   
+             <div class="my-4">
+              <label for="email" class="form-label">Email ID</label>
+               <input type="text" name="email" class="form-control" id="email">
+             </div>
+  
+                    <div class="my-4">
+              <label for="phone_number" class="form-label">Phone Number</label>
+               <input type="text" name="phone_number" class="form-control" id="phone_number">
+             </div>
+  
+  
+                    <div class="my-4">
+              <label for="client_location" class="form-label">Locations</label>
+              <input type="text" name="client_location" class="form-control" id="client_location">
+
+             </div>
+  
+                    <div class="my-4">
+              <label for="status" class="form-label">Status</label>
+               <select class="form-select py-3" name="active_status" id="status">
+                <option value="">Select</option>
+                <option value="True">Activate</option>
+                <option value="False">Rejected</option>
+              </select>
+             </div>
+
+  
+             <div class="prof_personal_savefilt1 text-center mb-5">
+               <button class="prof_personal_filbtn1 my-3" type="reset">Reset</button>
+               <button class="prof_personal_filbtn2 my-3" type="submit">Submit</button>
+             </div>
+             <div class="py-1">
+        
+             </div>  
+  
+           </form>
+
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade modal-md px-4" id="AddnewClient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header prof_personal_filt">
+          <h4 class="modal-title" id="exampleModalLabel" style="font-weight:700;" >Add New Clients</h4>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times-circle" style="color:black;"></i></button>
+        </div>
+        <div class="modal-body prof_personal_filt2">
+           
+           <form method="POST" action="" enctype="multipart/form-data" id="myform">
+            {%csrf_token%}
+         
+            <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Client Type <sup style="color: #5f51e0">*</sup></label>
+               <select class="form-select py-3" name="client_type" required>
+                <option {{key.client_type}}>{{key.client_type}}</option>
+                <option value="Profile Manager">Profile Manager</option>
+                <option value="AD Provider">AD Provider</option>
+                <option value="AD Distributor">AD Distributor</option>
+              </select>
+             </div>
+              <span><b>Client Details</b></span>
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Name <sup style="color: #5f51e0">*</sup></label>
+                <input type="text" name="client_name" class="form-control" required>
+                <input type="file" name="picture" class="form-control" required>
+
+             </div>
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Location <sup style="color: #5f51e0">*</sup></label>
+               <select class="form-select py-3" name="client_location" required>
+                <option {{key.client_location}}>{{key.client_location}}</option>
+                <option value="cochin">cochin</option>
+                <option value="kollam">kollam</option>
+                <option value="Alappuzha">Alappuzha</option>
+                <option value="Calicut">Calicut</option>
+                <option value="Wayanad">Wayanad</option>
+                <option value="Thrissur">Thrissur</option>
+                <option value="Palakkad">Palakkad</option>
+                <option value="Trivandrum">Trivandrum</option>
+                <option value="Kottayam">Kottayam</option>
+              </select>
+             </div>
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Category <sup style="color: #5f51e0">*</sup></label>
+               <select class="form-select py-3" name="category" required>
+                <option {{key.category}}>{{key.category}}</option>
+                <option value="hotel">hotel</option>
+                <option value="resort">resort</option>
+                
+              </select>
+             </div>
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Google Map <sup style="color: #5f51e0">*</sup></label>
+               <input type="text" name="google_map" class="form-control" required>
+             </div>
+  
+                    <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Phone Number <sup style="color: #5f51e0">*</sup></label>
+               <input type="text" name="phone_number" class="form-control" required>
+             </div>
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Email ID <sup style="color: #5f51e0">*</sup></label>
+               <input type="email" name="email" class="form-control" required>
+             </div>
+        
+
+  
+             <div class="prof_personal_savefilt1 text-center mb-5">
+               <button class="prof_personal_filbtn1 my-3" type="reset">Cancel</button>
+               <button class="prof_personal_filbtn2 my-3" type="submit">Submit</button>
+             </div>
+             <div class="py-1">
+        
+             </div>  
+  
+           </form>
+
+        </div>
+      
+      </div>
+    </div>
+</div>
+<!-- <div class="modal fade modal-md px-4" id="activateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <span><b>Activate Client</b></span>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body locl_adm_modal1">
+
+
+     
+      <p>OTP will sent to your email ID / Phone Number <br><br>
+        Please enter the One-Time Password to verify your account</p><br>
+<form action="" method="POST" >
+  {%csrf_token%}
+     <center><div class="activateModal">
+      <div id="otp" class="inputs d-flex flex-row justify-content-center mt-4 mb-4 w-50 ms-auto me-auto user_otp"> 
+        <input class="m-2 me-0 text-center form-control rounded" name="otp1" placeholder="--" type="text" id="user_otp" maxlength="1" /> 
+        <input class="m-2 me-0 text-center form-control rounded" name="otp2" placeholder="--" type="text" id="user_otp" maxlength="1" /> 
+        <input class="m-2 me-0 text-center form-control rounded" name="otp3" placeholder="--" type="text" id="user_otp" maxlength="1" /> 
+        <input class="m-2 me-0 text-center form-control rounded" name="otp4" placeholder="--" type="text" id="user_otp" maxlength="1" /> 
+        <input class="m-2 me-0 text-center form-control rounded" name="otp5" placeholder="--" type="text" id="user_otp" maxlength="1" /> 
+        <input class="m-2 me-0 text-center form-control rounded" name="otp6" placeholder="--" type="text" id="user_otp" maxlength="1" /> 
+      </div>
+
+      </div></center><br>
+      <a href="/sales_manager/sm_hand_list/{{key.uid}}">Resend one-time OTP</a>
+      </div>
+      <div class="modal-footer border-0" style="background-color:#f5f5f5">
+       <div class="prof_personal_activate ">
+        <button class="prof_personal_filbtn1 my-3" type="cancel">Cancel</button>
+        <button class="prof_personal_filbtn2 my-3" type="submit">Validate</button>
+       </div>
+      </div>
+  </form>
+    </div>
+  </div>
+</div> -->
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    function OTPInput() {
+      const inputs = document.querySelectorAll('#otp > *[id]');
+      for (let i = 0; i < inputs.length; i++) 
+      { 
+        inputs[i].addEventListener('keydown', function(event) 
+        { 
+          if (event.key==="Backspace" ) 
+          { 
+            inputs[i].value='' ; 
+            if (i !==0) inputs[i - 1].focus(); 
+          } 
+          else { 
+            if (i===inputs.length - 1 && inputs[i].value !=='' ) 
+            { 
+              return true; 
+            } 
+            else if (event.keyCode> 47 && event.keyCode < 58) 
+            { 
+              inputs[i].value=event.key; 
+              if (i !==inputs.length - 1) inputs[i + 1].focus(); 
+              event.preventDefault(); 
+            } 
+            else if (event.keyCode> 64 && event.keyCode < 91) 
+            { 
+              inputs[i].value=String.fromCharCode(event.keyCode); 
+              if (i !==inputs.length - 1) inputs[i + 1].focus(); 
+              event.preventDefault(); 
+            } 
+          } 
+        }); 
+      } 
+    } 
+    OTPInput();
+  
+      
+  });
+  </script>
+  <!-- over -->
+  <script>
+    // just for the demos, avoids form submit
+    jQuery.validator.setDefaults({
+      debug: true,
+      success: "valid"
+    });
+    $.validator.addMethod("valueNotEquals", function(value, element, arg){
+          return arg !== value;
+        }, "Select Any One");
+    $( "#myform" ).validate({
+      rules: {
+        client_type: {
+          valueNotEquals: "default"
+        },
+        client_name: {
+          required: true
+        },
+        picture: {
+          required: true
+        },
+        client_location: {
+          valueNotEquals: "default"
+        },
+        category: {
+          valueNotEquals: "default"
+        },
+        google_map: {
+          required: true
+        },
+        phone_number: {
+          required: true,
+          minlength: 10,
+          maxlength: 10
+        },
+        email: {
+          required: true,
+          email: true
+        }
+
+      },
+      submitHandler: function (form) {
+                console.log('test');
+                form.submit();
+            }
+    });
+    </script>
+  <script>
+    $(document).ready(function () {
+        $("#success").click(function(){
+            setTimeout(function() {
+                $('#exampleModal').modal('toggle');
+            }, 2000);
+        });
+    });
+</script>
+<style>
+label.valid {
+background: url(images/checked.gif) no-repeat;
+display: none;
+width: 16px;
+height: 16px;
+}
+</style>
+
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+ 
+  <script src="{% static 'js/main.js'%}"></script>
+
+
+</body>
+</html>
+
+<!--   -->

@@ -1,0 +1,65 @@
+{% load static %}
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{% static 'images/Logo.png'%}" class="img-fluid">
+                    </div>
+                </div>
+                
+                <p class="keep text-white w-68 line-height-25 mt-4">Marriyo is One Of The Prominent Matrimonial Sites in India. We Understand The Importance 
+                    Of Marriage In Our Indian Society And Hence Blend Technology With Tradition Efficiency For A
+                    Secure Matchmaking Experience To All Our Members.
+                </p>
+                <ul class="nav mt-5 footer-icon mb-4">
+                    <li class="nav-item me-3">
+                      <a class="nav-link1 text-white" href="#"><i class="bi bi-facebook"></i></a>
+                    </li>
+                    <li class="nav-item me-3">
+                      <a class="nav-link1 text-white" href="#"><i class="bi bi-twitter"></i></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link1 text-white" href="#"><i class="bi bi-linkedin"></i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 text-end">
+                <h5 class="text-white ">Quick Links</h5>
+                <ul class="footer_links">
+                    <li class="line-height-25"><a href="#" class="text-white ">Home</a></li>
+                    <li class="line-height-25"><a href="#" class="text-white">About Us</a></li>
+                    <li class="line-height-25"><a href="#" class="text-white">Login</a></li>
+                    <li class="line-height-25"><a href="#" class="text-white">Register</a></li>
+                    <li class="line-height-25"><a href="#" class="text-white">Sitemap</a></li>
+                    <li class="line-height-25"><a href="#" class="text-white">Contact Us</a></li>
+                    <li class="line-height-25"><a href="#" class="text-white">Blog</a></li>
+                    <li class="line-height-25"><a href="#" class="text-white">Support</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p class="keep text-white keep_text">© <span id="year"></span> Marriyo. All Rights Reserved.</p>
+            </div>
+            <div class="col-md-6">
+                <ul class="footer_links nav footer-links-terms float-right">
+                    <li class="line-height-25"><a href="#" class="text-white ">Terms And Conditions</a></li>
+                    <li class="line-height-25"><a href="#" class="text-white">Privacy Policy</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script>
+    var dateobj = new Date();
+    // Year from the above object 
+    // is being fetched using getFullYear() 
+    var dateObject = dateobj.getFullYear();
+    document.getElementById("year").innerHTML=dateObject;
+</script>

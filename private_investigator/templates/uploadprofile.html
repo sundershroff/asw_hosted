@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <!-- Bootstrap link -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" >
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" ></script>   
+  <!--nav bar icon-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.css" />
+  <!-- css style -->
+  <link rel="stylesheet" href="/media/css/upload_profile.css">
+  <link rel="stylesheet" type="text/css" href="/media/css/pi_upload_style.css">
+
+  
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+  <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/upload_acc.css' %}">
+
+  </head>
+</head>
+<body>
+ <!-- ======= Mobile nav toggle button ======= -->
+ <!-- <i class="bi bi-list mobile-nav-toggle d-xl-none"></i> -->
+ <!-- ======= Header ======= -->
+ <!-- <header id="header">
+   <div class="d-flex flex-column">
+      <img src="/media/images/Logo.png" alt="" class="Logo mt-4 ms-3">
+     <nav id="navbar" class="nav-menu navbar">
+      
+      {% include 'nav.html' %}
+
+     </nav>
+     .nav-menu 
+   </div>
+ </header> -->
+
+ <!-- End Header -->
+ 
+ <main id="main">
+ 
+   <!-- ======= Breadcrumbs ======= -->
+   <!-- <section id="breadcrumbs" class="breadcrumbs">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Client details</h2>
+      </div>
+    </div>
+  </section> -->
+  <!-- End Breadcrumbs -->
+
+  <section class="Clients">
+    
+    <div class="container Clients">
+      <div class="col-lg-12 py-5">
+    
+        <div class="fill_det_img1 py-5">
+          <img src="/media/images/Logo_2.png" style="
+          width: 147px;
+      ">
+        </div>
+        
+      </div>
+      <!-- ... (rest of your "Clients" section content) ... -->
+     
+      <div class="personaldetails ">
+        <h1 class="details mt-3 mb-3 " style="
+        font-weight: 700;
+        color: darkblue;font-size: 34px;
+    "> Complete Profile</h1>
+      </div>
+      <div class="locl_adm_sec1 my-2">
+        <h6 style="font-size: 14px;">Enter Your Basic Details For The Better Service!</h6>
+  
+      </div>
+   
+      <div class="container subcontainer ">
+        <form method="POST" enctype="multipart/form-data" id="myform">
+          {% csrf_token %}
+       <div class="col-md-12">
+        <div class="row ">
+          
+          
+          <div class="col-md-4 mt-4">
+            <label class="form-label" for="typeText">Office Name</label><span class="textstar">*</span>
+                <input type="text" name="office_name" id="typeText" class="form-control" placeholder="Office Name"> 
+        </div>
+        <div class="col-md-4 mt-4">
+          <label class="form-label" for="typeText">Country</label><span class="textstar">*</span>
+          <select id="countrytwo" class="form-select" name="office_country" onchange="fun2.call(this,event)">
+            <option value="default">Select</option>
+            {% for j in all %}
+        <option value="{{j.name}}">{{j.name}}</option>
+        {% endfor %}
+          </select>
+
+      </div>
+      <div class="col-md-4 mt-4">
+        <label class="form-label" for="typeText">City</label><span class="textstar">*</span>
+        <select id="res3" class="form-select " name="office_city">
+          <option value="default">Select</option>
+          <script>
+            stat = {{ states|safe }};
+        ttt = stat[0].states;
+        for (i=0;i<ttt.length;i++){
+           tt = ttt[i].name;
+           document.write("<option value="tt">"+tt+"</option>");
+        }
+      </script>
+        </select>
+    </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <div class="mb-3">
+              <label for="" class="form-label">Address*</label>
+              <textarea class="form-control" name="office_address" id="Address" rows="1" placeholder="Address"></textarea>
+            </div>
+          </div>
+        </div> 
+
+     
+         <!-- Contact Personal Details -->
+         
+         <div class="personaldetails ">
+          <!-- <h5 class="details mt-3 mb-3 ">Contact Personal Details</h5> -->
+        </div>
+         <div class="row">
+           <div class=" col-md-12">
+             <div class="row">
+             <div class="col-md-6 mt-4">
+               <label class="form-label" for="typeText">First Name</label><span class="textstar">*</span>
+                   <input type="text" id="" name="first_name" class="form-control" placeholder="First Name"> 
+           </div>
+           <div class="col-md-6 mt-4">
+             <label class="form-label" for="typeText">Last Name</label><span class="textstar">*</span>
+                 <input type="text" id="" name="last_name" class="form-control" placeholder="Last Name"> 
+         </div> 
+           </div>
+           <div class="row">
+
+             <div class="col-md-6 mt-4">
+               <label class="form-label" for="typeText">Country</label><span class="textstar">*</span>
+               <select class="form-select text-muted" id="countryone" name="personal_country" aria-label="Default select example"  onchange="fun1.call(this,event)">
+                <option value="default">Select</option>
+                {% for j in all %}
+            <option value="{{j.name}}">{{j.name}}</option>
+            {% endfor %}
+               </select>
+           </div>
+           <div class="col-md-6 mt-4">
+            <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>City</b><sup style="color: #9B51E0">*</sup></label>
+            <select id="res2" class="form-select " name="personal_city">
+               <option value="default">Select</option>
+               <script>
+                 stat = {{ states|safe }};
+             ttt = stat[0].states;
+             for (i=0;i<ttt.length;i++){
+                tt = ttt[i].name;
+                document.write("<option value="tt">"+tt+"</option>");
+             }
+           </script>
+             </select>
+         </div>
+         <div class="col-md-12">
+           <div class="mb-3 mt-3">
+             <label for="" class="form-label">Address*</label>
+             <textarea class="form-control" name="personal_address" id="" rows="1" placeholder="Address"></textarea>
+           </div>
+         </div>
+         <div class="col-md-6 ">
+          <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Hiring Manager</b><sup style="color: #9B51E0">*</sup></label>
+          <select class="form-select " name="hiring_manager">
+             <option value="default">Select</option>
+             {% for i in hiring_manager %}
+             <option value="{{i.uid}}">{{i.first_name}} {{i.last_name}}</option>
+             {% endfor %}
+           </select>
+       </div>
+
+     
+         
+           </div>
+
+           
+
+           
+         </div>
+         <!-- <div class="col-md-4  mt-3  mb-2">
+           <div class="profileid_page_sec1 "> 
+               <label class="idcard">ID Card<span  class="imgcard">*</span></label>
+               <div class="file-drop-area">
+                   <img src="/media/images/proid_img1.png" style="
+                   margin-top: 53px;
+               " alt="">
+                   <i class="bi bi-file-earmark-text mmm pt-3 pb-3 pe-3 ps-3"></i>
+                   <p class="file-message ">Drag Or Click Here To Upload Your ID</p>
+                   <input class="file-input" type="file" name="id_card" >
+               </div>
+           </div>
+      </div> -->
+      <div class="col-md-12 mt-2">
+        <label for="exampleFormControlTextarea3" class="form-label">Tagline</label><span class="textstar">*</span>
+        <textarea name="tagline" class="form-control" id="Textarea3" rows="3" ></textarea>
+    </div>
+     </div>
+     <h4 class="my-4" style="color:#7B61FF;">Qualifications</h4>
+     <h3 class="my-4">Education Details</h3>
+     <div class="row">
+       <div class="col-lg-12" id="addeducationdetail">
+         <div class="row">
+
+           <div class="col-lg-6 my-3">
+             <label class="form-label">Level of Education<span>*</span></label>
+             <input type="text" name="level_education" class="form-control" placeholder="Level of Education">
+           </div>
+
+            <div class="col-lg-6 my-3">
+             <label class="form-label">Field Of Study<span>*</span></label>
+             <input type="text" name="field_study" class="form-control" placeholder="Field Of Study">
+           </div>
+         </div>
+       </div>
+           <div class="local_admin_edi_subbtn my-4">
+             <button type="button" id="addeducation" data-bs-toggle="modal" data-bs-target="" style="background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);
+             color: white;border: 2px solid white;"> Add More</button>
+           </div>
+        </div>
+
+         <h3 class="my-4">Work Details</h3>
+     <div class="row">
+       <div class="col-lg-12">
+         <div class="row">
+
+           <div class="col-lg-6 my-3">
+             <label class="form-label">Job Title<span>*</span></label>
+             <input type="text" name="work_job_title" class="form-control" placeholder="Job Title">
+           </div>
+
+            <div class="col-lg-6 my-3">
+             <label class="form-label">Company Name<span>*</span></label>
+             <input type="text" name="work_company_name" class="form-control" placeholder="Company Name">
+           </div>
+           <div class="row">
+             <div class="col-lg-6 my-3">
+               <label class="form-label">Job Location<span>*</span></label>
+               <input type="text" name="work_job_location" class="form-control" placeholder="Job Title">
+             </div>
+           </div>
+         </div></div></div>
+
+         <h3 class="my-4">Experience</h3>
+         <div class="row">
+           <div class="col-lg-12">
+             <div class="row">
+
+               <div class="col-lg-6 my-3">
+                 <label class="form-label">Job Title<span>*</span></label>
+                 <input type="text" name="ex_job_title" class="form-control" placeholder="Job Title">
+               </div>
+
+                <div class="col-lg-6 my-3">
+                 <label class="form-label">Company Name<span>*</span></label>
+                 <input type="text" name="ex_company_name" class="form-control" placeholder="Company Name">
+               </div>
+             </div>
+             <div class="row">
+
+               <div class="col-lg-6 my-3">
+                 <label class="form-label">Year Of Experience<span>*</span></label>
+                 <input type="text" name="year_experience" class="form-control" placeholder="Year Of Experience">
+               </div>
+               <div class="col-lg-6 my-3">
+                 <label class="form-label">Location<span>*</span></label>
+                 <input type="text" name="ex_location" class="form-control" placeholder="Location">
+               </div>
+             </div>
+           </div></div>
+           <h3 class="my-4">Document Upload</h3>
+           <div class="row">
+             <div class="col-lg-12" id="">
+               <div class="row">
+ 
+                 <div class="col-lg-6 my-3">
+                   <label class="form-label">Degree Certificate<span>*</span></label>
+                   <div class="local_admin_drag_area">
+            
+                     <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                      <header>Drag or click here to Upload Certificate </header>
+
+                      <input type="file" name="degree_cer" style="
+                      opacity: 0;
+                      position: absolute;">
+                
+
+                  </div>                      </div>
+ 
+                  <div class="col-lg-6 my-3">
+                   <label class="form-label">Experience Certificate<span>*</span></label>
+                   <div class="local_admin_drag_area">
+            
+                     <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                      <header>Drag or click here to Upload your Certificate </header>
+
+                      <input type="file" name="ex_cer" style="
+                      opacity: 0;
+                      position: absolute;">
+                
+
+                  </div>                      </div>
+               </div>
+             </div>
+           </div>      
+             <div class="row">
+               <label class="form-label">Type<span>*</span></label>
+               <div class="col-lg-6 my-3">
+                <select name="work_type"  class="form-control" id="for_what" required="Select any one">
+                 <option value="">Select Any One</option>
+                 <option value="Buisness" data-attribute="1">BUISNESS</option>
+                 <option value="Personal" data-attribute="2">PERSONAL</option>
+                </select>
+               </div>
+             </div>
+             <div class="row" id="buisness_1">
+               <div class="col-lg-12" id="">
+                 <div class="row">
+   
+                   <div class="col-lg-6 my-3">
+                     <label class="form-label">GST Number<span>*</span></label>
+                     <input type="text" name="gst_number" class="form-control" placeholder="GST Number">
+                   </div>
+                 </div>
+                 <div class="row">
+                    <div class="col-lg-6 my-3">
+                     <label class="form-label">GST Registered Certificate<span>*</span></label>
+                     <div class="local_admin_drag_area">
+              
+                       <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                        <header>Drag or click here to Upload your Certificate </header>
+  
+                        <input type="file" name="gst_certificate" style="
+                        opacity: 0;
+                        position: absolute;">
+                  
+  
+                    </div>                      </div>
+                 </div>
+                 <div class="row">
+   
+                   <div class="col-lg-6 my-3">
+                     <label class="form-label">Company Pan Number<span>*</span></label>
+                     <input type="text" name="company_pan_no" class="form-control" placeholder="CompanyPan Number">
+                   </div>
+                 </div>
+                 <div class="row">
+   
+                   <div class="col-lg-6 my-3">
+                     <label class="form-label">ARN Number<span>*</span></label>
+                     <input type="text" name="arn_no" class="form-control" placeholder="ARN Number">
+                   </div>
+                 </div>
+                 <div class="row">
+                   <div class="col-lg-6 my-3">
+                    <label class="form-label">PAN Card<span>*</span></label>
+                    <div class="local_admin_drag_area">
+             
+                      <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                       <header>Drag or click here to Upload your Certificate </header>
+ 
+                       <input type="file" name="pan_card" style="
+                       opacity: 0;
+                       position: absolute;">
+                 
+ 
+                   </div>                      </div>
+                </div>
+               </div>
+             </div>      
+
+
+     <div class="row my-4">
+
+     <div class="col-lg-12 high_prof_sec9">
+
+         <label class="high_prof_cont">
+                   <input type="checkbox">
+                   <span class="high_prof_mark"></span>
+                    I agree to the Terms of Service and Privacy Policy.
+                   </label>
+     </div>
+     
+   </div>
+   
+  
+   <div class="local_admin_edi_subbtn my-4">
+
+     <button>Cancel</button>
+     <button type="submit" id="success" data-bs-toggle="modal" data-bs-target=""> Update</button>
+     {% comment %} exampleModal {% endcomment %}
+   </div>
+      
+ </form>
+</div>
+
+     </div>
+ 
+     
+ 
+ 
+ 
+ </div>
+    </div>
+  </section>
+  <!-- End Breadcrumbs -->
+  
+
+ </main>
+ <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+ <!-- End #main -->
+ 
+ <!-- ======= Footer ======= -->
+
+ <!-- End  Footer -->
+
+ <!-- Template Main JS File -->
+ <script src="/media/js/main.js"></script>
+ <script type="text/javascript">
+  function fun2(event){
+  a = document.getElementById("countrytwo").value;
+  <!--document.getElementById("res").innerHTML=a;-->
+  c = {{ country|safe }};
+  position =c.indexOf(a);
+  <!--document.getElementById("res1").innerHTML=position;-->
+  stat = {{ states|safe }};
+  ttt = stat[position].states;
+  tt = "<select>";
+  for (i=0;i<ttt.length;i++){
+     tt += "<option>"+ttt[i].name+"</option>";
+  }
+       tt+="</select>";
+        document.getElementById("res3").innerHTML=tt;
+  }
+  
+  </script>
+   <script type="text/javascript">
+    function fun1(event){
+    a = document.getElementById("countryone").value;
+    <!--document.getElementById("res").innerHTML=a;-->
+    c = {{ country|safe }};
+    position =c.indexOf(a);
+    <!--document.getElementById("res1").innerHTML=position;-->
+    stat = {{ states|safe }};
+    ttt = stat[position].states;
+    tt = "<select>";
+    for (i=0;i<ttt.length;i++){
+       tt += "<option>"+ttt[i].name+"</option>";
+    }
+         tt+="</select>";
+          document.getElementById("res2").innerHTML=tt;
+    }
+    
+    </script>
+  
+ <script>
+   $(document).on('change', '.file-input', function() {
+   
+
+       var filesCount = $(this)[0].files.length;
+       
+       var textbox = $(this).prev();
+   
+       if (filesCount === 1) {
+       var fileName = $(this).val().split('\\').pop();
+       textbox.text(fileName);
+       } else {
+       textbox.text(filesCount + ' files selected');
+       }
+   });
+   $('#idform').validate({
+       rules : {
+           idcard: {
+               required: true, 
+               accept: "pdf",
+               //extension: "png|jpeg|jpg|pdf|doc|docx",
+               //filesize: 1048576,   
+           }
+       }
+   });
+
+</script>
+
+<script>
+jQuery.validator.setDefaults({
+debug: true,
+success: "valid"
+});
+$( "#myform").validate({
+rules: {
+  office_name: {
+required: true
+},
+office_country: {
+required: true
+},
+office_city: {
+required: true
+},
+office_address: {
+required: true
+},
+first_name: {
+  required: true
+},
+last_name: {
+  required: true
+},
+personal_country: {
+    required: true
+},
+personal_city: {
+   required: true
+},
+personal_address: {
+    required: true
+},
+hiring_manager:{
+  required: true
+
+},
+tagline:{
+  required: true
+
+},
+id_card:{
+  required: true
+
+}
+},
+submitHandler: function (form) {
+        console.log('test');
+        form.submit();
+    }
+});
+</script> 
+<script>
+  $(document).ready(function(){
+    $("#addeducation").click(function(){
+      $("#addeducationdetail").append("  <div class=row>"+
+"<div class=col-lg-6 my-3>"+
+"<label class=form-label>Level of Education<span>*</span></label>"+
+"<input type=text name=level_education class=form-control placeholder=Level"+"&nbsp;"+"Of"+"&nbsp;"+"Education"+">"+
+"</div>"+
+
+"<div class=col-lg-6 my-3>"+
+"<label class=form-label>Field Of Study<span>*</span></label>"+
+"<input type=text name=field_study class=form-control placeholder=Field"+"&nbsp;"+"Of"+"&nbsp;"+"Study>"+
+"</div>"+
+"</div>");
+    });
+  
+  
+  });
+  </script>
+  <script>
+    $(document).ready(function() { 
+      $('#for_what').change(function() { 
+        var selectedOption = $(this).val(); 
+        if (selectedOption === 'Personal') { 
+          $('#buisness_1').hide(); 
+        }
+      if (selectedOption === 'Buisness') { 
+
+        $('#buisness_1').show(); 
+        }
+    }); 
+    }); 
+  </script> 
+</body>
+</html>
+
+
+

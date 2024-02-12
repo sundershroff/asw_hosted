@@ -1,0 +1,112 @@
+  {% if "pi_admin_dashboard" in current_path %}
+      <ul>
+        <li><a href="/pi_admin_dashboard/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+        <li><a href="/pi_profile/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+        <li><a href="/pi_client_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Clients</span></a></li>
+        <li><a href="/pi_add_client/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+        <li><a href="/pi_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+      </ul>
+
+{% elif "pi_profile" in current_path %}
+
+<ul>
+  <li><a href="/pi_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/pi_profile/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/pi_client_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Clients</span></a></li>
+  <li><a href="/pi_add_client/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/pi_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{% elif "pi_payment_table" in current_path %}
+
+<ul>
+  <li><a href="/pi_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/pi_profile/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/pi_client_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Clients</span></a></li>
+  <li><a href="/pi_add_client/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/pi_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{% elif "edit_profile" in current_path %}
+
+<ul>
+  <li><a href="/pi_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/pi_profile/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/pi_client_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Clients</span></a></li>
+  <li><a href="/pi_add_client/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/pi_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{% elif "pi_client_list" in current_path %}
+
+<ul>
+  <li><a href="/pi_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/pi_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/pi_client_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Clients</span></a></li>
+  <li><a href="/pi_add_client/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/pi_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{% elif "pi_client_details" in current_path %}
+
+<ul>
+  <li><a href="/pi_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/pi_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/pi_client_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Clients</span></a></li>
+  <li><a href="/pi_add_client/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/pi_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{% elif "pi_subscription" in current_path %}
+
+<ul>
+  <li><a href="/pi_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/pi_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/pi_client_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Clients</span></a></li>
+  <li><a href="/pi_add_client/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/pi_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{% elif "pi_payment_screen" in current_path %}
+
+<ul>
+  <li><a href="/pi_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/pi_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/pi_client_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Clients</span></a></li>
+  <li><a href="/pi_add_client/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/pi_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+
+
+{% elif "pi_add_client" in current_path %}
+
+<ul>
+  <li><a href="/pi_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/pi_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/pi_client_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Clients</span></a></li>
+  <li><a href="/pi_add_client/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/pi_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{% elif "pi_client_feedback" in current_path %}
+
+<ul>
+  <li><a href="/pi_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/pi_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/pi_client_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Clients</span></a></li>
+  <li><a href="/pi_add_client/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/pi_setting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{% elif "pi_setting" in current_path %}
+
+<ul>
+  <li><a href="/pi_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/pi_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/pi_client_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Clients</span></a></li>
+  <li><a href="/pi_add_client/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/pi_setting/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+  {% endif %}

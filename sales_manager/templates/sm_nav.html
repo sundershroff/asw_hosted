@@ -1,0 +1,206 @@
+
+{%if "Add User" in access %}
+<ul>
+  {% if "Dashboard Access" in user_access  %}
+  <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  {% else %}
+  <li><a href="" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  {% endif %}
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{%elif "Edit User" in access %}
+<ul>
+  {% if "Dashboard Access" in user_access  %}
+  <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  {% else %}
+  <li><a href="" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  {% endif %}  <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{%elif "Delete User" in access %}
+<ul>
+  {% if "Dashboard Access" in user_access  %}
+  <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  {% else %}
+  <li><a href="" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  {% endif %}  <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{%elif "Add Client" in access %}
+<ul>
+  {% if "Dashboard Access" in user_access  %}
+  <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  {% else %}
+  <li><a href="" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  {% endif %}  <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+
+{%else%}
+
+
+{% if "sales_manager/sm_salesdashboard" in current_path %}
+    <ul>
+        <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+        <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+        <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+        <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto"><i class=" bx fa-solid fa-user-plus"></i> <span>User</span></a></li>
+        <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+      </ul>
+{% elif "sales_manager/sm_sales_profile" in current_path %}
+  <ul>
+    <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+    <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+{% elif "sales_manager/sm_editprofile" in current_path %}
+  <ul>
+    <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+    <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto"><i class=" bx fa-solid fa-user-plus"></i> <span>User</span></a></li>
+    <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+{% elif "sales_manager/sm_accountbalance" in current_path %}
+  <ul>
+    <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+    <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto"><i class=" bx fa-solid fa-user-plus"></i> <span>User</span></a></li>
+    <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+{% elif "sales_manager/sm_coindetails" in current_path %}
+  <ul>
+    <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+    <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto"><i class=" bx fa-solid fa-user-plus"></i> <span>User</span></a></li>
+    <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+{% elif "sales_manager/sm_hand_list" in current_path %}
+
+  <ul>
+    <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+    <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto"><i class=" bx fa-solid fa-user-plus"></i> <span>User</span></a></li>
+    <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+{%elif  "sales_manager/add_client" in current_path %}
+  <ul>
+    <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+    <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto"><i class=" bx fa-solid fa-user-plus"></i><span>User</span></a></li>
+    <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+{%elif  "sales_manager/sm_client_details" in current_path %}
+<ul>
+  <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto"><i class=" bx fa-solid fa-user-plus"></i><span>User</span></a></li>
+  <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{%elif "sales_manager/sm_ads_list" in current_path %}
+  <ul>
+    <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+    <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto"><i class=" bx fa-solid fa-user-plus"></i><span>User</span></a></li>
+    <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+{%elif "sales_manager/sm_ad_details" in current_path %}
+  <ul>
+    <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+    <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto"><i class=" bx fa-solid fa-user-plus"></i><span>User</span></a></li>
+    <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+{% elif "sales_manager/sm_ad_dis_details" in current_path %}
+<ul>
+  <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto"><i class=" bx fa-solid fa-user-plus"></i><span>User</span></a></li>
+  <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{% elif "sales_manager/sm_edit_adDetail" in current_path %}
+  <ul>
+    <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+    <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+{% elif "sales_manager/sm_edit_adproDetail" in current_path %}
+<ul>
+  <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{%elif "sales_manager/sm_users" in current_path %}
+  <ul>
+    <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+    <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+{% elif "sales_manager/sm_addusers" in current_path %}
+  <ul>
+    <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+    <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+{% elif "sales_manager/sm_user_edit" in current_path %}
+  <ul>
+    <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+    <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+{%elif "sales_manager/sm_accountsetting" in current_path %}
+  <ul>
+    <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+    <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i><span>User</span></a></li>
+    <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+ 
+{%elif "sales_manager/ad_pro_ads" in current_path %}
+<ul>
+  <li><a href="/sales_manager/sm_salesdashboard/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="/sales_manager/sm_sales_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/sales_manager/sm_hand_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Task</span></a></li>
+  <li><a href="/sales_manager/sm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i><span>User</span></a></li>
+  <li><a href="/sales_manager/sm_accountsetting/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{%endif%}
+
+{%endif%}

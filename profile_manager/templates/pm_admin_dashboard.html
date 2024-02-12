@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Local Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+	  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- over -->
+
+</head>
+<body style=" background-color:rgba(0, 0, 255, 0.1);">
+   
+ <div class="dash_bor_sec1">
+
+  <div class="dash_bor_sdbr" id="dashsidebar">
+
+      <header id="header">
+    <div class="d-flex flex-column">
+       <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+        
+
+
+        {% include 'nav.html'%}
+
+      
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+    <h5 style="position:;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+  </header>
+  
+  </div>
+  {% include 'pm_header.html'%}
+
+  <div class="dash_bor_main1">
+    <!-- start1-->
+{% for i in my %}
+    <div class="dash_par1" style="background:white;">
+
+          <i class="fa-regular fa-bell"></i>
+
+        <div class="dash_brd_img1">
+         <!-- <img src="{% static 'images/girl1.png'%}"> -->
+         <img src="{{i.profile_picture}}">
+         <i class="fa-solid fa-caret-down"></i>
+         </div>
+
+    </div>
+    {% endfor %}
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
+    <!-- over -->
+
+    <!-- start2 -->
+    <div class="dash_par2 my-5 px-3"> 
+         
+        <h4>Dashboard</h4>
+
+        <button>Download Report <i class="fa-solid fa-file-excel"></i></button>
+
+    </div>
+    <!-- over -->
+
+    <!-- start3 -->
+      <div class="dash_par3 my-4 px-3"> 
+         
+        <div class="dash_bor_box">
+           
+           <div>
+             
+             <i class="fa-solid fa-users dash_users"></i>
+           </div>
+
+          <div>
+            <h4>{{all_profile_finder|length}}</h4>
+            <h5>Profile Finders</h5>
+          </div>
+
+        </div>
+
+          <div class="dash_bor_box">
+
+            <div>
+             <i class="fa-solid fa-circle-minus dash_dot"></i>
+            </div>
+
+            <div>
+            
+            <h4>{{complaints_list|length}}</h4>
+            <h5>Total Complaints</h5>
+          </div>
+          
+        </div>
+
+    
+
+         <div class="dash_bor_box">
+
+          <div>
+            <i class="fas fa-user-friends dash_db_user"></i>
+          </div>
+          
+           <div class="dash_ratstr">
+           
+            <div class="dash_strpos">
+               <h4>{{approve_list|length}}</h4>
+            </div>
+            <h5>Total Profile Approved</h5>
+          </div> 
+
+
+        </div>
+
+          <div class="dash_bor_box">
+
+           <div>
+             <i class="fa-solid fa-comment-dollar dash_dlr"></i>
+           </div>
+
+           <div>
+             <h4>₹ 2,500</h4>
+            <h5>Total commission</h5>
+           </div>
+
+
+        </div>
+
+
+    </div>
+    <!-- over -->
+    <!-- start -->
+    <div class="dash_bor_rsp my-4 px-3">
+
+      <div>
+        <h4>Recently joined profiles</h4>
+      </div>
+
+
+      <div class="dash_bor_rsp_1">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+
+        <select class="form-select">
+          <option value="Indian">Indian</option>
+        </select>
+      </div>
+      
+
+      
+    </div>
+    <!-- over -->
+
+    <!-- start -->
+     <div class="dash_bor_table px-4" style="
+     overflow-y: scroll;
+     height: 32rem;
+ " >
+
+      <table class=" table table-borderless " >
+
+      <tr style="
+      position: sticky;
+      top: 0;
+  ">
+        
+        <th class="py-4">User Name</th>
+        <th class="py-4">Date of created</th>
+        <th class="py-4">Location</th>
+      </tr>
+{% for i in all_profile_finder|dictsortreversed:"created_date" %}
+      <tr>
+        <td class="dash_bor_table_img"><img src="{{i.profile_picture}}" class="mx-2"> {{i.name}}</td>
+        <td class="py-4">{{i.created_date}}</td>
+        <td class="py-4">{{i.r_country}}</td>
+      </tr>
+      {% endfor %}
+   
+
+
+        <div class="py-4">
+      
+
+    </table>
+
+  
+
+    <div class="dash_bor_rsp_va my-3" style="height: auto;position: sticky;bottom: 0;">
+      <a href="/profile_manager/profile_finders/{{key.uid}}" class="mx-3">View All</a>
+    </div>
+
+     </div>
+    <!-- over -->
+
+    <!-- start -->
+
+    <div class="dash_bor_tables my-5">
+
+      <div class="dash_bor_table1">
+
+        <div class="dash_bor_split px-4">
+          <h5>Recent Complaints</h5>
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+
+        <div class="px-4 my-3">
+          <table class="table table-borderless">
+
+            <tr>
+              <th class="py-4">#No</th>
+              <th class="py-4">User Name</th>
+              <th class="py-4">Date of Posted</th>
+              <th class="py-4">Complaints</th>
+            </tr>
+{% for i in complaints_list %}
+
+            <tr>
+              <td class="py-4">{{forloop.counter}}</td>
+              <td class="py-4">{{i.name}}</td>
+              <td class="py-4">{{i.created_date}}</td>
+              <td class="py-4">{{i.complaints}}</td>
+            </tr>
+{% endfor %}
+
+          </table>
+             <div class="dash_bor_rsp_va my-3">
+      <a href="/profile_manager/complaints/{{key.uid}}" class="mx-3">View All</a>
+    </div>
+        </div>
+        
+      </div>
+
+      <div class="dash_bor_table2">
+          
+          
+        <div class="dash_bor_split px-4">
+          <h5>Recently Approved Profiles</h5>
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+
+        <div class="px-4 my-3" >
+          <table class="table table-borderless " >
+
+            <tr>
+              <th class="py-4">Sno</th>
+              <th class="py-4">User Name</th>
+              <th class="py-4">Local Admin</th>
+              <th class="py-4">Approved</th>
+            </tr>
+{% for i in approve_list %}
+
+            <tr>
+              
+              <td class="py-4">{{forloop.counter}}</td>
+              <td class="py-4"><span class="dash_bor_table_img1"><img src="{{i.profile_picture}}"> {{i.name}}</span></td>
+              <td  class="py-4">{{i.referral_code}}</td>
+              <td class="py-4">{{i.created_date}}</td>
+         
+            </tr>
+{% endfor %}
+
+          </table>
+             <div class="dash_bor_rsp_va my-3">
+      <a href="/profile_manager/profile_finders_approved_list/{{key.uid}}" class="mx-3">View All</a>
+    </div>
+        </div>
+
+
+      </div>
+      
+    </div>
+    <!-- over -->
+  </div>
+   
+ </div>
+
+
+ 
+ <script src="{% static 'js/main.js'%}"></script>
+
+
+</body>
+</html>

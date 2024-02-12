@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+      <!-- Alignment -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> 
+      <!-- font awesome link -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.css" integrity="sha512-0yYhCyiMB+6XOis4qvWA42kPkKb54+uMaOhbsta6m+aQ7cZOm5hzERPrRkkknlpEdoxVCwYui+yM0jRazpDFuA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ <link rel="stylesheet" href="/media/css/pi_2client_details.css">
+ <link rel="stylesheet" type="text/css" href="/media/css/pi_style.css">
+ <link href="/media/css/pi_client_details.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+   <!-- ======= Mobile nav toggle button ======= -->
+   <i class="bi bi-list mobile-nav-toggle d-xl-none" style="
+   position: absolute;
+   right: 10rem;
+   top: 5px;
+   z-index: 9998;
+   border: 0;
+   font-size: 24px;
+   transition: all 0.4s;
+   outline: none !important;
+   background-color: #149ddd;
+   color: #fff;
+   width: 40px;
+   height: 40px;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   line-height: 0;
+   border-radius: 50px;
+   cursor: pointer;
+"></i>
+   <!-- ======= Header ======= -->
+   <header id="header">
+     <div class="d-flex flex-column">
+        <img src="/media/images/Logo.png" alt="" class="Logo mt-4 ms-3">
+       <nav id="navbar" class="nav-menu navbar">
+        
+         {% include 'pi_nav.html' %}
+ 
+       </nav>
+       <!-- .nav-menu -->
+       <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;" >© 2020 Marryoo. All rIghts reserved</h5>
+
+     </div>
+   </header>
+   <main id="main">
+    {% include 'pi_header.html'%}
+
+  <div class="container">
+      <section>
+        <div class="row">
+            <div class="col-md-12 mb-3 mt-3">
+                <h5><a href="/pi_add_client/{{key.uid}}"><span class="text-muted">Client Details ></span></a><span class="detai"> Details</span></h5>
+            </div>
+        </div>
+    </section>
+      {% for i in specific_user %}
+    <div class="row">
+      <div class="col-md-3">
+        
+        <div class="cards img-thumbnail">
+          
+          <div class="img2 mb-3 mt-4">
+            <img src="{{i.profile_picture}}" alt="">
+          </div>
+          <div class="main text-center mb-4 ">
+            <h5 class="head text-center">{{i.name}}</h5>
+            <p class="text-center mb-4">{{i.r_country}}, {{i.r_state}}</p>
+            
+            {% if 'empty' in i.answer %}
+            <button class="Pending" id="situation" >Pending</button>
+
+
+            {% else %}
+            <button class="Pending" id="situation" style="background-color:green">Complete</button>
+
+           {% endif %}
+      
+          </div>
+      </div>
+      
+      {% if 'empty' not in i.answer %}
+      <div class="pay  mt-2  img-thumbnail ">
+        <h5 class="mt-4 mb-4 ms-4">Client Feedback</h5>
+        {% if i.rating == "5.0" %}
+        <h3 class="ratingvalue ms-4">{{i.rating}}</h3>
+        <div class="ratings mt-3 mb-3 ms-4">
+          <i class="fa fa-star rating-color"></i>
+          <i class="fa fa-star rating-color"></i>
+          <i class="fa fa-star rating-color"></i>
+          <i class="fa fa-star rating-color"></i>
+          <i class="fa fa-star rating-color"></i>
+      </div>
+      <p class="notavailable mb-5 pe-3 ps-3 pt-2 pb-2 ms-2  ">{{i.feedback}}</p>
+      {% elif i.rating == "4.0" %}
+      <h3 class="ratingvalue ms-4">{{i.rating}}</h3>
+      <div class="ratings mt-3 mb-3 ms-4">
+        <i class="fa fa-star rating-color"></i>
+        <i class="fa fa-star rating-color"></i>
+        <i class="fa fa-star rating-color"></i>
+        <i class="fa fa-star rating-color"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <p class="notavailable mb-5 pe-3 ps-3 pt-2 pb-2 ms-2  ">{{i.feedback}}</p>
+      {% elif i.rating == "3.0" %}
+      <h3 class="ratingvalue ms-4">{{i.rating}}</h3>
+      <div class="ratings mt-3 mb-3 ms-4">
+        <i class="fa fa-star rating-color"></i>
+        <i class="fa fa-star rating-color"></i>
+        <i class="fa fa-star rating-color"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <p class="notavailable mb-5 pe-3 ps-3 pt-2 pb-2 ms-2  ">{{i.feedback}}</p>
+      {% elif i.rating == "2.0" %}
+      <h3 class="ratingvalue ms-4">{{i.rating}}</h3>
+      <div class="ratings mt-3 mb-3 ms-4">
+        <i class="fa fa-star rating-color"></i>
+        <i class="fa fa-star rating-color"></i>
+        <i class="fa fa-star "></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <p class="notavailable mb-5 pe-3 ps-3 pt-2 pb-2 ms-2  ">{{i.feedback}}</p>
+      {% elif i.rating == "1.0" %}
+      <h3 class="ratingvalue ms-4">{{i.rating}}</h3>
+      <div class="ratings mt-3 mb-3 ms-4">
+        <i class="fa fa-star rating-color"></i>
+        <i class="fa fa-star "></i>
+        <i class="fa fa-star "></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <p class="notavailable mb-5 pe-3 ps-3 pt-2 pb-2 ms-2  ">{{i.feedback}}</p>
+      {% elif i.rating == "0" %}
+      <h3 class="ratingvalue ms-4">{{i.rating}}</h3>
+      <div class="ratings mt-3 mb-3 ms-4">
+        <i class="fa fa-star "></i>
+        <i class="fa fa-star "></i>
+        <i class="fa fa-star "></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <p class="notavailable mb-5 pe-3 ps-3 pt-2 pb-2 ms-2  ">{{i.feedback}}</p>
+      {% elif i.rating == "empty" %}
+      <h3 class="ratingvalue ms-4">No ratings & feedback are added</h3>
+      <div class="ratings mt-3 mb-3 ms-4">
+        <i class="fa fa-star "></i>
+        <i class="fa fa-star "></i>
+        <i class="fa fa-star "></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+      </div>
+      <p class="notavailable mb-5 pe-3 ps-3 pt-2 pb-2 ms-2  "></p>
+      {% endif %}
+    
+      </div>
+      
+     {% else %}
+  <div class="pay  mt-2  img-thumbnail ">
+    <h5 class="mt-4 mb-4 ms-4  ">Client Feedback</h5>
+    <p class="notavailable mb-5 mb-5 pe-3 ps-3 pt-2 pb-2 ms-2">Not available,need to complete your task first</p>
+
+  </div> 
+  {% endif %}
+  {% endfor %}
+
+</div>
+<!-- ... (rest of the code) ... -->
+
+      <div class="col-md-9 mt-3 ">
+        <div class="row gg">
+          <div class="col-md-9">
+            <h4 class="allqn">All Questions</h4>
+          </div>
+         
+        </div>
+        <!-- content -->
+       
+{% for a in all_profile_finder %}
+
+{% if a.1 == "empty" %}
+
+       <div class="row content mt-3 mb-3 " >
+        <div class=" col-md-1 text-center text-success  mt-3">
+        <i class='bi bi-check-circle-fill uncheck' style="font-size: 25px;"></i>
+        </div>
+        <div class="col-md-9 mt-3">
+          <h5>{{a.0}}</h5>
+        </div>
+        <div class="col-md-2 text-center">
+          <button class="more pe-3 ps-3 p-1 mt-3 mb-3" type="button"data-bs-toggle="modal" data-bs-target="#myModal{{forloop.counter}}">Add answer</button>
+
+        </div> 
+     </div>
+ <!-- Modals -->
+
+ <div class="modal" id="myModal{{forloop.counter}}">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-body">
+              <div class="container">
+                  
+              <h4 class="mt-4">Question</h4>
+              <h5 class="head5">{{a.0}}</h5>
+              <h6 class="head5 mt-4 mb-4 text-muted">Write your Answer here.</h6>
+              <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="answer" id="textarea" cols="57" rows="5" style="
+                width: 100%;
+                height: 100px;
+                border-radius: 14px;
+                border: 1px solid gray;
+                text-align: center;
+            "></input>              
+               
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn1 pe-3 ps-3 pt-2 pb-2 " data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" name="question" value="{{a.0}}" class="btn text-white" data-bs-dismiss="modal">Submit</button>
+            </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+{% else %}
+
+       <div class="row content mt-3 mb-3 " >
+        <div class=" col-md-1 text-center text-success  mt-3">
+        <i class='bi bi-check-circle-fill' style="font-size: 25px;"></i>
+        </div>
+        <div class="col-md-9 mt-3">
+          <h5>{{a.0}}</h5>
+        </div>
+        <div class="col-md-2 text-center">
+          <button class="more pe-3 ps-3 p-1 mt-3 mb-3" type="button"data-bs-toggle="modal" data-bs-target="#myModal{{forloop.counter}}">Add answer</button>
+
+        </div> 
+     </div>
+ <!-- Modals -->
+
+ <div class="modal" id="myModal{{forloop.counter}}">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-body">
+              <div class="container">
+                  
+              <h4 class="mt-4">Question</h4>
+              <h5 class="head5">{{a.0}}</h5>
+              <h6 class="head5 mt-4 mb-4 text-muted">Write your Answer here.</h6>
+              <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="answer" value="{{a.1}}" id="textarea" cols="57" rows="5" style="
+                width: 100%;
+                height: 100px;
+                border-radius: 14px;
+                border: 1px solid gray;
+                text-align: center;
+            "></input>
+              
+               
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn1 pe-3 ps-3 pt-2 pb-2 " data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" name="question" value="{{a.0}}" class="btn text-white" data-bs-dismiss="modal">Submit</button>
+            </form>
+          </div>
+      </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
+
+      </div>
+
+    </div>
+    </div>
+    
+      
+    <!-- Modal 1 -->
+    <div class="modal" id="myModal1">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-body">
+                  <div class="container">
+                      <h6>Answer</h6>
+                      <p>Question</p>
+                      <h5 class="head5">Where is the San Sebastian home? and she completed her graduation?</h5>
+                      <p>Answer</p>
+                      <p class="par"><textarea type="text" style="width: 100%;height: 6rem;"></textarea ></p>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Modal 2 -->
+  <div class="modal" id="myModal2">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-body">
+                  <div class="container">
+                      <h6>Answer</h6>
+                      <p>Question</p>
+                      <h5 class="head5">Another question goes here?</h5>
+                      <p>Answer</p>
+                      <p class="par">This is the answer to the second question.</p>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+    <!-- Modal 3 -->
+    <div class="modal" id="myModal3">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-body">
+                  <div class="container">
+                      <h6>Answer</h6>
+                      <p>Question</p>
+                      <h5 class="head5">Another question goes here?</h5>
+                      <p>Answer</p>
+                      <p class="par">This is the answer to the second question.</p>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</main>
+<script>
+  a=document.getElementById("situation").innertext;
+
+</script>
+<script src="/media/js/main.js"></script>
+
+</body>
+</html>

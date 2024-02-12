@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/sm_edit_ad.css' %}">
+
+  <link href=" {% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+
+	<title>Sales-Ad Detail</title>
+	  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <!-- <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- over -->
+
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,500;9..40,700&family=Qwitcher+Grypen&family=Rubik+Pixels&display=swap" rel="stylesheet">
+  <!-- over -->
+  <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+
+</head>
+<body style=" background-color:#F4F2FF;">
+   
+ <div class="dash_bor_sec1">
+
+  <div class="dash_bor_sdbr" id="dashsidebar" >
+
+      <header id="header">
+    <div class="d-flex flex-column">
+       <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+        {% include 'sm_nav.html' %}
+
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+    <h5 style="position:absolute;bottom:20px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+  </header>
+  
+  </div>
+
+  <div class="dash_bor_main1" >
+    {% include 'sm_header.html' %}
+    <!-- start1-->
+
+    <!-- <div class="dash_par1" style="background:white;">
+
+          <i class="fa-regular fa-bell"></i>
+
+        <div class="dash_brd_img1">
+         <img src="{% static 'images/girl1.png'%}">
+         <div class="dropdown">
+          <a class="btn dropdown-toggle" href="#" style="font-size:25px" role="button" id="" data-bs-toggle="dropdown" aria-expanded="false">
+           
+          </a>
+        
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-regular fa-user"></i> My Account</a></li>
+            <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa fa-cog" aria-hidden="true"></i> Account Settings</a></li>
+            <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-solid fa-arrow-right-from-bracket"></i> Log Out</a></li>
+          </ul>
+        </div>
+         </div>
+
+    </div> -->
+  <!-- </div> -->
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
+    <!-- over -->
+
+    <!-- start -->
+    <div class="local_admin_edi_acc px-3 py-4">
+
+      <h3 class="mb-4"><span style="color:  #3247CE;font-weight:500;">Ad Detail</span></h3>
+
+      <div class="local_admin_edi_form p-4 bg-white" style="border-radius:10px;">
+        <form method="POST" action="" enctype="multipart/form-data">
+          {%csrf_token%}
+          <div class="row mb-3">
+
+            <div class="col-lg-4 my-3">
+              <label class="form-label">Ad Name<span>*</span></label>
+              <input type="text" name="ad_name" class="form-control" placeholder="" value="{{ad_data.ad_name}}">
+            </div>
+
+            <div class="col-lg-4 my-3">
+              <label class="form-label">Catagory<span>*</span></label>
+              <select class="form-select" name="category">
+                <option value="{{ad_data.category}}">{{ad_data.category}}</option>
+                <option value="Online_ads">Online Advertising</option>
+                <option value="Marketing Communication">Marketing Communication</option>
+                <option value="Broadcasting">Broadcasting</option>
+                <option value="Social Network Ads">Social Network</option>
+                <option value="Billboard">Billboard</option>
+                <option value="Advertorial">Advertorial</option>
+                <option value="Contextual">Contextual</option>
+              </select>
+            </div>
+
+            <div class="col-lg-4 my-3">
+              <label class="form-label">Type of Ad<span>*</span></label>
+              <select class="form-select" name="ad_type">
+                <option value="{{ad_data.ad_type}}">{{ad_data.ad_type}}</option>
+                <option value="Image Ad">Image Ads</option>
+                <option value="Carousel Ads">Carousel Ads</option>
+                <option value="Product Ads">Product Ads</option>
+                <option value="Collection Ads">Collection Ads</option>
+                <option value="Interactive Ads">Interactive Ads</option>
+                <option value="Text Ads">Text Ads</option>
+                <option value="Banner Ads">Banner Ads</option>
+                <option value="Lead from Ads">Lead from Ads</option>
+                <option value="Video Ads">Video Ads</option>
+              </select>
+            </div>
+          
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-4 my-3">
+            <label class="form-label">Languages(Multiple)<span>*</span></label>
+            <select class="form-select" name="languages">
+              <option value="{{ad_data.languages}}">{{ad_data.languages}}</option>
+              <option value="English">English</option>
+              <option value="Arabic">Arabic</option>
+              <option value="French">French</option>
+              <option value="Tamil">Tamil</option>
+              <option value="malayalam">Malayalam</option>
+              <option value="Hindi">Hindi</option>
+            </select> 
+        </div>
+        <div class="col-lg-4 my-3">
+          <label class="form-label">Country(Multiple)<span>*</span></label>
+          <select class="form-select" name="office_country" id="countrytwo" onchange="fun2.call(this,event)">
+            <option value="{{ad_data.office_country}}">{{ad_data.office_country}}</option>
+              {% for j in all %}
+                <option value="{{j.name}}">{{j.name}}</option>
+              {% endfor %}
+          </select> 
+      </div>
+      <div class="col-lg-4 my-3">
+        <label class="form-label">State(Multiple)<span>*</span></label>
+        <select class="form-select" name="office_state" id="res3">
+          <option value="{{ad_data.office_state}}">{{ad_data.office_state}}</option>
+          <script>
+            stat = {{ states|safe }};
+        ttt = stat[0].states;
+        for (i=0;i<ttt.length;i++){
+           tt = ttt[i].name;
+           document.write("<option value="tt">"+tt+"</option>");
+        }
+      </script>
+        </select> 
+    </div> 
+        </div>
+        <div class="row">
+          <div class="col-lg-4 my-3">
+              <label class="form-label">District(Multiple)<span>*</span></label>
+              {% comment %} <select class="form-select"> {% endcomment %}
+                <input type="text" name="office_district" class="form-control" placeholder="" value="{{ad_data.office_district}}">
+              {% comment %} </select>  {% endcomment %}
+          </div>
+          <div class="col-lg-4 my-3">
+            <label class="form-label">Gender(Multiple)<span>*</span></label>
+            <select class="form-select" name="gender">
+              <option value="{{ad_data.gender}}">{{ad_data.gender}}</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="other">Other</option>
+            </select>  
+        </div>
+            <div class="col-lg-4 my-3">
+                
+            </div>
+          
+            
+          </div>
+          <div class="row">
+            <div class="col-lg-4 my-3">
+              <label class="form-label">Ad Group<span>*</span></label>
+              <input type="text" name="age_range" class="form-control" placeholder="" value="{{ad_data.age_range}}" id="inputField1" oninput="displayValue()">
+            </div>
+            <div class="col-lg-4 my-3">
+              <label class="form-label"></label>
+              <input style="margin-top:8px;" type="text" name="age_to" class="form-control" placeholder="" value="{{ad_data.age_to}}" id="inputField2" oninput="displayValue()">
+            </div>
+              <div class="col-lg-4 my-3" style="display:flex;justify-content: space-evenly;">
+
+                         
+                <div id="age_dis" style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
+                <span id="displayArea">{{ad_data.age_range}}-{{ad_data.age_to}}</span> <span id="i_con"><i class="bi bi-x-circle-fill det_icon"></i></span>
+              </div>
+              </div>
+          </div>
+          <button class="document_btn my-3">Add More</button>
+        <h4 class="my-4" style="color:#2B3674;">Upload Advertisements</h4>
+          
+          <div class="row">
+           
+            <div class="col-lg-4">
+              
+              <div class="row">
+                 <div class="col-12 my-3">
+                 <label class="form-label">ID Card<span>*</span></label>
+
+                  <div class="local_admin_drag_area">
+                 
+                    <header>Drag or click here to Upload  </header>
+                    <img src="{{ad_data.id_card}}" >
+                    <input class="file-input"  name="id_card" style="opacity: 0;position: absolute;">
+                
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8">
+              
+              
+            </div>
+          
+</div>
+<h4  class="my-4" style="color:#2B3674;">Target Settings</h4>
+<div class="row">
+  <div class="col-lg-4 my-3">
+    <label class="form-label">Total Number of Views</label>
+   <input type="text" class="form-control" name="no_views" placeholder="" value="{{ad_data.no_views}}">
+</div>
+    <div class="col-lg-4 my-3">
+      <label class="form-label">How Many Days Required</label>
+      <input  class="form-control" placeholder="" name="days_required" value="{{ad_data.days_required}}">
+    </div>
+    <div class="col-lg-4 my-3">
+      <label class="form-label">How many times repeat per day</label>
+      <select class="form-select" name="times_repeat">
+        <option value="{{ad_data.times_repeat}}">{{ad_data.times_repeat}}</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select> 
+    </div>
+    <p style="color:#a0b2ff"><i>If you select special days you need to pay some additional charge</i></p>
+</div>
+<div class="row">
+    <div class="col-lg-4 my-3">
+      <h4 style="color:#2B3674;">Ad Details(Optional)</h4>
+        
+      <textarea class="form-control" id="det" name="ad_details" value="{{ad_data.ad_details}}" rows="3">{{ad_data.ad_details}} </textarea>
+   
+    </div>
+    <div class="col-lg-8 my-3"></div>
+</div>
+<div class="row">
+  <div class="col-lg-4 my-3">
+    <h4 style="color:#2B3674;">Other Ads(Optional)</h4>
+     <div data-toggle="modal" data-target="#otherads" style="cursor:pointer;background-color: #e8ebff;color:#7B61FF;padding:20px 50px;font-size: 50px;border-radius:10px;width:fit-content">
+      <img src="{{ad_data.other_ads}}">
+      <input class="file-input"  name="other_ads" value="{{ad_data_other_ads}}" style="opacity: 0;position: absolute;width: 285px;height: 262px;
+                position: absolute;margin-left: -24%;" >
+     </div>
+    </div>
+</div>
+<h4  class="my-4" style="color:#2B3674;">Call To Action</h4>
+<div class="row">
+  <div class="col-lg-4 my-3">
+    <label class="form-label">Button Name</label>
+   <input type="text" class="form-control" placeholder="" name="action_name" value="{{ad_data.action_name}}">
+</div>
+<div class="col-lg-4 my-3">
+  <label class="form-label">Button URL</label>
+ <input type="text" class="form-control" placeholder="http://" name="action_url" value="{{ad_data.action_url}}">   
+</div>
+    <div class="col-lg-4 my-3">
+        
+        </select> 
+    </div>
+    <p style="color:#a0b2ff"><i>If you select special days you need to pay some additional charge</i></p>
+</div>
+          <div class="row my-4">
+
+          <div class="col-lg-12 high_prof_sec9">
+
+              <label class="high_prof_cont" >
+                        <input type="checkbox" checked>
+                        <span class="high_prof_mark"></span>
+                         I agree to the Terms of Service and Privacy Policy.
+                        </label>
+          </div>
+          
+        </div>
+        
+        
+        <div class="local_admin_edi_subbtn my-4">
+
+          <button type="submit" name="approve" value="{{ad_data.ad_id}}">Approve</button>
+        
+        </form>
+          <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" >Reject</button>
+          
+        </div>
+     
+        
+        
+      </div>
+      
+    </div>
+    <!-- over -->
+
+
+   </div>
+
+
+
+<!-- Modal -->
+<div class="modal fade"id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border:none;">
+        <form action="" method="POST">
+          {%csrf_token%}
+        <h4>Reason</h4>
+        
+   
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="local_admin_edi_success">
+         <p>Replay</p>
+         <textarea class="form-control" id="" rows="3" name="reason"></textarea>
+        </div>
+        <div class="modal-footer reject_modal_btn" style="border:none;background:#ebebeb">
+          <button type="reset">Cancel</button>
+
+
+          <button type="submit" name="adpro_reject" value="{{ad_data.ad_id}}">Submit</button>
+       
+        </div>
+      
+      </div>
+    </form>
+   </div>
+   </div>
+      <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+      
+ 
+      <script src="{% static 'js/main.js'%}"></script>
+
+      <script>
+        function displayValue() {
+          var inputValue1 = document.getElementById('inputField1').value;
+          var inputValue2 = document.getElementById('inputField2').value;
+          
+          document.getElementById('displayArea').textContent =inputValue1+ "-"+inputValue2;
+        }
+      </script>
+        <!-- <script>
+          $(document).ready(function () {
+              $("#success").click(function(){
+                  setTimeout(function() {
+                      $('#exampleModal').modal('toggle');
+                  }, 200000);
+              });
+          });
+      </script> -->
+</body>
+</html>
+
+<!--   -->

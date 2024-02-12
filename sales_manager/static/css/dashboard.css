@@ -1,0 +1,411 @@
+
+.dash_bor_sdbr{
+	width:20%;
+	height:100%;
+	background-color:#1A1D3F;
+	position:fixed;
+	transition:0.5s;
+	z-index:10;
+ 
+}
+
+
+
+.dash_par1{
+	display:flex;
+	justify-content:right;
+	align-items:center;
+  padding:5px 0;
+}
+
+.dash_par1 i:first-child{
+	margin:0 20px;
+	font-size:1.5em;
+}
+
+
+.dash_bor_main1{
+	height:100%;
+	width:80%;
+	position:absolute;
+  right:0;
+
+
+}
+
+.dash_brd_img1{
+	margin:0 20px;
+	cursor:pointer;
+}
+
+.dash_brd_img1 img{
+	width:42px;
+	height:42px;
+	border-radius:50%;
+}
+
+.dash_par2{
+	display:flex;
+	justify-content:space-between;
+	flex-wrap:wrap;
+	gap:20px;
+}
+.dash_par2 button:hover{
+	transition:0.5s;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+.dash_par2 button{
+  background-color:#7B61FF;
+  border-radius:10px;
+  transition:0.5s;
+  border:none;
+  padding:10px 20px;
+  font-weight:500;
+  color:white;
+}
+.dash_bor_box{
+	border-radius:10px;
+	height:90px;
+	width:220px;
+	background-color:white;
+
+}
+
+.dash_par3{
+	display:flex;
+	gap:15px;
+	flex-wrap:wrap;
+	justify-content:center;
+	align-items:center;
+}
+
+.dash_bor_box{
+	display:flex;
+	justify-content:space-around;
+	align-items:center;
+	padding:0 8px;
+
+}
+
+.dash_bor_box h4{
+	font-weight:700;
+}
+
+.dash_db_user{
+	font-size:0.9em;
+	color:rgba(246, 160, 128, 1);
+	border-radius:50%;
+	background-color:rgba(246, 160, 128, 0.1);
+  padding:16px 16px;
+	margin:10px 0;
+}
+
+.dash_users{
+	font-size:1.2em;
+	color:rgba(123, 97, 255,1);
+	border-radius:50%;
+	background-color:rgba(123, 97, 255, 0.1);
+  padding:16px 16px;
+	margin:10px 0;
+}
+
+.dash_dot{
+	font-size:1.2em;
+	color:rgba(235, 87, 87, 1);
+	border-radius:50%;
+	background-color:rgba(235, 87, 87, 0.1);
+  padding:16px 16px;
+	margin:10px 0;
+}
+
+.dash_dlr{
+	font-size:1.2em;
+	color:rgba(43, 54, 116, 1);
+	border-radius:50%;
+	background-color:rgba(43, 54, 116, 0.1);
+  padding:16px 16px;
+	margin:10px 0;
+}
+.dash_nav{
+		font-size:1.2em;
+	color:rgba(140, 215, 207, 1);
+	border-radius:50%;
+	background-color:rgba(140, 215, 207, 0.1);
+  padding:16px 16px;
+	margin:10px 0;
+}
+
+
+.dash_bor_box h5{
+	font-size:0.9em;
+	color:#6E717A;
+}
+
+.dash_ratstr i{
+	font-size:0.9em;
+	color:#FBBC05;
+}
+.dash_strpos{
+	display:flex;
+	column-gap:8px;
+	align-items:center;
+}
+/*media*/
+@media(max-width:1215px){
+	.dash_par3{
+		justify-content:center;
+	}
+}
+
+@media(max-width:1199px){
+	.dash_bor_sdbr{
+		left:-480px;
+		width:40%;
+		transition:0.5s;
+	}
+	.dash_bor_sdbr.actives{
+		left:0;
+		transition:0.5s;
+	}
+	.dash_bor_main1{
+		width:100%;
+	}
+}
+
+.dash_bor_rsp{
+	display:flex;
+	justify-content:space-between;
+	flex-wrap:wrap;
+	row-gap:20px;
+}
+
+.dash_bor_rsp_1{
+	display:flex;
+	align-items:center;
+	column-gap:50px;
+}
+
+.dash_bor_rsp_1 i{
+	border-radius:10px;
+	padding:10px 15px;
+	color:white;
+	cursor:pointer;
+	background-color:rgba(110, 113, 122, 0.3);
+}
+
+.dash_bor_tables img{
+	width:40px;
+	height:40px;
+	border-radius:50%;
+}
+
+
+.dash_bor_table img{
+	width:40px;
+	height:40px;
+	border-radius:50%;
+}
+.dash_bor_table th,td{
+
+	font-weight:500;
+}
+
+.dash_bor_table td{
+	font-size:0.9em;
+}
+
+
+.dash_bor_tables th{
+	text-align:center;
+	font-weight:500;
+	font-size:0.8em;
+  
+}
+
+.dash_bor_tables td{
+	text-align:center;
+	vertical-align:center;
+	font-weight:500;
+	color:#6E717A;
+	font-size:0.8em;
+
+
+}
+
+.dash_bor_stars{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	column-gap:40px;
+}
+.dash_star_clr i {
+	color:#FBBC05;
+}
+
+/*.dash_bor_cont{
+	display:flex;
+	justify-content:center;
+	align-items:top;
+}*/
+
+.dash_bor_table_img1{
+		display:flex;
+		flex-direction:row;
+		justify-content:center;
+		align-items:top;
+	column-gap:5px;
+		background-color:white;
+	}
+
+
+@media(max-width:440px){
+	.dash_bor_table td{
+	font-size:0.7em;
+}
+
+.dash_bor_table th{
+	font-size:0.7em;
+}
+
+
+}
+
+@media(max-width:600px){
+	.dash_bor_table_img{
+		display:flex;
+		justify-content:center;
+		flex-direction:column;
+		align-items:center;
+	}
+}
+
+.dash_bor_rsp_va{
+	background-color:white;
+	padding:15px 0;
+  width:100%;
+  height:100%;
+  	border-radius:10px;
+}
+
+.dash_bor_rsp_va a{
+	font-weight:500;
+	color:#7B61FF;
+		text-decoration:none;
+}
+
+
+.dash_bor_split{
+	display:flex;
+	justify-content:space-between;
+	flex-wrap:wrap;
+	row-gap:20px;
+}
+
+.dash_bor_split i{
+	border-radius:10px;
+	padding:10px 15px;
+	color:white;
+	cursor:pointer;
+	background-color:rgba(110, 113, 122, 0.3);
+}
+
+.dash_bor_tables{
+	display:flex;
+
+	flex-wrap:wrap;
+	row-gap:30px;
+}
+.dash_bor_table1{
+	width:50%;
+}
+
+.dash_bor_table2{
+	width:50%;
+}
+
+@media(max-width:1349px){
+	.dash_bor_table1,.dash_bor_table2{
+		width:100%;
+	}
+}
+
+
+
+--------------------------------------------------------------*/
+/* Desktop Navigation */
+.nav-menu {
+  padding: 30px 0 0 0;
+}
+
+.nav-menu * {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-menu>ul>li {
+  position: relative;
+  white-space: nowrap;
+}
+
+.nav-menu a,
+.nav-menu a:focus {
+  display: flex;
+  align-items: center;
+  color: #a8a9b4;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  transition: 0.3s;
+  font-size: 15px;
+}
+
+.nav-menu a i,
+.nav-menu a:focus i {
+  font-size: 24px;
+  padding-right: 8px;
+  color: #6f7180;
+}
+
+.nav-menu a:hover,
+.nav-menu .active,
+.nav-menu .active:focus,
+.nav-menu li:hover>a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.nav-menu a:hover i,
+.nav-menu .active i,
+.nav-menu .active:focus i,
+.nav-menu li:hover>a i {
+  color: #149ddd;
+}
+.mobile-nav-toggle{
+	opacity:0;
+}
+
+
+@media(max-width:1199px){
+
+.mobile-nav-toggle {
+  position:absolute;
+  right:200px;
+  top: 5px;
+  z-index: 9998;
+  border: 0;
+  font-size: 20px;
+  transition: all 0.4s;
+  outline: none !important;
+  background-color: #149ddd;
+  color: #fff;
+  padding:10px 12px;
+  display:inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  opacity:1;
+  border-radius: 50px;
+  cursor: pointer;
+}
+}

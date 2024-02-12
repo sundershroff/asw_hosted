@@ -29,6 +29,24 @@ class Profilemanager(models.Model):
     personal_address = models.TextField(null=True)
     notary = models.TextField(null=True)
     id_card = models.TextField(null=True)
+     #new qualification
+    level_education = models.TextField(null=True)
+    field_study = models.TextField(null=True)
+    work_job_title = models.TextField(null=True)
+    work_company_name = models.TextField(null=True)
+    work_job_location = models.TextField(null=True)
+    ex_job_title = models.TextField(null=True)
+    ex_company_name = models.TextField(null=True)
+    year_experience = models.TextField(null=True)
+    ex_location = models.TextField(null=True)
+    degree_cer = models.TextField(null=True)
+    ex_cer = models.TextField(null=True)
+    work_type = models.TextField(null=True)
+    gst_number = models.TextField(null=True)
+    gst_certificate = models.TextField(null=True)
+    company_pan_no = models.TextField(null=True)
+    arn_no =models.TextField(null=True)
+    pan_card =models.TextField(null=True)
     
     #signed document
     sign_document = models.TextField(null=True)
@@ -71,6 +89,25 @@ class hiringmanager(models.Model):
     personal_address = models.TextField(null=True)
     hiring_manager = models.TextField(null=True)
     id_card = models.TextField(null=True)
+    #new qualification
+    level_education = models.TextField(null=True)
+    field_study = models.TextField(null=True)
+    work_job_title = models.TextField(null=True)
+    work_company_name = models.TextField(null=True)
+    work_job_location = models.TextField(null=True)
+    ex_job_title = models.TextField(null=True)
+    ex_company_name = models.TextField(null=True)
+    year_experience = models.TextField(null=True)
+    ex_location = models.TextField(null=True)
+    degree_cer = models.TextField(null=True)
+    ex_cer = models.TextField(null=True)
+    work_type = models.TextField(null=True)
+    gst_number = models.TextField(null=True)
+    gst_certificate = models.TextField(null=True)
+    company_pan_no = models.TextField(null=True)
+    arn_no =models.TextField(null=True)
+    pan_card =models.TextField(null=True)
+    
     #my hiring manager
     my_hiring_manager = models.TextField(null=True)
     #signed document
@@ -128,7 +165,25 @@ class salesmanager(models.Model):
     user_otp1 = models.IntegerField(null=True)
     #signed document
     sign_document = models.TextField(null=True)
-
+ #new qualification
+    level_education = models.TextField(null=True)
+    field_study = models.TextField(null=True)
+    work_job_title = models.TextField(null=True)
+    work_company_name = models.TextField(null=True)
+    work_job_location = models.TextField(null=True)
+    ex_job_title = models.TextField(null=True)
+    ex_company_name = models.TextField(null=True)
+    year_experience = models.TextField(null=True)
+    ex_location = models.TextField(null=True)
+    degree_cer = models.TextField(null=True)
+    ex_cer = models.TextField(null=True)
+    work_type = models.TextField(null=True)
+    gst_number = models.TextField(null=True)
+    gst_certificate = models.TextField(null=True)
+    company_pan_no = models.TextField(null=True)
+    arn_no =models.TextField(null=True)
+    pan_card =models.TextField(null=True)
+    
     #created on 
     created_date = models.TextField(null=True)
 
@@ -205,6 +260,24 @@ class ad_provider(models.Model):
     id_card = models.TextField(null=True)
     hiring_manager = models.TextField(null=True)
     sales_manager = models.TextField(null=True)
+     #new qualification
+    level_education = models.TextField(null=True)
+    field_study = models.TextField(null=True)
+    work_job_title = models.TextField(null=True)
+    work_company_name = models.TextField(null=True)
+    work_job_location = models.TextField(null=True)
+    ex_job_title = models.TextField(null=True)
+    ex_company_name = models.TextField(null=True)
+    year_experience = models.TextField(null=True)
+    ex_location = models.TextField(null=True)
+    degree_cer = models.TextField(null=True)
+    ex_cer = models.TextField(null=True)
+    work_type = models.TextField(null=True)
+    gst_number = models.TextField(null=True)
+    gst_certificate = models.TextField(null=True)
+    company_pan_no = models.TextField(null=True)
+    arn_no =models.TextField(null=True)
+    pan_card =models.TextField(null=True)
     
     #signed document
     sign_document = models.TextField(null=True)
@@ -247,7 +320,25 @@ class ad_distributor(models.Model):
     sales_manager = models.TextField(null=True)
     #signed document
     sign_document = models.TextField(null=True)
-
+ #new qualification
+    level_education = models.TextField(null=True)
+    field_study = models.TextField(null=True)
+    work_job_title = models.TextField(null=True)
+    work_company_name = models.TextField(null=True)
+    work_job_location = models.TextField(null=True)
+    ex_job_title = models.TextField(null=True)
+    ex_company_name = models.TextField(null=True)
+    year_experience = models.TextField(null=True)
+    ex_location = models.TextField(null=True)
+    degree_cer = models.TextField(null=True)
+    ex_cer = models.TextField(null=True)
+    work_type = models.TextField(null=True)
+    gst_number = models.TextField(null=True)
+    gst_certificate = models.TextField(null=True)
+    company_pan_no = models.TextField(null=True)
+    arn_no =models.TextField(null=True)
+    pan_card =models.TextField(null=True)
+    
     #created on 
     created_date = models.TextField(null=True)
 
@@ -283,7 +374,25 @@ class affliate_marketing(models.Model):
     coin = models.TextField(null=True)
     #signed document
     sign_document = models.TextField(null=True)
-
+ #new qualification
+    level_education = models.TextField(null=True)
+    field_study = models.TextField(null=True)
+    work_job_title = models.TextField(null=True)
+    work_company_name = models.TextField(null=True)
+    work_job_location = models.TextField(null=True)
+    ex_job_title = models.TextField(null=True)
+    ex_company_name = models.TextField(null=True)
+    year_experience = models.TextField(null=True)
+    ex_location = models.TextField(null=True)
+    degree_cer = models.TextField(null=True)
+    ex_cer = models.TextField(null=True)
+    work_type = models.TextField(null=True)
+    gst_number = models.TextField(null=True)
+    gst_certificate = models.TextField(null=True)
+    company_pan_no = models.TextField(null=True)
+    arn_no =models.TextField(null=True)
+    pan_card =models.TextField(null=True)
+    
     otp1 = models.IntegerField(null=True)
     user_otp1 = models.IntegerField(null=True)
     #created on 

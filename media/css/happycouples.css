@@ -1,0 +1,168 @@
+.frnd_req_sec1{
+
+	background-color:#E3DFFD;
+}
+
+.hap_cop_sec1{
+	display: flex;
+	flex-wrap:wrap;
+	justify-content:space-between;
+}
+.hap_cop_sec1 button{
+	border:2px solid #7B61FF;
+	padding:10px 20px;
+	background-color:white;
+	color:#7B61FF;
+	border-radius:10px;
+	font-weight:700;
+	transition:0.5s;
+}
+
+.hap_cop_sec1 button:hover{
+	background-color:#7B61FF;
+	color:white;
+	transition:0.5s;
+}
+
+.hap_cop_sec4{
+	width:600px;
+	height:353px;
+	border-radius:10px;
+	position:absolute;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+}
+
+.hap_cop_sec5{
+	position:absolute;
+	top:20%;
+    color:white;
+    opacity:0;
+
+}
+.hap_cop_sec4:hover{
+	background:linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5));
+;
+}
+.hap_cop_sec4:hover .hap_cop_sec5{
+	opacity:1;
+	transition:1s;
+
+	
+}
+
+.hap_cop_sec5 h4{
+   margin:30px 30px;
+}
+
+.hap_cop_sec5 p{
+	margin:30px 30px;
+	line-height:30px;
+}
+
+.hap_cop_sec5 a{
+	margin:20px 30px;
+	color:white;
+	text-decoration:none;
+}
+
+.hap_cop_sec3 {
+	position:relative;
+}
+
+.hap_cop_sec3 img{
+	width:600px;
+	height:353px;
+}
+
+.hap_cop_sec2{
+	display:flex;
+	flex-wrap:wrap;
+	row-gap:20px;
+	justify-content:space-evenly;
+}
+
+@media(max-width:1400px){
+	.hap_cop_sec3 img{
+       width:550px;
+       height:300px;
+	}
+    
+    .hap_cop_sec4{
+		 width:550px;
+       height:300px;
+	}
+
+	.hap_cop_sec2{
+		column-gap:10px;
+	}
+}
+
+@media(max-width:640px){
+	.hap_cop_sec3 img{
+       width:100%;
+	}
+}
+
+
+@media(max-width:1200px){
+	.hap_cop_sec3 img{
+       width:450px;
+       height:250px;
+	}
+
+	.hap_cop_sec4{
+		 width:450px;
+       height:250px;
+	}
+
+	.hap_cop_sec2{
+		column-gap:10px;
+	}
+	.hap_cop_sec5 h4{
+   margin:10px 30px;
+   font-size:1.2em;
+}
+
+.hap_cop_sec5 p{
+	margin:10px 30px;
+	line-height:30px;
+	font-size:0.8em;
+}
+
+.hap_cop_sec5 a{
+	margin:20px 30px;
+	color:white;
+	text-decoration:none;
+}
+}
+
+@media(max-width:990px){
+	.hap_cop_sec3 img{
+       width:450px;
+       height:250px;
+	}
+
+	.hap_cop_sec4{
+		 width:450px;
+       height:250px;
+	}
+
+	.hap_cop_sec2{
+		column-gap:10px;
+	}
+}
+
+@media(max-width:435px){
+	.hap_cop_sec3 img{
+       width:100%	
+   }
+
+   .hap_cop_sec4{
+   	width:100%;
+   }
+
+	
+}

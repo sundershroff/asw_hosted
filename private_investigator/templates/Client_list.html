@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Bootstrap link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" ></script>   
+        <!-- Template Main CSS File --> 
+    <link href="/media/css/pi_client_details.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/media/css/pi_style.css">
+
+    <!--nav bar icon-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.css" />
+    <!-- search icon link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+
+
+
+  </head>
+</head>
+<body>
+  <!-- ======= Mobile nav toggle button ======= -->
+  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
+  <!-- ======= Header ======= -->
+  <header id="header">
+    <div class="d-flex flex-column">
+       <img src="/media/images/Logo.png" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+        {% include 'pi_nav.html' %}
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+  </header>
+
+  <!-- End Header -->
+  <main id="main">
+    {% include 'pi_header.html'%}
+
+
+</div>
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+     <div class="container">
+       <div class="d-flex justify-content-between align-items-center">
+         <h2>Client details</h2>
+       </div>
+     </div>
+   </section>
+   <!-- End Breadcrumbs -->
+
+   <section class="Clients">
+     <div class="container Clients">
+       <div class="row">
+         <div class="col-md-6 mt-3 mb-3">
+          <h4 class="heading">Clients</h4>
+        </div>
+         <div class="col-md-6 mt-3 mb-3 d-flex justify-content-end align-items-center">
+         
+           <div class="form-inputs ms-3">
+             <input class="form-control" type="text" placeholder="Search">
+             <i class="bx bx-search"></i>
+           </div>
+           <div class="dropdown">
+             <button class="btn" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+               Filter <span class="bi bi-filter"></span>
+             </button>
+             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+               <li><button class="dropdown-item" type="button">Action</button></li>
+               <li><button class="dropdown-item" type="button">Another action</button></li>
+               <li><button class="dropdown-item" type="button">Something else here</button></li>
+             </ul>
+           </div>
+         </div>
+       </div>
+       <!-- ... (rest of your "Clients" section content) ... -->
+
+       <!--Client images-->
+       <div class="row ClientImages">
+  {% for i in all_profinder_data %}
+  <div class="col-md-6 col-lg-3  client-container">
+    <form method="POST">  
+      {% csrf_token %}
+    <a href="" style="display: contents;"><button type="submit" name="client_one" value="{{i.uid}}" style="
+      display: contents;
+  " >
+    </form>
+    <img src="{{i.profile_picture}}" alt="" class="clientimg">
+    <div class="client-details">
+        <span class="clientname mb-2">{{i.name}}</span>
+        <span class="clientID mb-1">ID :#{{i.uid}}</span>
+        <span class="clientpalce mb-2">{{i.r_country}}, {{i.r_state}}</span>
+        <i class="clientquotes mb-2">"{{i.profile_tag}}"</i>
+        <i class="bi bi-circle-fill me-3 mb-3"><span class="online ms-1">Online</span>  </i>
+    </div>
+</div>
+      {% endfor %}
+
+      {% comment %} <div class="col-md-6 col-lg-3  client-container">
+        <img src="/media/images/man2.webp" alt="" class="clientimg">
+        <div class="client-details">
+            <span class="clientname mb-2">Cameron Williamson</span>
+            <span class="clientID mb-1">ID :#123AD</span>
+            <span class="clientpalce mb-2">Dubai, United Arab Emirates</span>
+            <i class="clientquotes mb-2">"Life is full of possibility"</i>
+            <i class="bi bi-circle-fill me-3 mb-3"><span class="online ms-1">Online</span>  </i>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3  client-container">
+      <img src="/media/images/man2.webp" alt="" class="clientimg">
+      <div class="client-details">
+          <span class="clientname mb-2">Cameron Williamson</span>
+          <span class="clientID mb-1">ID :#123AD</span>
+          <span class="clientpalce mb-2">Dubai, United Arab Emirates</span>
+          <i class="clientquotes mb-2">"Life is full of possibility"</i>
+          <i class="bi bi-circle-fill me-3 mb-3"><span class="online ms-1">Online</span>  </i>
+      </div>
+  </div>
+
+  <div class="col-md-6 col-lg-3  client-container">
+    <img src="/media/images/man2.webp" alt="" class="clientimg">
+    <div class="client-details">
+        <span class="clientname mb-2">Cameron Williamson</span>
+        <span class="clientID mb-1">ID :#123AD</span>
+        <span class="clientpalce mb-2">Dubai, United Arab Emirates</span>
+        <i class="clientquotes mb-2">"Life is full of possibility"</i>
+        <i class="bi bi-circle-fill me-3 mb-3"><span class="online ms-1">Online</span>  </i>
+    </div>
+</div>
+      
+<div class="col-md-6 col-lg-3  client-container">
+  <img src="/media/images/man2.webp" alt="" class="clientimg">
+  <div class="client-details">
+      <span class="clientname mb-2">Cameron Williamson</span>
+      <span class="clientID mb-1">ID :#123AD</span>
+      <span class="clientpalce mb-2">Dubai, United Arab Emirates</span>
+      <i class="clientquotes mb-2">"Life is full of possibility"</i>
+      <i class="bi bi-circle-fill me-3 mb-3"><span class="online ms-1">Online</span>  </i>
+  </div>
+</div>
+<div class="col-md-6 col-lg-3  client-container">
+  <img src="/media/images/man2.webp" alt="" class="clientimg">
+  <div class="client-details">
+      <span class="clientname mb-2">Cameron Williamson</span>
+      <span class="clientID mb-1">ID :#123AD</span>
+      <span class="clientpalce mb-2">Dubai, United Arab Emirates</span>
+      <i class="clientquotes mb-2">"Life is full of possibility"</i>
+      <i class="bi bi-circle-fill me-3 mb-3"><span class="online ms-1">Online</span>  </i>
+  </div>
+</div>
+<div class="col-md-6 col-lg-3  client-container">
+  <img src="/media/images/man2.webp" alt="" class="clientimg">
+  <div class="client-details">
+      <span class="clientname mb-2">Cameron Williamson</span>
+      <span class="clientID mb-1">ID :#123AD</span>
+      <span class="clientpalce mb-2">Dubai, United Arab Emirates</span>
+      <i class="clientquotes mb-2">"Life is full of possibility"</i>
+      <i class="bi bi-circle-fill me-3 mb-3"><span class="online ms-1">Online</span>  </i>
+  </div>
+</div>
+<div class="col-md-6 col-lg-3  client-container">
+  <img src="/media/images/man2.webp" alt="" class="clientimg">
+  <div class="client-details">
+      <span class="clientname mb-2">Cameron Williamson</span>
+      <span class="clientID mb-1">ID :#123AD</span>
+      <span class="clientpalce mb-2">Dubai, United Arab Emirates</span>
+      <i class="clientquotes mb-2">"Life is full of possibility"</i>
+      <i class="bi bi-circle-fill me-3 mb-3"><span class="online ms-1">Online</span>  </i>
+  </div>
+</div> {% endcomment %}
+      
+
+       </div>
+
+     </div>
+   </section>
+   <!-- End Breadcrumbs -->
+   
+  </main>
+  <!-- End #main -->
+  
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Mariyoo</span></strong>
+      </div>
+      <div class="credits">
+        All Right Reserved
+      </div>
+    </div>
+  </footer>
+  <!-- End  Footer -->
+
+  <!-- Template Main JS File -->
+  <script src="/media/js/main.js"></script>
+</body>
+</html>
+
+
+

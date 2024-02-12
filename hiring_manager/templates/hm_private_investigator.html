@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Hiring Manager-Local Admin</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/hm_allstyle.css'%}">
+
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <link src="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- over -->
+
+</head>
+<body style=" background-color:#F4F2FF;">
+   
+ <div class="dash_bor_sec1">
+
+  <div class="dash_bor_sdbr" id="dashsidebar">
+
+      <header id="header">
+    <div class="d-flex flex-column">
+       <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar" style="overflow-y: scroll;
+      height: 33rem;">
+       
+        {% include "hm_nav.html" %}
+
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+  </header>
+  
+  </div>
+
+  {% include "header.html" %}
+
+    <!-- start -->
+    <div class="locl_adm_sec1 px-4 my-4">
+
+      <div>
+        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{pm_data|length}} </span>Private Investigator in the list</h3>
+      </div>
+      
+      <div class="locl_adm_form">
+        <form method="POST" enctype="multipart/form-data" id="myform">
+        
+        <div class="locl_adm_align">
+          <input type="text" autofocus>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        </form>
+        <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
+        <button style="background-color:  #3247CE;color:#fff">Download Template <i  class="bi bi-download"></i></button>
+      </div>
+      
+    </div>
+    <!-- over -->
+
+    <!-- start -->
+    <div class="locl_adm_sec2 my-5">
+
+      <div class="loc_adm_bala_tables px-3">
+
+        <table>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>User ID</th>
+              <th>Name of Adprovider</th>
+              <th>Email ID</th>
+              <th>Phone Number</th>
+              <th>Location</th>
+              <th>Status</th>
+        {% if "Upload Privateinvestigator document" in access %}
+              <th>Actions</th>
+              {%else%}
+              {%endif%}
+          {% if access == "" %}
+              <th>Actions</th>
+              {%endif%}
+
+            </tr>
+          </thead>
+           <tbody>
+            {% for i in pm_data %}
+            <tr>
+
+             <td data-label = "No">{{forloop.counter}}</td>
+             <td data-label = "User ID">{{i.uid}}</td>
+             <td data-label = "Name"><img src="{{i.profile_picture}}"> {{i.first_name}} {{i.last_name}}</td>
+             <td data-label = "Email ID">{{i.email}}</td>
+             <td data-label = "Phone Number">+91 {{i.mobile}}</td>
+             <td data-label = "Complaints">{{i.personal_country}}</td>
+             {% if i.id_card == None %}
+             <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
+             {% else %}
+             <td data-label = "Status"><strong class="pending" style="
+              background-color: cornsilk;
+              color: green;
+          ">Complete</strong></i></td>
+          {% endif %}
+
+             <td data-label = "Actions">
+              <form method="POST">
+                {% csrf_token %}
+
+          {% if "Upload Privateinvestigator document" in access %}
+                {% if i.id_card == None %}
+                    <button type="submit" value="{{i.uid}}" name="uid" style="
+                    border: 1px transparent;
+                    background-color: transparent;
+                    "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></button></a>
+                    {% else %}    
+                    <button style="
+                    border: 1px transparent;
+                    background-color: transparent;
+                    opacity:30%;
+                "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#"></i></button></a>
+                {% endif %} 
+          {%else%}
+          {%endif%}
+    {% if access == "" %}
+          {% if i.id_card == None %}
+          <button type="submit" value="{{i.uid}}" name="uid" style="
+          border: 1px transparent;
+          background-color: transparent;
+          "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></button></a>
+          {% else %}    
+          <button style="
+          border: 1px transparent;
+          background-color: transparent;
+          opacity:30%;
+      "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#"></i></button></a>
+      {% endif %} 
+  {%endif%}
+        </form>
+            </td>
+              
+            </tr>
+            {% endfor %}
+           
+         
+
+          </tbody>
+        </table>
+
+ 
+        
+      </div>
+      
+    </div>
+    <!-- over -->
+
+  </div>
+   
+ </div>
+ <!-- modal -->
+
+
+  <!-- <div class="modal fade modal-md px-4" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+  
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body locl_adm_modal1">
+
+        <ul>
+          <li><a href="">View Details</a> </li>
+          <li><a href="">Approve</a></li>
+          <li><a href="" style="color:red;">Reject</a> </li>
+        </ul>
+      
+      </div>
+     
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="modal fade" id="compmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="border:none;">
+       
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="locl_adm_comp_modal">
+            <h5>View Complaints</h5>
+            <h6>Not responding last 3 weeks...</h6>
+
+           <form>
+             <div>
+               <label class="form-label">Replay</label>
+             </div>
+             <div>
+               <textarea class="form-control" rows="5">
+               
+             </textarea>
+             </div>
+           </form>
+
+          </div>
+      </div>
+      <div class="modal-footer locl_adm_comp_modal_fotter" style="background:rgba(102, 102, 102,0.1)
+;">
+        <button type="button"  data-bs-dismiss="modal">Cancel</button>
+        <button type="button" c1lass="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="modal fade modal-md" id="filter_modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header prof_personal_filt">
+          <h4 class="modal-title" id="exampleModalLabel" style="font-weight:700;" >Filter</h4>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times-circle" style="color:black;"></i></button>
+        </div>
+        <div class="modal-body prof_personal_filt2">
+           
+           <form method="post" action="#">
+         
+             <div class="my-3">
+              <label for="exampleFormControlInput1" class="form-label">ID</label>
+              <input type="text" name="" class="form-control">
+             </div>
+  
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Name</label>
+                <input type="text" name="" class="form-control">
+             </div>
+            
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Email ID</label>
+               <input type="text" name="" class="form-control">
+             </div>
+  
+                    <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
+               <input type="text" name="" class="form-control">
+             </div>
+  
+  
+                    <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Locations</label>
+               <select class="form-select py-3">
+                <option selected>Select</option>
+              </select>
+             </div>
+  
+                    <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Status</label>
+               <select class="form-select py-3">
+                <option selected>Select</option>
+              </select>
+             </div>
+
+  
+             <div class="prof_personal_savefilt1 text-center mb-5">
+               <button class="prof_personal_filbtn1 my-3" type="reset">Reset</button>
+               <button class="prof_personal_filbtn2 my-3" type="submit">Submit</button>
+             </div>
+             <div class="py-1">
+        
+             </div>  
+  
+           </form>
+
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
+  <!-- over -->
+
+
+ 
+  <script src="{% static 'js/main.js'%}"></script>
+
+
+</body>
+</html>
+
+<!--   -->

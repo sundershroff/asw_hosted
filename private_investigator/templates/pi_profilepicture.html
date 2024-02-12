@@ -1,0 +1,239 @@
+<html>
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="    sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="/media/css/style.css">
+        <link rel="stylesheet" href="/media/css/dashboard_profile.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    </head>
+    <body>
+      
+      <section class="">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 text-black">
+                <div class="profileid_page_sec1 my-2 container">
+                <!-- {% if saved %}
+                    <strong>Your Id card was saved.</strong>
+                {% endif %}
+                
+                {% if not saved %}
+                    <strong>Your Id card was not saved.</strong>
+                {% endif %} -->
+            
+                <a href="#"><i class="far fa-chevron-left my-5 "></i><span class="px-3">Back to Home</span></a>
+                    <h2 class="mt-4">Profile Picture</h3>
+                    <p class="mb-5">Upload your profile picture here.</p>
+                    <form method="POST" enctype="multipart/form-data" id="idform">
+                        {% csrf_token %}
+                        <label>Profile Picture<span style=" color:#7B61FF;">*</span></label>
+                        <div class="file-drop-area mt-1">
+
+                            <img src="/media/images/prim_det_img2.png" class="prim_det_img1">
+                         
+                            <p class="file-message my-3">Drag Or Click Here To Upload Your Profile Picture</p>
+
+                            <input class="file-input" type="file" name="profile_picture">
+                            <!-- accept=".png,.jpg,.jpeg,.pdf,.doc,.docx" -->
+                        </div>
+                        <!-- <input type="file" name="idcard" class="form-control" accept=".png,.jpg,.jpeg,.pdf,.doc,.docx">
+                        -->
+                        <div class="prof_page_btn1 mt-4">
+
+                            <button type="button" class="btn prof_btns1" >Back</button>
+                            <button type="submit" class="btn prof_btns2" >Submit</button>
+                         </div>
+                        
+                        
+
+                    </form>
+
+                    <h6 class="mt-5">If don't want to continue now? <a href="#" style="color:#7B61FF;">Logout Non</a></h6>
+               
+            </div>
+            </div>
+            <div class="col-lg-6">
+
+               
+                    <div class="propicuplod_page_images my-5">
+                        <img src="/media/images/Logo.png">
+                    </div>
+             
+                
+            </div>
+        </div>
+    </div>
+</section>
+    {% include 'footer.html' %}
+    <script>
+        <!-- JavaScript -->
+        const captureBtn = document.getElementById('capture-btn');
+        //const switchCameraBtn = document.getElementById('switch-camera-btn');
+        //const flashBtn = document.getElementById('flash-btn');
+        const takePhotoBtn = document.getElementById('take-photo-btn');
+        const cameraStream = document.getElementById('camera-stream');
+        const photoCanvas = document.getElementById('photo-canvas');
+        const context = photoCanvas.getContext('2d');
+        
+        let currentCamera = 'user';
+        let currentFlash = 'off';
+        
+        // Add event listeners for camera controls
+      //   switchCameraBtn.addEventListener('click', () => {
+      //     currentCamera = currentCamera === 'user' ? 'environment' : 'user';
+      //     startCamera();
+      //   });
+        
+      //   flashBtn.addEventListener('click', () => {
+      //     currentFlash = currentFlash === 'off' ? 'on' : 'off';
+      //     setFlash();
+      //   });
+        
+        takePhotoBtn.addEventListener('click', () => {
+          $("video#camera-stream").hide();
+          //$("#photoCanvas").addClass("canpoab");
+          context.drawImage(cameraStream, 0, 0, photoCanvas.width, photoCanvas.height);
+          const imageData = photoCanvas.toDataURL('image/png');
+          
+      
+          saveImage(imageData);
+
+          
+          //stopCamera();
+          const video = document.querySelector('video');
+      
+          // A video's MediaStream object is available through its srcObject attribute
+          const mediaStream = video.srcObject;
+      
+          // Through the MediaStream, you can get the MediaStreamTracks with getTracks():
+          const tracks = mediaStream.getTracks();
+      
+          // Tracks are returned as an array, so if you know you only have one, you can stop it with: 
+          tracks[0].stop();
+      
+          // Or stop all like so:
+          tracks.forEach(track => track.stop())
+      
+        });
+        
+        // Add event listener for capture button
+        captureBtn.addEventListener('click', () => {
+          startCamera();
+        });
+        
+        // Start the camera stream
+        function startCamera() {
+          const constraints = {
+            video: { facingMode: currentCamera },
+            audio: false
+          };
+        
+          navigator.mediaDevices.getUserMedia(constraints)
+            .then(stream => {
+              cameraStream.srcObject = stream;
+              cameraStream.play();
+              setFlash();
+            })
+            .catch(error => console.log(error));
+        }
+        
+        // Set the flash mode
+        function setFlash() {
+          const track = cameraStream.srcObject.getVideoTracks()[0];
+        
+          if (track) {
+            const imageCapture = new ImageCapture(track);
+            const photoCapabilities = imageCapture.getPhotoCapabilities().then(capabilities => {
+              if (capabilities.fillLightMode.includes(currentFlash)) {
+                imageCapture.setOptions({ fillLightMode: currentFlash });
+                flashBtn.innerText = `Flash: ${currentFlash}`;
+              } else {
+                currentFlash = 'off';
+                flashBtn.innerText = `Flash: Off`;
+              }
+            });
+          }
+        }
+        
+        // Save the image data to the server
+        // function saveImage(imageData) {
+        //   //alert(imageData);
+        //   alert($("input[name='csrfmiddlewaretoken']").val());
+        //   csrf_field= $("input[name='csrfmiddlewaretoken']").val();
+        //   const xhr = new XMLHttpRequest();
+        //   xhr.open('POST', '/selfie_upload');
+        //   xhr.setRequestHeader('Content-Type', 'application/json');
+        //   xhr.send(JSON.stringify({ image: imageData,csrfmiddlewaretoken:csrf_field}));
+        //   console.log()
+        // }
+
+
+        function saveImage(imageData) {
+           //imdata = imageData.split(',')[1];
+           imdata = imageData;
+           $("#profile_picture").val(imdata);
+            csrf_field= $("input[name='csrfmiddlewaretoken']").val();
+            // Convert the imageData to a Blob object
+            const blob = dataURItoBlob(imageData);
+
+            // Create a new FormData object and append the blob to it
+            // const formData = new FormData();
+            // formData.append('image', blob, 'selfie.png');
+            // formData.append('csrf_field',csrf_field);
+            //alert(formData['image']);
+            // Send a POST request to the Django view that handles image upload
+            // const xhr = new XMLHttpRequest();
+            // xhr.open('POST', '/selfie_upload');
+            //xhr.send(formData);
+            //xhr.send(`profile_picture=${imdata}`);
+            console.log(imdata);
+            $("form").submit();
+        }
+
+        // Helper function to convert a data URI to a Blob object
+        function dataURItoBlob(dataURI) {
+            const byteString = atob(dataURI.split(',')[1]);
+            const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            return new Blob([ab], { type: mimeString });
+        }
+      
+      </script>
+       <script>
+        $(document).on('change', '.file-input', function() {
+        
+
+            var filesCount = $(this)[0].files.length;
+            
+            var textbox = $(this).prev();
+        
+            if (filesCount === 1) {
+            var fileName = $(this).val().split('\\').pop();
+            textbox.text(fileName);
+            } else {
+            textbox.text(filesCount + ' files selected');
+            }
+        });
+        $('#idform').validate({
+            rules : {
+                idcard: {
+                    required: true, 
+                    accept: "pdf",
+                    //extension: "png|jpeg|jpg|pdf|doc|docx",
+                    //filesize: 1048576,   
+                }
+            }
+        });
+ 
+    </script>
+    
+</body>
+</html>

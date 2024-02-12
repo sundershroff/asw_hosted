@@ -1,0 +1,475 @@
+
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #272829;
+}
+
+a {
+  color: #149ddd;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #37b3ed;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Raleway", sans-serif;
+}
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+#header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  transition: all ease-in-out 0.5s;
+  z-index: 9997;
+  transition: all 0.5s;
+  padding: 0 15px;
+  background: #1a1d40;
+  overflow-y: auto;
+}
+
+#header .profile img {
+  margin: 15px auto;
+  display: block;
+  width: 120px;
+  border: 8px solid #2c2f3f;
+}
+
+#header .profile h1 {
+  font-size: 24px;
+  margin: 0;
+  padding: 0;
+  font-weight: 600;
+  -moz-text-align-last: center;
+  text-align-last: center;
+  font-family: "Poppins", sans-serif;
+}
+
+#header .profile h1 a,
+#header .profile h1 a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+#header .profile .social-links a {
+  font-size: 18px;
+  display: inline-block;
+  background: #212431;
+  color: #fff;
+  line-height: 1;
+  padding: 8px 0;
+  margin-right: 4px;
+  border-radius: 50%;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  transition: 0.3s;
+}
+
+#header .profile .social-links a:hover {
+  background: #149ddd;
+  color: #fff;
+  text-decoration: none;
+}
+
+#main {
+  margin-left: 300px;
+}
+
+.container,
+.container-fluid {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+@media (max-width: 1199px) {
+  #header {
+    left: -300px;
+  }
+
+  #main {
+    margin-left: 0;
+  }
+
+  .container,
+  .container-fluid {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+/* Desktop Navigation */
+.nav-menu {
+  padding: 30px 0 0 0;
+}
+
+.nav-menu * {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-menu>ul>li {
+  position: relative;
+  white-space: nowrap;
+}
+
+.nav-menu a,
+.nav-menu a:focus {
+  display: flex;
+  align-items: center;
+  color: #a8a9b4;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  transition: 0.3s;
+  font-size: 15px;
+}
+
+.nav-menu a i,
+.nav-menu a:focus i {
+  font-size: 24px;
+  padding-right: 8px;
+  color: #6f7180;
+}
+
+.nav-menu a:hover,
+.nav-menu .active,
+.nav-menu .active:focus,
+.nav-menu li:hover>a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.nav-menu a:hover i,
+.nav-menu .active i,
+.nav-menu .active:focus i,
+.nav-menu li:hover>a i {
+  color: #149ddd;
+}
+
+/* Mobile Navigation */
+.mobile-nav-toggle {
+  position: fixed;
+  right: 15px;
+  top: 15px;
+  z-index: 9998;
+  border: 0;
+  font-size: 24px;
+  transition: all 0.4s;
+  outline: none !important;
+  background-color: #149ddd;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  border-radius: 50px;
+  cursor: pointer;
+}
+.mobile-nav-active {
+  overflow: hidden;
+}
+.mobile-nav-active #header {
+  left: 0;
+}
+/*--------------------------------------------------------------
+# Breadcrumbs
+--------------------------------------------------------------*/
+.breadcrumbs {
+  padding: 20px 0;
+  background: #f9f9f9;
+}
+
+.breadcrumbs h2 {
+  font-size: 26px;
+  font-weight: 300;
+}
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 15px;
+}
+
+.breadcrumbs ol li+li {
+  padding-left: 10px;
+}
+
+.breadcrumbs ol li+li::before {
+  display: inline-block;
+  padding-right: 10px;
+  color: #0e2442;
+  content: "/";
+}
+
+@media (max-width: 768px) {
+  .breadcrumbs .d-flex {
+    display: block !important;
+  }
+
+  .breadcrumbs ol {
+    display: block;
+  }
+
+  .breadcrumbs ol li {
+    display: inline-block;
+  }
+}
+
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+#footer {
+  padding: 15px;
+  color: #f4f6fd;
+  font-size: 14px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  z-index: 9999;
+  background: #1a1d40;
+}
+
+#footer .copyright {
+  text-align: center;
+}
+
+#footer .credits {
+  padding-top: 5px;
+  text-align: center;
+  font-size: 13px;
+  color: #eaebf0;
+}
+
+@media (max-width: 1199px) {
+  #footer {
+    position: static;
+    width: auto;
+    padding-right: 20px 15px;
+  }
+}
+/*--------------------------------------------------------------
+# main container
+--------------------------------------------------------------*/
+button#dropdownMenu2 {
+  width: 100px;
+  border: 1px solid ;
+  height: 38px;
+  border-radius: 10px;
+  background-color: #fffeff;
+  color:#3f1fef;
+  margin-left: 10px;
+}
+
+button#dropdownMenu2:hover{
+  background-image: linear-gradient(to right, rgb(41 67 206),rgb(225 136 242));
+  color: white;
+}
+section.Clients{
+  background: #f5f3fe;
+}
+
+.form-inputs{
+  position:relative;
+  width: 250px;
+}
+.form-inputs .form-control{
+  height:45px; 
+  background-color: #f5f3fe;
+}
+
+
+.form-inputs i{
+  position:absolute;
+  right:15px;
+  top:15px;
+}
+/* Landscape tablet and larger screens */
+@media (min-width: 768px) and (max-width: 1024px) {
+  section.Clients .container.Clients {
+    width: 80%; /* Adjust the width as needed for your design */
+    margin: 0 auto; /* Center the container horizontally */
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 767px) {
+  section.Clients .container.Clients {
+    width: 100%; /* Full width for mobile */
+    padding-left: 15px; /* Add some padding for mobile */
+    padding-right: 15px; /* Add some padding for mobile */
+  }
+
+  .form-inputs {
+    width: 100%; /* Full width for search input */
+  }
+
+  .dropdown {
+    margin-left: 0; /* Remove the margin for mobile */
+    margin-top: 10px; /* Add some top margin for mobile */
+  }
+
+  /* Adjust font size for smaller screens if needed */
+  h4 {
+    font-size: 18px;
+  }
+
+  /* You can add more specific styles for mobile here */
+}
+img.Logo {
+    width: 160px;
+    /* margin-top: 20px;
+    margin-left: 15px; */
+}
+
+
+.clientimg {
+  max-width: 100%;
+  height: 365px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+/* CSS for client container */
+.client-container {
+    position: relative;
+   
+}
+
+
+/* CSS for client details */
+.client-details {
+  position: absolute;
+  bottom: 27px;
+  left: 25px;
+  color: #fff;
+  padding: 5px;
+  font-size: 10px;
+  width: 88%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/* CSS for online status */
+
+
+
+
+
+span.clientname {
+    font-size: 16px;
+    color: #f0efec;
+}
+span.clientID {
+    color: #c7c3c0;
+    font-size: 10px;
+}
+span.clientpalce {
+    font-size: 12px;
+    color: #f0efec;
+}
+i.clientquotes {
+    color: #c7c3c0;
+    font-size: 10px;
+}
+span.online {
+    color: #f0efec;
+    font-style: normal;
+}
+
+i.bi.bi-circle-fill.me-3 {
+  color: #4CAF50;
+  font-size: 8px;
+}
+@media (min-width: 992px) and (max-width: 1024px){
+  .clientimg {
+    max-width: 108%;
+    height: 365px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+.client-details {
+    position: absolute;
+    bottom: 27px;
+    left: 21px;
+    color: #fff;
+    padding: 5px;
+    font-size: 10px;
+    width: 88%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+}
+
+
+  .addnew.col-md-12.text-center {
+    border: dashed 1px #cacaca;
+    padding: 100px;
+    border-radius: 5px;
+    
+
+}
+button.buttoon.text-white.mt-3.pe-3.ps-3.pt-2.pb-2 {
+  border: 0px;
+  border-radius: 5px;
+  background-image: linear-gradient(to right, rgb(41 67 206), rgb(225 136 242));
+
+}
+p.addcli {
+  font-weight: 600;
+  font-size: 20px;
+}
+h4.heading {
+  font-weight: 600;
+  font-size: 25px;
+}
+button.Pending {
+  top: 20px;
+  position: absolute;
+  background: #42b942;
+  color: white;
+  border-radius: 5px;
+  border: 0px;
+  opacity: 0.8;
+}
+.fixed-pending-button {
+  right: 30px;
+}
+
+button.Pendings {
+  top: 20px;
+  position: absolute;
+  background: #977100;
+  color: white;
+  border-radius: 5px;
+  border: 0px;
+  opacity: 0.8;
+}

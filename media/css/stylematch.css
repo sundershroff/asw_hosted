@@ -1,0 +1,149 @@
+.view_all_sec1 h3{
+    font-weight:700;
+    color:#2B3674;
+}
+.view_all_sec1 span{
+    color:#7B61FF;
+
+}
+
+.view_all_page{
+    background:#E3DFFD;
+}
+
+.view_all_sec1 h6{
+    color:#6E717A;
+}
+.view_all_sec1{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    
+}
+
+.view_all_sec2{
+    display:flex;
+    flex-wrap:wrap;
+}
+
+.view_all_sec3 button{
+    margin:0 5px;
+}
+.view_all_sec3 button:nth-child(1){
+    border:1px solid #7B61FF;
+    color:#7B61FF;
+    background:white;
+    font-weight:500;
+}
+
+.view_all_sec3 button:nth-child(2){
+    background: linear-gradient(63deg,blue,#b772b7 );
+    color:white;
+    font-weight:500;
+    border:none;
+}
+
+@media(max-width:768px){
+    .match_list_sec3 button{
+        margin:5px 5px;
+    }
+    .view_all_sec1 h3{
+        font-size:1.2em;
+    }
+    .view_all_sec1 h6{
+        font-size:0.8em;
+    }
+}
+/*images*/
+
+.view_all_images{
+    display:flex;
+    flex-wrap:wrap;
+    row-gap:15px;
+    justify-content:center;
+    column-gap:10px;
+}
+
+.view_all_img img{
+    width:316px;
+    height:430px;
+}
+.view_all_img{
+    position:relative;
+}
+.view_all_img button:hover{
+    background-color:white;
+    color:black;
+
+}
+
+.view_all_btn1{
+    position:absolute;
+    top:10px;
+    right:20px;
+    padding:10px 20px;
+    border-radius:10px;
+    color:white;
+    border:none;
+    background: linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3));
+   
+}
+button.view_all_btn10 {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    padding: 10px 20px;
+    height: 48px;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    background: linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3));
+}
+
+.view_all_btn2{
+    position:absolute;
+    top:60px;
+    right:20px;
+    padding:10px 13px;
+    border-radius:10px;
+    color:white;
+    border:none;
+    background: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4));
+   
+}
+.view_all_btn3{
+    position:absolute;
+    bottom:20px;
+    right:20px;
+    padding:10px 13px;
+    border-radius:10px;
+    color:white;
+    border:none;
+    padding:20px;
+    background: linear-gradient(55.82deg, #2b44cc 17.79%, #e487f3 77.35%);;
+}
+.view_all_btn3:hover,.view_all_btn2:hover,.view_all_btn1:hover{
+    background:white;
+}
+.view_all_content{
+     position:absolute;
+     bottom:20px;
+     left:10px;
+     color:white;
+}
+.view_all_content p{
+    font-size:0.7em;
+}
+
+.view_all_content h6{
+    font-size:0.8em;
+}
+
+.view_all_icon1{
+    font-size:1.5em;
+}
+
+.view_all_icon2{
+    font-size:1em;
+}
+

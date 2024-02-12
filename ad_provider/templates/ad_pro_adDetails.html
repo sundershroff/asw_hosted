@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  {% load static %}
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Ad-Detail</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/all_style.css'%}">
+
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <!-- <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- over -->
+
+</head>
+<body style=" background-color:#F4F2FF;">
+   
+ <div class="dash_bor_sec1">
+
+  <div class="dash_bor_sdbr" id="dashsidebar">
+
+      <header id="header">
+    <div class="d-flex flex-column">
+       <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+        {% include "ad_pro_nav.html"%}
+
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+    <h5 style="position:absolute;bottom:20px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+  </header>
+  
+  </div>
+
+  <div class="dash_bor_main1">
+    <!-- start1-->
+     {% include 'ad_pro_header.html' %}
+    {% comment %} <div class="dash_par1" style="background:white;">
+
+          <i class="fa-regular fa-bell"></i>
+
+        <div class="dash_brd_img1">
+         <img src="{% static 'images/girl1.png'%}">
+         <div class="dropdown">
+          <a class="btn dropdown-toggle" href="#" style="font-size:25px" role="button" id="" data-bs-toggle="dropdown" aria-expanded="false">
+           
+          </a>
+        
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-regular fa-user"></i> My Account</a></li>
+            <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa fa-cog" aria-hidden="true"></i> Account Settings</a></li>
+            <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-solid fa-arrow-right-from-bracket"></i> Log Out</a></li>
+          </ul>
+        </div>
+         </div> {% endcomment %}
+
+    </div>
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
+    <!-- over -->
+
+    <!-- start -->
+    <div class="locl_adm_sec1 px-4 my-4">
+
+      <div>
+        <a href="/ad_provider/ad_pro_list/{{key.uid}}" style="text-decoration: none;"><h3>Ad ></a><span style="color:rgba(123, 97, 255, 1);font-weight:700;">Details</span></h3>
+      </div>
+
+      <!-- <div class="locl_adm_form">
+        <form>
+        
+        <div class="locl_adm_align">
+          <input type="text" autofocus>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        </form>
+        <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
+        <button data-bs-toggle="modal" data-bs-target="#">Add New <i class="fa-solid fa-circle-plus"></i></button>
+      </div> -->
+      
+    </div>
+    <!-- over -->
+
+    <!-- start -->
+    
+    <div class="locl_adm_sec2 px-4 my-2">
+        
+        <div class="row rowbg">
+            <div class="col-lg-2 col-md-2">
+              <button class="details_button"><b><img src="{{ad_data.id_card}}" height="136px" width="100px"></b> </button>
+            </div>
+            <div class="col-lg-3 col-md-3">
+              <span ><b>{{ad_data.ad_name}}</b><br>
+                <span class="task_button_text">{{ad_data.ad_type}}<br>
+                  {{ad_data.ad_created_date}} | {{ad_data.ad_created_time}} <br>
+                  Status:<span style="color:#F2994A">{{ad_data.status}}</span>
+              </span></span><br>
+              <button class="my-2 ads_btn1" id="copy_value" value="{{ad_data.ad_id}}" onclick="copyvalue(this)">Copy Ad ID</button>
+              <button class="my-2 ads_btn2">Visibility</button>
+
+            </div>
+            <div class="col-lg- col-md-1"></div>
+            <div class="col-lg-6 col-md-6">
+                <div class="ads_rect">
+                <div class="ads_div"><p style="color: #2B3674;" class="ads_div_p"><b>{{ad_data.no_views}}</b></p><br><p style="float:right">Views</p></div>
+                <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>{{amount}}</b></p><br><p style="float:right">Balance Amount</p></div>
+                <div class="ads_div"><div style="float:right"><i class="bi bi-coin ads_icn"></i><span style="color: #27AE60;" class="ads_div_p"><b>4</b></span></div><br><div><p style="float:right">Coin(0.5/Views)</p></div></div>
+                </div>
+               <div style="float:right;margin-top:20px"> <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider1 round"></span>
+                  </label> 
+                
+                  {% if 'Close Ads' in user_access%}
+                  <span style="color:red;cursor:pointer" data-bs-toggle="modal" data-bs-target="#close_ad">Close Ad</span> 
+                  {% else %}
+                  {% comment %} <span style="color:red;cursor:pointer" >Close Ad</span> {% endcomment %}
+                  {% endif %}
+                  {% if user_access == "" %}
+                <span style="color:red;cursor:pointer" data-bs-toggle="modal" data-bs-target="#close_ad">Close Ad</span>
+                {% endif %}
+                </div>
+            </div>
+                          
+                          
+          </div>
+          <h4 style="color:#2B3674"><b>Ad Logs</b></h4>
+          <div class="row">
+            <div class="loc_adm_bala_tables px-3">
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#No</th>
+                      <th>Details</th>
+                     
+                      <th>No of Views</th>
+                      <th>Date&Time</th>
+                      
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr >
+                      <td>1</td>
+                      <td>{{ad_data.ad_id}}</td>
+                      <td>{{ad_data.no_views}}</td>
+                      <td>{{ad_data.ad_created_date}}td>
+                      <td>₹{{amount}}</td>
+                      
+                    
+                    </tr>
+                      
+          
+                  </tbody>
+                </table>
+                 
+               </div>
+          </div>
+    <!-- over -->
+
+  </div>
+   
+ </div>
+ <!-- modal -->
+ 
+
+  <div class="modal fade modal-md px-4" id="close_ad" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header prof_personal_filt">
+          <h4 class="modal-title" id="exampleModalLabel" style="font-weight:700;" ></h4>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times-circle" style="color:black;"></i></button>
+        </div>
+        <div class="modal-body prof_personal_filt2">
+           
+           
+         <h3>Are you sure want to close this?</h3>
+            <div class="my-4">
+                After closing your and then the remaining balance will credited your wallet shortly.             </div>
+</div>
+<div class="modal-footer">
+             <div class="reason_modal_btn text-center mb-5">
+              <form method="POST" action=" " enctype="multipart/form-data">
+                {% csrf_token %}
+               <button class="my-3" type="submit" name="reset">No</button>
+               <button class="my-3" type="submit" name="submit">Yes</button>
+              </form>
+             </div>
+             </div>
+
+        
+      
+      </div>
+    </div>
+</div>
+
+  <!-- over -->
+  <script>
+    function copyvalue(button) {
+        var buttonValue = button.value;
+        var tempTextarea = document.createElement('textarea');
+        tempTextarea.value = buttonValue;
+
+        document.body.appendChild(tempTextarea);
+
+        tempTextarea.select();
+
+        document.execCommand('copy');
+
+        document.body.removeChild(tempTextarea);
+
+        document.getElementById('copiedValue').innerText = buttonValue;
+    }
+</script>
+
+ 
+  <script src="{% static 'js/main.js'%}"></script>
+
+
+</body>
+</html>
+
+<!--   -->

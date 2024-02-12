@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Local Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'css/view_details.css' %}">
+
+	  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- over -->
+
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,500;9..40,700&family=Qwitcher+Grypen&family=Rubik+Pixels&display=swap" rel="stylesheet">
+  <!-- over -->
+
+</head>
+<body style=" background-color:rgba(0, 0, 255, 0.1);">
+   
+ <div class="dash_bor_sec1">
+
+  <div class="dash_bor_sdbr" id="dashsidebar">
+
+      <header id="header">
+    <div class="d-flex flex-column">
+      <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+        {% include 'nav.html'%}
+        
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+    <h5 style="position:;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+  </header>
+  
+  </div>
+
+  <div class="dash_bor_main1">
+    <!-- start1-->
+
+    {% include 'pm_header.html'%}
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
+    <!-- over -->
+
+    <!-- start -->
+    <div class="local_adm_det p-4">
+
+      <a href="/profile_manager/profile_finders/{{key.uid}}" style="
+      text-decoration: none;color:#6E717A;
+  "><h4 style="font-weight:700;"><span style="color:#2B3674;">Profile Manager ></a></span> <span style="color:#7B61FF;">Details</span></h4>
+
+      <div class="local_adm_par my-5">
+
+        <div class="local_adm_chi1">
+
+          <div class="local_adm_det1">
+
+            <img src="{{specific_data.profile_picture}}">
+
+            <h5>{{specific_data.name}}</h5>
+            {% comment %} <h5>Emirati</h5> {% endcomment %}
+
+            <h5>ID:{{specific_data.uid}}</h5>
+
+            <div class="local_adm_det_icons">
+              <a href=""><i class="fa-brands fa-square-facebook"></i></a>
+              <a href=""><i class="fa-brands fa-linkedin"></i></a>
+              <a href=""><i class="fa-brands fa-square-twitter"></i></a>
+             <a href=""> <i class="fa-brands fa-square-instagram"></i></a>
+              <a href=""><i class="fa-brands fa-square-youtube"></i></a>
+            </div>
+
+          </div>
+
+          <div class="my-3 local_adm_det2">
+
+           <h6 class="my-4">Profile Tagline</h6>
+
+           <h5 class="my-4">{{specific_data.profile_tag}}</h5>
+
+           <div class="local_adm_det_link1 my-4">
+             <a href="#">About Me</a>
+             <a href="#">Contact Details</a>
+             <a href="#">General Details</a>
+             <a href="#">Educations</a>
+             <a href="#">Work Experience</a>
+           </div>
+
+           <div class="local_adm_det_visl">
+             <h5>Profile Visiblity</h5>
+             <i class="fa-regular fa-eye"></i>
+           </div>
+
+           <a href="#">All Members</a>
+            
+          </div>
+          
+        </div>
+
+        <div class="local_adm_chi2">
+           <div class="local_adm_det3">
+             <h4>About Me</h4>
+             <p> {{ specific_data.about_candidate }} </p>
+           </div>
+
+           <div class="local_adm_det3 my-4">
+
+             <h4>Current Status</h4>
+             <p>{{ specific_data.current_status }} </p>
+
+        
+           </div>
+
+           <div class="local_adm_det4">
+
+            <div class="local_adm_det_contact">
+              <h5>Contact Details</h5>
+
+              <div>
+                <p>{{ specific_data.current_status }}</p>
+                <p>{{ specific_data.r_country }}, {{ specific_data.r_status }}</p>
+                <p>+91 {{ specific_data.mobile }} </p>
+                <p>{{ specific_data.email }}</p>
+              </div>
+
+            </div>
+
+            <div class="local_adm_det_contact">
+              <h5>Other Details</h5>
+
+              <div class="mt-4">
+                <p><i class="fa-regular fa-envelope"></i> {{ specific_data.contact_email }}</p>
+                <p><i class="fa-solid fa-mobile-screen-button"></i> +91 {{ specific_data.contact_phone }}</p>
+                <p><i class="fa-brands fa-square-whatsapp"></i> +91 {{ specific_data.whatsapp }}</p>
+              </div>
+
+            </div>
+             
+           </div>
+
+           <div class="local_adm_det5 my-4">
+
+            <h5>General Details</h5>
+
+            <div class="row">
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Height(cm)</h6>
+                  <h4>{{ specific_data.height }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Weight(kg)</h6>
+                 <h4>{{ specific_data.weight }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Age</h6>
+                  <h4>{{ specific_data.age }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Blood Type</h6>
+                  <h4>{{ specific_data.blood_group }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Civil Status</h6>
+                 <h4>{{ specific_data.marital_status }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Religion</h6>
+                  <h4>{{ specific_data.religion }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Email</h6>
+                  <h4>{{ specific_data.primary_email }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Phone</h6>
+                 <h4>+97 {{ specific_data.primary_phone_number }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Education & Qualification</h6>
+                  <h4>{{ specific_data.education_school_0 }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Profession</h6>
+                  <h4>{{ specific_data.profession_0 }}</h4>
+                </div>
+                
+              </div>
+
+               <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Orphan</h6>
+                  <h4>{{ specific_data.orphan }}</h4>
+                </div>
+                
+              </div>
+              
+            </div>
+             
+           </div>
+
+           <div class="local_adm_det5 my-4">
+
+            <h5>Family Details</h5>
+
+            <div class="row">
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Father Name</h6>
+                  <h4>{{ specific_data.father_name }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Father Native Place*</h6>
+                 <h4>{{ specific_data.father_country }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Father Job*</h6>
+                  <h4>{{ specific_data.father_job }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Mather Name*</h6>
+                  <h4>{{ specific_data.mother_name }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Mather Native Place*</h6>
+                 <h4>{{ specific_data.mother_country }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Mather Job*</h6>
+                  <h4>{{ specific_data.mother_job }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Father Family Name</h6>
+                  <h4>{{ specific_data.father_family_name }}</h4>
+                </div>
+                
+              </div>
+
+              <div class="col-lg-4 my-3">
+
+                <div class="local_adm_gen_det">
+                  <h6>Mother Family Name</h6>
+                 <h4>{{ specific_data.mother_family_name }}</h4>
+                </div>
+                
+              </div>
+
+            </div>
+             
+           </div>
+
+
+           <div class="local_adm_det6 my-4">
+          <h5>Sibling Details</h5>
+          {% for specific_data in sibling %}
+          <div class="row my-4 mx-3" style="border-radius:10px;border:2px solid rgba(110, 113, 122, 0.2);padding:10px;">
+
+            <div class="col-lg-4 my-3">
+              <h6>Name</h6>
+              <h4>{{ specific_data.sibling_name_0 }}</h4>
+              {% if key.sibling_name_1%}
+              {{ specific_data.sibling_name_1 }}
+              {% endif %}
+            </div>
+
+            <div class="col-lg-4 my-3">
+              <h6>Type of relation</h6>
+              <h4>{{ specific_data.sibling_relation_0 }}</h4>
+              {% if key.sibling_name_1%}
+              {{ specific_data.sibling_relation_1 }}
+              {% endif %}
+            </div>
+
+            <div class="col-lg-4 my-3">
+              <h6>Job</h6>
+              <h4>{{ specific_data.sibling_occupation_0 }}</h4>
+              {% if key.sibling_name_1%}
+              {{ specific_data.sibling_occupation_1 }}
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="my-4 local_adm_det7">
+
+          <h5>Educations</h5>
+
+          <div class="row">
+            {% for specific_data in education %}
+            <div class="col-xl-4 my-4 local_adm_edu">
+
+              <p>School Name</p>
+
+              <p>{{ specific_data.education_school_0 }}</p>
+              {% if key.education_school_1  %}
+
+              <p>{{ specific_data.education_school_1 }}</p>
+              {% endif %}
+            </div>
+
+            <div class="col-xl-4 my-4 local_adm_edu">
+
+              <p>School Year</p>
+
+              <p>{{ specific_data.education_year_0 }}</p>
+
+              {% if key.education_school_1  %}
+
+              <p>{{ specific_data.education_year_1 }}</p>
+              {% endif %}              
+            </div>
+
+            <div class="col-xl-4 my-4 local_adm_edu">
+
+              <p>Course / Degree</p>
+
+              <p>{{ specific_data.education_course_0 }}</p>
+
+              {% if key.education_school_1  %}
+
+              <p>{{ specific_data.education_course_1 }}</p>
+              {% endif %}              
+            </div>
+            
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="my-4 local_adm_det7">
+
+          <h5>Work Experience</h5>
+
+          <div class="row">
+            {% for specific_data in working %}
+            <div class="col-xl-4 my-4 local_adm_edu">
+
+              <p>Company Name</p>
+
+              <p>{{ specific_data.company_name_0 }}</p>
+              {% if key.company_name_1%}
+              <p>{{ specific_data.company_name_1 }}</p>
+              {% endif %}
+            </div>
+
+            <div class="col-xl-4 my-4 local_adm_edu">
+
+              <p>Position</p>
+
+              <p>{{ specific_data.position_0 }}</p>
+
+              {% if key.company_name_1%}
+              <p>{{ specific_data.position_1 }}</p>
+              {% endif %}              
+            </div>
+
+            <div class="col-xl-4 my-4 local_adm_edu">
+
+              <p>Tenure (month)</p>
+
+              <p>{{ specific_data.salary_range_0 }}</p>
+
+              {% if key.company_name_1%}
+              <p>{{ specific_data.salary_range_1 }}</p>
+              {% endif %}              
+            </div>
+            
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="local_adm_det8 my-4">
+
+          <h5>My interest</h5>
+          
+          <div class="local_adm_det_mylist my-4">
+            {% for k in intrest %}
+            <h6>{{ k.intrest }}</h6>
+            
+            {% endfor %}
+            
+          </div>
+
+        </div>
+
+        <div class="local_adm_det8 my-4">
+
+          <h5>My Non-Interest</h5>
+          
+          <div class="local_adm_det_mylist my-4">
+            {% for k in non_intrest %}
+            <h6>{{ k.non_intrest }}</h6>
+          
+            {% endfor %}
+            
+          </div>
+
+        </div>
+
+         <div class="local_adm_det8 my-4">
+          
+          <h5>Complexion</h5>
+          <div class="local_adm_det_mylist my-4">
+            {% for k in lengthcomplexion %}
+            <h6>{{ k }}</h6>   
+            {% endfor %}
+          </div>
+
+        </div>
+
+
+        <div class="local_adm_det8 my-4">
+
+          <h5>Food Taste</h5>
+          
+          <div class="local_adm_det_mylist my-4">
+            {% for k in lengthfood_taste %}
+            <h6>{{ k }}</h6>
+           
+            {% endfor %}
+          </div>
+
+        </div>
+
+        <div class="local_adm_imges">
+
+         <div class="local_adm_det9">
+
+          <h5>Head Size</h5>
+          <img src="{{specific_data.selfie}}">
+          
+          </div>
+
+           <div class="local_adm_det10">
+
+          <h5>Full Size</h5>
+          <div class="local_adm_imgcorr">
+            <img src="{{specific_data.full_size_image}}">
+          </div>
+          
+          </div>
+          
+        </div>
+
+        <div class="local_adm_det11  my-4 pb-5">
+
+          <h5>Gallery</h5>
+
+          <div class="local_adm_images">
+            {% for key in lengthgallery %}
+            <img src="{{key}}">
+            {% endfor %}
+            
+          </div>
+          
+        </div>
+
+
+        </div>
+
+        
+<form method = "POST" action = "/profile_manager/profile_finders/{{key.uid}}">
+{% csrf_token %}
+{% comment %} {% if "Approve and reject profiles" in access_Privileges %} {% endcomment %}
+<div class="local_adm_chi3">
+          <button type="submit" name="Approve" value="{{specific_data.uid}}">Approve</button>
+          <button type="button" name="Reject" value="{{specific_data.uid}}" data-bs-toggle="modal" data-bs-target="#exampleModal">Reject</button>
+                    {% comment %} <button data-bs-toggle="modal" data-bs-target="#exampleModal">Reject</button> {% endcomment %}
+
+          
+        </div>
+{% comment %} {% else %}
+
+{% endif %} {% endcomment %}
+        
+        </form>
+      </div>
+      
+    </div>
+    <!-- over -->
+
+
+    <!--Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-body py-5">
+        <div class="local_adm_gen_modal"> 
+          
+
+          <form method="POST" action = "/profile_manager/profile_finders/{{key.uid}}">
+          {% csrf_token %}
+            <h5>Reason</h5>
+            <label class="form-label my-4">Reason For Reject</label>
+            <textarea class="form-control" name="reason" rows="7" autofocus></textarea>
+
+        </div>
+      </div>
+      <div class="modal-footer local_adm_gen_footer">
+        <button type="button"  data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" name="Reject" value="{{specific_data.uid}}" >Submit</button>
+      </div>
+                </form>
+    </div>
+  </div>
+</div>
+
+
+
+ 
+<script src="{% static 'js/main.js'%}"></script>
+
+
+</body>
+</html>
+
+<!--   -->

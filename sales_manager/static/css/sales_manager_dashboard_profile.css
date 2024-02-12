@@ -1,0 +1,85 @@
+ul.pad-0 {
+    padding-left: 0;
+}
+ul.pad-0 li{
+    list-style: none;
+}
+ul.pad-0.Profile_dashboard_menu li {
+    padding: 10px 30px;
+}
+ul.pad-0.Profile_dashboard_menu li a i {
+    padding: 20px 22px;
+    border: 1px solid red;
+    border-radius: 3px;
+}
+ul.pad-0.Profile_dashboard_menu li a {
+    text-decoration:none;
+}
+
+.a-none{
+    text-decoration:none;
+}
+
+
+.w-50.ms-auto.me-auto.mtcustomn {
+    margin-top: 10%;
+}
+
+.iconimg {
+    width: 188px;
+}
+
+
+img.icon-custom {
+    padding: 7px 9px;
+    border: 1px solid #905bfb;
+    border-radius: 3px;
+}
+
+p.pt-3.text-cu.text-black {
+    padding-left: 13px;
+}
+
+
+img.iconimg-AP {
+    width: 222px;
+}
+
+.signin_content1 {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.signin_content1 {
+
+    content: '';
+    position: absolute;
+    top: 0px;
+
+    border-radius: 20px;
+}
+
+span.small.bottom-txt {
+    font-size: 12px;
+}
+
+.signinimage1{
+    width: 100%;
+    height: 83%;
+    border-radius: 20px;
+}
+
+img.logo {
+    margin-top: 45%;
+   
+    margin-left: 39%;
+}
+
+img.icon-custom.sales {
+    width: 66px;
+    height: 59px;
+}
+
+p.pt-3.text-cu.h6.text-black {
+    color: #1c0072;
+}

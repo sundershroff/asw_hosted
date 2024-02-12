@@ -1,0 +1,198 @@
+{% if access_Privileges == "" %}
+
+  {% if "profile_manager/admin_dashboard" in current_path %}
+          <ul>
+            <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+            <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+            <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+            <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+            <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto"> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+          
+            <li><a href="/profile_manager/settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+          </ul>
+
+  {% elif "profile_manager/profile_account" in current_path %}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto"> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+  
+    <li><a href="/profile_manager/settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "profile_manager/edit_acc" in current_path %}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto"> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+  
+    <li><a href="/profile_manager/settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "profile_manager/acc_balance" in current_path %}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto"> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+  
+    <li><a href="/profile_manager/settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "profile_manager/profile_finders" in current_path %}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto active"><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto"> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+  
+    <li><a href="/profile_manager/settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "profile_manager/view_details" in current_path %}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto active"><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto"> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+  
+    <li><a href="/profile_manager/settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "profile_manager/complaints" in current_path %}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto"> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+  
+    <li><a href="/profile_manager/settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "profile_manager/users" in current_path %}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto active"> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+  
+    <li><a href="/profile_manager/settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "profile_manager/add_user" in current_path %}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto active"> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+  
+    <li><a href="/profile_manager/settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "profile_manager/user_edit" in current_path %}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto active"> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+  
+    <li><a href="/profile_manager/settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+  {% elif "profile_manager/settings" in current_path %}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto "> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+  
+    <li><a href="/profile_manager/settings/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+   {% endif %}
+
+{% else%}
+
+  {% if "Approve and reject profiles" in access_Privileges%}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto  active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto "> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+
+    <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+  {% elif "Access Complaints" in access_Privileges %}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto  active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto "> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+
+    <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+  {% elif "Replay to complaints" in access_Privileges%}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto  active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto "> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+
+    <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+  {% elif "Add user" in access_Privileges%}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto  active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto "> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+
+    <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+  {% elif "Edit user" in access_Privileges %}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto  active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto "> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+
+    <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+  {% elif "Delete user" in access_Privileges%}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto  active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto "> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+
+    <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+
+  {% else %}
+  <ul>
+    <li><a href="/profile_manager/admin_dashboard/{{key.uid}}" class="nav-link scrollto  active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/profile_manager/profile_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/profile_manager/profile_finders/{{key.uid}}" class="nav-link scrollto "><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+    <li><a href="/profile_manager/complaints/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+    <li><a href="/profile_manager/users/{{key.uid}}" class="nav-link scrollto "> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+
+    <li><a href="/profile_manager/settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul> 
+  {% endif %}
+{% endif %}

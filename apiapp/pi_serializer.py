@@ -75,10 +75,10 @@ class ProfilePictureSerializer(serializers.Serializer):
         return instance
 
 class upload_acc_Serializer(serializers.Serializer):
-    # office_name = serializers.CharField()
-    # office_country = serializers.CharField()
-    # office_city = serializers.CharField()
-    # office_address = serializers.CharField()
+    office_name = serializers.CharField()
+    office_country = serializers.CharField()
+    office_city = serializers.CharField()
+    office_address = serializers.CharField()
     first_name = serializers.CharField()
     last_name = serializers.CharField()
     personal_country = serializers.CharField()
@@ -87,12 +87,29 @@ class upload_acc_Serializer(serializers.Serializer):
     hiring_manager = serializers.CharField()
     # id_card = serializers.CharField()
     tagline = serializers.CharField()
+    level_education = serializers.CharField()
+    field_study = serializers.CharField()
+    work_job_title = serializers.CharField()
+    work_company_name = serializers.CharField()
+    work_job_location = serializers.CharField()
+    ex_job_title = serializers.CharField()
+    ex_company_name = serializers.CharField()
+    year_experience = serializers.CharField()
+    ex_location = serializers.CharField()
+    degree_cer = serializers.CharField()
+    ex_cer = serializers.CharField()
+    work_type = serializers.CharField()
+    gst_number = serializers.CharField()
+    gst_certificate = serializers.CharField()
+    company_pan_no = serializers.CharField()
+    arn_no =serializers.CharField()
+    pan_card =serializers.CharField()
 
     def update(self, instance, data):
-        # instance.office_name = data['office_name']
-        # instance.office_country = data['office_country']
-        # instance.office_city = data['office_city']
-        # instance.office_address = data['office_address']
+        instance.office_name = data['office_name']
+        instance.office_country = data['office_country']
+        instance.office_city = data['office_city']
+        instance.office_address = data['office_address']
         instance.first_name = data['first_name']
         instance.last_name = data['last_name']
         instance.personal_country = data['personal_country']
@@ -101,6 +118,23 @@ class upload_acc_Serializer(serializers.Serializer):
         instance.hiring_manager = data['hiring_manager']
         # instance.id_card = data['id_card']
         instance.tagline = data['tagline']
+        instance.level_education = data['level_education']
+        instance.field_study = data['field_study']
+        instance.work_job_title = data['work_job_title']
+        instance.work_company_name = data['work_company_name']
+        instance.work_job_location = data['work_job_location']
+        instance.ex_job_title = data['ex_job_title']
+        instance.ex_company_name = data['ex_company_name']
+        instance.year_experience = data['year_experience']
+        instance.ex_location = data['ex_location']
+        instance.degree_cer = data['degree_cer']
+        instance.ex_cer = data['ex_cer']
+        instance.work_type = data['work_type']
+        instance.gst_number = data['gst_number']
+        instance.gst_certificate = data['gst_certificate']
+        instance.company_pan_no = data['company_pan_no']
+        instance.arn_no =data['arn_no']
+        instance.pan_card =data['pan_card']
         instance.save()
         return instance
     
@@ -114,8 +148,8 @@ class edit_acc_Serializer(serializers.Serializer):
     personal_country = serializers.CharField()
     personal_city = serializers.CharField()
     personal_address = serializers.CharField()
-    hiring_manager = serializers.CharField()
-    id_card = serializers.CharField()
+    # hiring_manager = serializers.CharField()
+    # id_card = serializers.CharField()
     profile_picture = serializers.CharField()
     tagline = serializers.CharField()
 
@@ -129,8 +163,8 @@ class edit_acc_Serializer(serializers.Serializer):
         instance.personal_country = data['personal_country']
         instance.personal_city = data['personal_city']
         instance.personal_address = data['personal_address']
-        instance.hiring_manager = data['hiring_manager']
-        instance.id_card = data['id_card']
+        # instance.hiring_manager = data['hiring_manager']
+        # instance.id_card = data['id_card']
         instance.profile_picture = data['profile_picture']
         instance.tagline = data['tagline']
         instance.save()

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="{% static 'css/sm_dashboard.css' %}">
+
+  <link href=" {% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+
+	<title>Sales-Details</title>
+	  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- over -->
+
+</head>
+<body style=" background-color:#F4F2FF;">
+   
+ <div class="dash_bor_sec1">
+
+  <div class="dash_bor_sdbr" id="dashsidebar">
+
+      <header id="header">
+    <div class="d-flex flex-column">
+       <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+        {% include 'sm_nav.html' %}
+
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <style>
+      .reject_btn{
+    background-color: #d13812;
+    color: white;
+    border: 1px;
+    height: 39px;
+    border-radius: 11px;
+    padding-left: 13px;
+    padding-right: 13px;
+}
+      
+    </style>
+  </header>
+  
+  </div>
+
+  <div class="dash_bor_main1">
+    {% include 'sm_header.html' %}
+    <!-- start1-->
+
+    <!-- <div class="dash_par1" style="background:white;">
+
+          <i class="fa-regular fa-bell"></i>
+
+        <div class="dash_brd_img1">
+         <img src="{% static 'images/girl1.png'%}">
+         <i class="fa-solid fa-caret-down"></i>
+         </div>
+
+    </div>
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i> -->
+    <!-- over -->
+
+    <!-- start -->
+    <div class="locl_adm_sec1 px-4 my-4">
+
+      <div>
+        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">Details</h3>
+      </div>
+
+     
+      
+    </div>
+    <!-- over -->
+<!-- start -->
+<div class="locl_adm_sec2 px-4 my-5">
+    <div class="rowbg1">
+        <div class="row">
+            <div class="col-lg-2 col-md-2">
+               <div class="details">
+
+<img src="{{client_data.picture}}" height="60px" width="60px">
+               </div>
+            </div>
+            <div class="col-lg-3 col-md-3">
+              <span style="color:#2B3674"><b>{{client_data.client_name}}</b><br>
+                <span class="task_button_text">ID:{{client_data.uid}}<br>
+                    Type:{{client_data.client_type}}<br>
+                    mail:{{client_data.email}}<br>
+                    (+91) {{client_data.phone_number}} </span>
+              </span>
+                          </div>
+            <div class="col-lg-9 col-md-9"></div>
+          
+            
+        </div></div>
+</div>
+ <!-- over -->
+    <!-- start -->
+    
+    <div class="locl_adm_sec2 px-4 my-5">
+      
+      {% for i in ad_data%}
+      <h5>Details</h5>
+      {% if i.status == "Pending" %}
+      <div class="row rowbg">
+      <div class="col-lg-2 col-md-2">
+        <button class="details_button"><b><img src="{{i.id_card}}" alt="" width="60px" height="60px"></b> </button>
+      </div>
+   
+      <div class="col-lg-4 col-md-4">
+        <span ><b>{{i.ad_id}}</b><br>
+          <span class="task_button_text">{{i.ad_type}}<br>
+            {{i.ad_created_date}} | {{i.ad_created_time}} <br>
+
+            Status:<span style="color:#F2994A">{{i.status}}</span>
+        </span>
+        
+      </div>
+    
+      <div class="col-lg-4 col-md-4"></div>
+      
+      <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+        <form action="" method="POST" enctype="multipart/form-data">
+          {%csrf_token%}
+        <button type="submit" class="det_btn" name="ad_pro_list" value="{{i.ad_id}}" >View Details</button>
+      </form>
+      </div>
+    </div>
+    {%endif%}
+    {%endfor%}
+    {% for i in ad_data%}
+    {% if i.status == "Active" %}
+    
+    <div class="row rowbg">
+        <div class="col-lg-2 col-md-2">
+          <button class="details_button"><b><img src="{{i.id_card}}" alt="" width="60px" height="60px"></b> </button>
+        </div>
+        <div class="col-lg-4 col-md-4">
+         
+            <span ><b>{{i.ad_id}}</b><br>
+              <span class="task_button_text">{{i.ad_type}}<br>
+                {{i.ad_created_date}} | {{i.ad_created_time}} <br>
+    
+                Status:<span style="color:#0c792c">Approved</span>
+            </span>
+          
+        </div>
+        <div class="col-lg-4 col-md-4"></div>
+        <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+          <button class="app_btn">Approved</button>
+        </div>
+      </div>
+      
+      {%endif%}
+      {%endfor%}
+      {% for i in ad_data%}
+      {% if i.status == "Rejected" %}
+      <div class="row rowbg">
+
+        <div class="col-lg-2 col-md-2">
+          <button class="details_button"><b><img src="{{i.id_card}}" alt="" width="60px" height="60px"></b> </button>
+        </div>
+        <div class="col-lg-4 col-md-4">
+         
+            <span ><b>{{i.ad_id}}</b><br>
+              <span class="task_button_text">{{i.ad_type}}<br>
+                {{i.ad_created_date}} | {{i.ad_created_time}} <br>
+    
+                Status:<span style="color:#e06e0bee">{{i.status}}</span>
+            </span>
+          
+        </div>
+        <div class="col-lg-4 col-md-4"></div>
+        <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+          <button class="reject_btn">Rejected</button>
+        </div>
+      </div>
+      {%endif%}
+      {%endfor%}
+
+    </div>
+    <!-- over -->
+
+  </div>
+   
+ </div>
+
+
+ 
+ <script src="{% static 'js/main.js'%}"></script>
+
+
+</body>
+</html>
+
+<!--   -->

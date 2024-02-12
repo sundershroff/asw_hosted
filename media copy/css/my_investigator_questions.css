@@ -1,0 +1,190 @@
+  body{
+    background-color: #f9f8fe;
+    } 
+    .img1 img{
+    width: 100%;
+    height: 150px;
+    border-radius: 5px;
+    }
+    .img2 img {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-top: -46px;
+    object-fit: cover;
+    }
+    .btn {
+    background-image: linear-gradient(to right, rgb(41 67 206), rgb(225 136 242));
+    }
+    button.more{
+    border-radius: 5px;
+    color: rgb(41 67 206);
+    border: 1px solid rgb(41 67 206);
+    background-color: white;
+    }
+    .row.content {
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px 20px 5px 9px;
+    /* height: 5rem; */
+}
+    i.bi.bi-check-circle-fill.uncheck {
+    color: #e2e2e0;
+}
+.ratings i {
+        color: #cecece;
+        font-size: 20px;
+    }
+
+    .rating-color {
+        color: #fbc634 !important;
+    }
+
+.btn {
+        background-image: linear-gradient(to right, rgb(41 67 206), rgb(225 136 242));
+    }
+    .btn1 {
+    background-color: #f4f4f4;
+    color: #58595f;
+    border-radius: 5px;
+    border: 1px solid #e9e9e9;
+}
+.btn1:hover{
+  background-color: red;
+  color: white;
+}
+button.btn.text-white.mb-3 {
+    font-size: 15px;
+}
+button.more.pe-2.ps-2.p-1.mt-3.mb-4 {
+    font-size: 14px;
+}
+/* ... (progress bar) ... */
+
+@property --progress-value {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 0;
+}
+@keyframes html-progress {
+  to { --progress-value: 40; }
+}
+
+label#rating-error {
+  background: url(images/unchecked.gif) no-repeat;
+  padding-left: 16px;
+  margin-left: -0.7em;
+  /* margin-top: 11px; */
+  display: none;
+  position: absolute;
+}
+.progress-bar-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .progress-bar {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .progress-bar::before {
+      counter-reset: percentage var(--progress-value);
+      content: counter(percentage) '%';
+      position: absolute;
+    }
+.html {
+  background: 
+    radial-gradient(closest-side, white 79%, transparent 80% 100%),
+    conic-gradient(rgb(20, 182, 41) calc(var(--progress-value) * 1%), #e2e2e0 0);
+  animation: html-progress 2s 1 forwards;
+}
+.html::before {
+  animation: html-progress 2s 1 forwards;
+}
+
+h2 {
+  text-align: center;
+}
+progress{
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.modal-footer {
+    background-color: whitesmoke;
+}
+
+.form-check-input:checked {
+    background-color: #7b62f9;
+    border-color: #7b62f9;
+}
+textarea{
+  border-radius: 10px;
+}
+.row.gg{
+  display: flex;
+    height: 3rem;
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    padding-top: 11px;
+}
+@media  (max-width:1200px){
+  button.btn.text-white.ps-2.pe-2 {
+  
+    width: 174px;
+    margin-left: -6px;
+
+}
+}
+@media  (max-width:992px){
+  button.btn.text-white.ps-2.pe-2 {
+    width: 174px;
+    margin-left: -50px;
+  }
+}
+@media (max-width: 767px){
+  button.btn.text-white.ps-2.pe-2 {
+    margin-left: 343px;
+    margin-top: -65px;
+}
+}
+@media (max-width: 577px) {
+  button.btn.text-white.ps-2.pe-2 {
+    margin-left: 66%; /* Use relative unit */
+    margin-top: -4.5rem; /* Use relative unit or adjust padding/margins on other elements */
+  }
+}
+@media (max-width: 530px) {
+  button.btn.text-white.ps-2.pe-2 {
+    margin-left: 64%;
+    margin-top: -4.5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  button.btn.text-white.ps-2.pe-2{ 
+    margin-left: 60%;
+    margin-top: -4.5rem;
+}
+}
+@media (max-width: 450px) {
+  button.btn.text-white.ps-2.pe-2{ 
+    margin-left: 55%;
+    margin-top: -4.5rem;
+}
+}
+@media (max-width: 400px) {
+  button.btn.text-white.ps-2.pe-2{ 
+    margin-left: 51%;
+    margin-top: -4.5rem;
+}
+}

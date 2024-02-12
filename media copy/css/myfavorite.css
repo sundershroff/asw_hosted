@@ -1,0 +1,17 @@
+i.fa-solid.fa-heart.fa-beat {
+    position: relative;
+    left: 90%;
+    top: -25px;
+}
+h4.card-title {
+    margin: 0;
+}
+p {
+    margin: 0 !important;
+}
+h3 {
+    margin-left: 2%;
+}
+.container {
+    overflow: hidden;
+}

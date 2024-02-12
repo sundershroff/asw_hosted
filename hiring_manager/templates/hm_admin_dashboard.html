@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Hiring Manager Dashboard</title>
+	  <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css'%}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,500;9..40,700&family=Qwitcher+Grypen&family=Rubik+Pixels&display=swap" rel="stylesheet">
+ 
+  <!-- over -->
+<style>
+  ::-webkit-scrollbar {
+    display: none;
+}
+</style>
+</head>
+<body style=" background-color:#F4F2FF">
+   
+ <div class="dash_bor_sec1">
+
+  <div class="dash_bor_sdbr" id="dashsidebar">
+
+      <header id="header">
+    <div class="d-flex flex-column">
+       <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar" style="overflow-y: scroll;
+      height: 33rem;">
+       
+        {% include "hm_nav.html" %}
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+  </header>
+  
+  </div>
+
+  
+    
+  {% include "header.html" %}    <!-- over -->
+
+    <!-- start2 -->
+    <div class="dash_par2 px-3" style="margin-top:0px; !important"> 
+         
+        <h4 style="
+        font-size: 22px;
+    ">Dashboard</h4>
+        
+          <button  data-bs-toggle="modal" data-bs-target="#report" style="
+          width: 167px;
+          height: 36px;
+          padding: 4px;
+      ">Download Report <i class="fa-solid fa-file-excel"></i></button>
+          
+              
+          
+      
+    </div>
+    <div class="modal fade" id="report" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header" style="border:none;">
+            
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="report_modal">
+              <a href="#"><i class="fa-solid fa-file-excel"></i> Export. As Excel</a><br><br>
+              <a href="#"><i class="fa-solid fa-file-pdf"></i> Export. As PDF</a>
+            </div>
+            <div class="modal-footer" style="border:none;">
+              
+            </div>
+          </div>
+          </div>
+          </div></div>
+    <!-- over -->
+
+    <!-- start3 -->
+      <div class="dash_par3 my-4 px-3"> 
+         
+        {% comment %} <div class="dash_bor_box">
+           
+           <div>
+             
+             <i class="fa-solid fa-users dash_users"></i>
+           </div>
+
+          <div>
+            <h4 style="color: #3247CE">1,800</h4>
+            <h5>Deioces</h5>
+          </div>
+
+        </div> {% endcomment %}
+
+          <div class="dash_bor_box">
+
+            <div>
+             <i class="fa-solid fa-circle-minus dash_dot"></i>
+            </div>
+
+            <div style="margin-right: 75px;">
+            <h4 style="color:#EB5757">{{pm_data|length}}</h4>
+            <h5>Profile Manager</h5>
+          </div>
+          
+        </div>
+
+         <div class="dash_bor_box">
+
+          <div>
+            <i class="fas fa-user-friends dash_db_user"></i>
+          </div>
+          
+           <div class="dash_ratstr" style="margin-right: 102px;">
+           
+            <div class="dash_strpos" >
+               <h4 style="color:#2B3674">{{ad_pro_data|length}}</h4>
+            </div>
+            <h5>Ad Provider</h5>
+          </div> 
+
+
+        </div>
+
+         <div class="dash_bor_box">
+
+          <div>
+            <i class="fas fa-user-friends dash_db_user"></i>
+          </div>
+          
+           <div class="dash_ratstr" style="margin-right: 83px;">
+           
+            <div class="dash_strpos">
+               <h4 style="color:#2B3674">{{ad_dis_data|length}}</h4>
+            </div>
+            <h5>Ad Distributor</h5>
+          </div> 
+
+
+        </div>
+
+          <div class="dash_bor_box">
+
+           <div>
+             <i class="fas fa-user-friends dash_dlr"></i>
+           </div>
+
+           <div style="margin-right: 145px;">
+             <h4 style="color:#2B3674">{{sales_data|length}}</h4>
+            <h5>Sales</h5>
+           </div>
+
+
+        </div>
+        <div class="dash_bor_box">
+
+           <div>
+             <i class="fas fa-funnel-dollar" style="
+    color: palevioletred;
+    font-size: 23px;
+"></i>
+           </div>
+
+           <div style="margin-right: 43px;">
+             <h4 style="color:#2B3674">{{aff_data|length}}</h4>
+            <h5>Affiliate Marketing</h5>
+           </div>
+
+
+        </div>
+        <div class="dash_bor_box">
+
+           <div>
+             <i class="fas fa-magnifying-glass" style="
+    font-size: 23px;
+"></i>
+           </div>
+
+           <div style="margin-right: 40px;">
+             <h4 style="color:#2B3674">{{sales_data|length}}</h4>
+            <h5>Private Investigator</h5>
+           </div>
+
+
+        </div>
+         <div class="dash_bor_box">
+
+            <div>
+             <i class="fa-solid fa-circle-minus dash_dot"></i>
+            </div>
+
+            <div style="margin-right: 75px;">
+            <h4 style="color:#EB5757">{{hm_data|length}}</h4>
+            <h5>Hiring Manager</h5>
+          </div>
+          
+        </div>
+
+
+    </div>
+    <!-- over -->
+    <!-- start -->
+    <div class="dash_bor_rsp my-4 px-3">
+
+      <div>
+        <h4>Recently Joined Profile Manager</h4>
+      </div>
+
+
+      <div class="dash_bor_rsp_1">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+
+        <select class="form-select" style="
+        width: 137px;
+        height: 38px;
+        color: gray;
+    ">
+          <option value="Indian">Indian</option>
+        </select>
+      </div>
+      
+
+      
+    </div>
+    <!-- over -->
+
+    <!-- start -->
+     <div class="dash_bor_table px-4" style="
+     /* overflow-y: scroll; */
+     /* height: 28rem; */
+     padding-left: 16px !important;
+    padding-right: 19px !important;
+ ">
+      <table class=" table table-borderless" style="margin-top: -53px;margin-bottom: -14px;">
+
+      <tr style="
+      top: 0;
+      position: sticky;
+  ">
+        
+        <th class="py-4 px-4">#No</th>
+        <th class="py-4">User Id</th>
+        <th class="py-4">Name</th>
+        <th class="py-4">Email ID</th>
+      </tr>
+{% for i in pm_data %}
+      <tr >
+        <td class="py-4 px-4">{{forloop.counter}}</td>
+        <td class="py-4">{{i.uid}}</td>
+        <td class="dash_bor_table_img"><img src="{{i.profile_picture}}" class="mx-2"> {{i.first_name}}  {{i.last_name}}</td>
+        <td class="py-4">{{i.email}}</td>
+      </tr>
+      {% endfor %}
+     
+
+
+
+        <div class="py-4">
+      
+
+    </table>
+
+  
+
+    <div class="dash_bor_rsp_va my-3" style="
+    height: auto;
+    position: sticky;
+    bottom: 0;
+">
+      <a href="#" class="mx-3">View All</a>
+    </div>
+
+     </div>
+    <!-- over -->
+
+    <!-- start -->
+
+    <div class="dash_bor_tables my-5">
+
+      <div class="dash_bor_table1">
+
+        <div class="dash_bor_split px-4">
+          <h5>Recent Sales Account</h5>
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+
+        <div class="px-4 my-3" style="
+        overflow-y: scroll;
+        height: 25rem;
+    ">
+          <table class="table table-borderless " >
+
+            <tr style="
+            position: sticky;
+            top: 0;
+        ">
+              <th class="py-4">User Name</th>
+              <th class="py-4">Local Admin</th>
+              <th class="py-4">Approved</th>
+            </tr>
+{% for i in sales_data %}
+            <tr>
+              
+            
+              <td class="py-4"><span class="dash_bor_table_img1"><img src="{{i.profile_picture}}">{{i.full_name}}</span></td>
+              <td  class="py-4">Environmental Specialist</td>
+              <td class="py-4">{{i.created_date}}</td>
+         
+            </tr>
+           {% endfor %}
+          
+         
+
+
+
+          </table>
+             <div class="dash_bor_rsp_va my-3" style="
+             height: auto;
+             position: sticky;
+             bottom: 0;
+         ">
+      <a href="#" class="mx-3">View All</a>
+    </div>
+        </div>
+        
+      </div>
+
+      <div class="dash_bor_table2">
+          
+          
+        <div class="dash_bor_split px-4">
+          <h5>Recent Ad Provider</h5>
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+
+        <div class="px-4 my-3" style="
+        overflow-y: scroll;
+        height: 25rem;
+    ">
+          
+          <table class=" table table-borderless">
+
+            <tr style="
+            position: sticky;
+            top: 0;
+        ">
+              
+              <th class="py-4 ">#No</th>
+              <th class="py-4">User Id</th>
+              <th class="py-4">Name</th>
+              <th class="py-4">Email ID</th>
+            </tr>
+      {% for i in ad_pro_data %}
+            <tr>
+              <td class="py-4">{{forloop.counter}}</td>
+              <td class="py-4">{{i.uid}}</td>
+              <td class="dash_bor_table_img"><img src="{{i.profile_picture}}" class="mx-2"> {{i.first_name}}  {{i.last_name}}</td>
+              <td class="py-4">{{i.email}}</td>
+            </tr>
+            {% endfor %}
+      
+      
+              
+            
+      
+          </table>
+             <div class="dash_bor_rsp_va my-3" style="
+             height: auto;
+             position: sticky;
+             bottom: 0;
+         ">
+      <a href="#" class="mx-3">View All</a>
+    </div>
+        </div>
+
+
+      </div>
+      
+    </div>
+    <!-- over -->
+
+        <!-- start -->
+        <div class="dash_bor_rsp my-4 px-3">
+
+          <div>
+            <h4>Recently Joined Hiring Manager</h4>
+          </div>
+    
+    
+          <div class="dash_bor_rsp_1">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+    
+            <select class="form-select">
+              <option value="Indian">Indian</option>
+            </select>
+          </div>
+          
+    
+          
+        </div>
+        <!-- over -->
+    
+        <!-- start -->
+         <div class="dash_bor_table px-4" style="
+         overflow-y: scroll;
+         height: 28rem;
+     ">
+    
+          <table class=" table table-borderless">
+    
+          <tr style="
+          top: 0;
+          position: sticky;
+      ">
+            
+            <th class="py-4 px-4">#No</th>
+            <th class="py-4">User Id</th>
+            <th class="py-4">Name</th>
+            <th class="py-4">Email ID</th>
+          </tr>
+    {% for i in hm_data %}
+          <tr >
+            <td class="py-4 px-4">{{forloop.counter}}</td>
+            <td class="py-4">{{i.uid}}</td>
+            <td class="dash_bor_table_img"><img src="{{i.profile_picture}}" class="mx-2"> {{i.first_name}}  {{i.last_name}}</td>
+            <td class="py-4">{{i.email}}</td>
+          </tr>
+          {% endfor %}
+         
+    
+    
+    
+            <div class="py-4">
+          
+    
+        </table>
+    
+      
+    
+        <div class="dash_bor_rsp_va my-3" style="
+        height: auto;
+        position: sticky;
+        bottom: 0;
+    ">
+          <a href="#" class="mx-3">View All</a>
+        </div>
+    
+         </div>
+        <!-- over -->
+    
+            <!-- start -->
+
+    <div class="dash_bor_tables my-5">
+
+      <div class="dash_bor_table1">
+
+        <div class="dash_bor_split px-4">
+          <h5>Recent Affiliate Marketer Account</h5>
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+
+        <div class="px-4 my-3" style="
+        overflow-y: scroll;
+        height: 25rem;
+    ">
+          <table class="table table-borderless " >
+
+            <tr style="
+            position: sticky;
+            top: 0;
+        ">
+              <th class="py-4">User Name</th>
+              <th class="py-4">Local Admin</th>
+              <th class="py-4">Approved</th>
+            </tr>
+{% for i in aff_data %}
+            <tr>
+              
+            
+              <td class="py-4"><span class="dash_bor_table_img1"><img src="{{i.profile_picture}}">{{i.full_name}}</span></td>
+              <td  class="py-4">Environmental Specialist</td>
+              <td class="py-4">{{i.created_date}}</td>
+         
+            </tr>
+           {% endfor %}
+          
+         
+
+
+
+          </table>
+             <div class="dash_bor_rsp_va my-3" style="
+             height: auto;
+             position: sticky;
+             bottom: 0;
+         ">
+      <a href="#" class="mx-3">View All</a>
+    </div>
+        </div>
+        
+      </div>
+
+      <div class="dash_bor_table2">
+          
+          
+        <div class="dash_bor_split px-4">
+          <h5>Recent Ad Distributor</h5>
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </div>
+
+        <div class="px-4 my-3" style="
+        overflow-y: scroll;
+        height: 25rem;
+    ">
+          
+          <table class=" table table-borderless">
+
+            <tr style="
+            position: sticky;
+            top: 0;
+        ">
+              
+              <th class="py-4 ">#No</th>
+              <th class="py-4">User Id</th>
+              <th class="py-4">Name</th>
+              <th class="py-4">Email ID</th>
+            </tr>
+      {% for i in ad_dis_data %}
+            <tr>
+              <td class="py-4">{{forloop.counter}}</td>
+              <td class="py-4">{{i.uid}}</td>
+              <td class="dash_bor_table_img"><img src="{{i.profile_picture}}" class="mx-2"> {{i.first_name}}  {{i.last_name}}</td>
+              <td class="py-4">{{i.email}}</td>
+            </tr>
+            {% endfor %}
+      
+      
+              
+            
+      
+          </table>
+             <div class="dash_bor_rsp_va my-3" style="
+             height: auto;
+             position: sticky;
+             bottom: 0;
+         ">
+      <a href="#" class="mx-3">View All</a>
+    </div>
+        </div>
+
+
+      </div>
+      
+    </div>
+    <!-- over -->
+
+  </div>
+   
+ </div>
+
+
+ 
+ <script src="{% static 'js/main.js'%}"></script>
+
+
+</body>
+<script>
+ function toggleDropdown(dropdownId) {
+            var dropdown = document.getElementById(dropdownId);
+            dropdown.classList.toggle("show");
+        }
+
+        window.addEventListener("click", function(event) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var dropdown = dropdowns[i];
+                if (event.target !== dropdown && !dropdown.contains(event.target)) {
+                    dropdown.classList.remove("show");
+                }
+            }
+        });
+  </script>
+  
+</html>

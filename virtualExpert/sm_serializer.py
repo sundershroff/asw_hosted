@@ -75,6 +75,23 @@ class upload_acc_Serializer(serializers.Serializer):
     personal_address = serializers.CharField()
     hiring_manager = serializers.CharField()
     # id_card = serializers.CharField()
+    level_education = serializers.CharField()
+    field_study = serializers.CharField()
+    work_job_title = serializers.CharField()
+    work_company_name = serializers.CharField()
+    work_job_location = serializers.CharField()
+    ex_job_title = serializers.CharField()
+    ex_company_name = serializers.CharField()
+    year_experience = serializers.CharField()
+    ex_location = serializers.CharField()
+    degree_cer = serializers.CharField()
+    ex_cer = serializers.CharField()
+    work_type = serializers.CharField()
+    gst_number = serializers.CharField()
+    gst_certificate = serializers.CharField()
+    company_pan_no = serializers.CharField()
+    arn_no =serializers.CharField()
+    pan_card =serializers.CharField()
    
 
     def update(self, instance, data):
@@ -84,6 +101,23 @@ class upload_acc_Serializer(serializers.Serializer):
         instance.personal_address = data['personal_address']
         instance.hiring_manager = data['hiring_manager']
         # instance.profile_picture= data['profile_picture']
+        instance.level_education = data['level_education']
+        instance.field_study = data['field_study']
+        instance.work_job_title = data['work_job_title']
+        instance.work_company_name = data['work_company_name']
+        instance.work_job_location = data['work_job_location']
+        instance.ex_job_title = data['ex_job_title']
+        instance.ex_company_name = data['ex_company_name']
+        instance.year_experience = data['year_experience']
+        instance.ex_location = data['ex_location']
+        instance.degree_cer = data['degree_cer']
+        instance.ex_cer = data['ex_cer']
+        instance.work_type = data['work_type']
+        instance.gst_number = data['gst_number']
+        instance.gst_certificate = data['gst_certificate']
+        instance.company_pan_no = data['company_pan_no']
+        instance.arn_no =data['arn_no']
+        instance.pan_card =data['pan_card']
         instance.save()
         return instance
 

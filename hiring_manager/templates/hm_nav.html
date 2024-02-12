@@ -1,0 +1,444 @@
+{% if "Add User" in access %}
+<ul>
+  <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Profile manager</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+  <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+  <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+  <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+  <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+  <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{%elif "Edit User" in access %}
+<ul>
+  <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Profile manager</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+  <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+  <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+  <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+  <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+  <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{% elif "Delete User" in access %}
+<ul>
+  <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Profile manager</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+  <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+  <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+  <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+  <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+  <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{% elif "Upload Salesmanager document" in access %}
+<ul>
+  <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Profile manager</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+  <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto active"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+  <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+  <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+  <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+  <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{% elif "Upload Hiringmanager document" in access %}
+<ul>
+  <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Profile manager</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+  <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+  <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+  <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+  <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto active"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+  <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{% elif "Upload Adprovidermanager document" in access %}
+<ul>
+  <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Profile manager</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto active"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+  <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+  <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+  <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+  <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+  <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{% elif "Upload Addistributormanager document" in access %}
+<ul>
+  <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Profile manager</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto active"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+  <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+  <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+  <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+  <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+  <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+{% elif "Upload Profilemanager document" in access %}
+<ul>
+  <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Profile manager</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+  <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+  <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+  <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+  <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto active"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+  <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+{% elif "Upload Affiliatemanager document" in access %}
+
+<ul>
+  <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+  <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Profile manager</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+  <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+  <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+  <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto active"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+  <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+  <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+  <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+  <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+</ul>
+
+
+
+{%else%}
+
+{% if "hiring_manager/hm_admin_dashboard" in current_path %}
+<ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Profile manager</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "hiring_manager/hm_profile" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Profile manager</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+  {% elif "hiring_manager/hm_edit_acc" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "hiring_manager/hm_local_admin" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto active"><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "hiring_manager/hm_local_admin_upload" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto active"><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "hiring_manager/hm_ad_provider" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto active"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "hiring_manager/hm_adprovider_upload" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto active"> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+    {% elif "hiring_manager/hm_ad_distributor" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto active"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "hiring_manager/hm_ad_distributor_upload" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto active"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+  {% elif "hiring_manager/hm_sales_person" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto active"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "hiring_manager/hm_sales_person_doc" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto active"><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+  {% elif "hiring_manager/hm_affiliate_marketing" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto active"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+  {% elif "hiring_manager/hm_affiliate_marketing_upload" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto active"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+  {% elif "hiring_manager/hm_private_investigator" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto active"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+    {% elif "hiring_manager/hm_private_investigator_upload" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto active"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+
+
+  {% elif "hiring_manager/hm_hiring_manager" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto active"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "hiring_manager/hm_hiring_manager_doc" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto active"><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "hiring_manager/hm_settings" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto "><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+
+
+  {% elif "hiring_manager/hm_users" in current_path %}
+  <ul>
+    <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+    <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+    <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+    <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+    <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+    <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+    <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+    <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+    <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+    <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+    <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+  </ul>
+  {% elif "hiring_manager/hm_addusers" in current_path %}
+    <ul>
+      <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+      <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+      <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+      <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+      <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+      <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+      <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+      <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+      <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+
+  {% elif "hiring_manager/hm_user_edit" in current_path %}
+
+    <ul>
+      <li><a href="/hiring_manager/hm_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/hiring_manager/hm_profile/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/hiring_manager/hm_local_admin/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Profile manager </span></a></li>
+      <li><a href="/hiring_manager/hm_ad_provider/{{key.uid}}" class="nav-link scrollto "> <i class="fas fa-bullhorn"></i> <span>Ad Provider</span></a></li>
+      <li><a href="/hiring_manager/hm_ad_distributor/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Ad Distributor</span></a></li>
+      <li><a href="/hiring_manager/hm_sales_person/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-bullhorn"></i> <span>Sales</span></a></li>
+      <li><a href="/hiring_manager/hm_affiliate_marketing/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Affiliate Marketing</span></a></li>
+      <li><a href="/hiring_manager/hm_private_investigator/{{key.uid}}" class="nav-link scrollto"> <i class="fas fa-bullhorn"></i> <span>Private Investigator</span></a></li>
+      <li><a href="/hiring_manager/hm_hiring_manager/{{key.uid}}" class="nav-link scrollto "><i class="fas fa-user-tie"></i> <span>Hiring Manager</span></a></li>
+      <li><a href="/hiring_manager/hm_users/{{key.uid}}" class="nav-link scrollto active"><i class=" bx fa-solid fa-user-plus"></i></i> <span>User</span></a></li>
+      <li><a href="/hiring_manager/hm_settings/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+
+  {% endif %}
+  {%endif%}

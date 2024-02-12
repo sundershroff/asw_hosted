@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Local Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'css/account.css' %}">
+	  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- over -->
+
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,500;9..40,700&family=Qwitcher+Grypen&family=Rubik+Pixels&display=swap" rel="stylesheet">
+  <!-- over -->
+
+</head>
+<body style=" background-color:rgba(0, 0, 255, 0.1);">
+   
+ <div class="dash_bor_sec1">
+
+  <div class="dash_bor_sdbr" id="dashsidebar">
+
+      <header id="header">
+    <div class="d-flex flex-column">
+       <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+
+
+
+        {% include 'nav.html'%}
+
+      
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+    <h5 style="position:;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+  </header>
+  
+  </div>
+
+  <div class="dash_bor_main1">
+    <!-- start1-->
+
+    {% include 'pm_header.html'%}
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
+    <!-- over -->
+
+    <!-- start -->
+    <div class="local_admin_account">
+
+      <div class="local_admin_acc_sec1 p-4">
+        <h3 style="color:rgba(123, 97, 255, 1);font-weight:500;">Accounts</h3>
+
+        <div class="local_admin_acc_par my-5 px-3 py-5">
+
+          <div class="local_admin_acc_chi1">
+
+            <div>
+              <i class="">
+                <!-- fas fa-user -->
+                <img src="{{key.profile_picture}}" alt="" style="
+                width: 150px;
+                height: 150px;
+                object-fit: cover;
+            ">
+              </i>
+            </div>
+
+            <div>
+              <h4>{{key.first_name}} {{key.last_name}}</h4>
+              <h5>Local Account</h5>
+              <h5>Created on: <span style="color:rgba(123, 97, 255, 1);font-weight:500;">{{key.created_date}}</span></h5>
+             <a href="/profile_manager/edit_acc/{{key.uid}}"> <button>Edit Profile</button></a>
+            </div>
+
+          </div>
+
+          <div class="local_admin_acc_chi2">
+
+            <div>
+              <i class="fas fa-wallet"></i>
+            </div>
+
+            <div>
+              <h3 style="color:#34A853;">₹<span style="font-family: 'DM Sans', sans-serif;font-weight:700;"> 2,500</span></h3>
+              <p>Account Balance <span><a href="/profile_manager/acc_balance/{{key.uid}}">Details</a></span></p>
+            </div>
+            
+          </div>
+          
+        </div>
+
+
+      </div>
+      
+    </div>
+    <!-- over -->
+    <!-- start -->
+
+    <div class="local_admin_acc_par1 px-4 ">
+
+      <div class="local_admin_acc_chi3 mb-5">
+        <h6>Office Details</h6>
+
+         <div class="local_admin_details">
+            <ul>
+          <li>Office Name:</li>
+          <li>Phone Number:</li>
+          <li>Email ID:</li>
+          <li>Location:</li>
+          <li>Address:</li>
+        </ul>
+
+        <ul>
+          <li class="local_admin_clr">{{key.office_name}}</li>
+          <li class="local_admin_clr">+91 {{key.mobile}}</li>
+          <li class="local_admin_clr">{{key.email}}</li>
+          <li class="local_admin_clr">{{key.office_country}},{{key.office_city}}</li>
+          <li class="local_admin_clr">{{key.office_address}}</li>
+        </ul>
+           
+         </div>
+
+
+      </div>
+
+      <div class="local_admin_acc_chi4 mb-5">
+          <h6>Contact Personal Details</h6>
+
+         <div class="local_admin_details">
+            <ul>
+          <li> Name:</li>
+          <li>Phone Number:</li>
+          <li>Email ID:</li>
+          <li>Location:</li>
+          <li>Address:</li>
+        </ul>
+
+        <ul>
+          <li class="local_admin_clr">{{key.first_name}} {{key.last_name}}</li>
+          <li class="local_admin_clr">+91 {{key.mobile}}</li>
+          <li class="local_admin_clr">{{key.email}}</li>
+          <li class="local_admin_clr">{{key.personal_country}} {{key.personal_city}}</li>
+          <li class="local_admin_clr">{{key.personal_address}}</li>
+        </ul>
+           
+         </div>
+      </div>
+
+      
+    </div>
+    <!-- over -->
+
+
+   </div>
+
+
+
+ 
+   <script src="{% static 'js/main.js'%}"></script>
+
+
+</body>
+</html>
+
+<!--   -->

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+  {% load static %}
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>affiliate-Users</title>
+
+  <link rel="stylesheet" href="{% static 'css/sm_dashboard.css' %}">
+
+  <link href=" {% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+
+
+	  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <!-- <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- over -->
+
+</head>
+<body style=" background-color:#F4F2FF;">
+   
+ <div class="dash_bor_sec1">
+
+  <div class="dash_bor_sdbr" id="dashsidebar">
+
+      <header id="header">
+    <div class="d-flex flex-column">
+       <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+        {% include 'af_nav.html' %}
+
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+    <h5 style="position:absolute;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+  </header>
+  
+  </div>
+
+  <div class="dash_bor_main1">
+    {% include 'af_header.html' %}
+
+    <!-- start1-->
+
+    <!-- <div class="dash_par1" style="background:white;">
+
+          <i class="fa-regular fa-bell"></i>
+
+        <div class="dash_brd_img1">
+         <img src="{% static 'images/girl1.png'%}">
+         <i class="fa-solid fa-caret-down"></i>
+         </div>
+
+    </div>
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick" style="z-index:10;"></i> -->
+    <!-- over -->
+
+    <!-- start -->
+    <div class="locl_adm_sec1 px-4 my-4">
+
+      <div>
+        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{my_user|length}} </span>Users</h3>
+      </div>
+
+      <div class="locl_adm_form">
+        <form>
+        
+        <div class="locl_adm_align">
+          <input type="text" autofocus>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        </form>
+        <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
+ 
+        {% if "Add User" in access %}
+        <a href="/affiliate_marketing/am_addusers/{{key.uid}}"><button class="adduser_btn" >Add New <i class="fa-solid fa-circle-plus"></i></button></a>
+        {%else%}
+        <!-- <a href="#"><button class="adduser_btn" >Add New <i class="fa-solid fa-circle-plus"></i></button></a> -->
+      {%endif%}
+    {% if access == "" %}
+    <a href="/affiliate_marketing/am_addusers/{{key.uid}}"><button class="adduser_btn" >Add New <i class="fa-solid fa-circle-plus"></i></button></a>
+    {%endif%}
+      </div>
+      
+    </div>
+    <!-- over -->
+
+    <!-- start -->
+    <div class="locl_adm_sec2 my-5">
+
+      <div class="locl_adm_table px-3">
+
+        <table table-striped>
+          <thead>
+            <tr>
+              <th>#No</th>
+              <th>User ID</th>
+              <th>Name</th>
+              <th>Email ID</th>
+              <th>Phone Number</th>
+              <th>Status</th>
+              <th>Actions</th>
+              
+            </tr>
+          </thead>
+           <tbody>
+            {% for i in my_user %}
+            <tr>
+
+             
+              <td data-label = "No">{{forloop.counter}}</td>
+              <td data-label = "User ID">{{i.uid}}</td>
+              <td data-label = "Name">{{i.first_name}} {{i.last_name}}</td>
+              <td data-label = "Email ID">{{i.email}}</td>
+              <td data-label = "Phone Number">(+91) {{i.mobile}}</td>
+            
+              <td data-label = "Status"><i class="fas fa-circle locl_adm_status"></i>
+              <label class="toggle-switch">
+              <input type="checkbox">
+              <span class="slider"></span>
+            </label>
+              
+          </td>
+          <td data-label = "Actions"><i data-bs-toggle="modal" data-bs-target="#exampleModal{{forloop.counter}}" class="fa-solid fa-ellipsis-vertical locl_adm_action"></i></td>
+           
+         </tr>
+           <div class="modal fade modal-md px-4" id="exampleModal{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+<div class="modal-dialog modal-dialog-centered">
+ <div class="modal-content">
+   <div class="modal-header border-0">
+
+     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+   </div>
+   <div class="modal-body locl_adm_modal1">
+   
+<form method="POST">
+{% csrf_token %}
+     <ul>
+       <li class=""><a href="" >View Details</a> </li>
+       {% if "Edit User" in access %}
+       <li><a href=""><button type="submit" class="btn btn-primary" name="edit" value="{{i.uid}}">EDIT</button></a></a></li>
+       {%else%}
+       <!-- <button  class="btn btn-primary"><a href="#">EDIT</a></button> -->
+       {%endif%}
+  {% if access == "" %}
+  <li><a href=""><button type="submit" class="btn btn-primary" name="edit" value="{{i.uid}}">EDIT</button></a></a></li>
+  {%endif%}
+
+      {% if "Delete User" in access %}
+       <li><a href="" ><button type="submit" class="btn btn-danger" name="delete" value="{{i.uid}}" >DELETE</button></a> </li>
+      {% else %}
+      <!-- <button  class="btn btn-danger" ><a href="#">DELETE</a></button> -->
+     {%endif%}
+  {% if access == "" %}
+  <li><a href="" ><button type="submit" class="btn btn-danger" name="delete" value="{{i.uid}}" >DELETE</button></a> </li>
+  {%endif%}
+      </ul>
+   </form>
+   </div>
+  
+ </div>
+</div>
+</div>
+{% endfor %}
+
+        
+
+          </tbody>
+        </table>
+
+ 
+        
+      </div>
+      
+    </div>
+    <!-- over -->
+
+  </div>
+   
+ </div>
+ <!-- modal -->
+ <div class="modal fade modal-md" id="filter_modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header prof_personal_filt">
+          <h4 class="modal-title" id="exampleModalLabel" style="font-weight:700;" >Filter</h4>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times-circle" style="color:black;"></i></button>
+        </div>
+        <div class="modal-body prof_personal_filt2">
+           
+           <form method="post" action="" enctype="multipart/form-data">
+            {%csrf_token%}
+         
+             <div class="my-3">
+              <label for="exampleFormControlInput1" class="form-label">ID</label>
+              <input type="text" name="" class="form-control">
+             </div>
+  
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Name</label>
+                <input type="text" name="" class="form-control">
+             </div>
+            
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Email ID</label>
+               <input type="text" name="" class="form-control">
+             </div>
+  
+                    <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
+               <input type="text" name="" class="form-control">
+             </div>
+  
+  
+                    <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Locations</label>
+               <select class="form-select py-3">
+                <option selected>Select</option>
+              </select>
+             </div>
+  
+                    <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Status</label>
+               <select class="form-select py-3">
+                <option selected>Select</option>
+              </select>
+             </div>
+
+  
+             <div class="prof_personal_savefilt1 text-center mb-5">
+               <button class="prof_personal_filbtn1 my-3" type="reset">Reset</button>
+               <button class="prof_personal_filbtn2 my-3" type="submit">Submit</button>
+             </div>
+             <div class="py-1">
+        
+             </div>  
+  
+           </form>
+
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="modal fade modal-md px-4" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+  
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body locl_adm_modal1">
+        <form method="POST">
+          {% csrf_token %}
+                  <ul>
+                    <li><a href="">View Details</a> </li>
+                    <li><a href=""><button type="submit" name="edit" value="{{i.uid}}">Edit</button></a></a></li>
+                    <li><a href="" style="color:red;"><button type="submit" name="delete" value="{{i.uid}}">Delete</button></a> </li>
+                  </ul>
+                </form>
+        
+      
+      </div>
+     
+    </div>
+  </div>
+</div> -->
+
+  <!-- over -->
+
+
+ 
+  <script src="{% static 'js/main.js'%}"></script>
+
+
+</body>
+</html>
+
+<!--   -->

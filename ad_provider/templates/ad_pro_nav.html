@@ -1,0 +1,255 @@
+{% if user_access == "" %}
+
+  {% if "ad_provider/ad_provider_admin_dashboard" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% elif "ad_provider/ad_pro_account" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% elif "ad_provider/ad_pro_editAccount" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+
+    {% elif "ad_provider/ad_pro_adFunds" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% elif "ad_provider/ad_pro_list" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% elif "ad_provider/ad_pro_active" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% elif "ad_provider/ad_pro_pending" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% elif "ad_provider/ad_pro_deactive" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% elif "ad_provider/ad_pro_closed" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% elif "ad_provider/ad_pro_createAd" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% elif "ad_provider/ad_pro_payment" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+
+    {% elif "ad_provider/ad_pro_editAd" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% elif "ad_provider/ad_pro_adDetails" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% elif "ad_provider/ad_pro_users" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% elif "ad_provider/ad_pro_addusers" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% elif "ad_provider/ad_pro_user_edit" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% elif "ad_provider/ad_pro_settings" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    {% endif %}
+{% else %}
+  
+  
+  {% if "All" in user_access  %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    
+    {% elif "Add user" in user_access %}
+    <ul>
+      {% if "Dashboard Access" in user_access  %}
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      {% else %}
+      <li><a href="" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      {% endif %}
+      <li><a href="" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+  {% elif "Edit User" in user_access %}
+    <ul>
+      {% if "Dashboard Access" in user_access  %}
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      {% else %}
+      <li><a href="" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      {% endif %}
+      <li><a href="" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+  
+  {% elif "Delete User" in user_access %}
+    <ul>
+      {% if "Dashboard Access" in user_access  %}
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      {% else %}
+      <li><a href="" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      {% endif %}
+      <li><a href="" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto active "><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="" class="nav-link scrollto "><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul> 
+  
+  {% elif "Create Ads" in user_access %}
+    <ul>
+      {% if "Dashboard Access" in user_access  %}
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      {% else %}
+      <li><a href="" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      {% endif %}
+      <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto  active "><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+  {% elif "Edit Ads" in user_access %}
+    <ul>
+      {% if "Dashboard Access" in user_access  %}
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      {% else %}
+      <li><a href="" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      {% endif %}
+      <li><a href="" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto  active "><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+  
+  {% elif "Close Ads" in user_access %}
+    <ul>
+      {% if "Dashboard Access" in user_access  %}
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      {% else %}
+      <li><a href="" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      {% endif %}
+      <li><a href="" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto  active "><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+   
+  
+
+    {% elif "Dashboard Access" in user_access  %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul> 
+    {% else%}
+    <ul>
+      {% if "Dashboard Access" in user_access  %}
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      {% else %}
+      <li><a href="" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      {% endif %}
+      <li><a href="" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    
+  {% endif%}
+  
+{% endif %}

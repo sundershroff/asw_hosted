@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="{% static 'css/sm_dashboard.css' %}">
+
+  <link href=" {% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+
+	<title>Local Admin sales/task</title>
+	  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- jquery validation -->
+  <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+  <!-- over -->
+
+</head>
+<body style=" background-color:#F4F2FF;">
+   
+ <div class="dash_bor_sec1">
+
+  <div class="dash_bor_sdbr" id="dashsidebar">
+
+      <header id="header">
+    <div class="d-flex flex-column">
+       <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+        {% include 'sm_nav.html' %}
+
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+  </header>
+  
+  </div>
+
+  <div class="dash_bor_main1">
+    {% include 'sm_header.html' %}
+
+    <!-- start1-->
+
+    <!-- <div class="dash_par1" style="background:white;">
+
+          <i class="fa-regular fa-bell"></i>
+
+        <div class="dash_brd_img1">
+         <img src="{% static 'images/girl1.png'%}">
+         <i class="fa-solid fa-caret-down"></i>
+         </div>
+
+    </div>
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i> -->
+    <!-- over -->
+
+    <!-- start -->
+    <div class="locl_adm_sec1 px-4 my-4">
+
+      <div>
+        <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{all_client_data|length}}</span>  adds in the list</h3>
+      </div>
+
+      <div class="locl_adm_form">
+        <form>
+        
+        <div class="locl_adm_align">
+          <input type="text" autofocus>
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        </form>
+        <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
+        <button data-bs-toggle="modal" data-bs-target="#AddnewClient">Add New <i class="fa-solid fa-circle-plus"></i></button>
+      </div>
+      
+    </div>
+    <!-- over -->
+<!-- start -->
+<div class="locl_adm_sec2 px-4 my-5">
+  <div style="background-color:#fff;margin-top:15px;height:60px;padding:17px;">
+    <a href="/sales_manager/sm_hand_list/{{key.uid}}" style="
+    text-decoration: none;
+"><span style="color: #6E717A;" class="p-3"> Clients</span></a><button style="color:#7B61Ff;background-color:#ede9ff;border-radius:6px;border:none"><b>Activities</b> </button> 
+    </div>
+</div>
+ <!-- over -->
+
+    <!-- start -->
+    
+    <div class="locl_adm_sec2 px-4 my-5">
+      <h5 style="color:#6E717A">Upcoming Tasks</h5>
+      {% for i in all_client_data %}
+      {%if i.status == False %}
+      {% if i.types_of_activities %}
+     
+      <div class="row rowbg">
+        
+
+        {% if i.types_of_activities == "Phone Call"  %}
+        <div class="col-lg-2 col-md-2">
+          <center><button class="task_button"><b><i class="fa fa-phone taskicon_list" aria-hidden="true"></i></b> </button></center>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <span ><b>{{i.client_name}}</b><br>  
+            <span class="task_button_text">{{i.types_of_activities}}<br>
+              {{i.date}}| {{i.time}}</span>
+          </span>
+          
+        </div>  
+        <div class="col-lg-4 col-md-4"></div>
+
+        <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+          <form action="" method="POST" > {%csrf_token%} 
+            <button class="btn_end" type="submit" name="semail" value="{{i.uid}}" >Call Now</button>
+          </form>
+        </div>
+        {% elif i.types_of_activities == "Meeting" %}
+        <div class="col-lg-2 col-md-2">
+          <center><button class="task_button"><b><i class="fa-solid fa-user-group taskicon_list"></i></b> </button></center>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <span ><b>{{i.client_name}}</b><br>  
+            <span class="task_button_text">{{i.types_of_activities}}<br>
+              {{i.date}}| {{i.time}}</span>
+          </span>
+        </div>
+        <div class="col-lg-4 col-md-4"></div>
+
+        <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+          <form action="" method="POST" > {%csrf_token%} 
+            <button class="btn_end" type="submit" name="semail" value="{{i.uid}}" >View Location</button>
+          </form>
+        </div>
+        {% elif i.types_of_activities == "Email" %}
+        <div class="col-lg-2 col-md-2">
+          <center><button class="task_button"><b><i class="fa-solid fa-envelope taskicon_list"></i></b> </button></center>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <span ><b>{{i.client_name}}</b><br> 
+            <span class="task_button_text">{{i.types_of_activities}}<br>
+              {{i.date}}| {{i.time}}</span>
+          </span>
+        </div>
+        <div class="col-lg-4 col-md-4"></div>
+
+        <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+        <form action="" method="POST" > {%csrf_token%} 
+          <button class="btn_end" type="submit" name="semail" value="{{i.uid}}" >Send Email</button>
+        </form> 
+        </div>
+          {%endif%} 
+      <!-- <div class="col-lg-4 col-md-4">
+        <span ><b>{{i.client_name}}</b><br>  
+          <span class="task_button_text">{{i.types_of_activities}}<br>
+            {{i.date}}| {{i.time}}</span>
+        </span>
+        
+      </div> -->
+      
+      <!-- <div class="col-lg-4 col-md-4"></div> -->
+
+    </div>
+   
+    {%endif%}
+    {%endif%}
+    {%endfor%}<br>
+
+    
+    <h5 style="color:#6E717A">Completed Tasks</h5><br>
+    {% for i in all_client_data %}
+      {% if i.status == True %}
+      <div class="row rowbg">
+        {% if i.types_of_activities == "Phone Call" %}
+
+      <div class="col-lg-2 col-md-2">
+        <center><button class="task_button2"><b><i class="fa fa-phone taskicon_list" aria-hidden="true"></i></b> </button></center>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <span ><b>{{i.client_name}}</b><br>
+          <span class="task_button_text">{{i.types_of_activities}}<br>
+            {{i.date}} | {{i.time}}</span>
+        </span>
+        
+      </div>
+      <div class="col-lg-4 col-md-4"></div>
+
+      <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+        <span><b>Called</b></span>
+      </div>
+      {% elif i.types_of_activities == "Meeting" %}
+      <div class="col-lg-2 col-md-2">
+        <center><button class="task_button2"><b><i class="fa-solid fa-user-group taskicon_list"></i></b> </button></center>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <span ><b>{{i.client_name}}</b><br>
+          <span class="task_button_text">{{i.types_of_activities}}<br>
+            {{i.date}} | {{i.time}}</span>
+        </span>
+        
+      </div>
+      <div class="col-lg-4 col-md-4"></div>
+
+      <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+        <span><b>Meeting</b></span>
+      </div>
+      {% elif i.types_of_activities == "Email" %}
+      <div class="col-lg-2 col-md-2">
+        <center><button class="task_button2"><b><i class="fa-solid fa-envelope taskicon_list"></i></b> </button></center>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <span ><b>{{i.client_name}}</b><br>
+          <span class="task_button_text">{{i.types_of_activities}}<br>
+            {{i.date}} | {{i.time}}</span>
+        </span>
+        
+      </div>
+      <div class="col-lg-4 col-md-4"></div>
+
+      <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+        <span><b>Email</b></span>
+      </div>
+      {%endif%}
+    </div>
+    {%endif%}
+    {% endfor %}
+
+    
+    <!-- <div class="row rowbg">
+      <div class="col-lg-2 col-md-2">
+        <center><button class="task_button2"><b><i class="fa fa-phone taskicon_list" aria-hidden="true"></i></b> </button></center>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <span ><b>ABCD</b><br>
+          <span class="task_button_text">Phone Call<br>
+            10 Janduary, 2021 | 10:00am</span>
+        </span>
+        
+      </div>
+      <div class="col-lg-4 col-md-4"></div>
+      <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+        <span><b>Called</b></span>
+      </div>
+    </div>
+    <div class="row rowbg">
+      <div class="col-lg-2 col-md-2">
+        <center><button class="task_button2"><b><i class="fa fa-phone taskicon_list" aria-hidden="true"></i></b> </button></center>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <span ><b>ABCD</b><br>
+          <span class="task_button_text">Phone Call<br>
+            10 Janduary, 2021 | 10:00am</span>
+        </span>
+        
+      </div>
+      <div class="col-lg-4 col-md-4"></div>
+      <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+        <span><b>Called</b></span>
+      </div>
+    </div>
+    <div class="row rowbg">
+      <div class="col-lg-2 col-md-2">
+        <center><button class="task_button2"><b><i class="fa fa-phone taskicon_list" aria-hidden="true"></i></b> </button></center>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <span ><b>ABCD</b><br>
+          <span class="task_button_text">Phone Call<br>
+            10 Janduary, 2021 | 10:00am</span>
+        </span>
+        
+      </div>
+      <div class="col-lg-4 col-md-4"></div>
+      <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
+        <span><b>Called</b></span>
+      </div>
+    </div> -->
+    <!-- over -->
+
+  </div>
+   
+ </div>
+ <!-- modal -->
+ <div class="modal fade modal-md" id="filter_modal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header prof_personal_filt">
+          <h4 class="modal-title" id="exampleModalLabel" style="font-weight:700;" >Filter</h4>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times-circle" style="color:black;"></i></button>
+        </div>
+        <div class="modal-body prof_personal_filt2">
+           
+           <form method="post" action="" enctype="multipart/form-data">
+              {%csrf_token%}
+             <div class="my-3">
+              <label for="exampleFormControlInput1" class="form-label">ID</label>
+              <input type="text" name="uid" value="{{key.uid}}" class="form-control">
+             </div>
+  
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Name</label>
+                <input type="text" name="client_name" value="{{all_client_data.client_name}}" class="form-control">
+             </div>
+            
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Email ID</label>
+               <input type="text" name="email" value="{{all_client_data.email}}" class="form-control">
+             </div>
+  
+                    <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
+               <input type="text" name="phone_number"  class="form-control">
+             </div>
+  
+  
+                    <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Locations</label>
+               <select class="form-select py-3" name="client_location">
+                <option {{key.client_location}}>{{key.client_location}}</option>
+                <option value="guruvayur">guruvayur</option>
+                <option value="cochin">cochin</option>
+                <option value="kollam">kollam</option>
+              </select>
+             </div>
+  
+                    <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Status</label>
+               <select class="form-select py-3" name="status">
+                <option {{key.status}}>{{key.status}}</option>
+                <option value="Completed Task">Completed Task</option>
+                <option value="Pending Task">Pending Task</option>
+
+
+
+              </select>
+             </div>
+
+  
+             <div class="prof_personal_savefilt1 text-center mb-5">
+               <button class="prof_personal_filbtn1 my-3" type="reset">Reset</button>
+               <button class="prof_personal_filbtn2 my-3" type="submit">Submit</button>
+             </div>
+             <div class="py-1">
+        
+             </div>  
+  
+           </form>
+
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade modal-md px-4" id="AddnewClient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header prof_personal_filt">
+          <h4 class="modal-title" id="exampleModalLabel" style="font-weight:700;" >Add New Activities</h4>
+          <button type="button" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times-circle" style="color:black;"></i></button>
+        </div>
+        <div class="modal-body prof_personal_filt2">
+           
+           <form method="POST" action="" enctype="multipart/form-data" id="myform">
+            {%csrf_token%}
+            <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Client</label>
+               <select class="form-select py-3" name="client_name">
+                <!-- <option value="{{client_activities.uid}}">{{client_activities.client}}</option> -->
+                {% for i in all_client_data %}
+                <option value="{{i.uid}}">{{i.client_name}}</option>
+                {% endfor %}
+               
+              </select>
+             </div>
+              <span><b>Activities Details</b></span>
+           
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Types of Activities</label>
+               <select class="form-select py-3" name="types_of_activities">
+                <option {{client_activities.types_of_activities}}>{{client_activities.types_of_activities}}</option>
+                <option value="Phone Call">Phone Call</option>
+                <option value="Meeting">Meeting</option>
+                <option value="Email">Email</option>
+                
+              </select>
+             </div>
+            
+             
+  
+                    <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Date</label>
+               <input type="date" name="date" class="form-control" >
+
+             </div>
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Time</label>
+               <input type="time" name="time" class="form-control">
+             </div>
+  
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">Notes</label>
+               <input type="text" name="notes" class="form-control">
+             </div>  
+  
+                
+
+  
+             <div class="prof_personal_savefilt1 text-center mb-5">
+               <button class="prof_personal_filbtn1 my-3" type="reset">Cancel</button>
+               <button class="prof_personal_filbtn2 my-3" type="submit">Submit</button>
+             </div>
+             <div class="py-1">
+        
+             </div>  
+  
+           </form>
+
+        </div>
+      
+      </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script>
+  // just for the demos, avoids form submit
+//   jQuery.validator.setDefaults({
+//     debug: true,
+//     success: "valid"
+//   });
+//   $( "#myform" ).validate({
+//     rules: {
+//       client_name: {
+//         valueNotEquals: "default"
+//       },
+//       types_of_activities: {
+//         valueNotEquals: "default"
+//       },
+//       date: {
+//         requied:true,
+//         date: true
+//       },
+//       time:{
+//         requied:true,
+//       },
+//       notes:{
+//         requied:true,
+//       }
+//     },
+//     submitHandler:function(form) {
+//                 console.log('test');
+//                 form.submit();
+//             }  
+    
+//     });
+//    </script>
+//   <script>
+//     $(document).ready(function () {
+//         $("#success").click(function(){
+//             setTimeout(function() {
+//                 $('#exampleModal').modal('toggle');
+//             }, 2000);
+//         });
+//     });
+// </script>
+  <!-- over -->
+
+
+ 
+  <script src="{% static 'js/main.js'%}"></script>
+
+
+</body>
+</html>
+
+<!--   -->

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-uzndh3vnr=*i5m4-(dm5xn1^o=qy5f0-l2($pmxsv(kb1cv^w%
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    # '54.211.84.169'
+    # '51.20.61.70'
     ]
 
 
@@ -40,6 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apiapp',
+    'private_investigator',
+    'profile_manager',
+    'sales_manager',
+    'hiring_manager',
+    'ad_provider',
+    'ad_distributor',
+    'affiliate_marketing',
     'rest_framework',
     'virtualExpert',
     'superadmin',

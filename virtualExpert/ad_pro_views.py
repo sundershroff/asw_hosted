@@ -140,7 +140,7 @@ def ad_pro_upload_account(request,id):
     try:
         jsondec = json.decoder.JSONDecoder()
         print(request.POST)
-        # fs = FileSystemStorage()
+        fs = FileSystemStorage()
         userdata = ad_pro_serializer.ad_provider.objects.get(uid=id)
         # print(userdata)
         # id_card = str(request.FILES['id_card']).replace(" ", "_")
@@ -153,11 +153,72 @@ def ad_pro_upload_account(request,id):
             city = request.POST['personal_city']
         else:
             city = "None"
+        #degree certificate
+        degree_certificate_1 = str(request.FILES['degree_cer']).replace(" ", "_")
+        path_deg = fs.save(f"virtual_expert/ad_provider/{id}/degree_certificate/"+degree_certificate_1, request.FILES['degree_cer'])
+        full_path_degree = all_image_url+fs.url(path_deg)
+         #experience certificate
+        if 'ex_cer' in request.FILES:
+            ex_certificate_1 = str(request.FILES['ex_cer']).replace(" ", "_")
+            path_ex = fs.save(f"virtual_expert/ad_provider/{id}/experience_certificate/"+ex_certificate_1, request.FILES['ex_cer'])
+            full_path_ex = all_image_url+fs.url(path_ex)
+        else:
+            full_path_ex = "empty"
+        if request.POST['work_type'] == "Personal":
+            gst_number = "empty"
+            gst_certificate = "empty"
+            company_pan_no = "empty"
+            arn_no = "empty"
+            pan_card = "empty"
+        else:
+            #gst certificate
+            gst_certificate_1 = str(request.FILES['gst_certificate']).replace(" ", "_")
+            path = fs.save(f"virtual_expert/ad_provider/{id}/gst_certificate/"+gst_certificate_1, request.FILES['gst_certificate'])
+            full_path_gst = all_image_url+fs.url(path)
+            #pan card
+            pan_card_1 = str(request.FILES['pan_card']).replace(" ", "_")
+            path1 = fs.save(f"virtual_expert/ad_provider/{id}/pan_card/"+pan_card_1, request.FILES['pan_card'])
+            full_path_pan = all_image_url+fs.url(path1)
+            #############
+            gst_number = request.POST['gst_number']
+            gst_certificate = full_path_gst
+            company_pan_no = request.POST['company_pan_no']
+            arn_no = request.POST['arn_no']
+            pan_card = full_path_pan
+        if request.POST['work_job_title'] == '':
+            work_job_title = "empty"
+        else:
+            work_job_title = request.POST['work_job_title']
+        if request.POST['work_company_name'] == '':
+            work_company_name = "empty"
+        else:
+            work_company_name = request.POST['work_company_name']
+        if request.POST['work_job_location'] == '':
+            work_job_location = "empty"
+        else:
+            work_job_location = request.POST['work_job_location']
+        if request.POST['ex_job_title'] == '':
+            ex_job_title = "empty"
+        else:
+            ex_job_title =request.POST['ex_job_title']
+        if request.POST['ex_company_name'] == '':
+            ex_company_name = "empty"
+        else:
+            ex_company_name =request.POST['ex_company_name']
+        if request.POST['year_experience'] == '':
+            year_experience = "empty"
+        else:
+            year_experience =request.POST['year_experience']
+        if request.POST['ex_location'] == '':
+            ex_location = "empty"
+        else:
+            ex_location =request.POST['ex_location']
+        print("helo")
         data = {
-            # 'office_name': request.POST['office_name'],
-            # 'office_country': request.POST['office_country'],
-            # 'office_city': request.POST['office_city'],
-            # 'office_address': request.POST['office_address'],
+            'office_name': request.POST['office_name'],
+            'office_country': request.POST['office_country'],
+            'office_city': request.POST['office_city'],
+            'office_address': request.POST['office_address'],
             'first_name': request.POST['first_name'],
             'last_name': request.POST['last_name'],
             'personal_country': request.POST['personal_country'],
@@ -167,6 +228,23 @@ def ad_pro_upload_account(request,id):
             'hiring_manager': request.POST['hiring_manager'],
             'sales_manager': request.POST['sales_manager'],
             'type':request.POST['type'],
+            'level_education': json.dumps(request.POST.getlist('level_education')),           
+            'field_study': json.dumps(request.POST.getlist('field_study')),           
+            'work_job_title': work_job_title,           
+            'work_company_name': work_company_name,           
+            'work_job_location': work_job_location,           
+            'ex_job_title': ex_job_title,           
+            'ex_company_name': ex_company_name,           
+            'year_experience': year_experience,           
+            'ex_location': ex_location,           
+            'degree_cer': full_path_degree,           
+            'ex_cer': full_path_ex,           
+            'work_type': request.POST['work_type'],           
+            'gst_number': gst_number,           
+            'gst_certificate': gst_certificate,           
+            'company_pan_no': company_pan_no,           
+            'arn_no': arn_no,           
+            'pan_card': pan_card  
         }
 
         print(data)
@@ -498,7 +576,7 @@ def ad_pro_password_reset(request,id):
         password = 'kgqzxinytwbspurf'
         subject = "Marriyo client password"
         content = f"""
-        PasswordResetform : {f"http://localhost:8001/ad_pro_password_reset/{id}"}
+        PasswordResetform : {f"http://127.0.0.1:3000/ad_pro_password_resett/{id}"}
         """
         yagmail.SMTP(sender, password).send(
             to=email,

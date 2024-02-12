@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Local Admin Dashboard</title>
+  <link rel="stylesheet" href="{% static 'css/add_user.css' %}">
+
+	  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- over -->
+
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,500;9..40,700&family=Qwitcher+Grypen&family=Rubik+Pixels&display=swap" rel="stylesheet">
+  <!-- over -->
+<link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+</head>
+<body style=" background-color:rgba(0, 0, 255, 0.1);">
+   
+ <div class="dash_bor_sec1">
+
+  <div class="dash_bor_sdbr" id="dashsidebar">
+
+      <header id="header">
+    <div class="d-flex flex-column">
+      <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+        {% include 'ad_dis_nav.html'%}
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+    <h5 style="position:;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+  </header>
+  
+  </div>
+
+  <div class="dash_bor_main1">
+    <!-- start1-->
+
+    {% include 'ad_dis_header.html'%}
+
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
+    <!-- over -->
+
+    <!-- start -->
+
+    <div class="local_add_user px-3 py-4">
+
+      <a href="/ad_distributor/ad_dis_users/{{key.uid}}" style="
+      text-decoration: none;color:#6E717A;
+  "><h4 style="color:#6E717A; font-weight:700;">Users ></a> <span style="color:#7B61FF;">Edit User</span></h4>
+
+      <div class="local_add_user_form my-4 pb-5 px-4">
+
+        <form method="POST" id="myform" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row local_add_user_label">
+
+            <div class="col-md-4 my-3">
+              <label class="form-label  my-3">First Name<span>*</span></label>
+              <input type="text" name="first_name" value="{{users_data.first_name}}" class="form-control" >
+            </div>
+
+            <div class="col-md-4 my-3">
+              <label class="form-label  my-3">Last Name<span>*</span></label>
+              <input  class="form-control" type="text" name="last_name" value="{{users_data.last_name}}">
+            </div>
+
+            <div class="col-md-4 my-3">
+              <label class="form-label  my-3">Email ID<span>*</span></label>
+              <input type="text" name="email" value="{{users_data.email}}" class="form-control">
+            </div>
+            <div class="col-md-4 my-3 ">
+              <label class="form-label my-3">Phone Number<span>*</span></label>
+              <input type="text" name="mobile" value="{{users_data.mobile}}" class="form-control">
+            </div>
+            <div class="col-md-4 my-3 ">
+              <label class="form-label my-3">Password<span>*</span></label>
+              <input type="text"  id="password" value="{{users_data.password}}" name="password" class="form-control">
+            </div>
+            <div class="col-md-4 my-3 ">
+              <label class="form-label my-3">Confirm Password<span>*</span></label>
+              <input type="text" name="confirm_password" value="{{users_data.confirm_password}}" class="form-control">
+            </div>
+
+          </div>
+
+          <h5 class="my-3 mx-2" style="color:#2B3674; font-weight:700;">Access Privileges</h5>
+
+          <div class="local_add_user_permis my-5">
+            {% if "All"  in users_data.access_Privileges %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox"  id="selectAll" name="access_Privileges" value="All" checked>
+              <span class="checkmark"></span>
+              All
+            </label>
+            {% else %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" id="selectAll" name="access_Privileges" value="All" >
+              <span class="checkmark"></span>
+              All
+            </label>
+            {% endif %}
+            {% if "Create Ads" in users_data.access_Privileges %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Create Ads" checked>
+              <span class="checkmark"></span>
+              Create Ads
+            </label>
+            {% else%}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Create Ads" >
+              <span class="checkmark"></span>
+              Create Ads
+            </label> 
+            {% endif %}
+            {% if "Edit Ads" in users_data.access_Privileges %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Edit Ads" checked>
+              <span class="checkmark"></span>
+              Edit Ads
+            </label>
+            {% else %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Edit Ads">
+              <span class="checkmark"></span>
+              Edit Ads
+            </label>
+            {% endif %}
+            {% if "Close Ads" in users_data.access_Privileges %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Close Ads" checked>
+              <span class="checkmark"></span>
+              Close Ads
+            </label>
+            {% else %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Close Ads">
+              <span class="checkmark"></span>
+              Close Ads
+            </label>
+             {% endif %}
+             {% if "Dashboard Access" in users_data.access_Privileges %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Dashboard Access" checked>
+              <span class="checkmark"></span>
+              Dashboard Access
+            </label>
+            {% else %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Dashboard Access">
+              <span class="checkmark"></span>
+              Dashboard Access
+            </label>
+            {% endif %}
+
+            {% if "Add User" in users_data.access_Privileges %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Add User" checked>
+              <span class="checkmark"></span>
+              Add user
+            </label>
+            {% else %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Add User">
+              <span class="checkmark"></span>
+              Add user
+            </label>
+            {% endif %}
+            {% if "Edit User" in users_data.access_Privileges%}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Edit User" checked>
+              <span class="checkmark"></span>
+              Edit user
+            </label>
+            {% else %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Edit User">
+              <span class="checkmark"></span>
+              Edit user
+            </label>
+            {% endif %}
+            {% if "Delete User" in users_data.access_Privileges %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Delete User" Checked>
+              <span class="checkmark"></span>
+              Delete user
+            </label>
+            {% else %}
+            <label class="checkbox-container" style="color:rgba(110, 113, 122, 1)">
+              <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Delete User">
+              <span class="checkmark"></span>
+              Delete user
+            </label>
+            {% endif %}
+          </div>
+
+          <div class="local_add_user_btn">
+
+            <!-- <button>Cancel</button> -->
+            <button type="submit" name="edit_user" value="{{users_data.uid}}">Create</button>
+            
+          </div>
+          <p style="
+    color: red;
+    font-size: 22px;
+    font-weight: 500;
+">{{error}}</p>
+  
+        </form>
+        
+      </div>
+   
+    <!-- over -->
+
+
+   </div>
+
+   <!-- Modal -->
+<div class="modal fade" id="emailsucc" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border:none;">
+        
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="local_admin_edi_success">
+          <i class="fa-solid fa-circle-check"></i>
+          <h4>Done!</h4>
+          <h6>reset password link sent to your email</h6>
+        </div>
+        <div class="modal-footer" style="border:none;">
+          
+        </div>
+      </div>
+
+
+
+ 
+      <script src="{% static 'js/main.js'%}"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script>
+// just for the demos, avoids form submit
+jQuery.validator.setDefaults({
+  debug: true,
+  success: "valid"
+});
+$( "#myform" ).validate({
+  rules: {
+    password: "required",
+    confirm_password: {
+      equalTo: "#password"
+    },
+    first_name:{
+          required: true
+    },
+    last_name:{
+          required: true
+    },
+    email:{
+          required: true
+    },
+    mobile:{
+          required: true
+    },
+    access_Privileges:{
+                required: true
+    }
+  },
+  submitHandler: function (form) {
+        form.submit();
+      }
+});
+</script>
+<script src="{% static 'js/main.js'%}"></script>
+<script>
+  var selectAllCheckbox = document.getElementById('selectAll');
+  var otherCheckboxes = document.querySelectorAll('.otherCheckbox');
+  selectAllCheckbox.addEventListener('change', function() {
+    otherCheckboxes.forEach(function(checkbox) {
+      checkbox.checked = selectAllCheckbox.checked;
+    });
+  });
+</script>
+
+</body>
+</html>
+
+<!--   -->

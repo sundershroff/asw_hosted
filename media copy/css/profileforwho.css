@@ -1,0 +1,23 @@
+.profileforwho li {
+    list-style: none;
+    display: inline;
+    float: left;
+    width: 31%;
+    margin-right: 10px;
+}
+.profileforwho li a {
+    color: black;
+    text-decoration: none;
+    padding: 30px 0px;
+    float: left;
+    border: 1px solid #80808057;
+    border-radius: 3px;
+    width: 100%;
+    text-align: center;
+}
+.profileforwho li a:hover{
+    border: 1px solid blue;
+}
+.w-70{
+    width: 70%;
+}

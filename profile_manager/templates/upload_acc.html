@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Complete profile</title>
+  <link rel="stylesheet" href="{% static 'css/upload_acc.css' %}">
+	  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- over -->
+
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,500;9..40,700&family=Qwitcher+Grypen&family=Rubik+Pixels&display=swap" rel="stylesheet">
+  <!-- over -->
+  <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+<style>
+  .error {
+    color: red !important;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+<body style=" background-color:rgba(0, 0, 255, 0.1);">
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
+   
+ <div class="dash_bor_sec1">
+
+  <!-- <div class="dash_bor_sdbr" id="dashsidebar" >
+
+      <header id="header">
+    <div class="d-flex flex-column">
+      
+       <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+        <ul>
+          <li><a href="#hero" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+          <li><a href="#about" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+          <li><a href="#resume" class="nav-link scrollto"><i class="bx fa-solid fa-users"></i> <span>Profile Finder</span></a></li>
+          <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bi-file-text"></i> <span>Complaints</span></a></li>
+          <li><a href="#services" class="nav-link scrollto"> <i class=" bx fa-solid fa-user-plus"></i> <span>Users</span></a></li>
+         
+          <li><a href="#services" class="nav-link scrollto"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+        </ul>
+
+      </nav>
+      .nav-menu 
+    </div>
+    <h5 style="position:absolute;bottom:20px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+  </header>
+  
+  </div> -->
+
+  <div class="dash_bor_main1" >
+    <!-- start1-->
+
+    <div class="dash_par1" style="background:white;">
+
+          <i class="fa-regular fa-bell"></i>
+
+        <div class="dash_brd_img1">
+         <img src="{% static 'images/girl1.png'%}">
+         <i class="fa-solid fa-caret-down"></i>
+         </div>
+
+    </div>
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
+    <!-- over -->
+
+    <!-- start -->
+    <div class="local_admin_edi_acc px-3 py-4" >
+
+    <h3 class="mb-4"><span style="color:#7B61FF;font-weight:500;">Complete Profile</span></h3> 
+
+      <div class="local_admin_edi_form p-4 bg-white" style="border-radius:10px;">
+        <form method="POST" enctype="multipart/form-data" id="myform">
+          {% csrf_token %}
+        <div class="row mb-3">
+
+          <div class="col-lg-4 my-3">
+            <label class="form-label">Office Name<span>*</span></label>
+            <input type="text" name="office_name" class="form-control" placeholder="Name">
+          </div>
+
+          <div class="col-lg-4 my-3">
+            <label class="form-label">Country<span>*</span></label>
+            <select id="countryone" class="form-select" name="office_country" onchange="fun1.call(this,event)">
+              <option value="default">Select</option>
+              {% for j in all %}
+              <option value="{{j.name}}">{{j.name}}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="col-lg-4 my-3">
+            <label class="form-label">City<span>*</span></label>
+            <select id="res2" class="form-select" name="office_city">
+              <option value="default">Select</option>
+              <script>
+                stat = {{ states|safe }};
+            ttt = stat[0].states;
+            for (i=0;i<ttt.length;i++){
+               tt = ttt[i].name;
+               document.write("<option value="tt">"+tt+"</option>");
+            }
+          </script>
+            </select>
+          </div>
+          
+        </div>
+
+        <div class="row">
+
+        <div class="col-6">
+          <label class="form-label">Office Address<span>*</span></label>
+            <textarea name="office_address" class="form-control" placeholder="Address" style="min-height: calc(1.5em + 5.75rem + calc(var(--bs-border-width) * 2));"></textarea>
+
+          </div> 
+          
+        </div>
+
+        <h4 class="my-4" style="color:#7B61FF;">Personal Details</h4>
+          
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="row">
+
+                <div class="col-lg-6 my-3">
+                  <label class="form-label">First Name<span>*</span></label>
+                  <input type="text" name="first_name" class="form-control" placeholder="first name">
+                </div>
+
+                 <div class="col-lg-6 my-3">
+                  <label class="form-label">Last Name<span>*</span></label>
+                  <input type="text" name="last_name" class="form-control" placeholder="last name">
+                </div>
+                <div class="col-lg-6 my-3">
+                  <label class="form-label">Country<span>*</span></label>
+                  <select id="countrytwo" class="form-select" name="personal_country" onchange="fun2.call(this,event)">
+                    <option value="default">Select</option>
+                    {% for j in all %}
+                    <option value="{{j.name}}">{{j.name}}</option>
+                    {% endfor %}
+            </select>
+                </div>
+
+                 <div class="col-lg-6 my-3">
+                  <label class="form-label">City<span>*</span></label>
+                  <select id="res3" class="form-select" name="personal_city">
+                    <option value="default">Select</option>
+                    <script>
+                      stat = {{ states|safe }};
+                  ttt = stat[0].states;
+                  for (i=0;i<ttt.length;i++){
+                     tt = ttt[i].name;
+                     document.write("<option value="tt">"+tt+"</option>");
+                  }
+                </script>
+            </select>
+                </div>
+
+                <div class="col-6 my-3">
+                  <label class="form-label">Addresss<span>*</span></label>
+                  <textarea name="personal_address" class="form-control" placeholder="Address" style="min-height: calc(1.5em + 5.75rem + calc(var(--bs-border-width) * 2));"></textarea>
+
+                </div>
+
+                <div class="col-lg-6 my-3">
+            <label class="form-label">Hiring Manager<span>*</span></label>
+            <select class="form-select" name="notary">
+              <option value="default">Select</option>
+              {% for i in hiring_manager %}
+                 <option value="{{i.uid}}">{{i.first_name}} {{i.last_name}}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+              
+                
+              </div>
+              
+            </div>
+            {% comment %} <div class="col-lg-4">
+              
+              <div class="row">
+                 <div class="col-12 my-3">
+                 <label class="form-label">ID Card<span>*</span></label>
+
+                  <div class="local_admin_drag_area">
+                 
+                     <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                      <header>Drag or click here to Upload your ID </header>
+
+                      <input type="file" name="id_card" style="
+                      opacity: 0;
+                      position: absolute;">
+                
+
+                  </div>
+
+                </div>
+              </div>
+            </div> {% endcomment %}
+
+          </div>
+
+          <h4 class="my-4" style="color:#7B61FF;">Qualifications</h4>
+          <h3 class="my-4">Education Details</h3>
+          <div class="row">
+            <div class="col-lg-12" id="addeducationdetail">
+              <div class="row">
+
+                <div class="col-lg-6 my-3">
+                  <label class="form-label">Level of Education<span>*</span></label>
+                  <input type="text" name="level_education" class="form-control" placeholder="Level of Education">
+                </div>
+
+                 <div class="col-lg-6 my-3">
+                  <label class="form-label">Field Of Study<span>*</span></label>
+                  <input type="text" name="field_study" class="form-control" placeholder="Field Of Study">
+                </div>
+              </div>
+            </div>
+                <div class="local_admin_edi_subbtn my-4">
+                  <button type="button" id="addeducation" data-bs-toggle="modal" data-bs-target="" style="background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);
+                  color: white;border: 2px solid white;"> Add More</button>
+                </div>
+             </div>
+
+              <h3 class="my-4">Work Details</h3>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="row">
+
+                <div class="col-lg-6 my-3">
+                  <label class="form-label">Job Title<span>*</span></label>
+                  <input type="text" name="work_job_title" class="form-control" placeholder="Job Title">
+                </div>
+
+                 <div class="col-lg-6 my-3">
+                  <label class="form-label">Company Name<span>*</span></label>
+                  <input type="text" name="work_company_name" class="form-control" placeholder="Company Name">
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Job Location<span>*</span></label>
+                    <input type="text" name="work_job_location" class="form-control" placeholder="Job Title">
+                  </div>
+                </div>
+              </div></div></div>
+
+              <h3 class="my-4">Experience</h3>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="row">
+    
+                    <div class="col-lg-6 my-3">
+                      <label class="form-label">Job Title<span>*</span></label>
+                      <input type="text" name="ex_job_title" class="form-control" placeholder="Job Title">
+                    </div>
+    
+                     <div class="col-lg-6 my-3">
+                      <label class="form-label">Company Name<span>*</span></label>
+                      <input type="text" name="ex_company_name" class="form-control" placeholder="Company Name">
+                    </div>
+                  </div>
+                  <div class="row">
+    
+                    <div class="col-lg-6 my-3">
+                      <label class="form-label">Year Of Experience<span>*</span></label>
+                      <input type="text" name="year_experience" class="form-control" placeholder="Year Of Experience">
+                    </div>
+                    <div class="col-lg-6 my-3">
+                      <label class="form-label">Location<span>*</span></label>
+                      <input type="text" name="ex_location" class="form-control" placeholder="Location">
+                    </div>
+                  </div>
+                </div></div>
+                <h3 class="my-4">Document Upload</h3>
+                <div class="row">
+                  <div class="col-lg-12" id="">
+                    <div class="row">
+      
+                      <div class="col-lg-6 my-3">
+                        <label class="form-label">Degree Certificate<span>*</span></label>
+                        <div class="local_admin_drag_area">
+                 
+                          <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                           <header>Drag or click here to Upload Certificate </header>
+     
+                           <input type="file" name="degree_cer" style="
+                           opacity: 0;
+                           position: absolute;">
+                     
+     
+                       </div>                      </div>
+      
+                       <div class="col-lg-6 my-3">
+                        <label class="form-label">Experience Certificate<span>*</span></label>
+                        <div class="local_admin_drag_area">
+                 
+                          <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                           <header>Drag or click here to Upload your Certificate </header>
+     
+                           <input type="file" name="ex_cer" style="
+                           opacity: 0;
+                           position: absolute;">
+                     
+     
+                       </div>                      </div>
+                    </div>
+                  </div>
+                </div>      
+                  <div class="row">
+                    <label class="form-label">Type<span>*</span></label>
+                    <div class="col-lg-6 my-3">
+                     <select name="work_type"  class="form-control" id="for_what" required="Select any one">
+                      <option value="">Select Any One</option>
+                      <option value="Buisness" data-attribute="1">BUISNESS</option>
+                      <option value="Personal" data-attribute="2">PERSONAL</option>
+                     </select>
+                    </div>
+                  </div>
+                  <div class="row" id="buisness_1">
+                    <div class="col-lg-12" id="">
+                      <div class="row">
+        
+                        <div class="col-lg-6 my-3">
+                          <label class="form-label">GST Number<span>*</span></label>
+                          <input type="text" name="gst_number" class="form-control" placeholder="GST Number">
+                        </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-lg-6 my-3">
+                          <label class="form-label">GST Registered Certificate<span>*</span></label>
+                          <div class="local_admin_drag_area">
+                   
+                            <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                             <header>Drag or click here to Upload your Certificate </header>
+       
+                             <input type="file" name="gst_certificate" style="
+                             opacity: 0;
+                             position: absolute;">
+                       
+       
+                         </div>                      </div>
+                      </div>
+                      <div class="row">
+        
+                        <div class="col-lg-6 my-3">
+                          <label class="form-label">Company Pan Number<span>*</span></label>
+                          <input type="text" name="company_pan_no" class="form-control" placeholder="Company Pan Number">
+                        </div>
+                      </div>
+                      <div class="row">
+        
+                        <div class="col-lg-6 my-3">
+                          <label class="form-label">ARN Number<span>*</span></label>
+                          <input type="text" name="arn_no" class="form-control" placeholder="ARN Number">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-6 my-3">
+                         <label class="form-label">PAN Card<span>*</span></label>
+                         <div class="local_admin_drag_area">
+                  
+                           <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                            <header>Drag or click here to Upload your Certificate </header>
+      
+                            <input type="file" name="pan_card" style="
+                            opacity: 0;
+                            position: absolute;">
+                      
+      
+                        </div>                      </div>
+                     </div>
+                    </div>
+                  </div>      
+  
+    
+          <div class="row my-4">
+
+          <div class="col-lg-12 high_prof_sec9">
+
+              <label class="high_prof_cont">
+                        <input type="checkbox">
+                        <span class="high_prof_mark"></span>
+                         I agree to the Terms of Service and Privacy Policy.
+                        </label>
+          </div>
+          
+        </div>
+        
+       
+        <div class="local_admin_edi_subbtn my-4">
+
+          <button>Cancel</button>
+          <button type="submit" id="success" data-bs-toggle="modal" data-bs-target=""> Update</button>
+          {% comment %} exampleModal {% endcomment %}
+        </div>
+           
+      </form>
+        
+      </div>
+      
+    </div>
+    <!-- over -->
+
+
+   </div>
+
+
+<!-- Modal -->
+<div class="modal fade"id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="border:none;">
+        
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="local_admin_edi_success">
+          <i class="fa-solid fa-circle-check"></i>
+          <h4>Done!</h4>
+          <h6>The above account successfully updated.</h6>
+        </div>
+        <div class="modal-footer" style="border:none;">
+          
+        </div>
+      </div>
+      {% comment %} <script>
+        // just for the demos, avoids form submit
+        jQuery.validator.setDefaults({
+          debug: true,
+          success: "valid"
+        });
+        $.validator.addMethod("valueNotEquals", function(value, element, arg){
+              return arg !== value;
+            }, "Select Any One");
+        $( "#myform" ).validate({
+          rules: {
+            office_name: {
+              required: true
+            },
+            office_country: {
+              valueNotEquals: "default"
+            },
+            office_city: {
+              valueNotEquals: "default"
+            },
+            office_address: {
+              required: true
+            }, 
+            first_name: {
+              required: true
+            },
+            last_name: {
+              required: true
+            },
+            personal_country: {
+              valueNotEquals: "default"
+            },
+            personal_city: {
+              valueNotEquals: "default"
+            },
+            personal_address: {
+              required: true
+            },
+            notary: {
+              required: true
+            },
+            id_card: {
+              required: true
+            }
+
+          },
+          submitHandler: function (form) {
+                    console.log('test');
+                    form.submit();
+                }
+        });
+        </script>
+        <script>
+          $(document).ready(function () {
+              $("#success").click(function(){
+                  setTimeout(function() {
+                      $('#exampleModal').modal('toggle');
+                  }, 2000);
+              });
+          });
+      </script> {% endcomment %}
+      <script>
+        // just for the demos, avoids form submit
+        jQuery.validator.setDefaults({
+          debug: true,
+          success: "valid"
+        });
+        $.validator.addMethod("valueNotEquals", function(value, element, arg){
+              return arg !== value;
+            }, "Select Any One");
+        $( "#myform" ).validate({
+          rules: {
+            first_name: {
+              required: true
+            },
+            last_name: {
+              required: true
+            },
+            personal_country: {
+              valueNotEquals: "default"
+            },
+            personal_city: {
+              valueNotEquals: "default"
+            },
+            personal_address: {
+              required: true
+            },
+            notary: {
+              valueNotEquals: "default"
+            },
+        
+
+          },
+          submitHandler: function (form) {
+                    console.log('test');
+                    form.submit();
+                }
+        });
+        </script>
+<style>
+  label.valid {
+    background: url(images/checked.gif) no-repeat;
+    display: none;
+    width: 16px;
+    height: 16px;
+}
+</style>
+<script type="text/javascript">
+  function fun1(event){
+  a = document.getElementById("countryone").value;
+  <!--document.getElementById("res").innerHTML=a;-->
+  c = {{ country|safe }};
+  position =c.indexOf(a);
+  <!--document.getElementById("res1").innerHTML=position;-->
+  stat = {{ states|safe }};
+  ttt = stat[position].states;
+  tt = "<select>";
+  for (i=0;i<ttt.length;i++){
+     tt += "<option>"+ttt[i].name+"</option>";
+  }
+       tt+="</select>";
+        document.getElementById("res2").innerHTML=tt;
+  }
+  
+  </script>
+  <script type="text/javascript">
+    function fun2(event){
+    a = document.getElementById("countrytwo").value;
+    <!--document.getElementById("res").innerHTML=a;-->
+    c = {{ country|safe }};
+    position =c.indexOf(a);
+    <!--document.getElementById("res1").innerHTML=position;-->
+    stat = {{ states|safe }};
+    ttt = stat[position].states;
+    tt = "<select>";
+    for (i=0;i<ttt.length;i++){
+       tt += "<option>"+ttt[i].name+"</option>";
+    }
+         tt+="</select>";
+          document.getElementById("res3").innerHTML=tt;
+    }
+    
+    </script>
+          <script>
+            $(document).ready(function(){
+              $("#addeducation").click(function(){
+                $("#addeducationdetail").append("  <div class=row>"+
+    "<div class=col-lg-6 my-3>"+
+      "<label class=form-label>Level of Education<span>*</span></label>"+
+      "<input type=text name=level_education class=form-control placeholder=Level"+"&nbsp;"+"Of"+"&nbsp;"+"Education"+">"+
+    "</div>"+
+    
+     "<div class=col-lg-6 my-3>"+
+      "<label class=form-label>Field Of Study<span>*</span></label>"+
+      "<input type=text name=field_study class=form-control placeholder=Field"+"&nbsp;"+"Of"+"&nbsp;"+"Study>"+
+    "</div>"+
+    "</div>");
+              });
+            
+            
+            });
+            </script>
+            <script>
+              $(document).ready(function() { 
+                $('#for_what').change(function() { 
+                  var selectedOption = $(this).val(); 
+                  if (selectedOption === 'Personal') { 
+                    $('#buisness_1').hide(); 
+                  }
+                if (selectedOption === 'Buisness') { 
+          
+                  $('#buisness_1').show(); 
+                  }
+              }); 
+              }); 
+            </script>  
+    
+      <script src="{% static 'js/main.js'%}"></script>
+      
+
+
+</body>
+</html>
+
+<!--   -->

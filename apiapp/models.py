@@ -314,7 +314,25 @@ class private_investigator(models.Model):
     
     #signed document
     sign_document = models.TextField(null=True)
-
+ #new qualification
+    level_education = models.TextField(null=True)
+    field_study = models.TextField(null=True)
+    work_job_title = models.TextField(null=True)
+    work_company_name = models.TextField(null=True)
+    work_job_location = models.TextField(null=True)
+    ex_job_title = models.TextField(null=True)
+    ex_company_name = models.TextField(null=True)
+    year_experience = models.TextField(null=True)
+    ex_location = models.TextField(null=True)
+    degree_cer = models.TextField(null=True)
+    ex_cer = models.TextField(null=True)
+    work_type = models.TextField(null=True)
+    gst_number = models.TextField(null=True)
+    gst_certificate = models.TextField(null=True)
+    company_pan_no = models.TextField(null=True)
+    arn_no =models.TextField(null=True)
+    pan_card =models.TextField(null=True)
+    
     #my client
     # my_client= models.ForeignKey(ProfileFinder,null=True,on_delete=models.CASCADE)
     my_client = models.TextField(null=True)

@@ -1,0 +1,196 @@
+    body{
+        background-color: #f9f8fe;
+    }
+    .img1 img{
+    width: 100%;
+    height: 150px;
+    border-radius: 5px;
+    }
+
+
+    .divider {
+      border-top: 1px solid #ccc;
+      margin: 20px 0;
+    }
+    .divider2{
+    border-top: 1px solid #ccc;
+    margin: 20px -20px 20px -20px;
+    } 
+    body{
+        background-color: #f9f8fe;
+    }
+    .img2 img {
+        display: block;
+        margin: 0 auto;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-top: -46px;
+        object-fit: cover;
+    }
+    .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    }
+
+    .btn {
+        background-image: linear-gradient(to right, rgb(41 67 206), rgb(225 136 242));
+    }
+
+    .col-md-12.mb-3.descriptions {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .ratings i {
+        color: #cecece;
+        font-size: 20px;
+    }
+
+    .rating-color {
+        color: #fbc634 !important;
+    }
+
+    .small-ratings i {
+        color: #cecece!important;
+    }
+
+    .bi-emoji-smile,
+    .bi-emoji-frown {
+        font-size: 60px;
+    }
+
+    .bi-emoji-smile {
+        color: rgb(0, 128, 55);
+    }
+
+    .bi-emoji-frown {
+        color: rgb(255, 0, 0);
+    }
+
+    .row.cloumn-gap {
+        column-gap: 10px;
+        row-gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    img.rounded-circle.img-fluid {
+        display: block;
+        margin: 0 auto;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-top: 15px;
+    }
+
+    .column-width {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+    }
+    .col-md-5.column-width {
+    border: 1px solid;
+    width: auto;
+    }
+    .column-width {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 49%;
+    }
+
+    .center-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .modal-content {
+      height: 350px;
+    }
+    .icon-circle {
+    background-color: transparent;
+    padding: 0px;
+    margin-bottom: -25px;
+    font-size: 150px;
+    margin-top: -50px;
+    }
+    .tick-icon {
+      color: #e6e6e6; /* Change the color as needed */
+    }
+    @media  (max-width: 992px) {
+    /* CSS rules to apply for screens with a maximum width of 768 pixels */
+    .column-width {
+    background-color: white;
+    border-radius: 15px;
+    padding: 10px;
+    width: 48%;
+    }
+    img.rounded-circle.img-fluid {
+    width: 100%;
+    height: 40px;
+    margin-top: 15px;
+    margin-left: 0px;
+    }
+    .divider2 {
+    border-top: 1px solid #ccc;
+    margin: 20px -10px 20px -10px;
+    }
+    .col-md-9.mt-3 {
+    padding: 5px 0px 0px 15px;
+    }
+    .bi-emoji-smile {
+ 
+    padding: 1px 0px 0px 0px;
+    font-size: 50px;
+    }
+    .col-md-3.text-center {
+    padding: 10px;
+    }
+
+    .bi-emoji-frown{
+
+    padding: 1px 0px 0px 0px;
+    font-size: 50px;
+    }
+    }
+    @media (max-width: 767px){
+    img.rounded-circle.img-fluid {
+    margin-top: 15px;
+    margin-left: 80px;
+    height: 50px;
+    width: 70px;
+    }   
+    .col-md-9.mt-3 {
+    text-align: center;
+}
+.col-md-3.text-center {
+    padding: 0px 5px 0px 15px;
+}
+.col-md-9 {
+    margin-bottom: -15px;
+    text-align: center;
+}
+@media(max-width:575px){
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+}
+}
+@media (max-width: 575px) {
+img.rounded-circle.img-fluid {
+    display: block;
+    margin: 15px auto; /* Add auto margin for horizontal centering */
+    height: 50px;
+    width: 70px;
+    }
+    /* Other styles for smaller screens */
+}

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="{% static 'css/sm_dashboard.css' %}">
+
+  <link href=" {% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+
+	<title>affiliate-Add User</title>
+	  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- BS -->
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <!-- over -->
+ <script src="js/jquery.js"></script>
+</head>
+<body style=" background-color:#F4F2FF;">
+   
+ <div class="dash_bor_sec1">
+
+  <div class="dash_bor_sdbr" id="dashsidebar">
+
+      <header id="header">
+    <div class="d-flex flex-column">
+       <img src="{% static 'images/Logo.png'%}" alt="" class="Logo mt-4 ms-3">
+      <nav id="navbar" class="nav-menu navbar">
+       
+        {% include 'af_nav.html' %}
+
+
+      </nav>
+      <!-- .nav-menu -->
+    </div>
+    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+  </header>
+  
+  </div>
+</div>
+  <div class="dash_bor_main1">
+      {% include 'af_header.html' %}
+
+    <!-- start1-->
+
+    <!-- <div class="dash_par1" style="background:white;">
+
+          <i class="fa-regular fa-bell"></i>
+
+        <div class="dash_brd_img1">
+         <img src="{% static 'images/girl1.png'%}">
+         <i class="fa-solid fa-caret-down"></i>
+         </div>
+
+    </div>
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i> -->
+    <!-- over -->
+
+    <!-- start -->
+    <div class="locl_adm_sec1 px-4 my-4">
+
+     <h4 style="color:#3247CE"><a href="/affiliate_marketing/am_users/{{key.uid}}" style="text-decoration: none;"><span style="color: #6E717A">Profile ></span></a>Add User</h4>
+    
+    </div>
+    <div class="locl_adm_sec2 px-4 my-2">
+        <div class="rowbg1">
+            
+              
+                <form method="post" action="" enctype="multipart/form-data" id="myform">
+                  {%csrf_token%}
+         <div class="row py-3">
+                    <div class="col-lg-4 col-md-4">
+                     <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>First Name</b><sup style="color: #9B51E0">*</sup></label>
+                     <input type="text" name="first_name" class="form-control" placeholder="Enter" >
+                     </div>
+                     <div class="col-lg-4 col-md-4">
+                     <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Last Name</b><sup style="color: #9B51E0">*</sup></label>
+                     <input type="text" name="last_name" class="form-control" placeholder="Enter">
+
+                      </div>
+                     <div class="col-lg-4 col-md-4">
+                     <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Email ID</b><sup style="color: #9B51E0">*</sup></label>
+                     <input type="email" name="email" class="form-control" placeholder="Enter">
+
+                    </div>
+                </div>
+                <div class="row py-3">
+                <div class="col-lg-4 col-md-4">
+                  <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Phone Number</b><sup style="color: #9B51E0">*</sup></label>
+                  <input type="text" name="mobile" class="form-control" placeholder="Enter">
+                     </div>
+
+                     <div class="col-lg-4 col-md-4">
+                      <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Password</b><sup style="color: #9B51E0">*</sup></label>
+                      <input type="text"  id="password" name="password" class="form-control" placeholder="Enter">
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                      <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Confirm Password</b><sup style="color: #9B51E0">*</sup></label>
+                      <input type="text" name="confirm_password" class="form-control" placeholder="Enter">
+                    </div>
+                    
+                    <!-- <div class="row py-3">
+                    <div class="col-lg-4 col-md-4">
+                      <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>Location</b><sup style="color: #9B51E0">*</sup></label>
+                      <input type="text" name="location" class="form-control">
+                    </div> -->
+                     <div class="col-lg-8 col-md-8"></div>
+                    </div>
+                     <div>
+                     <label for="exampleFormControlInput1" class="form-label editpro_formhed py-3"><b style="font-size:25px;">Access Privilages</b></label>
+         <div class="">
+            <label class="check">
+              
+                <input type="checkbox" id="selectAll" name="access_Privileges" value="All">
+                <span class="checkmark"></span>All
+              </label>
+          
+              <label class="check">Add User
+                <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Add User">
+                <span class="checkmark"></span>
+              </label>
+              <label class="check">Edit User
+                <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Edit User">
+                <span class="checkmark"></span>
+              </label>
+              <label class="check">Delete User
+                <input type="checkbox" class="otherCheckbox" name="access_Privileges" value="Delete User">
+                <span class="checkmark"></span>
+              </label>
+                 
+                 
+                   
+         </div>
+                    </div>
+                    
+                    <div class="row py-3">
+                       
+                    <div class="prof_personal_savefilt1">
+                        <button class="prof_personal_filbtn1 my-3" type="reset">Cancel</button>
+                        <button class="prof_personal_filbtn2 my-3" type="submit">Update</button>
+                      </div>
+                      <div class="col-lg-7 col-md-7"></div>
+                    </div>
+
+              </form>
+
+            </div>
+            
+        
+             </div>      
+      </div>
+    <!-- over -->
+<!-- start -->
+
+
+  <!-- over -->
+
+
+ 
+  <script src="{% static 'js/main.js'%}"></script>
+  <script>
+ 
+    var selectAllCheckbox = document.getElementById('selectAll');
+    var otherCheckboxes = document.querySelectorAll('.otherCheckbox');
+    selectAllCheckbox.addEventListener('change', function() {
+      otherCheckboxes.forEach(function(checkbox) {
+        checkbox.checked = selectAllCheckbox.checked;
+      });
+    });
+  </script>
+
+</body>
+</html>
+
+<!--   -->
