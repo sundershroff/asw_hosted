@@ -119,8 +119,14 @@
             <div class="row py-2 justify-content-around">
               <div class="col-lg-12 col-md-12 pt-3 px-4" style="background-color: white;border-radius:10px;width: 98%;">
                  <p style="color:#2B3674"><b>Qualification Details</b></p>
-                 <p class="d-flex"><span class="w-25">Level of Education:</span> <span class="w-75" style="color:#2B3674">{{key.level_education}}</span></p>
-                 <p class="d-flex"><span class="w-25">Field Of Study:</span> <span class="w-75" style="color:#2B3674"> {{key.field_study}}</span></p>
+                 {% for i in education %}
+                 <p class="d-flex"><span class="w-25">Level of Education:{{forloop.counter}}</span> <span class="w-75" style="color:#2B3674">{{i}}</span></p>
+
+                 {% endfor %}
+                 {% for j in study %}
+                 <p class="d-flex"><span class="w-25">Field Of Study:{{forloop.counter}}</span> <span class="w-75" style="color:#2B3674"> {{j}}</span></p>
+
+                 {% endfor %}
                  <p style="color:#2B3674"><b>Work Details</b></p>
                  <p class="d-flex"><span class="w-25">Job Title:</span> <span class="w-75" style="color:#2B3674">{{key.work_job_title}}</span></p>
                  <p class="d-flex"><span class="w-25">Company Name:</span> <span class="w-75" style="color:#2B3674">{{key.work_company_name}}</span></p>

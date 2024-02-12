@@ -233,6 +233,8 @@ def profile(request,id):
         my_user = requests.get(f"http://127.0.0.1:3000/hm_my_users_data/{id}").json()
         access = "" 
         idd = id
+        education  = jsondec.decode(mydata['level_education'])
+        study = jsondec.decode(mydata['field_study'])
     except:
         mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]
         access = mydata['access_Privileges']  
@@ -241,6 +243,8 @@ def profile(request,id):
 
     context={
         'key':mydata,
+        'education':education,
+        'study':study,
         'current_path':request.get_full_path(),
         'access':access,
         
