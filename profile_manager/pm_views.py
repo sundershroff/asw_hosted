@@ -226,11 +226,15 @@ def profile_account(request,id):
         return redirect("/profile_manager/signin")
    
     mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]
-
+    print(mydata)
+    education  = jsondec.decode(mydata['level_education'])
+    study = jsondec.decode(mydata['field_study'])
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
         'access_Privileges':access_Privileges,
+        'education':education,
+        'study':study,
     }
 
     return render(request,"profile_account.html",context)

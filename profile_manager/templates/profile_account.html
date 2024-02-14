@@ -60,22 +60,24 @@
     <!-- start -->
     <div class="local_admin_account">
 
-      <div class="local_admin_acc_sec1 p-4">
+      <div class="local_admin_acc_sec1 px-4 py-2">
         <h3 style="color:rgba(123, 97, 255, 1);font-weight:500;">Accounts</h3>
 
-        <div class="local_admin_acc_par my-5 px-3 py-5">
+        <div class="local_admin_acc_par my-2 px-3 " style="
+        padding: 10px;
+    ">
 
           <div class="local_admin_acc_chi1">
 
             <div>
-              <i class="">
+              <!-- <i class=""> -->
                 <!-- fas fa-user -->
                 <img src="{{key.profile_picture}}" alt="" style="
                 width: 150px;
                 height: 150px;
                 object-fit: cover;
             ">
-              </i>
+              <!-- </i> -->
             </div>
 
             <div>
@@ -109,13 +111,13 @@
     <!-- over -->
     <!-- start -->
 
-    <div class="local_admin_acc_par1 px-4 ">
-
-      <div class="local_admin_acc_chi3 mb-5">
+    <div class="row local_admin_acc_par1 " style="width: 100%;padding-left: 23px;">
+<div class="col-lg-6 col-md-6">
+      <div class="col-md-12 local_admin_acc_chi3">
         <h6>Office Details</h6>
 
          <div class="local_admin_details">
-            <ul>
+            <ul style="padding-left: 0px !important;">
           <li>Office Name:</li>
           <li>Phone Number:</li>
           <li>Email ID:</li>
@@ -135,12 +137,14 @@
 
 
       </div>
+    </div>
+    <div class="col-lg-6 col-md-6">
 
-      <div class="local_admin_acc_chi4 mb-5">
+      <div class="col-md-12 local_admin_acc_chi4">
           <h6>Contact Personal Details</h6>
 
          <div class="local_admin_details">
-            <ul>
+            <ul style="padding-left: 0px !important;">
           <li> Name:</li>
           <li>Phone Number:</li>
           <li>Email ID:</li>
@@ -158,13 +162,38 @@
            
          </div>
       </div>
+    </div>
 
       
     </div>
     <!-- over -->
+    <div class="row local_admin_acc_par1 py-2" style="width: 100%;padding-left: 23px;">
+      <div class="col-lg-12 col-md-12 ">
+      <div class="col-lg-12 col-md-12  local_admin_acc_chi3" style="background-color: white;border-radius:10px;">
+        <p style="color:#2B3674"><b>Qualification Details</b></p>
+        {% for i in education %}
+        <p class="d-flex"><span class="w-25">Level of Education:{{forloop.counter}}</span> <span class="w-75" style="color:#2B3674">{{i}}</span></p>
 
+        {% endfor %}
+        {% for j in study %}
+        <p class="d-flex"><span class="w-25">Field Of Study:{{forloop.counter}}</span> <span class="w-75" style="color:#2B3674"> {{j}}</span></p>
 
-   </div>
+        {% endfor %}
+        <p style="color:#2B3674"><b>Work Details</b></p>
+        <p class="d-flex"><span class="w-25">Job Title:</span> <span class="w-75" style="color:#2B3674">{{key.work_job_title}}</span></p>
+        <p class="d-flex"><span class="w-25">Company Name:</span> <span class="w-75" style="color:#2B3674">{{key.work_company_name}}</span></p>
+        <p class="d-flex"><span class="w-25">Job Location:</span> <span class="w-75" style="color:#2B3674"> {{key.work_job_location}}</span></p>
+        <p style="color:#2B3674"><b>Working Experience</b></p>
+        <p class="d-flex"><span class="w-25">Job Title:</span> <span class="w-75" style="color:#2B3674">{{key.ex_job_title}}</span></p>
+        <p class="d-flex"><span class="w-25">Company Name:</span> <span class="w-75" style="color:#2B3674">{{key.ex_company_name}}</span></p>
+        <p class="d-flex"><span class="w-25">Year Of Experience:</span> <span class="w-75" style="color:#2B3674">   {{key.year_experience}}</span></p>
+        <p class="d-flex"><span class="w-25">Job Location:</span> <span class="w-75" style="color:#2B3674">{{key.ex_location}}</span></p>
+
+     </div>
+      </div>
+
+    </div>
+
 
 
 

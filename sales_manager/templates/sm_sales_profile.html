@@ -67,10 +67,10 @@
     </div>
     <div class="locl_adm_sec2 px-4 my-2">
         <div class="rowbg1">
-            <div class="row">
-                <div class="col-lg-2 col-md-2">
+            <div class="row px-4 py-3">
+                <div class="col-lg-2 col-md-2 py-0">
                    <div class="sa_profile_paintads">
-<img src="{{key.profile_picture}}" height="60px" width="60px">
+<img src="{{key.profile_picture}}" style="object-fit: cover;width: 100%;height: 100%;">
                
                    </div>
                    <!-- {% for i in sales_manager %}
@@ -81,7 +81,7 @@
       </tr>
       {% endfor %} -->
                 </div>
-                <div class="col-lg-3 col-md-3">
+                <div class="col-lg-3 col-md-3 py-0" style="line-height: 22px;">
                   <span style="color:#2B3674"><b>{{key.full_name}}</b><br>
                     <span class="task_button_text">Sales person<br>
                      Created On:<span style="color:#3247CE">{{key.created_date}}</span> </span>
@@ -90,35 +90,38 @@
                   {% if access %}
                  
                   <button class="btn_end ">Edit Profile</button>
+                  
                   {%else%}
-                  <a href="/sales_manager/sm_editprofile/{{key.uid}}"><button class="btn_end ">Edit Profile</button></a>
+                  <a href="/sales_manager/sm_editprofile/{{key.uid}}"><button class="btn_end mt-2 px-3 py-0">Edit Profile</button></a>
+                  <a href="/sales_manager/sm_editprofile/{{key.uid}}"><button class="btn_end mt-2 px-3 py-0">Add Funds</button></a>
+
                   {%endif%}
                   <!-- <button class="btn_end" style="margin-left:5px"><a href=""></a> Add Funds</button> -->
                 </div>
-                <div class="col-lg-1 col-md-1"></div>
+                <div class="col-lg-1 col-md-1 py-0"></div>
               
-                <div class="col-lg-3 col-md-3">
+                <div class="col-lg-3 col-md-3 py-0">
                   
-                    <div style="background-color:#FDEFEF;margin-bottom: 10px;"class="paintads_box">
+                    <div style="background-color:#FDEFEF;height: 100%;"class="paintads_box">
                     <div class="paintads_circle">
                       
                        <img src="{% static 'images/download.svg'%}" height="25px" width="25px">
                    </div>
                    <span class="px-2"><h4 style="color: #EB5757">{{totalcoin}}</h4>
-                   <p style="color:#4F4F4F">Total Coin <br><span><a href="/sales_manager/sm_coindetails/{{key.uid}}">Details</a></span></p></span>
+                   <p style="color:#4F4F4F;display: flex;column-gap: 29px;">Total Coin <br><span><a href="/sales_manager/sm_coindetails/{{key.uid}}">Details</a></span></p></span>
                    
                   </div>
                   
                 </div>
-                <div class="col-lg-3 col-md-3">
-                  <div class="paintads_box" style="background-color: #EDF5DF">
+                <div class="col-lg-3 col-md-3 py-0">
+                  <div class="paintads_box" style="background-color: #EDF5DF;height: 100%;">
                     
                     <div class="paintads_circle">
                       
                        <img src="{% static 'images/Wallet.png'%}" height="25px" width="25px">
                    </div>
                    <span class="px-2"><h5 style="color:  #34A853">{{totalcommission}}</h5>
-                   <p style="color:#4F4F4F">Account Balance <span><a href="/sales_manager/sm_accountbalance/{{key.uid}}">Details</a></span></p></span>
+                   <p style="color:#4F4F4F;display: flex;column-gap: 29px;">Account Balance <span><a href="/sales_manager/sm_accountbalance/{{key.uid}}">Details</a></span></p></span>
                    
                   </div>
                   

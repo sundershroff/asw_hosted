@@ -735,9 +735,9 @@ input:checked + .slider:before {
 }
 .rowbg1{
 	background-color:#fff;
-	margin-top:15px;
+	/* margin-top:15px; */
 	height:auto;
-	padding:17px;
+	/* padding:17px; */
 	border-radius:10px;
 
 }
@@ -784,9 +784,19 @@ input:checked + .slider:before {
 	background-color:#dce1ff;
 	border-radius:6px;
 	border:none;
-	height:100px;
-	width:100px;
+	height:119px;
+	width:100%;
 	padding:20px;
+}
+@media(max-width:767px) {
+	.sa_profile_paintads{
+		background-color:#dce1ff;
+		border-radius:6px;
+		border:none;
+		height:100%;
+		width:100%;
+		padding:20px;
+	}
 }
 .paintads_box{
 	

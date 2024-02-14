@@ -5,7 +5,7 @@ from apiapp import models
 from apiapp.models import ProfileFinder,sender_list,received_list,saved_search,private_investigator
 from virtualExpert import models
 from virtualExpert import sm_serializer,hm_serializer,ad_dis_serializer,ad_pro_serializer
-from virtualExpert.models import salesmanager,users,ad_pro_ads,Create_ads,ad_provider,ad_distributor
+from virtualExpert.models import salesmanager,users,ad_pro_ads,Create_ads,ad_provider,ad_distributor,Profilemanager
 from rest_framework.decorators import api_view,renderer_classes,permission_classes
 from rest_framework.response import Response
 from rest_framework import status,generics
@@ -273,19 +273,19 @@ def primaryDetails(request, id):
                    image_list.append(all_image_url+fs.url(gallery_path))
         
         else:   
-            for sav in request.FILES.getlist('gallery'):
-                sa = fs.save(
-                    f"{id}/images/gallery/"+sav.name, sav)
-                image_names.append(str(sa).replace(" ","_"))
-            # for i in request.FILES.getlist('gallery'):
-            #     image_names.append(str(i).replace(" ","_"))
-            print(image_names)
-            for iname in image_names:
-                # gallery_path = fs.save(
-                #     f"{id}/images/gallery/"+iname, request.FILES['gallery'])
-                gallery_path = iname
-                # image_list.append("http://54.159.186.219:8000"+fs.url(gallery_path))
-                image_list.append(all_image_url+fs.url(gallery_path))
+                for sav in request.FILES.getlist('gallery'):
+                    sa = fs.save(
+                        f"{id}/images/gallery/"+sav.name, sav)
+                    image_names.append(str(sa).replace(" ","_"))
+                # for i in request.FILES.getlist('gallery'):
+                #     image_names.append(str(i).replace(" ","_"))
+                print(image_names)
+                for iname in image_names:
+                    # gallery_path = fs.save(
+                    #     f"{id}/images/gallery/"+iname, request.FILES['gallery'])
+                    gallery_path = iname
+                    # image_list.append("http://54.159.186.219:8000"+fs.url(gallery_path))
+                    image_list.append(all_image_url+fs.url(gallery_path))
             
     
 
@@ -2601,9 +2601,57 @@ def ratings_feedback(request,id):
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['POST'])
+@api_view(['POST','GET'])
 def my_manager(request,id):
     try:
+        if request.method == 'GET':
+            alldata=serializer.ProfileFinder.objects.filter(uid=id).values()[0]
+            jsonDec = json.decoder.JSONDecoder()
+            print('hi')
+            
+            # gender = alldata[0]['gender']
+            # requestdataa = serializer.sender_list.objects.filter(sender_uid = id)
+            # requestdata = serializer.sender_list.objects.filter(sender_uid = id).values()
+            # received = requestdata[0]['received_uid']
+            # print(received)
+            my_investigator_id = alldata['my_manager']
+            print(my_investigator_id)
+            
+            if str(my_investigator_id) == "None":
+                print("none")
+                request_sent= ""
+                # print(request_sent)
+                rec_dict = {}
+                rec_dict[id] = request_sent 
+                # print(rec_dict)
+            else:
+                print("something else")
+                received_uid_list = my_investigator_id[2:-2].replace("'","").replace(" ","").split(",")
+                print(received_uid_list)
+                allinvestigator_users=Profilemanager.objects.all().values()
+                # print(allinvestigator_users)
+                # find uid position
+                investigators_id=[]
+                #requested sent
+                request_sent = []
+                for y in allinvestigator_users:
+                    investigators_id.append(y['uid'])
+                print(investigators_id)
+                for i,x in enumerate(received_uid_list):
+                    numb = investigators_id.index(x)
+                    print(numb)
+                   
+                    get_Selected = allinvestigator_users[numb]
+                    request_sent.append(get_Selected)
+              
+                rec_dict = {}
+                rec_list = []
+                for x in request_sent:
+                    rec_list.append(x)
+                rec_dict[id] = rec_list 
+            return JsonResponse(rec_dict)
+
+
         if request.method == "POST":
             print(request.POST)
             userdataa =  serializer.ProfileFinder.objects.filter(uid=request.POST['pf_id']).values()[0]
