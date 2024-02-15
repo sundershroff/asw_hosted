@@ -361,6 +361,8 @@ def profile(request,id):
         mydata = requests.get(f"http://127.0.0.1:3000/sm_my_data/{id}").json()[0]
         print(mydata)
         access=""
+        education  = jsondec.decode(mydata['level_education'])
+        study = jsondec.decode(mydata['field_study'])
         allads=requests.get("http://127.0.0.1:3000/adprovider_ads/").json()
         # addistributor
         alldis_ads=requests.get("http://127.0.0.1:3000/addistributor_ads/").json()
@@ -404,6 +406,8 @@ def profile(request,id):
             'access':access,
             'totalcoin':totalcoin,
             'totalcommission':totalcommission,
+             'education':education,
+        'study':study,
         }
         return render(request,"sm_sales_profile.html",context)
     except:

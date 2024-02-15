@@ -275,7 +275,7 @@ def ad_pro_upload_account(request,id):
                 my_ad_pro.append(ad_pro_userdata)
             else:
                 print("add")
-                my_ad_pro = jsondec.decode(hm_data['ad_provider'])
+                my_ad_pro = jsondec.decode(sm_data['ad_provider'])
                 # print(my_profile_add)
                 my_ad_pro.append(ad_pro_userdata)
             data1={

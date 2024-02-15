@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="{% static 'css/sm_dashboard.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- BS -->
+
+  
   <link href=" {% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -43,6 +45,7 @@
 </div>
   <div class="dash_bor_main1">
     {% include 'sm_header.html' %}
+    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
 
     <!-- start1-->
 
@@ -68,7 +71,7 @@
     <div class="locl_adm_sec2 px-4 my-2">
         <div class="rowbg1">
             <div class="row px-4 py-3">
-                <div class="col-lg-2 col-md-2 py-0">
+                <div class="col-lg-2 col-md-2 py-1">
                    <div class="sa_profile_paintads">
 <img src="{{key.profile_picture}}" style="object-fit: cover;width: 100%;height: 100%;">
                
@@ -81,7 +84,7 @@
       </tr>
       {% endfor %} -->
                 </div>
-                <div class="col-lg-3 col-md-3 py-0" style="line-height: 22px;">
+                <div class="col-lg-3 col-md-3 py-1" style="line-height: 27px;">
                   <span style="color:#2B3674"><b>{{key.full_name}}</b><br>
                     <span class="task_button_text">Sales person<br>
                      Created On:<span style="color:#3247CE">{{key.created_date}}</span> </span>
@@ -98,30 +101,30 @@
                   {%endif%}
                   <!-- <button class="btn_end" style="margin-left:5px"><a href=""></a> Add Funds</button> -->
                 </div>
-                <div class="col-lg-1 col-md-1 py-0"></div>
-              
-                <div class="col-lg-3 col-md-3 py-0">
+                <div class="col-lg-1 col-md-1 py-1"></div>
+            
+                <div class="col-lg-3 col-md-3 py-1">
                   
                     <div style="background-color:#FDEFEF;height: 100%;"class="paintads_box">
                     <div class="paintads_circle">
                       
                        <img src="{% static 'images/download.svg'%}" height="25px" width="25px">
                    </div>
-                   <span class="px-2"><h4 style="color: #EB5757">{{totalcoin}}</h4>
-                   <p style="color:#4F4F4F;display: flex;column-gap: 29px;">Total Coin <br><span><a href="/sales_manager/sm_coindetails/{{key.uid}}">Details</a></span></p></span>
+                   <span class="row px-2"><h4 style="color: #EB5757">{{totalcoin}}</h4>
+                   <div class="row" style="color:#4F4F4F;"><span class="col-md-8">Total Coin</span><span class="col-md-4"><a href="/sales_manager/sm_coindetails/{{key.uid}}">Details</a></span></div></span>
                    
                   </div>
                   
                 </div>
-                <div class="col-lg-3 col-md-3 py-0">
+                <div class="col-lg-3 col-md-3 py-1">
                   <div class="paintads_box" style="background-color: #EDF5DF;height: 100%;">
                     
                     <div class="paintads_circle">
                       
                        <img src="{% static 'images/Wallet.png'%}" height="25px" width="25px">
                    </div>
-                   <span class="px-2"><h5 style="color:  #34A853">{{totalcommission}}</h5>
-                   <p style="color:#4F4F4F;display: flex;column-gap: 29px;">Account Balance <span><a href="/sales_manager/sm_accountbalance/{{key.uid}}">Details</a></span></p></span>
+                   <span class="row px-2"><h5 style="color:  #34A853">{{totalcommission}}</h5>
+                   <div class="row" style="color:#4F4F4F;"><span class="col-md-8">Account Balance</span> <span class="col-md-4"><a href="/sales_manager/sm_accountbalance/{{key.uid}}">Details</a></span></div></span>
                    
                   </div>
                   
@@ -129,7 +132,8 @@
             </div></div>
             
             <div class="row py-3 justify-content-around">
-              <div class="col-lg-6 col-md-6 pt-3 px-4" style="background-color: white;border-radius:10px;    margin-bottom: 10px;">
+              <div class="col-lg-6 col-md-6">
+              <div class="col-lg-12 col-md-12 pt-3 px-4 pb-3" style="background-color: white;border-radius:10px;    margin-bottom: 10px;height: 100%;">
                  <p style="color:#2B3674"><b>Personal Details</b></p>
                  <p class="d-flex"><span class="w-25"> Name:</span> <span class="w-75" style="color:#2B3674">{{key.full_name}}</span></p>
                  <p class="d-flex"><span class="w-25">Phone Number:</span> <span class="w-75" style="color:#2B3674">+91 {{key.mobile}}</span></p>
@@ -137,17 +141,40 @@
                  <p class="d-flex"><span class="w-25">Location:</span> <span class="w-75" style="color:#2B3674">{{key.personal_city}},{{key.personal_country}}</span></p>
                  <p class="d-flex"><span class="w-25"> Address:</span> <span class="w-75" style="color:#2B3674">{{key.personal_address}}</span></p>
               </div>
-
+            </div>
               
-                
-             
-              <div class="col-lg-5 col-md-5 pt-3 px-4" style="background-color: white; border-radius:10px;">
+            <div class="col-lg-6 col-md-6">      
+              <div class="col-lg-12 col-md-12 pt-3 px-4 pb-3" style="background-color: white; border-radius:10px;height: 100%;">
                   <p style="color:#2B3674"><b>Payment Option</b></p>
                   <img src="{% static 'images/phonepay.png'%}" height="55px" width="55px"><br><br>
                   <div class="pay_optns">
                     Change Payment Options
                   </div>
               </div>
+              </div>
+            </div>
+            <div class="row py-3 px-2 justify-content-around">
+              <div class="col-lg-12 col-md-12 pt-3 px-4 pb-3" style="background-color: white;border-radius:10px;    margin-bottom: 10px;height: 100%;">
+                <p style="color:#2B3674"><b>Qualification Details</b></p>
+                {% for i in education %}
+                <p class="d-flex"><span class="w-25">Level of Education:{{forloop.counter}}</span> <span class="w-75" style="color:#2B3674">{{i}}</span></p>
+
+                {% endfor %}
+                {% for j in study %}
+                <p class="d-flex"><span class="w-25">Field Of Study:{{forloop.counter}}</span> <span class="w-75" style="color:#2B3674"> {{j}}</span></p>
+
+                {% endfor %}
+                <p style="color:#2B3674"><b>Work Details</b></p>
+                <p class="d-flex"><span class="w-25">Job Title:</span> <span class="w-75" style="color:#2B3674">{{key.work_job_title}}</span></p>
+                <p class="d-flex"><span class="w-25">Company Name:</span> <span class="w-75" style="color:#2B3674">{{key.work_company_name}}</span></p>
+                <p class="d-flex"><span class="w-25">Job Location:</span> <span class="w-75" style="color:#2B3674"> {{key.work_job_location}}</span></p>
+                <p style="color:#2B3674"><b>Working Experience</b></p>
+                <p class="d-flex"><span class="w-25">Job Title:</span> <span class="w-75" style="color:#2B3674">{{key.ex_job_title}}</span></p>
+                <p class="d-flex"><span class="w-25">Company Name:</span> <span class="w-75" style="color:#2B3674">{{key.ex_company_name}}</span></p>
+                <p class="d-flex"><span class="w-25">Year Of Experience:</span> <span class="w-75" style="color:#2B3674">   {{key.year_experience}}</span></p>
+                <p class="d-flex"><span class="w-25">Job Location:</span> <span class="w-75" style="color:#2B3674">{{key.ex_location}}</span></p>
+
+            </div>
             </div>
              </div>      
       </div>

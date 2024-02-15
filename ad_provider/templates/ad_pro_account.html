@@ -8,10 +8,11 @@
 	<title>Ad-Account</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/all_style.css'%}">
 
-  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- BS -->
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
@@ -70,7 +71,7 @@
     <!-- over -->
 
     <!-- start -->
-    <div class="locl_adm_sec1 px-4 my-4">
+    <div class="locl_adm_sec1 px-4 my-0">
 
      <h4 style="color:#3247CE">Account</h4>
     
@@ -78,13 +79,13 @@
     <div class="locl_adm_sec2 px-4 my-2">
         <div class="rowbg1">
             <div class="row">
-                <div class="col-lg-2 col-md-2">
+                <div class="col-lg-2 col-md-2 my-2">
                    <div class="ad_profile_paintads">
 {% comment %} <i class="fas fa-user" style="font-size:50px;color:#7B61FF;"></i> {% endcomment %}
  <img src="{{key.profile_picture}}" style="width: 94px;height: 93px;position: absolute;margin-left: -25px;margin-top: -24px;">
                    </div>
                 </div>
-                <div class="col-lg-3 col-md-3">
+                <div class="col-lg-3 col-md-3 my-2">
                   <span style="color:#2B3674"><b>Paint Ads</b><br>
                     <span class="task_button_text">{{key.first_name}} {{key.last_name}}<br>
                      Created On:<span style="color:#3247CE">{{key.created_date}} </span> </span>
@@ -101,7 +102,7 @@
                  <button class="btn_end" style="margin-left:5px">Add Funds</button>
                 {% endif %}
               </div>
-                <div class="col-lg-4 col-md-4"></div>
+                <div class="col-lg-4 col-md-4 my-2"></div>
                 {% comment %} <div class="col-lg-3 col-md-3">
                   
                   <div style="background-color:#FDEFEF;margin-bottom: 10px;"class="paintads_box">
@@ -116,7 +117,7 @@
                 
               </div> {% endcomment %}
              
-              <div class="col-lg-3 col-md-3">
+              <div class="col-lg-3 col-md-3 my-2">
                   <div class="paintads_box" style="background-color: #EDF5DF">
                     
                     <div class="paintads_circle">
@@ -138,7 +139,8 @@
             </div></div>
             
             <div class="row py-3 justify-content-around">
-              <div class="col-lg-6 col-md-6 pt-3 px-4" style="background-color: white;border-radius:10px;    margin-bottom: 10px;">
+              <div class="col-lg-6">
+              <div class="col-lg-12 col-md-12 pt-3 px-4 py-2" style="background-color: white;border-radius:10px;    margin-bottom: 10px;">
                  <p style="color:#2B3674"><b>Office Details</b></p>
                  <p class="d-flex"><span class="w-25">Office name:</span> <span class="w-75" style="color:#2B3674">{{key.office_name}}</span></p>
                  <p class="d-flex"><span class="w-25">Phone Number:</span> <span class="w-75" style="color:#2B3674">+91{{key.mobile}}</span></p>
@@ -146,18 +148,41 @@
                  <p class="d-flex"><span class="w-25">Location:</span> <span class="w-75" style="color:#2B3674">{{key.personal_city}} , {{key.personal_country}}</span></p>
                  <p class="d-flex"><span class="w-25"> Address:</span> <span class="w-75" style="color:#2B3674">{{key.personal_address}}</span></p>
               </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="col-lg-12 col-md-12 pt-3 px-4 py-2" style="background-color: white; border-radius:10px;">
+                <p style="color:#2B3674"><b>Persnol Details</b></p>
+                <p class="d-flex"><span class="w-25">Full name:</span> <span class="w-75" style="color:#2B3674">{{key.first_name}} {{key.last_name}}</span></p>
+                <p class="d-flex"><span class="w-25">Phone Number:</span> <span class="w-75" style="color:#2B3674">+971 {{key.mobile}}</span></p>
+                <p class="d-flex"><span class="w-25">Email ID:</span> <span class="w-75" style="color:#2B3674">{{key.email}}</span></p>
+                <p class="d-flex"><span class="w-25">Location:</span> <span class="w-75" style="color:#2B3674">{{key.personal_city}}, {{key.personal_country}}</span></p>
+                <p class="d-flex"><span class="w-25"> Address:</span> <span class="w-75" style="color:#2B3674">{{key.personal_address}}</span></p>
+            </div>
+            </div>
+            </div>
+            <div class="row py-0 justify-content-around">
+              <div class="col-lg-12 col-md-12 pt-3 px-4" style="background-color: white;border-radius:10px;width: 98%;">
+                <p style="color:#2B3674"><b>Qualification Details</b></p>
+                {% for i in education %}
+                <p class="d-flex"><span class="w-25">Level of Education:{{forloop.counter}}</span> <span class="w-75" style="color:#2B3674">{{i}}</span></p>
 
-              
-                
-             
-              <div class="col-lg-5 col-md-5 pt-3 px-4" style="background-color: white; border-radius:10px;">
-                <p style="color:#2B3674"><b>Payment Option</b></p>
-                <img src="{% static 'images/phonepay.png'%}" height="55px" width="55px"><br><br>
-                <div class="pay_optns">
-                  Change Payment Options
-                </div>
-            </div>
-            </div>
+                {% endfor %}
+                {% for j in study %}
+                <p class="d-flex"><span class="w-25">Field Of Study:{{forloop.counter}}</span> <span class="w-75" style="color:#2B3674"> {{j}}</span></p>
+
+                {% endfor %}
+                <p style="color:#2B3674"><b>Work Details</b></p>
+                <p class="d-flex"><span class="w-25">Job Title:</span> <span class="w-75" style="color:#2B3674">{{key.work_job_title}}</span></p>
+                <p class="d-flex"><span class="w-25">Company Name:</span> <span class="w-75" style="color:#2B3674">{{key.work_company_name}}</span></p>
+                <p class="d-flex"><span class="w-25">Job Location:</span> <span class="w-75" style="color:#2B3674"> {{key.work_job_location}}</span></p>
+                <p style="color:#2B3674"><b>Working Experience</b></p>
+                <p class="d-flex"><span class="w-25">Job Title:</span> <span class="w-75" style="color:#2B3674">{{key.ex_job_title}}</span></p>
+                <p class="d-flex"><span class="w-25">Company Name:</span> <span class="w-75" style="color:#2B3674">{{key.ex_company_name}}</span></p>
+                <p class="d-flex"><span class="w-25">Year Of Experience:</span> <span class="w-75" style="color:#2B3674">   {{key.year_experience}}</span></p>
+                <p class="d-flex"><span class="w-25">Job Location:</span> <span class="w-75" style="color:#2B3674">{{key.ex_location}}</span></p>
+
+              </div>
+              </div>
              </div>      
       </div>
     <!-- over -->

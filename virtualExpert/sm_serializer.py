@@ -30,6 +30,23 @@ class salesmanagerSerializer(serializers.Serializer):
     ad_provider=serializers.CharField()
     ad_distributor=serializers.CharField()
     my_profile_manager=serializers.CharField()
+    level_education = serializers.CharField()
+    field_study = serializers.CharField()
+    work_job_title = serializers.CharField()
+    work_company_name = serializers.CharField()
+    work_job_location = serializers.CharField()
+    ex_job_title = serializers.CharField()
+    ex_company_name = serializers.CharField()
+    year_experience = serializers.CharField()
+    ex_location = serializers.CharField()
+    degree_cer = serializers.CharField()
+    ex_cer = serializers.CharField()
+    work_type = serializers.CharField()
+    gst_number = serializers.CharField()
+    gst_certificate = serializers.CharField()
+    company_pan_no = serializers.CharField()
+    arn_no =serializers.CharField()
+    pan_card =serializers.CharField()
 
 
 
