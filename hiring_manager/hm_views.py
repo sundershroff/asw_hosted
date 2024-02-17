@@ -5,6 +5,7 @@ import json
 from django.contrib import messages
 from collections import Counter
 from django.contrib.auth import logout,authenticate
+from hiring_manager.process_to_pdf import html_to_pdf 
 # Create your views here.
 jsondec = json.decoder.JSONDecoder()
 def dashboard(request):
@@ -417,9 +418,12 @@ def ad_provider_doc(request,id):
     else:
         return redirect("/hiring_manager/signin")
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+   
     ad_provider(request,id)
     print(uid)
-    ad_pro_my_data = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{uid}").json()[0]  
+    ad_pro_my_data = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{uid}").json()[0] 
+    education  = jsondec.decode(ad_pro_my_data['level_education'])
+    study = jsondec.decode(ad_pro_my_data['field_study']) 
     #country api
     neww=[]
     response = requests.get('https://api.first.org/data/v1/countries').json()
@@ -434,6 +438,8 @@ def ad_provider_doc(request,id):
   
     context={
         'key':mydata,
+        'education':education,
+        'study':study,
         'current_path':request.get_full_path(),
         'ad_pro_my_data':ad_pro_my_data,
         'response': response,
@@ -444,9 +450,16 @@ def ad_provider_doc(request,id):
     }
     
     if request.method == "POST":
-        response = requests.post(f"http://127.0.0.1:3000/ad_provider_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
-        print(response.status_code)
-        return redirect(f"/hiring_manager/hm_ad_provider/{id}")
+        if "get_document" in request.POST:
+             # getting the template
+            pdf = html_to_pdf('pdf.html',context_dict={'ad_pro_my_data':ad_pro_my_data})
+            
+            # rendering the template
+            return HttpResponse(pdf, content_type='application/pdf')
+        else:
+            response = requests.post(f"http://127.0.0.1:3000/ad_provider_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
+            print(response.status_code)
+            return redirect(f"/hiring_manager/hm_ad_provider/{id}")
 
     return render(request,"hm_adproviderdoc.html",context)
 
@@ -1145,4 +1158,15 @@ def hm_forgetpassword_reset(request,id):
                 }
     return render(request,"hm_forgetpassword.html",context)
 
+def get(request,id, *args, **kwargs):
+        data = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/5TOFYI3R54O").json()[0] 
+        education  = jsondec.decode(data['level_education'])
+        study = jsondec.decode(data['field_study'])
+        img = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Cup_and_Saucer_LACMA_47.35.6a-b_%281_of_3%29.jpg/640px-Cup_and_Saucer_LACMA_47.35.6a-b_%281_of_3%29.jpg" 
+        # getting the template
+        pdf = html_to_pdf('pdf.html',context_dict={'pdf':data,'education':education,'study':study,'img':img})
+        
+        # rendering the template
+        return HttpResponse(pdf, content_type='application/pdf')
+        # return render(request,"pdf.html" ,{'pdf':data,'education':education,'study':study,'img':img})
 

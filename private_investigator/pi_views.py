@@ -282,6 +282,8 @@ def profile(request,id):
             return redirect("/pi_signin")
         my = requests.get(f"http://127.0.0.1:3000/pi_my_data/{id}").json()[0]
         # print(my)
+        education  = jsondec.decode(my['level_education'])
+        study = jsondec.decode(my['field_study'])
         my_clients = requests.get(f"http://127.0.0.1:3000/pi_my_clients/{id}").json()[id]
         filtered_clients = []
         if len(my_clients) != 0:
@@ -361,6 +363,8 @@ def profile(request,id):
                  'bad_review':badreview,
                  'good_review':goodreview,
                  'total_ratings':total_ratings,
+                 'education':education,
+        'study':study,
                  }
         return render(request,"profile.html",context)
 

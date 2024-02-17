@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+          <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Download Document</title>
+      <link rel="stylesheet" href="{% static 'css/upload_acc.css' %}">
+          <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <!-- BS -->
+      <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+      <!-- over -->
+    
+      <!-- font -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,500;9..40,700&family=Qwitcher+Grypen&family=Rubik+Pixels&display=swap" rel="stylesheet">
+      <!-- over -->
+      <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    </head>
+    <body>
+    
+        <div class="row mb-3">
+
+            <div class="col-lg-12 my-3">
+                <h1>Office Details</h1>
+              <label class="form-label">Office Name<span>* :</span></label>
+              <span >{{pdf.office_name}}</span><br><br>
+           
+           
+                <label class="form-label">Country<span>* :</span></label>
+                <span >{{pdf.office_country}}</span><br><br>
+   
+           
+                <label class="form-label">City<span>* :</span></label>
+                <span >{{pdf.office_city}}</span><br><br>
+
+                <label class="form-label">Address<span>* :</span></label>
+                <span >{{pdf.office_address}}</span><br><br>
+<h1>Personal Details</h1>
+                <label class="form-label">First Name<span>* :</span></label>
+                <span >{{pdf.first_name}}</span><br><br>
+
+                <label class="form-label">Last Name<span>* :</span></label>
+                <span >{{pdf.last_name}}</span><br><br>
+
+                <label class="form-label">Personal Country<span>* :</span></label>
+                <span >{{pdf.personal_country}}</span><br><br>
+
+                <label class="form-label">Personal City<span>* :</span></label>
+                <span >{{pdf.personal_city}}</span><br><br>
+
+                <label class="form-label">Address<span>* :</span></label>
+                <span >{{pdf.personal_address}}</span><br><br>
+
+                <h1>Qualification</h1>
+                <h3>Education Details</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        {% for i in education %}
+                        <div class="col-lg-12">
+                
+                <label class="form-label">Level of Education<span>* :</span></label>
+                <span >{{i}}</span>
+              
+              
+            </div>
+            {% endfor %}
+        </div><br>
+            <div class="col-md-6">
+                {% for i in study %}
+                <div class="col-lg-12">
+                <label class="form-label">Field Of Study<span>* :</span></label>
+                <span >{{i}}</span>
+                </div>
+                {% endfor %}
+                
+            </div>
+            </div>
+            <h3>Work Details</h3>
+            <label class="form-label">Job Title<span>* :</span></label>
+            <span >{{pdf.work_job_title}}</span><br><br>
+            <label class="form-label">Company Name<span>* :</span></label>
+            <span >{{pdf.work_company_name}}</span><br><br>
+            <label class="form-label">Job Location<span>* :</span></label>
+            <span >{{pdf.work_job_location}}</span><br><br>
+
+            <h3>Experience</h3>
+            <label class="form-label">Job Title<span>* :</span></label>
+            <span >{{pdf.ex_job_title}}</span><br><br>
+            <label class="form-label">Company Name<span>* :</span></label>
+            <span >{{pdf.ex_company_name}}</span><br><br>
+            <label class="form-label">Year Of Experience<span>* :</span></label>
+            <span >{{pdf.year_experience}}</span><br><br>
+            <label class="form-label">Job Location<span>* :</span></label>
+            <span >{{pdf.ex_location}}</span><br><br>
+            <h1>Document Upload</h1>
+            <h3>Degree Certificate</h3>
+            
+            <img src="{{pdf.degree_cer}}" alt="degree">
+
+            <h3>Experience Certificate</h3>
+            
+            <img src="{{pdf.ex_cer}}" alt="degree"><br><br>
+
+            <label class="form-label">Type<span>* :</span></label>
+            <span >{{pdf.work_type}}</span><br><br>
+{% if pdf.work_type == "Personal" %}
+
+{% else %}
+
+            <label class="form-label">GST Number<span>* :</span></label>
+            <span >{{pdf.gst_number}}</span><br><br>
+
+            <h3>Gst Registered Certificate</h3>
+            
+            <img src="{{pdf.gst_certificate}}" alt="degree"><br><br>
+
+            <label class="form-label">Company Pan Number<span>* :</span></label>
+            <span >{{pdf.company_pan_no}}</span><br><br>
+
+            <label class="form-label">ARN Number<span>* :</span></label>
+            <span >{{pdf.arn_no}}</span><br><br>
+
+            <h3>Pan Card</h3>
+            
+            <img src="{{pdf.pan_card}}" alt="degree"><br><br>
+            {% endif %}
+              </div> 
+            </div>
+  
+</body>
+</html>

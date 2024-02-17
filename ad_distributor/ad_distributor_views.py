@@ -241,6 +241,8 @@ def account(request,id):
         mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{id}").json()[0]
         all_data=requests.get("http://127.0.0.1:3000/all_ads_data/").json() 
         print(id)
+        education  = jsondec.decode(mydata['level_education'])
+        study = jsondec.decode(mydata['field_study'])
         total_coin=0
         for i in all_data:
             uid=jsondec.decode(i.get("ad_dis")) 
@@ -255,6 +257,8 @@ def account(request,id):
 
         context={
             'key':mydata,
+            'education':education,
+        'study':study,
             'current_path':request.get_full_path(),
             'user_access' : "",
             'all_data':new,
