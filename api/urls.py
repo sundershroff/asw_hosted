@@ -446,7 +446,7 @@ urlpatterns = [
     path('hm_forgetpassword_otpp/<id>',hm_views.hm_forgetpassword_otp),
     path('hm_forgetpassword_resett/<id>',hm_views.hm_forgetpassword_reset),
     path('hm_logout',hm_views.logout_view),
-    path('pdf/<id>',hm_views.get),
+    path('pdf/<id>/<type>',hm_views.get),
 
 
 

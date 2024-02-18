@@ -9,9 +9,10 @@
 	<title>Hiring Manager-Local Admin Upload Documents</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/hm_allstyle.css'%}">
 
-  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- BS -->
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
@@ -67,13 +68,13 @@
 
           <div class="col-lg-4 my-3">
             <label class="form-label">Office Name<span>*</span></label>
-            <input type="text" name="office_name" class="form-control" placeholder="Name">
+            <input type="text" value="{{pm_data.office_name}}" name="office_name" class="form-control" placeholder="Name">
           </div>
 
           <div class="col-lg-4 my-3">
             <label class="form-label">Country<span>*</span></label>
-            <select id="countryone" name="office_country" class="form-select" onchange="fun1.call(this,event)">
-              <option value="default">Select</option>
+            <select id="countryone"  name="office_country" class="form-select" onchange="fun1.call(this,event)">
+              <option value="{{pm_data.office_country}}">{{pm_data.office_country}}</option>
               {% for j in all %}
               <option value="{{j.name}}">{{j.name}}</option>
               {% endfor %}
@@ -95,7 +96,7 @@
         <div class="col-lg-4 my-3">
             <label class="form-label">City<span>*</span></label>
             <select id="res2" name="office_city" class="form-select">
-              <option value="default">Select</option>
+              <option value="{{pm_data.office_city}}">{{pm_data.office_city}}</option>
               <script>
                 stat = {{ states|safe }};
             ttt = stat[0].states;
@@ -116,12 +117,316 @@
 
           <div class="col-12">
             <label class="form-label">Address<span>*</span></label>
-              <input type="text" name="office_address" class="form-control" placeholder="Address">
+              <input type="text" value="{{pm_data.office_address}}" name="office_address" class="form-control" placeholder="Address">
           </div> 
             
           </div>
-          <button class="document_btn my-3">Generate and Print Document</button>
-        <h4 class="my-4" style="color:#2B3674;">Upload Documents</h4>
+          <div class="row">
+            <div class="col-lg-4 my-3">
+              <label class="form-label">First Name<span>*</span></label>
+              <input type="text" value="{{pm_data.first_name}}" name="first_name" class="form-control" placeholder="Name">
+            </div>
+            <div class="col-lg-4 my-3">
+              <label class="form-label">Last Name<span>*</span></label>
+              <input type="text" value="{{pm_data.last_name}}" name="last_name" class="form-control" placeholder="Name">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-4 my-3">
+              <label class="form-label">Personal Country<span>*</span></label>
+              <select id="countrytwo" value="" name="personal_country" class="form-select" onchange="fun2.call(this,event)">
+                <option value="{{pm_data.personal_country}}">{{pm_data.personal_country}}</option>
+                {% for j in all %}
+                <option value="{{j.name}}">{{j.name}}</option>
+                {% endfor %}
+              </select>
+            
+              <label id="office_country-error" class="error" for="office_country" style="
+      margin-top: 6px;display:none;
+  ">Select Any One</label>
+            </div>
+  
+          
+  
+          <div class="col-lg-4 my-3">
+              <label class="form-label">Personal City<span>*</span></label>
+              <select id="res3" name="personal_city" class="form-select">
+                <option value="{{pm_data.personal_city}}">{{pm_data.personal_city}}</option>
+                <script>
+                  stat = {{ states|safe }};
+              ttt = stat[0].states;
+              for (i=0;i<ttt.length;i++){
+                 tt = ttt[i].name;
+                 document.write("<option value="tt">"+tt+"</option>");
+              }
+            </script>
+              </select> 
+              <label id="office_city-error" class="error" for="office_city" style="
+      margin-top: 6px;display:none;
+  ">Select Any One</label>
+          </div> 
+          
+          <!-- <div class="col-lg-8 my-3"></div> -->
+          </div>
+          <div class="row">
+  
+            <div class="col-lg-8">
+              <label class="form-label">Personal Address<span>*</span></label>
+                <input type="text" value="{{pm_data.personal_address}}" name="office_address" class="form-control" placeholder="Address">
+            </div> 
+              
+            </div>
+            <h4 class="my-4" style="color:#7B61FF;">Qualifications</h4>
+            <h3 class="my-4">Education Details</h3>
+            <div class="row">
+              <div class="col-lg-12" id="addeducationdetail">
+               
+                
+               
+                <div class="row">
+  
+                  <div class="col-lg-6 my-3" style="padding-right: 1.5rem;">
+                    {% for i in education %}
+                    <label class="form-label">Level of Education<span>*</span></label>
+  
+                    <div class="row">
+                    <input type="text" value="{{i}}" name="level_education" class="form-control" placeholder="Level of Education" required>
+                  </div><br>
+                  {% endfor %}
+                </div>
+  
+                   <div class="col-lg-6 my-3" style="padding-right: 1.5rem;">
+                    {% for i in study %}
+                    <label class="form-label">Field Of Study<span>*</span></label>
+                    <div class="row">
+                    <input type="text" value="{{i}}" name="field_study" class="form-control" placeholder="Field Of Study" required>
+                  </div><br>
+                  {% endfor %}
+                </div>
+                </div>
+              </div>
+                  <div class="local_admin_edi_subbtn my-4">
+                    <button type="button" id="addeducation" data-bs-toggle="modal" data-bs-target="" style="background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);
+                    color: white;border: 2px solid white;"> Add More</button>
+                  </div>
+               </div>
+  
+                <h3 class="my-4">Work Details</h3>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+  
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Job Title<span>*</span></label>
+                    <input type="text" value="{{pm_data.work_job_title}}" name="work_job_title" class="form-control" placeholder="Job Title">
+                  </div>
+  
+                   <div class="col-lg-6 my-3">
+                    <label class="form-label">Company Name<span>*</span></label>
+                    <input type="text" value="{{pm_data.work_company_name}}" name="work_company_name" class="form-control" placeholder="Company Name">
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6 my-3">
+                      <label class="form-label">Job Location<span>*</span></label>
+                      <input type="text" value="{{pm_data.work_job_location}}" name="work_job_location" class="form-control" placeholder="Job Title">
+                    </div>
+                  </div>
+                </div></div></div>
+  
+                <h3 class="my-4">Experience</h3>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="row">
+      
+                      <div class="col-lg-6 my-3">
+                        <label class="form-label">Job Title<span>*</span></label>
+                        <input type="text" value="{{pm_data.ex_job_title}}" name="ex_job_title" class="form-control" placeholder="Job Title">
+                      </div>
+      
+                       <div class="col-lg-6 my-3">
+                        <label class="form-label">Company Name<span>*</span></label>
+                        <input type="text" value="{{pm_data.ex_company_name}}" name="ex_company_name" class="form-control" placeholder="Company Name">
+                      </div>
+                    </div>
+                    <div class="row">
+      
+                      <div class="col-lg-6 my-3">
+                        <label class="form-label">Year Of Experience<span>*</span></label>
+                        <input type="text" value="{{pm_data.year_experience}}" name="year_experience" class="form-control" placeholder="Year Of Experience">
+                      </div>
+                      <div class="col-lg-6 my-3">
+                        <label class="form-label">Location<span>*</span></label>
+                        <input type="text" value="{{pm_data.ex_location}}" name="ex_location" class="form-control" placeholder="Location">
+                      </div>
+                    </div>
+                  </div></div>
+                  <h3 class="my-4 ">Document Upload</h3>
+                  <div class="row  pb-5">
+                    <div class="col-lg-12" id="">
+                      <div class="row">
+        
+                        <div class="col-lg-6 my-3">
+                          <label class="form-label">Degree Certificate<span>*</span></label>
+                          <div class="local_admin_drag_area">
+                   
+                            <div class="icon">   <center><img src="{{pm_data.degree_cer}}" style="width: 281px;height: 281px;object-fit: cover;"></center>                  
+                            </div>
+                             <header>Drag or click here to Upload Certificate </header>
+       
+                             <input type="file" value="{{pm_data.degree_cer}}" name="degree_cer" style="
+                             opacity: 0;
+                             position: absolute;" >
+       
+                         </div>                      </div>
+        
+                         <div class="col-lg-6 my-3">
+                          <label class="form-label">Experience Certificate<span>*</span></label>
+                          <div class="local_admin_drag_area">
+                   
+                            <div class="icon">   <center><img src="{{pm_data.ex_cer}}" style="width: 281px;height: 281px;object-fit: cover;"></center>                  
+                              <header>Drag or click here to Upload your Certificate </header>
+       
+                             <input type="file" value="{{pm_data.ex_cer}}" name="ex_cer" style="
+                             opacity: 0;
+                             position: absolute;">
+                       
+       
+                         </div>                      </div>
+                      </div>
+                    </div>
+                  </div>     
+                    <div class="row pt-4">
+                      <label class="form-label">Type<span>*</span></label>
+                      <div class="col-lg-6 my-3">
+                       <select name="work_type"  class="form-control" id="for_what" required="Select any one">
+                        <option value="{{pm_data.work_type}}" data-attribute="1">{{pm_data.work_type}}</option>
+                        <option value="Buisness" data-attribute="1">BUISNESS</option>
+                        <option value="Personal" data-attribute="2">PERSONAL</option>
+                       </select>
+                      </div>
+                    </div>
+                    {% if pm_data.work_type == "Buisness" %}
+                    <div class="row" id="buisness_1">
+                      <div class="col-lg-12" id="">
+                        <div class="row">
+          
+                          <div class="col-lg-6 my-3">
+                            <label class="form-label">GST Number<span>*</span></label>
+                            <input type="text" value="{{pm_data.gst_number}}" name="gst_number" class="form-control" placeholder="GST Number" required>
+                          </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-lg-6 my-3">
+                            <label class="form-label">GST Registered Certificate<span>*</span></label>
+                            <div class="local_admin_drag_area">
+                     
+                              <div class="icon"> <center><img src="{{pm_data.gst_certificate}}" style="width: 281px;height: 281px;object-fit: cover;"></center>  </div>
+                               <header>Drag or click here to Upload your Certificate </header>
+         
+                               <input type="file" name="gst_certificate" style="
+                               opacity: 0;
+                               position: absolute;" required>
+                         
+         
+                           </div>                      </div>
+                        </div>
+                        <div class="row">
+          
+                          <div class="col-lg-6 my-3">
+                            <label class="form-label">Company Pan Number<span>*</span></label>
+                            <input type="text" value="{{pm_data.company_pan_no}}" name="company_pan_no" class="form-control" placeholder="Company Pan Number" required>
+                          </div>
+                        </div>
+                        <div class="row">
+          
+                          <div class="col-lg-6 my-3">
+                            <label class="form-label">ARN Number<span>*</span></label>
+                            <input type="text" value="{{pm_data.arn_no}}" name="arn_no" class="form-control" placeholder="ARN Number" required>
+                          </div>
+                        </div>
+                        <div class="row pb-5">
+                          <div class="col-lg-6 my-3">
+                           <label class="form-label">PAN Card<span>*</span></label>
+                           <div class="local_admin_drag_area">
+                    
+                             <div class="icon"> <center><img src="{{pm_data.pan_card}}" style="width: 281px;height: 281px;object-fit: cover;"></center>  </div>
+                              <header>Drag or click here to Upload your Certificate </header>
+        
+                              <input type="file" name="pan_card" style="
+                              opacity: 0;
+                              position: absolute;height: 50%;" required>
+                        
+        
+                          </div>                      </div>
+                       </div>
+                      </div>
+                    </div>      <br>
+  
+                    {% else %}
+                    {% endif %}
+                    <div class="row" id="buisness_1" style="display:none  ">
+                      <div class="col-lg-12" id="">
+                        <div class="row">
+          
+                          <div class="col-lg-6 my-3">
+                            <label class="form-label">GST Number<span>*</span></label>
+                            <input type="text" name="gst_number" class="form-control" placeholder="GST Number" required>
+                          </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-lg-6 my-3">
+                            <label class="form-label">GST Registered Certificate<span>*</span></label>
+                            <div class="local_admin_drag_area">
+                     
+                              <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                               <header>Drag or click here to Upload your Certificate </header>
+         
+                               <input type="file" name="gst_certificate" style="
+                               opacity: 0;
+                               position: absolute;" required>
+                         
+         
+                           </div>                      </div>
+                        </div>
+                        <div class="row">
+          
+                          <div class="col-lg-6 my-3">
+                            <label class="form-label">Company Pan Number<span>*</span></label>
+                            <input type="text" name="company_pan_no" class="form-control" placeholder="Company Pan Number" required>
+                          </div>
+                        </div>
+                        <div class="row">
+          
+                          <div class="col-lg-6 my-3">
+                            <label class="form-label">ARN Number<span>*</span></label>
+                            <input type="text" name="arn_no" class="form-control" placeholder="ARN Number" required>
+                          </div>
+                        </div>
+                        <div class="row pb-5">
+                          <div class="col-lg-6 my-3">
+                           <label class="form-label">PAN Card<span>*</span></label>
+                           <div class="local_admin_drag_area">
+                    
+                             <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                              <header>Drag or click here to Upload your Certificate </header>
+        
+                              <input type="file" name="pan_card" style="
+                              opacity: 0;
+                              position: absolute;height: 50%;" required>
+                        
+        
+                          </div>                      </div>
+                       </div>
+                      </div>
+                    </div>      <br>
+  
+  
+                    <div class="col-md-4">
+          
+                      <button class="document_btn my-3"><a href="/pdf/{{pm_data.uid}}/pm_myid" target="_blank" style="color: white;text-decoration: none;">Generate and Print Document</a></button>
+              
+                    </div>
+                    <h4 class="my-4" style="color:#2B3674;">Upload Documents</h4>
           <p>The file accepted should onle be .PDF .DOC .DOCX format</p>
           <div class="row">
            
@@ -172,7 +477,139 @@ opacity: 0;
                 </div>
               </div>
             </div>
-            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+              <div class="row">
+                <div class="col-12 my-3">
+                <label class="form-label">verification<span>*</span></label>
+
+                 <div class="local_admin_drag_area">
+                
+                    <div class="icon">
+                      <video id="cameraStream" style="width: 100%;"></video>
+
+                      <!-- Image preview container -->
+<img src="#" alt="Captured Image" id="capturedImage" style="max-width: 100%; max-height: 300px; display: none;">
+
+                    </div>
+                     <header>Verification Image By Hiring Manager </header>
+                     <input type="file" id="capimg" style="display: none;" name="verification_img">
+
+                     <!-- <input type="file" name="sign_document" style="
+position: absolute;
+opacity: opx;
+opacity: 0;
+"> -->
+<!-- Button to capture image and trigger file input -->
+<div class="row" style="row-gap: 10px;">
+  <div class="col-md-12">
+<button onclick="captureAndUpload()" style="width:100%;margin-left: 10px;border: none;color: white;background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);">Capture</button>
+</div>
+<div class="col-md-12">
+<!-- Button to capture image -->
+<button onclick="captureImage()" style="width:100%;margin-left: 10px;border: none;color: white;background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);">Upload Image</button>
+</div>
+</div>
+<script>
+  video.src = '';
+   function captureAndUpload() {
+        // Check if the browser supports the getUserMedia API
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            // Request access to the user's camera
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    // Display the camera stream in the video element
+                    var video = document.getElementById('cameraStream');
+                    video.srcObject = stream;
+                    video.play();
+
+                    // Show the image capture button
+                    var captureButton = document.getElementById('captureButton');
+                    captureButton.style.display = 'block';
+
+                    // Hide the video stream after capturing
+                    video.onended = function () {
+                        video.style.display = 'none';
+                    };
+                })
+                .catch(function (error) {
+                    console.error('Error opening camera:', error);
+                });
+        } else {
+            console.error('getUserMedia is not supported in this browser');
+        }
+    }
+    function captureImage() {
+        // Get the video element
+        var video = document.getElementById('cameraStream');
+
+        // Create a canvas element to capture a frame from the video stream
+        var canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        var context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Convert the canvas content to a data URL
+        var imageDataURL = canvas.toDataURL('image/jpeg');
+        if (imageDataURL == "data:,"){
+            
+        }
+        else{
+          // download img
+          var downloadLink = document.createElement('a');
+          downloadLink.href = imageDataURL;
+          downloadLink.download = 'captured_image.jpg';
+
+          // Simulate a click on the anchor element to trigger the download
+          downloadLink.click();
+          document.getElementById('capimg').click();
+          // Reset the source to stop buffering\
+          // Display the captured image
+          var capturedImage = document.getElementById('capturedImage');
+          capturedImage.src = imageDataURL;
+          capturedImage.style.display = 'block';
+          // video.src = '';
+          video.remove();
+        }
+          
+        // alert(imageDataURL);
+
+        // You can now send the imageDataURL to the server for upload or further processing
+        // Example: sendToServer(imageDataURL);
+    }
+
+    // Function to send the captured image data to the server (placeholder)
+    function sendToServer(imageDataURL) {
+        // This is where you would send the data to your server for further processing
+        // You may need to use XMLHttpRequest, fetch, or another method depending on your requirements
+        console.log('Uploading image to the server:', imageDataURL);
+    }
+
+    // Check if the browser supports the getUserMedia API
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Request access to the user's camera
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                // Display the camera stream in the video element
+                var video = document.getElementById('cameraStream');
+                video.srcObject = stream;
+            })
+            .catch(function (error) {
+                console.error('Error opening camera:', error);
+            });
+    } else {
+        console.error('getUserMedia is not supported in this browser');
+    }
+</script>
+
+<label id="sign_document-error" class="error" for="sign_document" style="margin-top: 6px;display: none;">This field is required.</label>
+
+
+                 </div>
+
+               </div>
+             </div>
+            </div>
           </div>
 
           <div class="row my-4">
@@ -314,7 +751,39 @@ opacity: 0;
     </script>
 
       <script src="{% static 'js/main.js'%}"></script>
+      <script>
+        $(document).ready(function(){
+          $("#addeducation").click(function(){
+            $("#addeducationdetail").append("  <div class=row>"+
+"<div class=col-lg-6 my-3>"+
+  "<label class=form-label>Level of Education<span>*</span></label>"+
+  "<input type=text name=level_education class=form-control placeholder=Level"+"&nbsp;"+"Of"+"&nbsp;"+"Education"+">"+
+"</div>"+
 
+ "<div class=col-lg-6 my-3>"+
+  "<label class=form-label>Field Of Study<span>*</span></label>"+
+  "<input type=text name=field_study class=form-control placeholder=Field"+"&nbsp;"+"Of"+"&nbsp;"+"Study>"+
+"</div>"+
+"</div>");
+          });
+        
+        
+        });
+        </script>
+        <script>
+          $(document).ready(function() { 
+            $('#for_what').change(function() { 
+              var selectedOption = $(this).val(); 
+              if (selectedOption === 'Personal') { 
+                $('#buisness_1').hide(); 
+              }
+            if (selectedOption === 'Buisness') { 
+      
+              $('#buisness_1').show(); 
+              }
+          }); 
+          }); 
+        </script>  
 
 </body>
 </html>

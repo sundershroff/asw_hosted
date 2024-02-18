@@ -139,8 +139,8 @@ def upload_acc(request,id):
             uidd = (response.text[1:-1])
             if response.status_code == 200:
             # if get["otp"] == data['user_otp']:
-                # return redirect(f"/hiring_manager/hm_admin_dashboard/{uidd}")
-                pass
+                return redirect(f"/hiring_manager/hm_admin_dashboard/{uidd}")
+                
             else:
                 pass
         return render(request,"hm_upload_acc.html",context)
@@ -343,6 +343,8 @@ def local_admin_upload(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
     local_admin(request,id)
     pm_data = requests.get(f"http://127.0.0.1:3000/pm_myid/{uid}").json()[0] 
+    education  = jsondec.decode(pm_data['level_education'])
+    study = jsondec.decode(pm_data['field_study']) 
     #country api 
     neww=[]
     response = requests.get('https://api.first.org/data/v1/countries').json()
@@ -358,6 +360,8 @@ def local_admin_upload(request,id):
         'key':mydata,
         'current_path':request.get_full_path(),
         'pm_data':pm_data,
+        'education':education,
+        'study':study,
         'response': response,
         'region': response,
         'all':al,
@@ -515,6 +519,8 @@ def ad_distributor_doc(request,id):
     ad_distributor(request,id)
     print(uid)
     ad_pro_my_data = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{uid}").json()[0]  
+    education  = jsondec.decode(ad_pro_my_data['level_education'])
+    study = jsondec.decode(ad_pro_my_data['field_study']) 
     #country api
     neww=[]
     response = requests.get('https://api.first.org/data/v1/countries').json()
@@ -530,6 +536,8 @@ def ad_distributor_doc(request,id):
         'key':mydata,
         'current_path':request.get_full_path(),
         'ad_pro_my_data':ad_pro_my_data,
+        'education':education,
+        'study':study,
         'response': response,
         'region': response,
         'all':al,
@@ -593,6 +601,8 @@ def sales_doc(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0] 
     sales(request,id)
     sales_my_data = requests.get(f"http://127.0.0.1:3000/sm_my_data/{uid}").json()[0]  
+    education  = jsondec.decode(sales_my_data['level_education'])
+    study = jsondec.decode(sales_my_data['field_study']) 
     #country api
     neww=[]
     response = requests.get('https://api.first.org/data/v1/countries').json()
@@ -607,6 +617,8 @@ def sales_doc(request,id):
         'key':mydata,
         'current_path':request.get_full_path(),
         'sales_my_data':sales_my_data,
+         'education':education,
+        'study':study,
         'response': response,
         'region': response,
         'all':al,
@@ -671,6 +683,8 @@ def affiliate_marketing_doc(request,id):
         affiliate_marketing(request,id)
         print(uid)
         af_my_data = requests.get(f"http://127.0.0.1:3000/af_my_data/{uid}").json()[0]  
+        education  = jsondec.decode(af_my_data['level_education'])
+        study = jsondec.decode(af_my_data['field_study']) 
         #country api
         neww=[]
         response = requests.get('https://api.first.org/data/v1/countries').json()
@@ -685,6 +699,8 @@ def affiliate_marketing_doc(request,id):
             'key':mydata,
             'current_path':request.get_full_path(),
             'af_my_data':af_my_data,
+            'education':education,
+            'study':study,
             'response': response,
             'region': response,
             'all':al,
@@ -748,7 +764,9 @@ def private_investigator_doc(request,id):
         return redirect("/hiring_manager/signin")
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0] 
     private_investigator(request,id)
-    pi_my_data = requests.get(f"http://127.0.0.1:3000/pi_my_data/{uid}").json()[0]  
+    pi_my_data = requests.get(f"http://127.0.0.1:3000/pi_my_data/{uid}").json()[0]
+    education  = jsondec.decode(pi_my_data['level_education'])
+    study = jsondec.decode(pi_my_data['field_study'])   
     #country api
     neww=[]
     response = requests.get('https://api.first.org/data/v1/countries').json()
@@ -763,6 +781,8 @@ def private_investigator_doc(request,id):
         'key':mydata,
         'current_path':request.get_full_path(),
         'pi_my_data':pi_my_data,
+        'education':education,
+        'study':study,
         'response': response,
         'region': response,
         'all':al,
@@ -823,6 +843,8 @@ def hiring_manager_doc(request,id):
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
     hiring_manager(request,id)
     hiring_my_data = requests.get(f"http://127.0.0.1:3000/hm_my_data/{uid}").json()[0]  
+    education  = jsondec.decode(hiring_my_data['level_education'])
+    study = jsondec.decode(hiring_my_data['field_study'])
     #country api
     neww=[]
     response = requests.get('https://api.first.org/data/v1/countries').json()
@@ -837,6 +859,8 @@ def hiring_manager_doc(request,id):
         'key':mydata,
         'current_path':request.get_full_path(),
         'hiring_my_data':hiring_my_data,
+        'education':education,
+        'study':study,
         'response': response,
         'region': response,
         'all':al,
@@ -844,7 +868,7 @@ def hiring_manager_doc(request,id):
         
     } 
     if request.method == "POST":
-        print(request.POST)
+        # print(request.POST)
         print(request.FILES)
         response = requests.post(f"http://127.0.0.1:3000/hiring_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
         print(response.status_code)
@@ -1158,8 +1182,8 @@ def hm_forgetpassword_reset(request,id):
                 }
     return render(request,"hm_forgetpassword.html",context)
 
-def get(request,id, *args, **kwargs):
-        data = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/5TOFYI3R54O").json()[0] 
+def get(request,id,type, *args, **kwargs):
+        data = requests.get(f"http://127.0.0.1:3000/{type}/{id}").json()[0] 
         education  = jsondec.decode(data['level_education'])
         study = jsondec.decode(data['field_study'])
         img = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Cup_and_Saucer_LACMA_47.35.6a-b_%281_of_3%29.jpg/640px-Cup_and_Saucer_LACMA_47.35.6a-b_%281_of_3%29.jpg" 
