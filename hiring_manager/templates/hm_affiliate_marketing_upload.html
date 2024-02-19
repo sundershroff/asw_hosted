@@ -426,7 +426,7 @@
            
             <div class="col-lg-4">
               
-              <div class="row">
+              <div class="row" style="height: 100%;">
                  <div class="col-12 my-3">
                  <label class="form-label">ID Card<span>*</span></label>
 
@@ -440,7 +440,31 @@ position: absolute;
 opacity: opx;
 opacity: 0;
 ">
-                
+<label id="id_card-error" class="error" for="id_card" style="margin-top: 6px;display: none;">This field is required.</label>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              
+              <div class="row" style="height: 100%;">
+                 <div class="col-12 my-3">
+                 <label class="form-label">Signed Document<span>*</span></label>
+
+                  <div class="local_admin_drag_area">
+                 
+                     <div class="icon"><i class="fa-solid fa-file"></i></div>
+                      <header>Upload Signed Document </header>
+
+                      <input type="file" name="sign_document" style="
+position: absolute;
+opacity: opx;
+opacity: 0;
+">
+<label id="sign_document-error" class="error" for="sign_document" style="margin-top: 6px;display: none;">This field is required.</label>
+
 
                   </div>
 
@@ -448,34 +472,147 @@ opacity: 0;
               </div>
             </div>
             <div class="col-lg-4">
-              
               <div class="row">
-                 <div class="col-12 my-3">
-                 <label class="form-label">ID Card<span>*</span></label>
+                <div class="col-12 my-3">
+                <label class="form-label">verification<span>*</span></label>
 
-                  <div class="local_admin_drag_area">
-                 
-                     <div class="icon"><i class="fa-solid fa-file"></i></div>
-                      <header>Upload Signed Document By Notary </header>
+                 <div class="local_admin_drag_area">
+                
+                    <div class="icon">
+                      <video id="cameraStream" style="width: 100%;"></video>
 
-                      <input type="file" name="sign_document" style="
+                      <!-- Image preview container -->
+<img src="#" alt="Captured Image" id="capturedImage" style="max-width: 100%; max-height: 300px; display: none;">
+
+                    </div>
+                     <header>Verification Image By Hiring Manager </header>
+                     <input type="file" id="capimg" style="display: none;" name="verification_img">
+
+                     <!-- <input type="file" name="sign_document" style="
 position: absolute;
 opacity: opx;
 opacity: 0;
-">
-                
+"> -->
+<!-- Button to capture image and trigger file input -->
+<div class="row" style="row-gap: 10px;">
+  <div class="col-md-12">
+<button onclick="captureAndUpload()" style="width:100%;margin-left: 10px;border: none;color: white;background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);">Capture</button>
+</div>
+<div class="col-md-12">
+<!-- Button to capture image -->
+<button onclick="captureImage()" style="width:100%;margin-left: 10px;border: none;color: white;background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);">Upload Image</button>
+</div>
+</div>
+<script>
+  video.src = '';
+   function captureAndUpload() {
+        document.getElementById('capturedImage').href="";
+        // Check if the browser supports the getUserMedia API
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            // Request access to the user's camera
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    // Display the camera stream in the video element
+                    var video = document.getElementById('cameraStream');
+                    video.srcObject = stream;
+                    video.play();
 
-                  </div>
+                    // Show the image capture button
+                    var captureButton = document.getElementById('captureButton');
+                    captureButton.style.display = 'block';
 
-                </div>
-              </div>
+                    // Hide the video stream after capturing
+                    video.onended = function () {
+                        video.style.display = 'none';
+                    };
+                })
+                .catch(function (error) {
+                    console.error('Error opening camera:', error);
+                });
+        } else {
+            console.error('getUserMedia is not supported in this browser');
+        }
+    }
+    function captureImage() {
+        // Get the video element
+        var video = document.getElementById('cameraStream');
+
+        // Create a canvas element to capture a frame from the video stream
+        var canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        var context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Convert the canvas content to a data URL
+        var imageDataURL = canvas.toDataURL('image/jpeg');
+        if (imageDataURL == "data:,"){
+            
+        }
+        else{
+          // download img
+          var downloadLink = document.createElement('a');
+          downloadLink.href = imageDataURL;
+          downloadLink.download = 'captured_image.jpg';
+
+          // Simulate a click on the anchor element to trigger the download
+          downloadLink.click();
+          document.getElementById('capimg').click();
+          // Reset the source to stop buffering\
+          // Display the captured image
+          var capturedImage = document.getElementById('capturedImage');
+          capturedImage.src = imageDataURL;
+          capturedImage.style.display = 'block';
+          stopCamera();
+          // video.src = '';
+          // video.remove();
+        }
+          
+        // alert(imageDataURL);
+
+        // You can now send the imageDataURL to the server for upload or further processing
+        // Example: sendToServer(imageDataURL);
+    }
+
+    // Function to send the captured image data to the server (placeholder)
+    function sendToServer(imageDataURL) {
+        // This is where you would send the data to your server for further processing
+        // You may need to use XMLHttpRequest, fetch, or another method depending on your requirements
+        console.log('Uploading image to the server:', imageDataURL);
+    }
+
+    // Check if the browser supports the getUserMedia API
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Request access to the user's camera
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                // Display the camera stream in the video element
+                var video = document.getElementById('cameraStream');
+                video.srcObject = stream;
+            })
+            .catch(function (error) {
+                console.error('Error opening camera:', error);
+            });
+    } else {
+        console.error('getUserMedia is not supported in this browser');
+    }
+</script>
+
+<label id="sign_document-error" class="error" for="sign_document" style="margin-top: 6px;display: none;">This field is required.</label>
+
+
+                 </div>
+
+               </div>
+             </div>
             </div>
-            <div class="col-lg-4"></div>
           </div>
 
           <div class="row my-4">
 
-          <div class="col-lg-12 high_prof_sec9">
+          <div class="col-lg-12 high_prof_sec9" style="
+          margin-top: 50px;
+      ">
 
               <label class="high_prof_cont">
                         <input type="checkbox">
@@ -485,6 +622,8 @@ opacity: 0;
           </div>
           
         </div>
+        
+
         
         <div class="local_admin_edi_subbtn my-4">
 
