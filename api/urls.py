@@ -424,7 +424,7 @@ urlpatterns = [
     path('hiring_manager/hm_profile/<id>', hm_views.profile),
     path('hiring_manager/hm_edit_acc/<id>', hm_views.edit_acc),
     path('hiring_manager/hm_local_admin/<id>', hm_views.local_admin),
-    path('hiring_manager/hm_local_admin_upload/<id>', hm_views.local_admin_upload),
+    path('hiring_manager/hm_local_admin_upload/<id>/<uid>', hm_views.local_admin_upload),
     path('hiring_manager/hm_ad_provider/<id>', hm_views.ad_provider),
     path('hiring_manager/hm_adprovider_upload/<id>', hm_views.ad_provider_doc),
     path('hiring_manager/hm_ad_distributor/<id>', hm_views.ad_distributor),

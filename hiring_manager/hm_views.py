@@ -333,7 +333,7 @@ def local_admin(request,id):
     }
     return render(request,"hm_localadmin.html",context)
 
-def local_admin_upload(request,id):
+def local_admin_upload(request,id,uid):
     value = request.COOKIES.get('hiringmanager')
     if value != None:
         print(value)
@@ -341,7 +341,7 @@ def local_admin_upload(request,id):
     else:
         return redirect("/hiring_manager/signin")
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
-    local_admin(request,id)
+    # local_admin(request,id)
     pm_data = requests.get(f"http://127.0.0.1:3000/pm_myid/{uid}").json()[0] 
     education  = jsondec.decode(pm_data['level_education'])
     study = jsondec.decode(pm_data['field_study']) 
@@ -371,7 +371,8 @@ def local_admin_upload(request,id):
     if request.method == "POST":
         response = requests.post(f"http://127.0.0.1:3000/profile_manager_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
         print(response.status_code)
-        return redirect(f"/hiring_manager/hm_local_admin/{id}")
+        if response.status_code == 200:
+            return redirect(f"/hiring_manager/hm_local_admin/{id}")
     return render(request,"hm_LocaladminDoc.html",context)
 
 def ad_provider(request,id):
@@ -463,7 +464,8 @@ def ad_provider_doc(request,id):
         else:
             response = requests.post(f"http://127.0.0.1:3000/ad_provider_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
             print(response.status_code)
-            return redirect(f"/hiring_manager/hm_ad_provider/{id}")
+            if response.status_code == 200:
+                return redirect(f"/hiring_manager/hm_ad_provider/{id}")
 
     return render(request,"hm_adproviderdoc.html",context)
 
@@ -549,7 +551,8 @@ def ad_distributor_doc(request,id):
         print(request.POST)
         response = requests.post(f"http://127.0.0.1:3000/ad_distributor_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
         print(response.status_code)
-        return redirect(f"/hiring_manager/hm_ad_distributor/{id}")
+        if response.status_code == 200:
+            return redirect(f"/hiring_manager/hm_ad_distributor/{id}")
 
     return render(request,"hm_addistributordoc.html",context)
 
@@ -630,7 +633,8 @@ def sales_doc(request,id):
         print(request.FILES)
         response = requests.post(f"http://127.0.0.1:3000/sales_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
         print(response.status_code)
-        return redirect(f"/hiring_manager/hm_sales_person/{id}")
+        if response.status_code == 200:
+            return redirect(f"/hiring_manager/hm_sales_person/{id}")
 
     return render(request,"hm_sales_person_doc.html",context)
 
@@ -712,7 +716,8 @@ def affiliate_marketing_doc(request,id):
             print(request.FILES)
             response = requests.post(f"http://127.0.0.1:3000/affiliate_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
             print(response.status_code)
-            return redirect(f"/hiring_manager/hm_affiliate_marketing/{id}")
+            if response.status_code == 200:
+                return redirect(f"/hiring_manager/hm_affiliate_marketing/{id}")
 
         return render(request,"hm_affiliate_marketing_upload.html",context)
     except:
@@ -793,7 +798,8 @@ def private_investigator_doc(request,id):
         print(request.FILES)
         response = requests.post(f"http://127.0.0.1:3000/private_investigator_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
         print(response.status_code)
-        return redirect(f"/hiring_manager/hm_private_investigator/{id}")
+        if response.status_code == 200:
+            return redirect(f"/hiring_manager/hm_private_investigator/{id}")
 
     return render(request,"hm_private_investigator_upload.html",context)
 
@@ -872,7 +878,8 @@ def hiring_manager_doc(request,id):
         print(request.FILES)
         response = requests.post(f"http://127.0.0.1:3000/hiring_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
         print(response.status_code)
-        return redirect(f"/hiring_manager/hm_hiring_manager/{id}")
+        if response.status_code == 200:
+            return redirect(f"/hiring_manager/hm_hiring_manager/{id}")
     return render(request,"hm_hiring_manager_doc.html",context)
 
 

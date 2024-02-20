@@ -314,6 +314,7 @@ class private_investigator(models.Model):
     
     #signed document
     sign_document = models.TextField(null=True)
+    verification_img = models.TextField(null=True)
  #new qualification
     level_education = models.TextField(null=True)
     field_study = models.TextField(null=True)

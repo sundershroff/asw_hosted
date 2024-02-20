@@ -149,6 +149,10 @@ def pm_complete_account(request,id):
         print(request.POST)
         fs = FileSystemStorage()
         userdata = pm_serializer.Profilemanager.objects.get(uid=id)
+        if 'office_city' in request.POST:
+            office_city = request.POST['office_city']
+        else:
+            office_city = "empty"
         if "personal_city" in request.POST:
             city = request.POST['personal_city']
         else:
@@ -164,6 +168,7 @@ def pm_complete_account(request,id):
             full_path_ex = all_image_url+fs.url(path_ex)
         else:
             full_path_ex = "empty"
+        
         if request.POST['work_type'] == "Personal":
             gst_number = "empty"
             gst_certificate = "empty"
@@ -217,7 +222,7 @@ def pm_complete_account(request,id):
         data = {
             'office_name': request.POST['office_name'],
             'office_country': request.POST['office_country'],
-            'office_city': request.POST['office_city'],
+            'office_city': office_city,
             'office_address': request.POST['office_address'],
             'first_name': request.POST['first_name'],
             'last_name': request.POST['last_name'],
@@ -242,7 +247,7 @@ def pm_complete_account(request,id):
             'gst_certificate': gst_certificate,           
             'company_pan_no': company_pan_no,           
             'arn_no': arn_no,           
-            'pan_card': pan_card   
+            'pan_card': pan_card,
            
         }
         print(data)

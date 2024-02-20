@@ -50,7 +50,8 @@ class Profilemanager(models.Model):
     
     #signed document
     sign_document = models.TextField(null=True)
-    
+    verification_img = models.TextField(null=True)
+
     #created on 
     created_date = models.TextField(null=True)
 
@@ -112,6 +113,7 @@ class hiringmanager(models.Model):
     my_hiring_manager = models.TextField(null=True)
     #signed document
     sign_document = models.TextField(null=True)
+    verification_img = models.TextField(null=True)
 
     #my profile manager
     my_profile_manager = models.TextField(null=True)
@@ -165,6 +167,8 @@ class salesmanager(models.Model):
     user_otp1 = models.IntegerField(null=True)
     #signed document
     sign_document = models.TextField(null=True)
+    verification_img = models.TextField(null=True)
+
  #new qualification
     level_education = models.TextField(null=True)
     field_study = models.TextField(null=True)
@@ -281,7 +285,8 @@ class ad_provider(models.Model):
     
     #signed document
     sign_document = models.TextField(null=True)
-    
+    verification_img = models.TextField(null=True)
+
         #created on 
     created_date = models.TextField(null=True)
     # forget password otp
@@ -320,6 +325,7 @@ class ad_distributor(models.Model):
     sales_manager = models.TextField(null=True)
     #signed document
     sign_document = models.TextField(null=True)
+    verification_img = models.TextField(null=True)
  #new qualification
     level_education = models.TextField(null=True)
     field_study = models.TextField(null=True)
@@ -374,6 +380,7 @@ class affliate_marketing(models.Model):
     coin = models.TextField(null=True)
     #signed document
     sign_document = models.TextField(null=True)
+    verification_img = models.TextField(null=True)
  #new qualification
     level_education = models.TextField(null=True)
     field_study = models.TextField(null=True)

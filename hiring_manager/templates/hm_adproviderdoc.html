@@ -175,7 +175,7 @@
 
           <div class="col-lg-8">
             <label class="form-label">Personal Address<span>*</span></label>
-              <input type="text" value="{{ad_pro_my_data.personal_address}}" name="office_address" class="form-control" placeholder="Address">
+              <input type="text" value="{{ad_pro_my_data.personal_address}}" name="personal_address" class="form-control" placeholder="Address">
           </div> 
             
           </div>
@@ -278,7 +278,7 @@
      
                            <input type="file" value="{{ad_pro_my_data.degree_cer}}" name="degree_cer" style="
                            opacity: 0;
-                           position: absolute;" required>
+                           position: absolute;" >
      
                        </div>                      </div>
       
@@ -328,7 +328,7 @@
        
                              <input type="file" name="gst_certificate" style="
                              opacity: 0;
-                             position: absolute;" required>
+                             position: absolute;" >
                        
        
                          </div>                      </div>
@@ -357,7 +357,7 @@
       
                             <input type="file" name="pan_card" style="
                             opacity: 0;
-                            position: absolute;height: 50%;" required>
+                            position: absolute;height: 50%;" >
                       
       
                         </div>                      </div>
@@ -373,7 +373,7 @@
         
                         <div class="col-lg-6 my-3">
                           <label class="form-label">GST Number<span>*</span></label>
-                          <input type="text" name="gst_number" class="form-control" placeholder="GST Number" required>
+                          <input type="text" value="{{ad_pro_my_data.gst_number}}" name="gst_number" class="form-control" placeholder="GST Number" required>
                         </div>
                       </div>
                       <div class="row">
@@ -386,7 +386,7 @@
        
                              <input type="file" name="gst_certificate" style="
                              opacity: 0;
-                             position: absolute;" required>
+                             position: absolute;" >
                        
        
                          </div>                      </div>
@@ -395,14 +395,14 @@
         
                         <div class="col-lg-6 my-3">
                           <label class="form-label">Company Pan Number<span>*</span></label>
-                          <input type="text" name="company_pan_no" class="form-control" placeholder="Company Pan Number" required>
+                          <input type="text" value="{{ad_pro_my_data.company_pan_no}}" name="company_pan_no" class="form-control" placeholder="Company Pan Number" required>
                         </div>
                       </div>
                       <div class="row">
         
                         <div class="col-lg-6 my-3">
                           <label class="form-label">ARN Number<span>*</span></label>
-                          <input type="text" name="arn_no" class="form-control" placeholder="ARN Number" required>
+                          <input type="text" value="{{ad_pro_my_data.arn_no}}" name="arn_no" class="form-control" placeholder="ARN Number" required>
                         </div>
                       </div>
                       <div class="row pb-5">
@@ -415,7 +415,7 @@
       
                             <input type="file" name="pan_card" style="
                             opacity: 0;
-                            position: absolute;height: 50%;" required>
+                            position: absolute;height: 50%;" >
                       
       
                         </div>                      </div>
@@ -495,8 +495,8 @@ opacity: 0;
 
                     </div>
                      <header>Verification Image By Hiring Manager </header>
-                     <input type="file" id="capimg" style="display: none;" name="verification_img">
-
+                     <input type="file" id="capimg" style="opacity: 0%;position:absolute;height: 0%;" name="verification_img" required>
+<input type="hidden" id="required" required>
                      <!-- <input type="file" name="sign_document" style="
 position: absolute;
 opacity: opx;
@@ -505,11 +505,11 @@ opacity: 0;
 <!-- Button to capture image and trigger file input -->
 <div class="row" style="row-gap: 10px;">
   <div class="col-md-12">
-<button onclick="captureAndUpload()" style="width:100%;margin-left: 10px;border: none;color: white;background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);">Capture</button>
+<button type="button" onclick="captureAndUpload()" style="width:100%;margin-left: 10px;border: none;color: white;background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);">Capture</button>
 </div>
 <div class="col-md-12">
 <!-- Button to capture image -->
-<button onclick="captureImage()" style="width:100%;margin-left: 10px;border: none;color: white;background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);">Upload Image</button>
+<button type="button" onclick="captureImage()" name="uid" value="{{pm_data.uid}}" style="width:100%;margin-left: 10px;border: none;color: white;background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);">Upload Image</button>
 </div>
 </div>
 <script>
@@ -575,6 +575,7 @@ opacity: 0;
           stopCamera();
           // video.src = '';
           // video.remove();
+          document.getElementById("required").value = "required";
         }
           
         // alert(imageDataURL);
@@ -607,7 +608,7 @@ opacity: 0;
     }
 </script>
 
-<label id="sign_document-error" class="error" for="sign_document" style="margin-top: 6px;display: none;">This field is required.</label>
+<!-- <label id="sign_document-error" class="error" for="sign_document" style="margin-top: 6px;display: none;">This field is required.</label> -->
 
 
                  </div>

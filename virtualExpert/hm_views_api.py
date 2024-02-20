@@ -356,28 +356,138 @@ def profile_manager_upload_account(request,id):
         print(id)
         fs = FileSystemStorage()
         userdata = Profilemanager.objects.get(uid=id)
+        #id card
         id_card = str(request.FILES['id_card']).replace(" ", "_")
         path_one = fs.save(f"virtual_expert/profile_manager/{id}/id_card/"+id_card, request.FILES['id_card'])
 
         # full_path = "http://54.159.186.219:8000"+fs.url(path)
         full_path_one = all_image_url+fs.url(path_one)
+        #signed Document
         signed = str(request.FILES['sign_document']).replace(" ", "_")
         path_two = fs.save(f"virtual_expert/profile_manager/{id}/signed_document/"+signed, request.FILES['sign_document'])
-        
+        # full_path = "http://54.159.186.219:8000"+fs.url(path)
+        full_path_two = all_image_url+fs.url(path_two)
+        #verification Image
+        verification = str(request.FILES['verification_img']).replace(" ", "_")
+        path_three = fs.save(f"virtual_expert/profile_manager/{id}/verification_image/"+verification, request.FILES['verification_img'])
+        # full_path = "http://54.159.186.219:8000"+fs.url(path)
+        verification_img = all_image_url+fs.url(path_three)
+        #office
         if 'office_city' in request.POST:
             office_city = request.POST['office_city']
         else:
             office_city = "empty"
-        # full_path = "http://54.159.186.219:8000"+fs.url(path)
-        full_path_two = all_image_url+fs.url(path_two)
+        #personal
+        if "personal_city" in request.POST:
+            city = request.POST['personal_city']
+        else:
+            city = "None"
+        #degree certificate
+        try:
+            degree_certificate_1 = str(request.FILES['degree_cer']).replace(" ", "_")
+            path_deg = fs.save(f"virtual_expert/profile_manager/{id}/degree_certificate/"+degree_certificate_1, request.FILES['degree_cer'])
+            full_path_degree = all_image_url+fs.url(path_deg)
+        except:
+            full_path_degree = userdata.degree_cer
+         #experience certificate
+        
+        try:
+            ex_certificate_1 = str(request.FILES['ex_cer']).replace(" ", "_")
+            path_ex = fs.save(f"virtual_expert/profile_manager/{id}/experience_certificate/"+ex_certificate_1, request.FILES['ex_cer'])
+            full_path_ex = all_image_url+fs.url(path_ex)
+        except:
+            full_path_ex = userdata.ex_cer
+        #type
+        if request.POST['work_type'] == "Personal":
+            gst_number = "empty"
+            gst_certificate = "empty"
+            company_pan_no = "empty"
+            arn_no = "empty"
+            pan_card = "empty"
+        else:
+            #gst certificate
+            try:
+                gst_certificate_1 = str(request.FILES['gst_certificate']).replace(" ", "_")
+                path = fs.save(f"virtual_expert/profile_manager/{id}/gst_certificate/"+gst_certificate_1, request.FILES['gst_certificate'])
+                full_path_gst = all_image_url+fs.url(path)
+            except:
+                full_path_gst = userdata.gst_certificate
+            #pan card
+            try:
+                pan_card_1 = str(request.FILES['pan_card']).replace(" ", "_")
+                path1 = fs.save(f"virtual_expert/profile_manager/{id}/pan_card/"+pan_card_1, request.FILES['pan_card'])
+                full_path_pan = all_image_url+fs.url(path1)
+            except:
+                full_path_pan = userdata.pan_card
+            #############
+            gst_number = request.POST['gst_number']
+            gst_certificate = full_path_gst
+            company_pan_no = request.POST['company_pan_no']
+            arn_no = request.POST['arn_no']
+            pan_card = full_path_pan
+        #work
+        if request.POST['work_job_title'] == '':
+            work_job_title = "empty"
+        else:
+            work_job_title = request.POST['work_job_title']
+        if request.POST['work_company_name'] == '':
+            work_company_name = "empty"
+        else:
+            work_company_name = request.POST['work_company_name']
+        if request.POST['work_job_location'] == '':
+            work_job_location = "empty"
+        else:
+            work_job_location = request.POST['work_job_location']
+        if request.POST['ex_job_title'] == '':
+            ex_job_title = "empty"
+        else:
+            ex_job_title =request.POST['ex_job_title']
+        if request.POST['ex_company_name'] == '':
+            ex_company_name = "empty"
+        else:
+            ex_company_name =request.POST['ex_company_name']
+        if request.POST['year_experience'] == '':
+            year_experience = "empty"
+        else:
+            year_experience =request.POST['year_experience']
+        if request.POST['ex_location'] == '':
+            ex_location = "empty"
+        else:
+            ex_location =request.POST['ex_location']
+        print("helo")
         data = {
             'office_name': request.POST['office_name'],
             'office_country': request.POST['office_country'],
             'office_city': office_city,
             'office_address': request.POST['office_address'],  
+            'first_name': request.POST['first_name'],
+            'last_name': request.POST['last_name'],
+            'personal_country': request.POST['personal_country'],
+            'personal_city': city,
+            'personal_address': request.POST['personal_address'],
+            'level_education': json.dumps(request.POST.getlist('level_education')),           
+            'field_study': json.dumps(request.POST.getlist('field_study')),           
+            'work_job_title': work_job_title,           
+            'work_company_name': work_company_name,           
+            'work_job_location': work_job_location,           
+            'ex_job_title': ex_job_title,           
+            'ex_company_name': ex_company_name,           
+            'year_experience': year_experience,           
+            'ex_location': ex_location,           
+            'degree_cer': full_path_degree,           
+            'ex_cer': full_path_ex,           
+            'work_type': request.POST['work_type'],           
+            'gst_number': gst_number,           
+            'gst_certificate': gst_certificate,           
+            'company_pan_no': company_pan_no,           
+            'arn_no': arn_no,           
+            'pan_card': pan_card,       
             'id_card': full_path_one,
-            'sign_document': full_path_two
-           
+            'sign_document': full_path_two,
+            'verification_img':verification_img   
+
+
+
         }
 
         print(data)
@@ -435,20 +545,125 @@ def ad_provider_upload_account(request,id):
         full_path_one = all_image_url+fs.url(path_one)
         signed = str(request.FILES['sign_document']).replace(" ", "_")
         path_two = fs.save(f"virtual_expert/ad_provider/{id}/signed_document/"+signed, request.FILES['sign_document'])
-
+        full_path_two = all_image_url+fs.url(path_two)
+        #verification Image
+        verification = str(request.FILES['verification_img']).replace(" ", "_")
+        path_three = fs.save(f"virtual_expert/ad_provider/{id}/verification_image/"+verification, request.FILES['verification_img'])
+        # full_path = "http://54.159.186.219:8000"+fs.url(path)
+        verification_img = all_image_url+fs.url(path_three)
+        #office
         if 'office_city' in request.POST:
             office_city = request.POST['office_city']
         else:
             office_city = "empty"
-        # full_path = "http://54.159.186.219:8000"+fs.url(path)
-        full_path_two = all_image_url+fs.url(path_two)
+        #personal
+        if "personal_city" in request.POST:
+            city = request.POST['personal_city']
+        else:
+            city = "None"
+        #degree certificate
+        try:
+            degree_certificate_1 = str(request.FILES['degree_cer']).replace(" ", "_")
+            path_deg = fs.save(f"virtual_expert/ad_provider/{id}/degree_certificate/"+degree_certificate_1, request.FILES['degree_cer'])
+            full_path_degree = all_image_url+fs.url(path_deg)
+        except:
+            full_path_degree = userdata.degree_cer
+         #experience certificate
+        
+        try:
+            ex_certificate_1 = str(request.FILES['ex_cer']).replace(" ", "_")
+            path_ex = fs.save(f"virtual_expert/ad_provider/{id}/experience_certificate/"+ex_certificate_1, request.FILES['ex_cer'])
+            full_path_ex = all_image_url+fs.url(path_ex)
+        except:
+            full_path_ex = userdata.ex_cer
+        #type
+        if request.POST['work_type'] == "Personal":
+            gst_number = "empty"
+            gst_certificate = "empty"
+            company_pan_no = "empty"
+            arn_no = "empty"
+            pan_card = "empty"
+        else:
+            #gst certificate
+            try:
+                gst_certificate_1 = str(request.FILES['gst_certificate']).replace(" ", "_")
+                path = fs.save(f"virtual_expert/ad_provider/{id}/gst_certificate/"+gst_certificate_1, request.FILES['gst_certificate'])
+                full_path_gst = all_image_url+fs.url(path)
+            except:
+                full_path_gst = userdata.gst_certificate
+            #pan card
+            try:
+                pan_card_1 = str(request.FILES['pan_card']).replace(" ", "_")
+                path1 = fs.save(f"virtual_expert/ad_provider/{id}/pan_card/"+pan_card_1, request.FILES['pan_card'])
+                full_path_pan = all_image_url+fs.url(path1)
+            except:
+                full_path_pan = userdata.pan_card
+            #############
+            gst_number = request.POST['gst_number']
+            gst_certificate = full_path_gst
+            company_pan_no = request.POST['company_pan_no']
+            arn_no = request.POST['arn_no']
+            pan_card = full_path_pan
+        #work
+        if request.POST['work_job_title'] == '':
+            work_job_title = "empty"
+        else:
+            work_job_title = request.POST['work_job_title']
+        if request.POST['work_company_name'] == '':
+            work_company_name = "empty"
+        else:
+            work_company_name = request.POST['work_company_name']
+        if request.POST['work_job_location'] == '':
+            work_job_location = "empty"
+        else:
+            work_job_location = request.POST['work_job_location']
+        if request.POST['ex_job_title'] == '':
+            ex_job_title = "empty"
+        else:
+            ex_job_title =request.POST['ex_job_title']
+        if request.POST['ex_company_name'] == '':
+            ex_company_name = "empty"
+        else:
+            ex_company_name =request.POST['ex_company_name']
+        if request.POST['year_experience'] == '':
+            year_experience = "empty"
+        else:
+            year_experience =request.POST['year_experience']
+        if request.POST['ex_location'] == '':
+            ex_location = "empty"
+        else:
+            ex_location =request.POST['ex_location']
+        print("helo")
         data = {
             'office_name': request.POST['office_name'],
             'office_country': request.POST['office_country'],
             'office_city': office_city,
             'office_address': request.POST['office_address'],  
+            'first_name': request.POST['first_name'],
+            'last_name': request.POST['last_name'],
+            'personal_country': request.POST['personal_country'],
+            'personal_city': city,
+            'personal_address': request.POST['personal_address'],
+            'level_education': json.dumps(request.POST.getlist('level_education')),           
+            'field_study': json.dumps(request.POST.getlist('field_study')),           
+            'work_job_title': work_job_title,           
+            'work_company_name': work_company_name,           
+            'work_job_location': work_job_location,           
+            'ex_job_title': ex_job_title,           
+            'ex_company_name': ex_company_name,           
+            'year_experience': year_experience,           
+            'ex_location': ex_location,           
+            'degree_cer': full_path_degree,           
+            'ex_cer': full_path_ex,           
+            'work_type': request.POST['work_type'],           
+            'gst_number': gst_number,           
+            'gst_certificate': gst_certificate,           
+            'company_pan_no': company_pan_no,           
+            'arn_no': arn_no,           
+            'pan_card': pan_card,       
             'id_card': full_path_one,
-            'sign_document': full_path_two
+            'sign_document': full_path_two,
+            'verification_img':verification_img
            
         }
 
@@ -510,17 +725,124 @@ def ad_distributor_upload_account(request,id):
         # full_path = "http://54.159.186.219:8000"+fs.url(path)
         full_path_two = all_image_url+fs.url(path_two)
 
+        #verification Image
+        verification = str(request.FILES['verification_img']).replace(" ", "_")
+        path_three = fs.save(f"virtual_expert/ad_distributor/{id}/verification_image/"+verification, request.FILES['verification_img'])
+        # full_path = "http://54.159.186.219:8000"+fs.url(path)
+        verification_img = all_image_url+fs.url(path_three)
+        #office
         if 'office_city' in request.POST:
             office_city = request.POST['office_city']
         else:
             office_city = "empty"
+        #personal
+        if "personal_city" in request.POST:
+            city = request.POST['personal_city']
+        else:
+            city = "None"
+        #degree certificate
+        try:
+            degree_certificate_1 = str(request.FILES['degree_cer']).replace(" ", "_")
+            path_deg = fs.save(f"virtual_expert/ad_distributor/{id}/degree_certificate/"+degree_certificate_1, request.FILES['degree_cer'])
+            full_path_degree = all_image_url+fs.url(path_deg)
+        except:
+            full_path_degree = userdata.degree_cer
+         #experience certificate
+        
+        try:
+            ex_certificate_1 = str(request.FILES['ex_cer']).replace(" ", "_")
+            path_ex = fs.save(f"virtual_expert/ad_distributor/{id}/experience_certificate/"+ex_certificate_1, request.FILES['ex_cer'])
+            full_path_ex = all_image_url+fs.url(path_ex)
+        except:
+            full_path_ex = userdata.ex_cer
+        #type
+        if request.POST['work_type'] == "Personal":
+            gst_number = "empty"
+            gst_certificate = "empty"
+            company_pan_no = "empty"
+            arn_no = "empty"
+            pan_card = "empty"
+        else:
+            #gst certificate
+            try:
+                gst_certificate_1 = str(request.FILES['gst_certificate']).replace(" ", "_")
+                path = fs.save(f"virtual_expert/ad_distributor/{id}/gst_certificate/"+gst_certificate_1, request.FILES['gst_certificate'])
+                full_path_gst = all_image_url+fs.url(path)
+            except:
+                full_path_gst = userdata.gst_certificate
+            #pan card
+            try:
+                pan_card_1 = str(request.FILES['pan_card']).replace(" ", "_")
+                path1 = fs.save(f"virtual_expert/ad_distributor/{id}/pan_card/"+pan_card_1, request.FILES['pan_card'])
+                full_path_pan = all_image_url+fs.url(path1)
+            except:
+                full_path_pan = userdata.pan_card
+            #############
+            gst_number = request.POST['gst_number']
+            gst_certificate = full_path_gst
+            company_pan_no = request.POST['company_pan_no']
+            arn_no = request.POST['arn_no']
+            pan_card = full_path_pan
+        #work
+        if request.POST['work_job_title'] == '':
+            work_job_title = "empty"
+        else:
+            work_job_title = request.POST['work_job_title']
+        if request.POST['work_company_name'] == '':
+            work_company_name = "empty"
+        else:
+            work_company_name = request.POST['work_company_name']
+        if request.POST['work_job_location'] == '':
+            work_job_location = "empty"
+        else:
+            work_job_location = request.POST['work_job_location']
+        if request.POST['ex_job_title'] == '':
+            ex_job_title = "empty"
+        else:
+            ex_job_title =request.POST['ex_job_title']
+        if request.POST['ex_company_name'] == '':
+            ex_company_name = "empty"
+        else:
+            ex_company_name =request.POST['ex_company_name']
+        if request.POST['year_experience'] == '':
+            year_experience = "empty"
+        else:
+            year_experience =request.POST['year_experience']
+        if request.POST['ex_location'] == '':
+            ex_location = "empty"
+        else:
+            ex_location =request.POST['ex_location']
+        print("helo")
         data = {
             'office_name': request.POST['office_name'],
             'office_country': request.POST['office_country'],
             'office_city': office_city,
             'office_address': request.POST['office_address'],  
+            'first_name': request.POST['first_name'],
+            'last_name': request.POST['last_name'],
+            'personal_country': request.POST['personal_country'],
+            'personal_city': city,
+            'personal_address': request.POST['personal_address'],
+            'level_education': json.dumps(request.POST.getlist('level_education')),           
+            'field_study': json.dumps(request.POST.getlist('field_study')),           
+            'work_job_title': work_job_title,           
+            'work_company_name': work_company_name,           
+            'work_job_location': work_job_location,           
+            'ex_job_title': ex_job_title,           
+            'ex_company_name': ex_company_name,           
+            'year_experience': year_experience,           
+            'ex_location': ex_location,           
+            'degree_cer': full_path_degree,           
+            'ex_cer': full_path_ex,           
+            'work_type': request.POST['work_type'],           
+            'gst_number': gst_number,           
+            'gst_certificate': gst_certificate,           
+            'company_pan_no': company_pan_no,           
+            'arn_no': arn_no,           
+            'pan_card': pan_card,       
             'id_card': full_path_one,
-            'sign_document': full_path_two
+            'sign_document': full_path_two,
+            'verification_img':verification_img
            
         }
 
@@ -583,17 +905,115 @@ def sales_upload_account(request,id):
         # full_path = "http://54.159.186.219:8000"+fs.url(path)
         full_path_two = all_image_url+fs.url(path_two)
         
-        if 'personal_city' in request.POST:
-            personal_city = request.POST['personal_city']
+        #verification Image
+        verification = str(request.FILES['verification_img']).replace(" ", "_")
+        path_three = fs.save(f"virtual_expert/sales_manager/{id}/verification_image/"+verification, request.FILES['verification_img'])
+        # full_path = "http://54.159.186.219:8000"+fs.url(path)
+        verification_img = all_image_url+fs.url(path_three)
+        
+        #personal
+        if "personal_city" in request.POST:
+            city = request.POST['personal_city']
         else:
-            personal_city = "empty"
+            city = "None"
+        #degree certificate
+        try:
+            degree_certificate_1 = str(request.FILES['degree_cer']).replace(" ", "_")
+            path_deg = fs.save(f"virtual_expert/sales_manager/{id}/degree_certificate/"+degree_certificate_1, request.FILES['degree_cer'])
+            full_path_degree = all_image_url+fs.url(path_deg)
+        except:
+            full_path_degree = userdata.degree_cer
+         #experience certificate
+        
+        try:
+            ex_certificate_1 = str(request.FILES['ex_cer']).replace(" ", "_")
+            path_ex = fs.save(f"virtual_expert/sales_manager/{id}/experience_certificate/"+ex_certificate_1, request.FILES['ex_cer'])
+            full_path_ex = all_image_url+fs.url(path_ex)
+        except:
+            full_path_ex = userdata.ex_cer
+        #type
+        if request.POST['work_type'] == "Personal":
+            gst_number = "empty"
+            gst_certificate = "empty"
+            company_pan_no = "empty"
+            arn_no = "empty"
+            pan_card = "empty"
+        else:
+            #gst certificate
+            try:
+                gst_certificate_1 = str(request.FILES['gst_certificate']).replace(" ", "_")
+                path = fs.save(f"virtual_expert/sales_manager/{id}/gst_certificate/"+gst_certificate_1, request.FILES['gst_certificate'])
+                full_path_gst = all_image_url+fs.url(path)
+            except:
+                full_path_gst = userdata.gst_certificate
+            #pan card
+            try:
+                pan_card_1 = str(request.FILES['pan_card']).replace(" ", "_")
+                path1 = fs.save(f"virtual_expert/sales_manager/{id}/pan_card/"+pan_card_1, request.FILES['pan_card'])
+                full_path_pan = all_image_url+fs.url(path1)
+            except:
+                full_path_pan = userdata.pan_card
+            #############
+            gst_number = request.POST['gst_number']
+            gst_certificate = full_path_gst
+            company_pan_no = request.POST['company_pan_no']
+            arn_no = request.POST['arn_no']
+            pan_card = full_path_pan
+        #work
+        if request.POST['work_job_title'] == '':
+            work_job_title = "empty"
+        else:
+            work_job_title = request.POST['work_job_title']
+        if request.POST['work_company_name'] == '':
+            work_company_name = "empty"
+        else:
+            work_company_name = request.POST['work_company_name']
+        if request.POST['work_job_location'] == '':
+            work_job_location = "empty"
+        else:
+            work_job_location = request.POST['work_job_location']
+        if request.POST['ex_job_title'] == '':
+            ex_job_title = "empty"
+        else:
+            ex_job_title =request.POST['ex_job_title']
+        if request.POST['ex_company_name'] == '':
+            ex_company_name = "empty"
+        else:
+            ex_company_name =request.POST['ex_company_name']
+        if request.POST['year_experience'] == '':
+            year_experience = "empty"
+        else:
+            year_experience =request.POST['year_experience']
+        if request.POST['ex_location'] == '':
+            ex_location = "empty"
+        else:
+            ex_location =request.POST['ex_location']
+        print("helo")
         data = {
             'full_name': request.POST['full_name'],
             'personal_country': request.POST['personal_country'],
-            'personal_city': personal_city,
+            'personal_city': city,
             'personal_address': request.POST['personal_address'],  
+            'level_education': json.dumps(request.POST.getlist('level_education')),           
+            'field_study': json.dumps(request.POST.getlist('field_study')),           
+            'work_job_title': work_job_title,           
+            'work_company_name': work_company_name,           
+            'work_job_location': work_job_location,           
+            'ex_job_title': ex_job_title,           
+            'ex_company_name': ex_company_name,           
+            'year_experience': year_experience,           
+            'ex_location': ex_location,           
+            'degree_cer': full_path_degree,           
+            'ex_cer': full_path_ex,           
+            'work_type': request.POST['work_type'],           
+            'gst_number': gst_number,           
+            'gst_certificate': gst_certificate,           
+            'company_pan_no': company_pan_no,           
+            'arn_no': arn_no,           
+            'pan_card': pan_card,       
             'id_card': full_path_one,
-            'sign_document': full_path_two
+            'sign_document': full_path_two,
+            'verification_img':verification_img
            
         }
 
@@ -657,20 +1077,126 @@ def hiring_upload_account(request,id):
         # full_path = "http://54.159.186.219:8000"+fs.url(path)
         full_path_two = all_image_url+fs.url(path_two)
         
+        #verification Image
+        verification = str(request.FILES['verification_img']).replace(" ", "_")
+        path_three = fs.save(f"virtual_expert/hiring_manager/{id}/verification_image/"+verification, request.FILES['verification_img'])
+        # full_path = "http://54.159.186.219:8000"+fs.url(path)
+        verification_img = all_image_url+fs.url(path_three)
+        #office
         if 'office_city' in request.POST:
             office_city = request.POST['office_city']
         else:
             office_city = "empty"
+        #personal
+        if "personal_city" in request.POST:
+            city = request.POST['personal_city']
+        else:
+            city = "None"
+        #degree certificate
+        try:
+            degree_certificate_1 = str(request.FILES['degree_cer']).replace(" ", "_")
+            path_deg = fs.save(f"virtual_expert/hiring_manager/{id}/degree_certificate/"+degree_certificate_1, request.FILES['degree_cer'])
+            full_path_degree = all_image_url+fs.url(path_deg)
+        except:
+            full_path_degree = userdata.degree_cer
+         #experience certificate
+        
+        try:
+            ex_certificate_1 = str(request.FILES['ex_cer']).replace(" ", "_")
+            path_ex = fs.save(f"virtual_expert/hiring_manager/{id}/experience_certificate/"+ex_certificate_1, request.FILES['ex_cer'])
+            full_path_ex = all_image_url+fs.url(path_ex)
+        except:
+            full_path_ex = userdata.ex_cer
+        #type
+        if request.POST['work_type'] == "Personal":
+            gst_number = "empty"
+            gst_certificate = "empty"
+            company_pan_no = "empty"
+            arn_no = "empty"
+            pan_card = "empty"
+        else:
+            #gst certificate
+            try:
+                gst_certificate_1 = str(request.FILES['gst_certificate']).replace(" ", "_")
+                path = fs.save(f"virtual_expert/hiring_manager/{id}/gst_certificate/"+gst_certificate_1, request.FILES['gst_certificate'])
+                full_path_gst = all_image_url+fs.url(path)
+            except:
+                full_path_gst = userdata.gst_certificate
+            #pan card
+            try:
+                pan_card_1 = str(request.FILES['pan_card']).replace(" ", "_")
+                path1 = fs.save(f"virtual_expert/hiring_manager/{id}/pan_card/"+pan_card_1, request.FILES['pan_card'])
+                full_path_pan = all_image_url+fs.url(path1)
+            except:
+                full_path_pan = userdata.pan_card
+            #############
+            gst_number = request.POST['gst_number']
+            gst_certificate = full_path_gst
+            company_pan_no = request.POST['company_pan_no']
+            arn_no = request.POST['arn_no']
+            pan_card = full_path_pan
+        #work
+        if request.POST['work_job_title'] == '':
+            work_job_title = "empty"
+        else:
+            work_job_title = request.POST['work_job_title']
+        if request.POST['work_company_name'] == '':
+            work_company_name = "empty"
+        else:
+            work_company_name = request.POST['work_company_name']
+        if request.POST['work_job_location'] == '':
+            work_job_location = "empty"
+        else:
+            work_job_location = request.POST['work_job_location']
+        if request.POST['ex_job_title'] == '':
+            ex_job_title = "empty"
+        else:
+            ex_job_title =request.POST['ex_job_title']
+        if request.POST['ex_company_name'] == '':
+            ex_company_name = "empty"
+        else:
+            ex_company_name =request.POST['ex_company_name']
+        if request.POST['year_experience'] == '':
+            year_experience = "empty"
+        else:
+            year_experience =request.POST['year_experience']
+        if request.POST['ex_location'] == '':
+            ex_location = "empty"
+        else:
+            ex_location =request.POST['ex_location']
+        print("helo")
         data = {
             'office_name': request.POST['office_name'],
             'office_country': request.POST['office_country'],
             'office_city': office_city,
             'office_address': request.POST['office_address'],  
+            'first_name': request.POST['first_name'],
+            'last_name': request.POST['last_name'],
+            'personal_country': request.POST['personal_country'],
+            'personal_city': city,
+            'personal_address': request.POST['personal_address'],
+            'level_education': json.dumps(request.POST.getlist('level_education')),           
+            'field_study': json.dumps(request.POST.getlist('field_study')),           
+            'work_job_title': work_job_title,           
+            'work_company_name': work_company_name,           
+            'work_job_location': work_job_location,           
+            'ex_job_title': ex_job_title,           
+            'ex_company_name': ex_company_name,           
+            'year_experience': year_experience,           
+            'ex_location': ex_location,           
+            'degree_cer': full_path_degree,           
+            'ex_cer': full_path_ex,           
+            'work_type': request.POST['work_type'],           
+            'gst_number': gst_number,           
+            'gst_certificate': gst_certificate,           
+            'company_pan_no': company_pan_no,           
+            'arn_no': arn_no,           
+            'pan_card': pan_card,       
             'id_card': full_path_one,
-            'sign_document': full_path_two
+            'sign_document': full_path_two,
+            'verification_img':verification_img
            
         }
-
         print(data)
         basicdetailsserializer = hm_serializer.hiring_acc_Serializer(
             instance=userdata, data=data, partial=True)
@@ -731,17 +1257,115 @@ def affiliate_upload_account(request,id):
 
         # full_path = "http://54.159.186.219:8000"+fs.url(path)
         full_path_two = all_image_url+fs.url(path_two)
-        if 'personal_city' in request.POST:
-            personal_city = request.POST['personal_city']
+        #verification Image
+        verification = str(request.FILES['verification_img']).replace(" ", "_")
+        path_three = fs.save(f"virtual_expert/affliate_marketing/{id}/verification_image/"+verification, request.FILES['verification_img'])
+        # full_path = "http://54.159.186.219:8000"+fs.url(path)
+        verification_img = all_image_url+fs.url(path_three)
+        
+        #personal
+        if "personal_city" in request.POST:
+            city = request.POST['personal_city']
         else:
-            personal_city = "empty"
+            city = "None"
+        #degree certificate
+        try:
+            degree_certificate_1 = str(request.FILES['degree_cer']).replace(" ", "_")
+            path_deg = fs.save(f"virtual_expert/affliate_marketing/{id}/degree_certificate/"+degree_certificate_1, request.FILES['degree_cer'])
+            full_path_degree = all_image_url+fs.url(path_deg)
+        except:
+            full_path_degree = userdata.degree_cer
+         #experience certificate
+        
+        try:
+            ex_certificate_1 = str(request.FILES['ex_cer']).replace(" ", "_")
+            path_ex = fs.save(f"virtual_expert/affliate_marketing/{id}/experience_certificate/"+ex_certificate_1, request.FILES['ex_cer'])
+            full_path_ex = all_image_url+fs.url(path_ex)
+        except:
+            full_path_ex = userdata.ex_cer
+        #type
+        if request.POST['work_type'] == "Personal":
+            gst_number = "empty"
+            gst_certificate = "empty"
+            company_pan_no = "empty"
+            arn_no = "empty"
+            pan_card = "empty"
+        else:
+            #gst certificate
+            try:
+                gst_certificate_1 = str(request.FILES['gst_certificate']).replace(" ", "_")
+                path = fs.save(f"virtual_expert/affliate_marketing/{id}/gst_certificate/"+gst_certificate_1, request.FILES['gst_certificate'])
+                full_path_gst = all_image_url+fs.url(path)
+            except:
+                full_path_gst = userdata.gst_certificate
+            #pan card
+            try:
+                pan_card_1 = str(request.FILES['pan_card']).replace(" ", "_")
+                path1 = fs.save(f"virtual_expert/affliate_marketing/{id}/pan_card/"+pan_card_1, request.FILES['pan_card'])
+                full_path_pan = all_image_url+fs.url(path1)
+            except:
+                full_path_pan = userdata.pan_card
+            #############
+            gst_number = request.POST['gst_number']
+            gst_certificate = full_path_gst
+            company_pan_no = request.POST['company_pan_no']
+            arn_no = request.POST['arn_no']
+            pan_card = full_path_pan
+        #work
+        if request.POST['work_job_title'] == '':
+            work_job_title = "empty"
+        else:
+            work_job_title = request.POST['work_job_title']
+        if request.POST['work_company_name'] == '':
+            work_company_name = "empty"
+        else:
+            work_company_name = request.POST['work_company_name']
+        if request.POST['work_job_location'] == '':
+            work_job_location = "empty"
+        else:
+            work_job_location = request.POST['work_job_location']
+        if request.POST['ex_job_title'] == '':
+            ex_job_title = "empty"
+        else:
+            ex_job_title =request.POST['ex_job_title']
+        if request.POST['ex_company_name'] == '':
+            ex_company_name = "empty"
+        else:
+            ex_company_name =request.POST['ex_company_name']
+        if request.POST['year_experience'] == '':
+            year_experience = "empty"
+        else:
+            year_experience =request.POST['year_experience']
+        if request.POST['ex_location'] == '':
+            ex_location = "empty"
+        else:
+            ex_location =request.POST['ex_location']
+        print("helo")
         data = {
             'full_name': request.POST['full_name'],
             'personal_country': request.POST['personal_country'],
-            'personal_city': personal_city,
+            'personal_city': city,
             'personal_address': request.POST['personal_address'],  
+            'level_education': json.dumps(request.POST.getlist('level_education')),           
+            'field_study': json.dumps(request.POST.getlist('field_study')),           
+            'work_job_title': work_job_title,           
+            'work_company_name': work_company_name,           
+            'work_job_location': work_job_location,           
+            'ex_job_title': ex_job_title,           
+            'ex_company_name': ex_company_name,           
+            'year_experience': year_experience,           
+            'ex_location': ex_location,           
+            'degree_cer': full_path_degree,           
+            'ex_cer': full_path_ex,           
+            'work_type': request.POST['work_type'],           
+            'gst_number': gst_number,           
+            'gst_certificate': gst_certificate,           
+            'company_pan_no': company_pan_no,           
+            'arn_no': arn_no,           
+            'pan_card': pan_card,       
             'id_card': full_path_one,
-            'sign_document': full_path_two
+            'sign_document': full_path_two,
+            'verification_img':verification_img
            
         }
 
@@ -797,26 +1421,133 @@ def private_investigator_upload_account(request,id):
         userdata = models.private_investigator.objects.get(uid=id)
         
         id_card = str(request.FILES['id_card']).replace(" ", "_")
-        path_one = fs.save(f"virtual_expert/affliate_marketing/{id}/id_card/"+id_card, request.FILES['id_card'])
+        path_one = fs.save(f"virtual_expert/private_investigator/{id}/id_card/"+id_card, request.FILES['id_card'])
 
         # full_path = "http://54.159.186.219:8000"+fs.url(path)
         full_path_one = all_image_url+fs.url(path_one)
         signed = str(request.FILES['sign_document']).replace(" ", "_")
-        path_two = fs.save(f"virtual_expert/affliate_marketing/{id}/signed_document/"+signed, request.FILES['sign_document'])
+        path_two = fs.save(f"virtual_expert/private_investigator/{id}/signed_document/"+signed, request.FILES['sign_document'])
 
         # full_path = "http://54.159.186.219:8000"+fs.url(path)
         full_path_two = all_image_url+fs.url(path_two)
+        #verification Image
+        verification = str(request.FILES['verification_img']).replace(" ", "_")
+        path_three = fs.save(f"virtual_expert/private_investigator/{id}/verification_image/"+verification, request.FILES['verification_img'])
+        # full_path = "http://54.159.186.219:8000"+fs.url(path)
+        verification_img = all_image_url+fs.url(path_three)
+        #office
         if 'office_city' in request.POST:
             office_city = request.POST['office_city']
         else:
             office_city = "empty"
+        #personal
+        if "personal_city" in request.POST:
+            city = request.POST['personal_city']
+        else:
+            city = "None"
+        #degree certificate
+        try:
+            degree_certificate_1 = str(request.FILES['degree_cer']).replace(" ", "_")
+            path_deg = fs.save(f"virtual_expert/private_investigator/{id}/degree_certificate/"+degree_certificate_1, request.FILES['degree_cer'])
+            full_path_degree = all_image_url+fs.url(path_deg)
+        except:
+            full_path_degree = userdata.degree_cer
+         #experience certificate
+        
+        try:
+            ex_certificate_1 = str(request.FILES['ex_cer']).replace(" ", "_")
+            path_ex = fs.save(f"virtual_expert/private_investigator/{id}/experience_certificate/"+ex_certificate_1, request.FILES['ex_cer'])
+            full_path_ex = all_image_url+fs.url(path_ex)
+        except:
+            full_path_ex = userdata.ex_cer
+        #type
+        if request.POST['work_type'] == "Personal":
+            gst_number = "empty"
+            gst_certificate = "empty"
+            company_pan_no = "empty"
+            arn_no = "empty"
+            pan_card = "empty"
+        else:
+            #gst certificate
+            try:
+                gst_certificate_1 = str(request.FILES['gst_certificate']).replace(" ", "_")
+                path = fs.save(f"virtual_expert/private_investigator/{id}/gst_certificate/"+gst_certificate_1, request.FILES['gst_certificate'])
+                full_path_gst = all_image_url+fs.url(path)
+            except:
+                full_path_gst = userdata.gst_certificate
+            #pan card
+            try:
+                pan_card_1 = str(request.FILES['pan_card']).replace(" ", "_")
+                path1 = fs.save(f"virtual_expert/private_investigator/{id}/pan_card/"+pan_card_1, request.FILES['pan_card'])
+                full_path_pan = all_image_url+fs.url(path1)
+            except:
+                full_path_pan = userdata.pan_card
+            #############
+            gst_number = request.POST['gst_number']
+            gst_certificate = full_path_gst
+            company_pan_no = request.POST['company_pan_no']
+            arn_no = request.POST['arn_no']
+            pan_card = full_path_pan
+        #work
+        if request.POST['work_job_title'] == '':
+            work_job_title = "empty"
+        else:
+            work_job_title = request.POST['work_job_title']
+        if request.POST['work_company_name'] == '':
+            work_company_name = "empty"
+        else:
+            work_company_name = request.POST['work_company_name']
+        if request.POST['work_job_location'] == '':
+            work_job_location = "empty"
+        else:
+            work_job_location = request.POST['work_job_location']
+        if request.POST['ex_job_title'] == '':
+            ex_job_title = "empty"
+        else:
+            ex_job_title =request.POST['ex_job_title']
+        if request.POST['ex_company_name'] == '':
+            ex_company_name = "empty"
+        else:
+            ex_company_name =request.POST['ex_company_name']
+        if request.POST['year_experience'] == '':
+            year_experience = "empty"
+        else:
+            year_experience =request.POST['year_experience']
+        if request.POST['ex_location'] == '':
+            ex_location = "empty"
+        else:
+            ex_location =request.POST['ex_location']
+        print("helo")
         data = {
             'office_name': request.POST['office_name'],
             'office_country': request.POST['office_country'],
             'office_city': office_city,
             'office_address': request.POST['office_address'],  
+            'first_name': request.POST['first_name'],
+            'last_name': request.POST['last_name'],
+            'personal_country': request.POST['personal_country'],
+            'personal_city': city,
+            'personal_address': request.POST['personal_address'],
+            'level_education': json.dumps(request.POST.getlist('level_education')),           
+            'field_study': json.dumps(request.POST.getlist('field_study')),           
+            'work_job_title': work_job_title,           
+            'work_company_name': work_company_name,           
+            'work_job_location': work_job_location,           
+            'ex_job_title': ex_job_title,           
+            'ex_company_name': ex_company_name,           
+            'year_experience': year_experience,           
+            'ex_location': ex_location,           
+            'degree_cer': full_path_degree,           
+            'ex_cer': full_path_ex,           
+            'work_type': request.POST['work_type'],           
+            'gst_number': gst_number,           
+            'gst_certificate': gst_certificate,           
+            'company_pan_no': company_pan_no,           
+            'arn_no': arn_no,           
+            'pan_card': pan_card,       
             'id_card': full_path_one,
-            'sign_document': full_path_two
+            'sign_document': full_path_two,
+            'verification_img':verification_img
            
         }
 
