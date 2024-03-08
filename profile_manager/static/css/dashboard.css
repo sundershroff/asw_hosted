@@ -74,7 +74,7 @@
 
 .dash_par3{
 	display:flex;
-	gap:15px;
+	gap:49px;
 	flex-wrap:wrap;
 	justify-content:center;
 	align-items:center;
@@ -151,6 +151,7 @@
 	column-gap:8px;
 	align-items:center;
 }
+
 /*media*/
 @media(max-width:1215px){
 	.dash_par3{

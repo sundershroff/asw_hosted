@@ -39,7 +39,7 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rights reserved</h5>
   </header>
   
   </div>
@@ -65,11 +65,11 @@
          </div>
 
     </div> -->
-    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>  
+   
     <!-- over -->
 
     <!-- start2 -->
-    <div class="dash_par2 my-5 px-3"> 
+    <div class="dash_par2 my-2 px-3"> 
          
         <h4>Dashboard</h4>
 
@@ -79,7 +79,7 @@
     <!-- over -->
 
     <!-- start3 -->
-      <div class="dash_par3 my-4 px-3"> 
+      <div class="dash_par3 my-2 px-3"> 
          
         <div class="dash_bor_box">
            
@@ -155,7 +155,7 @@
     </div>
     <!-- over -->
     <!-- start -->
-    <div class="dash_bor_rsp my-4 px-3">
+    <div class="dash_bor_rsp my-2 px-3">
 
       <div>
         <h4>Recent Clients</h4>
@@ -178,7 +178,7 @@
     <!-- start -->
      <div class="dash_bor_table px-4">
 
-      <table class=" table table-borderless">
+      <table class=" table table-borderless" style="margin-bottom: 0.1rem;">
 
       <tr class="me-5">
         
@@ -195,16 +195,15 @@
         
         <td class="py-4">{{i.email}}</td>
       </tr>
-      {%endfor%}
+      {% endfor %}
   
-        <div class="py-4">
-      
+       
 
     </table>
 
   
 
-    <div class="dash_bor_rsp_va my-3">
+    <div class="dash_bor_rsp_va"  >
       <a href="/sales_manager/ad_pro_ads/{{key.uid}}" class="mx-3">View All</a>
     </div>
 
@@ -223,7 +222,7 @@
         </div>
 
         <div class="px-4 my-3">
-          <table class="table table-borderless">
+          <table class="table table-borderless" style="margin-bottom: 0.1rem;">
 
             <tr>
               <th class="py-4">#No</th>
@@ -242,11 +241,11 @@
               <td class="py-4">{{i.ad_created_date}}</td>
               <td class="py-4">{{i.coin}}</td>
             </tr>
-            {%endif%}
-            {%endfor%}
+            {% endif%}
+            {% endfor%}
             
           </table>
-             <div class="dash_bor_rsp_va my-3">
+             <div class="dash_bor_rsp_va" style="border-radius: 0px 0px 10px 10px;">
       <a href="/sales_manager/sm_coindetails/{{key.uid}}" class="mx-3">View All</a>
     </div>
         </div>
@@ -277,7 +276,7 @@
                        <p style="color:#6E717A;">{{i.word}}</p>
                         </div></center>
                     </div> 
-                    {%endfor%}
+                    {% endfor %}
                     <!-- <div class="col-lg-6 col-md-6">
                         
                         <center><div style="background-color:  #edfffd;height:100px;width:240px;border-radius:80px;margin-top:25px;padding:12px">

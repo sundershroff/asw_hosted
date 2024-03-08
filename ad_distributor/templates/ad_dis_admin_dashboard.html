@@ -35,7 +35,7 @@
     </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 marriyo. All rIghts reserved</h5>
   </header>
   
   </div>
@@ -67,7 +67,7 @@
     <!-- over -->
 
     <!-- start2 -->
-    <div class="dash_par2 my-5 px-3"> 
+    <div class="dash_par2 my px-3"> 
          
         <h4>Dashboard</h4>
 
@@ -186,9 +186,9 @@
     <!-- over -->
 
     <!-- start -->
-     <div class="dash_bor_table px-4">
+     <div class="dash_bor_table px-3">
 
-      <table class=" table table-borderless">
+      <table class=" table table-borderless" style="margin-bottom: 0.1rem;">
 
       <tr class="me-5">
         
@@ -206,38 +206,13 @@
         <td class="py-4">{{i.ad_type}}</td>
       </tr>
       {% endfor %}
-      {% comment %} <tr>
-        <td class="py-4">1</td>
-        <td class="py-4">A0B1C036</td>
-        <td class="dash_bor_table_img"><img src="{% static 'images/Ellipse 19 (1).png'%}" class="mx-2"> EnvIronmental Specialist</td>
-        
-        <td class="py-4">frankd@funtap.vn</td>
-      </tr>
-      <tr>
-        <td class="py-4">1</td>
-        <td class="py-4">A0B1C036</td>
-        <td class="dash_bor_table_img"><img src="{% static 'images/Ellipse 19 (1).png'%}" class="mx-2"> EnvIronmental Specialist</td>
-        
-        <td class="py-4">frankd@funtap.vn</td>
-      </tr>
-   <tr>
-        <td class="py-4">1</td>
-        <td class="py-4">A0B1C036</td>
-        <td class="dash_bor_table_img"><img src="{% static 'images/Ellipse 19 (1).png'%}" class="mx-2"> EnvIronmental Specialist</td>
-        
-        <td class="py-4">frankd@funtap.vn</td>
-      </tr> {% endcomment %}
-
-       
-
-        <div class="py-4">
-      
+     
 
     </table>
 
   
 
-    <div class="dash_bor_rsp_va my-3">
+    <div class="dash_bor_rsp_va" style="border-radius: 0px 0px 10px 10px;">
       <a href="/ad_distributor/ad_dis_list/{{key.uid}}" class="mx-3">View All</a>
     </div>
 
@@ -246,17 +221,17 @@
 
     <!-- start -->
 
-    <div class="dash_bor_tables my-5">
+    <div class="dash_bor_tables my-3">
 
       <div class="dash_bor_table1">
 
-        <div class="dash_bor_split px-4">
+        <div class="dash_bor_split px-3">
           <h5>Coins Earn</h5>
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </div>
 
-        <div class="px-4 my-3">
-          <table class="table table-borderless">
+        <div class="px-3 my-3">
+          <table class="table table-borderless" style="margin-bottom: 0.1rem;">
 
             <tr>
               <th class="py-4">Ad</th>
@@ -265,12 +240,14 @@
               <th class="py-4">Coins</th>
             </tr>
             {% for i in all_data|dictsortreversed:"ad_created_date" %}
+            {% if i.coin != None %}
             <tr>
               <td class="py-4">{{i.ad_id}}</td>
               <td class="py-4">{{i.ad_type}}</td>
               <td class="py-4">{{i.ad_created_date}}</td>
               <td class="py-4">{{i.coin}}</td>
             </tr>
+            {% endif %}
             {% endfor %}
             {% comment %} <tr>
                 <td class="py-4">AD-01</td>
@@ -292,7 +269,7 @@
                 <td class="py-4">1</td>
               </tr> {% endcomment %}
           </table>
-             <div class="dash_bor_rsp_va my-3">
+             <div class="dash_bor_rsp_va" style="border-radius: 0px 0px 10px 10px;">
       <a href="/ad_distributor/ad_dis_coins/{{key.uid}}" class="mx-3">View All</a>
     </div>
         </div>

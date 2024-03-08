@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,500;9..40,700&family=Qwitcher+Grypen&family=Rubik+Pixels&display=swap" rel="stylesheet">
   <!-- over -->
-
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body style=" background-color:#F4F2FF;">
    
@@ -44,7 +44,7 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rights reserved</h5>
   </header>
   
   </div>
@@ -121,13 +121,13 @@
           </div>
           
         </div>
-
+     {% for key in ad_list_data %}
         <div class="row">
 
         <div class="col-lg-4 my-3">
             <label class="form-label">Languages(Multiple)<span>*</span></label>
             <select class="form-select" name="languages">
-              <option value="{{ad_data.languages}}">{{ad_data.languages}}</option>
+              <option value="{{key.languages_0}}">{{key.languages_0}}</option>
               <option value="English">English</option>
               <option value="Arabic">Arabic</option>
               <option value="French">French</option>
@@ -139,7 +139,7 @@
         <div class="col-lg-4 my-3">
             <label class="form-label">Country(Multiple)<span>*</span></label>
             <select class="form-select" name="office_country" id="countrytwo" onchange="fun2.call(this,event)">
-              <option value="{{ad_data.office_country}}">{{ad_data.office_country}}</option>
+              <option value="{{key.office_country_0}}">{{key.office_country_0}}</option>
                 {% for j in all %}
                   <option value="{{j.name}}">{{j.name}}</option>
                 {% endfor %}
@@ -148,7 +148,7 @@
         <div class="col-lg-4 my-3">
             <label class="form-label">State(Multiple)<span>*</span></label>
             <select class="form-select" name="office_state" id="res3">
-              <option value="{{ad_data.office_state}}">{{ad_data.office_state}}</option>
+              <option value="{{key.office_state_0}}">{{key.office_state_0}}</option>
               <script>
                 stat = {{ states|safe }};
             ttt = stat[0].states;
@@ -164,13 +164,13 @@
             <div class="col-lg-4 my-3">
                 <label class="form-label">District(Multiple)<span>*</span></label>
                 {% comment %} <select class="form-select"> {% endcomment %}
-                  <input type="text" name="office_district" class="form-control" placeholder="" value="{{ad_data.office_district}}">
+                  <input type="text" name="office_district" class="form-control" placeholder="" value="{{key.office_district_0}}">
                 {% comment %} </select>  {% endcomment %}
             </div>
             <div class="col-lg-4 my-3">
                 <label class="form-label">Gender(Multiple)<span>*</span></label>
                 <select class="form-select" name="gender">
-                  <option value="{{ad_data.gender}}">{{ad_data.gender}}</option>
+                  <option value="{{key.gender_0}}">{{key.gender_0}}</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="other">Other</option>
@@ -185,21 +185,189 @@
           <div class="row">
             <div class="col-lg-4 my-3">
                 <label class="form-label">Ad Group<span>*</span></label>
-                <input type="text" name="age_range" class="form-control" placeholder="" value="{{ad_data.age_range}}" id="inputField1" oninput="displayValue()">
+                <input type="text" name="age_range" class="form-control" placeholder="" value="{{key.age_range_0}}" id="inputField1" oninput="displayValue()">
               </div>
               <div class="col-lg-4 my-3">
                 <label class="form-label"></label>
-                <input style="margin-top:8px;" type="text" name="age_to" class="form-control" placeholder="" value="{{ad_data.age_to}}" id="inputField2" oninput="displayValue()">
+                <input style="margin-top:8px;" type="text" name="age_to" class="form-control" placeholder="" value="{{key.age_to_0}}" id="inputField2" oninput="displayValue()">
               </div>
               <div class="col-lg-4 my-3" style="display:flex;justify-content: space-evenly;">
                 <div id="age_dis" style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
-                <span id="displayArea">{{ad_data.age_range}}-{{ad_data.age_to}}</span> <span id="i_con"><i class="bi bi-x-circle-fill det_icon"></i></span>
+                <span id="displayArea">{{key.age_range_0}}-{{key.age_to_0}}</span> <span id="i_con"><i class="bi bi-x-circle-fill det_icon"></i></span>
               </div>
                 {% comment %} <div style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
                   {{ad_data.age_range}}-{{ad_data.age_to}} <i class="bi bi-x-circle-fill det_icon"></i></div> {% endcomment %}
               </div>
           </div>
-          <button class="document_btn my-3">Add More</button> 
+        {% endfor %}
+          <button type="button" class="document_btn my-3" id="add_data1">Add More</button>
+        <div id="add_more1">
+          <p></p>
+          {% for key in ad_list_data %}
+          <div class="row">
+
+            <div class="col-lg-4 my-3">
+                <label class="form-label">Languages(Multiple)<span>*</span></label>
+                <select class="form-select" name="languages">
+                  <option value="{{key.languages_1}}">{{key.languages_1}}</option>
+                  <option value="English">English</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="French">French</option>
+                  <option value="Tamil">Tamil</option>
+                  <option value="malayalam">Malayalam</option>
+                  <option value="Hindi">Hindi</option>
+                </select> 
+            </div> 
+            <div class="col-lg-4 my-3">
+                <label class="form-label">Country(Multiple)<span>*</span></label>
+                <select class="form-select" name="office_country" id="countrythree" onchange="fun3.call(this,event)">
+                  <option value="{{key.office_country_1}}">{{key.office_country_1}}</option>
+                    {% for j in all %}
+                      <option value="{{j.name}}">{{j.name}}</option>
+                    {% endfor %}
+                </select> 
+            </div> 
+            <div class="col-lg-4 my-3">
+                <label class="form-label">State(Multiple)<span>*</span></label>
+                <select class="form-select" name="office_state" id="res4">
+                  <option value="{{key.office_state_1}}">{{key.office_state_1}}</option>
+                  <script>
+                    stat = {{ states|safe }};
+                ttt = stat[0].states;
+                for (i=0;i<ttt.length;i++){
+                   tt = ttt[i].name;
+                   document.write("<option value="tt">"+tt+"</option>");
+                }
+              </script>
+                </select> 
+            </div> 
+            </div>
+            <div class="row">
+                <div class="col-lg-4 my-3">
+                    <label class="form-label">District(Multiple)<span>*</span></label>
+                    {% comment %} <select class="form-select"> {% endcomment %}
+                      <input type="text" name="office_district" class="form-control" placeholder="" value="{{key.office_district_1}}">
+                    {% comment %} </select>  {% endcomment %}
+                </div>
+                <div class="col-lg-4 my-3">
+                    <label class="form-label">Gender(Multiple)<span>*</span></label>
+                    <select class="form-select" name="gender">
+                      <option value="{{key.gender_1}}">{{key.gender_1}}</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="other">Other</option>
+                    </select>  
+                </div>
+                <div class="col-lg-4 my-3">
+                    
+                </div>
+              
+                
+              </div>
+              <div class="row">
+                <div class="col-lg-4 my-3">
+                    <label class="form-label">Ad Group<span>*</span></label>
+                    <input type="text" name="age_range" class="form-control" placeholder="23" value="{{key.age_range_1}}" id="inputField3" oninput="displayValue1()">
+                  </div>
+                  <div class="col-lg-4 my-3">
+                    <label class="form-label"></label>
+                    <input style="margin-top:8px;" type="text" name="age_to" class="form-control" placeholder="40" value="{{key.age_to_1}}" id="inputField4" oninput="displayValue1()">
+                  </div>
+                  <div class="col-lg-4 my-3" style="display:flex;justify-content: space-evenly;">
+                    <div id="age_dis1" style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
+                    <span id="displayArea1">23-40</span> <span id="i_con"><i class="bi bi-x-circle-fill det_icon"></i></span>
+                  </div>
+                    {% comment %} <div style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
+                      {{ad_data.age_range}}-{{ad_data.age_to}} <i class="bi bi-x-circle-fill det_icon"></i></div> {% endcomment %}
+                  </div>
+              </div>
+
+              <button type="button" class="document_btn my-3" id="close_all">Close</button>
+              <button type="button" class="document_btn my-3" id="remove_all">Cancel</button>
+            </div>
+            {% comment %} <div id="add_more2">
+              <p></p>
+            <div class="row">
+
+              <div class="col-lg-4 my-3">
+                  <label class="form-label">Languages(Multiple)<span>*</span></label>
+                  <select class="form-select" name="languages">
+                    <option value="{{key.languages_2}}">{{key.languages_2}}</option>
+                    <option value="English">English</option>
+                    <option value="Arabic">Arabic</option>
+                    <option value="French">French</option>
+                    <option value="Tamil">Tamil</option>
+                    <option value="malayalam">Malayalam</option>
+                    <option value="Hindi">Hindi</option>
+                  </select> 
+              </div> 
+              <div class="col-lg-4 my-3">
+                  <label class="form-label">Country(Multiple)<span>*</span></label>
+                  <select class="form-select" name="office_country" id="countryfour" onchange="fun4.call(this,event)">
+                    <option value="{{key.office_country_2}}">{{key.office_country_2}}</option>
+                      {% for j in all %}
+                        <option value="{{j.name}}">{{j.name}}</option>
+                      {% endfor %}
+                  </select> 
+              </div> 
+              <div class="col-lg-4 my-3">
+                  <label class="form-label">State(Multiple)<span>*</span></label>
+                  <select class="form-select" name="office_state" id="res5">
+                    <option value="{{key.office_state_2}}">{{key.office_state_2}}</option>
+                    <script>
+                      stat = {{ states|safe }};
+                  ttt = stat[0].states;
+                  for (i=0;i<ttt.length;i++){
+                     tt = ttt[i].name;
+                     document.write("<option value="tt">"+tt+"</option>");
+                  }
+                </script>
+                  </select> 
+              </div> 
+              </div>
+              <div class="row">
+                  <div class="col-lg-4 my-3">
+                      <label class="form-label">District(Multiple)<span>*</span></label> {% endcomment %}
+                      {% comment %} <select class="form-select"> {% endcomment %}
+                        {% comment %} <input type="text" name="office_district" class="form-control" placeholder="" value="{{key.office_district_2}}"> {% endcomment %}
+                      {% comment %} </select>  {% endcomment %}
+                  {% comment %} </div>
+                  <div class="col-lg-4 my-3">
+                      <label class="form-label">Gender(Multiple)<span>*</span></label>
+                      <select class="form-select" name="gender">
+                        <option value="{{key.gender_2}}">{{key.gender_2}}</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="other">Other</option>
+                      </select>  
+                  </div>
+                  <div class="col-lg-4 my-3">
+                      
+                  </div>
+                
+                  
+                </div>
+                <div class="row">
+                  <div class="col-lg-4 my-3">
+                      <label class="form-label">Ad Group<span>*</span></label>
+                      <input type="text" name="age_range" class="form-control" placeholder="" value="{{key.age_range_2}}" id="inputField1" oninput="displayValue()">
+                    </div>
+                    <div class="col-lg-4 my-3">
+                      <label class="form-label"></label>
+                      <input style="margin-top:8px;" type="text" name="age_to" class="form-control" placeholder="" value="{{key.age_to_2}}" id="inputField2" oninput="displayValue()">
+                    </div>
+                    <div class="col-lg-4 my-3" style="display:flex;justify-content: space-evenly;">
+                      <div id="age_dis" style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
+                      <span id="displayArea">{{key.age_range_2}}-{{key.age_to_2}}</span> <span id="i_con"><i class="bi bi-x-circle-fill det_icon"></i></span>
+                    </div> {% endcomment %}
+                      {% comment %} <div style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
+                        {{ad_data.age_range}}-{{ad_data.age_to}} <i class="bi bi-x-circle-fill det_icon"></i></div> {% endcomment %}
+                    {% comment %} </div>
+                    
+                </div>
+                <button type="button" class="document_btn my-3" id="close_all">Close</button>
+              </div> {% endcomment %}
+              {% endfor %}
         <h4 class="my-4" style="color:#2B3674;">Upload Advertisements</h4>
           
           <div class="row">
@@ -270,7 +438,7 @@
     <div class="col-lg-4 my-3">
       <h4 style="color:#2B3674;">Other Ads(Optional)</h4>
        <div data-toggle="modal" data-target="#otherads" style="cursor:pointer;background-color: #e8ebff;color:#7B61FF;padding:20px 50px;font-size: 50px;border-radius:10px;width:fit-content">
-        <img src="{{ad_data.other_ads}}">
+        <img src="{{ad_data.other_ads}}" height="50px" width="50px">
         <input class="file-input" type="file" name="other_ads" value="{{ad_data_other_ads}}" style="opacity: 0;position: absolute;width: 285px;height: 262px;
                   position: absolute;margin-left: -24%;" >
        </div>
@@ -379,6 +547,10 @@
   </div>
 </div>
  
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 <script src="{% static 'js/main.js'%}"></script>
 <script>
   function displayValue() {
@@ -387,8 +559,99 @@
     
     document.getElementById('displayArea').textContent =inputValue1+ "-"+inputValue2;
   }
+  function displayValue1() {
+    var inputValue1 = document.getElementById('inputField3').value;
+    var inputValue2 = document.getElementById('inputField4').value;
+    
+    document.getElementById('displayArea1').textContent =inputValue1+ "-"+inputValue2;
+  }
 </script>
+<script>
 
+  $(document).ready(function(){
+    $("#add_more1").hide();
+    $("#add_more2").hide();
+  
+    $("#add_data1").click(function(){
+      $("#add_more1").show();
+      $("#add_more2").hide();
+    });
+    $("#add_data2").click(function(){
+      $("#add_more2").show();
+    });
+    $("#close_all").click(function(){
+      $("#add_more1").hide();
+    $("#add_more2").hide();
+    });
+    $("#remove_all").click(function(){
+      $("#add_more1").remove();
+     $("#add_more2").remove();
+    });
+  });
+
+</script>
+<script type="text/javascript">
+  function fun1(event){
+  a = document.getElementById("countryone").value;
+  <!--document.getElementById("res").innerHTML=a;-->
+  c = {{ country|safe }};
+  position =c.indexOf(a);
+  <!--document.getElementById("res1").innerHTML=position;-->
+  stat = {{ states|safe }};
+  ttt = stat[position].states;
+  tt = "<select>";
+  for (i=0;i<ttt.length;i++){
+     tt += "<option>"+ttt[i].name+"</option>";
+  }
+       tt+="</select>";
+        document.getElementById("res2").innerHTML=tt;
+  }
+  
+  </script>
+
+  <script type="text/javascript">
+    function fun2(event){
+    a = document.getElementById("countrytwo").value;
+    <!--document.getElementById("res").innerHTML=a;-->
+    c = {{ country|safe }};
+    position =c.indexOf(a);
+    <!--document.getElementById("res1").innerHTML=position;-->
+    stat = {{ states|safe }};
+    ttt = stat[position].states;
+    tt = "<select>";
+    for (i=0;i<ttt.length;i++){
+       tt += "<option>"+ttt[i].name+"</option>";
+    }
+         tt+="</select>";
+          document.getElementById("res3").innerHTML=tt;
+    
+    }
+    
+    </script>
+
+<script type="text/javascript">
+  function fun3(event){
+  a = document.getElementById("countrythree").value;
+  <!--document.getElementById("res").innerHTML=a;-->
+  c = {{ country|safe }};
+  position =c.indexOf(a);
+  <!--document.getElementById("res1").innerHTML=position;-->
+  stat = {{ states|safe }};
+  ttt = stat[position].states;
+  tt = "<select>";
+  for (i=0;i<ttt.length;i++){
+     tt += "<option>"+ttt[i].name+"</option>";
+  }
+       tt+="</select>";
+        document.getElementById("res4").innerHTML=tt;
+  
+  }
+  
+  </script>
+
+ 
+
+<script src="{% static 'js/main.js'%}"></script>
 </body>
 </html>
 

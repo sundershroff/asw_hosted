@@ -40,7 +40,7 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rights reserved</h5>
   </header>
   
   </div>
@@ -61,11 +61,11 @@
 
     </div>
     {% endfor %}
-    <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
+    
     <!-- over -->
 
     <!-- start2 -->
-    <div class="dash_par2 my-5 px-3"> 
+    <div class="dash_par2 my-3 px-4"> 
          
         <h4>Dashboard</h4>
 
@@ -75,7 +75,7 @@
     <!-- over -->
 
     <!-- start3 -->
-      <div class="dash_par3 my-4 px-3"> 
+      <div class="dash_par3 my-3 px" > 
          
         <div class="dash_bor_box">
            
@@ -142,7 +142,7 @@
     </div>
     <!-- over -->
     <!-- start -->
-    <div class="dash_bor_rsp my-4 px-3">
+    <div class="dash_bor_rsp my-3 px-4">
 
       <div>
         <h4>Recently joined profiles</h4>
@@ -164,11 +164,9 @@
 
     <!-- start -->
      <div class="dash_bor_table px-4" style="
-     overflow-y: scroll;
-     height: 32rem;
- " >
+     overflow-y: scroll;" >
 
-      <table class=" table table-borderless " >
+      <table class=" table table-borderless"  style="margin-bottom: 0.1rem;" >
 
       <tr style="
       position: sticky;
@@ -186,17 +184,13 @@
         <td class="py-4">{{i.r_country}}</td>
       </tr>
       {% endfor %}
-   
-
-
-        <div class="py-4">
       
 
     </table>
 
   
 
-    <div class="dash_bor_rsp_va my-3" style="height: auto;position: sticky;bottom: 0;">
+    <div class="dash_bor_rsp_va" style="height: auto;position: sticky;bottom: 0;border-radius: 0px 0px 10px 10px;">
       <a href="/profile_manager/profile_finders/{{key.uid}}" class="mx-3">View All</a>
     </div>
 
@@ -205,7 +199,7 @@
 
     <!-- start -->
 
-    <div class="dash_bor_tables my-5">
+    <div class="dash_bor_tables my-3">
 
       <div class="dash_bor_table1">
 
@@ -215,7 +209,7 @@
         </div>
 
         <div class="px-4 my-3">
-          <table class="table table-borderless">
+          <table class="table table-borderless"style="margin-bottom: 0.1rem;" >
 
             <tr>
               <th class="py-4">#No</th>
@@ -234,7 +228,7 @@
 {% endfor %}
 
           </table>
-             <div class="dash_bor_rsp_va my-3">
+             <div class="dash_bor_rsp_va" style="border-radius: 0px 0px 10px 10px;">
       <a href="/profile_manager/complaints/{{key.uid}}" class="mx-3">View All</a>
     </div>
         </div>
@@ -250,7 +244,7 @@
         </div>
 
         <div class="px-4 my-3" >
-          <table class="table table-borderless " >
+          <table class="table table-borderless" style="margin-bottom: 0.1rem;" >
 
             <tr>
               <th class="py-4">Sno</th>
@@ -271,7 +265,7 @@
 {% endfor %}
 
           </table>
-             <div class="dash_bor_rsp_va my-3">
+             <div class="dash_bor_rsp_va" style="border-radius: 0px 0px 10px 10px;" >
       <a href="/profile_manager/profile_finders_approved_list/{{key.uid}}" class="mx-3">View All</a>
     </div>
         </div>

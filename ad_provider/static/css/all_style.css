@@ -43,6 +43,7 @@
 	width:42px;
 	height:42px;
 	border-radius:50%;
+	filter:brightness(1);
 }
 
 .dash_par2{
@@ -158,6 +159,8 @@
 	column-gap:8px;
 	align-items:center;
 }
+
+
 /*media*/
 @media(max-width:1215px){
 	.dash_par3{
@@ -492,8 +495,8 @@
 
 .locl_adm_table th{
 	font-size:1em;
-	text-align:center;
-	padding:30px 0;
+	text-align:left;
+	padding:20px 15px;
 }
 
 .locl_adm_table img{
@@ -505,15 +508,30 @@
 .locl_adm_table td{
 	font-size:1em;
 	font-weight:400;
-	text-align:center;
+	text-align:left;
   background-color:white;
-  padding:40px 0;
+  padding:20px 15px;
 }
 
 
 .locl_adm_table table{
 	width:100%;
 
+}
+@media(max-width:1024px)
+{
+	.loc_adm_bala_tables th{
+		padding:15px 15px;
+		text-align:left;
+	
+	}
+	
+	.loc_adm_bala_tables td{
+		padding:15px 15px;
+		text-align:left;
+		font-weight:400;
+	}
+	
 }
 @media(max-width: 770px) {
      .locl_adm_table table {
@@ -985,14 +1003,14 @@ input:checked + .slider:before {
 }
 
 .loc_adm_bala_tables th{
-	padding:30px 0;
-	text-align:center;
+	padding:15px 15px;
+	text-align:left;
 
 }
 
 .loc_adm_bala_tables td{
-	padding:30px 0;
-	text-align:center;
+	padding:15px 15px;
+	text-align:left;
 	font-weight:400;
 }
 

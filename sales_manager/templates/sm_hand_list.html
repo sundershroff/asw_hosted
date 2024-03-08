@@ -47,7 +47,7 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:absolute;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:absolute;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rights reserved</h5>
   </header>
   
   </div>
@@ -71,7 +71,7 @@
     <!-- over -->
 
     <!-- start -->
-    <div class="locl_adm_sec1 px-4 my-4">
+    <div class="locl_adm_sec1 px-4 my-2">
 
       <div>
         <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{all_client_data|length}}</span> Hand in the list</h3>
@@ -86,23 +86,23 @@
         </div>
 
         </form>
-        <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
+        <button data-bs-toggle="modal" data-bs-target="#filter_modal1" style="height:40px;">Filter <i class="fa-solid fa-filter"></i></button>
 
       {% if "Add Clients" in access %}
         <button data-bs-toggle="modal" data-bs-target="#AddnewClient">Add New <i class="fa-solid fa-circle-plus"></i></button>
-      {%else%}
+      {% else %}
       <!-- <button >Add New <i class="fa-solid fa-circle-plus"></i></button> -->
-      {%endif%}
+      {% endif %}
   {% if access == "" %}
     <button data-bs-toggle="modal" data-bs-target="#AddnewClient">Add New <i class="fa-solid fa-circle-plus"></i></button>
-  {%endif%}
+  {% endif %}
 
       </div>
       
     </div>
     <!-- over -->
 <!-- start -->
-<div class="locl_adm_sec2 px-4 my-5">
+<div class="locl_adm_sec2 px-4 my-2">
   <div style="background-color:#fff;margin-top:15px;height:60px;padding:17px;">
     <button style="color:#7B61Ff;background-color:#ede9ff;border-radius:6px;border:none"><b>Clients</b> </button> <a href="/sales_manager/sm_ads_list/{{key.uid}}" style="
     text-decoration: none;
@@ -111,7 +111,7 @@
 </div>
  <!-- over -->
     <!-- start -->
-    <div class="locl_adm_sec2 my-5">
+    <div class="locl_adm_sec2 my-2">
 
       <div class="locl_adm_table px-3">
 
@@ -150,12 +150,12 @@
               {% elif i.active_status == True %}
               <td data-label = "Actions"> <i class="fa-solid fa-circle pe-2" style="color:green;font-size:10px"></i><span style="color: #000;"> <b>Activate</b></span> </td>
 
-              {%endif%}
+              {% endif%}
 
             </td>
                            
             </tr>
-            {%endfor%}
+            {% endfor %}
 
             </tr>
 
@@ -196,13 +196,13 @@
         <div class="modal-body prof_personal_filt2">
            
            <form method="POST" action="" enctype="multipart/form-data">
-            {%csrf_token%}
+            {% csrf_token %}
           
              <div class="my-3">
               <!-- <label for="exampleFormControlInput1" class="form-label">ID</label> -->
               <label for="id_select" class="form-label">ID</label>
         <select class="form-select py-3" name="uid" id="id_select">
-            <option value="default">Select</option>
+            <option value="">Select</option>
             {% for i in all_client_data %}
                 <option value="{{ i.uid }}">{{ i.uid }}</option>
             {% endfor %}
@@ -267,7 +267,7 @@
         <div class="modal-body prof_personal_filt2">
            
            <form method="POST" action="" enctype="multipart/form-data" id="myform">
-            {%csrf_token%}
+            {% csrf_token %}
          
             <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Client Type <sup style="color: #5f51e0">*</sup></label>

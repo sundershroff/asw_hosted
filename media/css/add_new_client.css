@@ -12,6 +12,17 @@ a {
   text-decoration: none;
 }
 
+button#filter_btn{
+  background-color:white !important;
+	color:rgba(123, 97, 255, 1) !important;
+	border:2px solid rgba(123, 97, 255, 1) !important;
+  padding:8px 25px !important;
+	border-radius:10px !important;
+	transition:0.5s !important;
+	font-weight:700 !important;
+}
+
+
 a:hover {
   color: #37b3ed;
   text-decoration: none;

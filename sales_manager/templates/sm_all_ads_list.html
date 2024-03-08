@@ -47,7 +47,7 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:absolute;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:absolute;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rights reserved</h5>
   </header>
   
   </div>
@@ -90,12 +90,12 @@
 
       {% if "Add Clients" in access %}
         <button data-bs-toggle="modal" data-bs-target="#AddnewClient">Add New <i class="fa-solid fa-circle-plus"></i></button>
-      {%else%}
+      {% else %}
       <!-- <button >Add New <i class="fa-solid fa-circle-plus"></i></button> -->
-      {%endif%}
+      {% endif %}
   {% if access == "" %}
     <button data-bs-toggle="modal" data-bs-target="#AddnewClient">Add New <i class="fa-solid fa-circle-plus"></i></button>
-  {%endif%}
+  {% endif %}
 
       </div>
       
@@ -145,15 +145,15 @@
              <!-- <td data-label = "google_map">{{i.google_map}}</td> -->
              <!-- <td data-label = "category">{{i.category}}</td> -->
             {% if i.type == "AdProvider" %}
-             <td data-label ="Actions"> <form action="" method="POST" enctype="multipart/form-data"> {%csrf_token%} <a href="/sales_manager/sm_ad_details/{{i.}}"> <button type="submit" class="btn btn-outline-light" name="view" value="{{i.uid}}"><img src="{% static 'images/More.png'%}"></button></a><span class="pe-3"></span></form>
+             <td data-label ="Actions"> <form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %} <a href="/sales_manager/sm_ad_details/{{i.}}"> <button type="submit" class="btn btn-outline-light" name="view" value="{{i.uid}}"><img src="{% static 'images/More.png'%}"></button></a><span class="pe-3"></span></form>
            </td>
-           {%endif%}
-           {%if i.type == "AdDistributor" %}
-           <td data-label ="Actions"> <form action="" method="POST" enctype="multipart/form-data"> {%csrf_token%} <a href="/sales_manager/sm_ad_dis_details/{{i.ad_id}}"> <button type="submit" class="btn btn-outline-light" name="view_dis" value="{{i.uid}}"><img src="{% static 'images/More.png'%}"></button></a><span class="pe-3"></span></form>
+           {% endif %}
+           {% if i.type == "AdDistributor" %}
+           <td data-label ="Actions"> <form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %} <a href="/sales_manager/sm_ad_dis_details/{{i.ad_id}}"> <button type="submit" class="btn btn-outline-light" name="view_dis" value="{{i.uid}}"><img src="{% static 'images/More.png'%}"></button></a><span class="pe-3"></span></form>
           </td>
-            {%endif%}            
+            {% endif %}            
             </tr>
-            {%endfor%}
+            {% endfor %}
 
 
 
@@ -181,12 +181,12 @@
         <div class="modal-body prof_personal_filt2">
            
            <form method="post" action="" enctype="multipart/form-data">
-            {%csrf_token%}
+            {% csrf_token %}
             
             <div class="my-3">
               <label for="exampleFormControlInput1" class="form-label">ID</label>
               <select class="form-select py-3" name="uid" >
-                <option value="default">Select</option>
+                <option value="">Select</option>
                 {% for i in all_data %}
                 <option value="{{i.uid}}">{{i.uid}}</option>
                 {% endfor %}
@@ -211,23 +211,24 @@
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Locations</label>
                <select class="form-select py-3" name="google_map">
-                <option {{key.google_map}}>{{key.google_map}}</option>
-                <option value="kollam">kollam</option>
-                <option value="nagercoil">nagercoil</option>
+                {% for i in all_data%}
+                <option value="{{i.personal_address}}">{{i.personal_address}}</option>
+                {% comment %} <option value="nagercoil">nagercoil</option> {% endcomment %}
+                {% endfor %}
               </select>
              </div>
   
-                    <div class="my-4">
+                      <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Status</label>
                <select class="form-select py-3" name="status">
-                <option {{key.status}}>{{key.status}}</option>
-                <option value="Approved">Approved</option>
-                <option value="Rejected">Rejected</option>
+                <option value="{{i.status}}">{{i.status}}</option>
+                 {% comment %} <option value="Approved">Approved</option>
+                <option value="Rejected">Rejected</option>  {% endcomment %}
      
               </select>
-             </div>
+             </div> 
 
-  
+             
              <div class="prof_personal_savefilt1 text-center mb-5">
                <button class="prof_personal_filbtn1 my-3" type="reset">Reset</button>
                <button class="prof_personal_filbtn2 my-3" type="submit">Submit</button>

@@ -75,11 +75,7 @@ button.btn.btn-primary.match_list_btn1 {
 	justify-content:space-between;
 }
 
-@media(max-width:438px){
-	.sigin_page_part1 button{
-		padding:12px 80px;
-	}
-}
+
 /*checkbox*/
 .checkbox-container {
     display: inline-block;
@@ -259,6 +255,11 @@ button.btn.btn-primary.match_list_btn1 {
 	left:10px;
 }
 }
+@media(max-width:438px){
+	.sigin_page_part1 button{
+		padding:12px 80px;
+	}
+}
 /*over*/
 
 
@@ -382,7 +383,7 @@ input[type=checkbox] {
 .vh-105{
     height: 105vh;
 }
-label#birth_country-error , label#birth_place-error , label#birth_city-error , label#orgin-error , 
+/* label#birth_country-error , label#birth_place-error , label#birth_city-error , label#orgin-error , 
 label#r_country-error , label#r_state-error , label#country-error ,  label#city-error , 
 label#your_interest_choose-error , label#your_interest\[\]-error , label#not_interest_choose-error,
 label#carrying_marriage-error , label#tobacco_product-error , label#consume_alcohol-error, 
@@ -390,8 +391,8 @@ label#illegal_drugs-error , label#criminal_offences-error , label#primary_option
 label#food_taste_option\[\]-error{
     /* position: absolute;
     top: 100%;
-    left: 17px; */
-}
+    left: 17px; 
+} */
 label#not_interest\[\]-error {
     position: absolute;
     top: 150%;
@@ -422,20 +423,20 @@ label#are_you_disable-error {
     top: 14px;
     left: 17px;
 }
-label#complexion-error , label#food_taste-error {
+/* label#complexion-error , label#food_taste-error {
     /* position: absolute;
     top: 80px;
-    left: 17px; */
-}
+    left: 17px; 
+} */
 label#opinion_diet\[\]-error {
     position: absolute;
     top: 97px;
 }
-label#orphan-error {
+/* label#orphan-error {
     /* position: absolute; */
     /* top: 57px;
-    left: 17px; */
-}
+    left: 17px; 
+} */
 .mt-10{
     margin-top: 10rem;
 }

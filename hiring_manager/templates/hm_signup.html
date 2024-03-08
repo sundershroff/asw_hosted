@@ -22,64 +22,79 @@
 
       <div class="col-lg-6">
 
-        <div class="sigin_page_sec1 py-5">
+        <div class="sigin_page_sec1 py-3">
 
           <div class="sigin_page_main1">
             <div class="sigin_page_part1">
 
               <a href="/"><i class="far fa-chevron-left"></i><span class="px-3">Back to Home</span></a>
 
-              <div class="my-5">
-                <h2>Sign Up</h2>
+              <div class="my-3">
+                <h2>CREATE AN ACCOUNT</h2>
 
-                <p>Enter your Email and password to Sign Up!</p>
+                <p>Sign up with your email </p>
               </div>
 
-              <button class="btn my-3" type="button"><img src="{% static 'images/golog.png'%}"> Sign in with Google</button>
+              {% comment %} <button class="btn my-3" type="button"><img src="{% static 'images/golog.png'%}"> Sign in with Google</button>
               <div style="color:#A3AED0;">
                 <hr class="w-43 float-left me-3">
                 <span style="color:#A3AED0;">or</span>
                 <hr class="w-43 float-right">
-              </div>
+              </div> {% endcomment %}
               <div class="sigin_page_part2 mt-3">
-                <form method="POST" action="#" id="myform">
+                <form method="POST" action=" " id="myform">
                   {% csrf_token %}
-                  <div class="col-lg-12 my-4">
+                  <div class="col-lg-12 my-2">
                     <label class="py-1" for="eamil">Email<span>*</span></label>
-                    <input type="text" name="email" id="eamil" class="form-control" autofocus>
+                    <input type="text" name="email" id="email" class="form-control" style="padding: 5px;" placeholder="example@gmail.com" autofocus>
                   </div>
-                  <div class="col-lg-12 my-4">
+                  <div class="col-lg-12 my-2">
                     <label class="py-1" for="mobile">Mobile<span>*</span></label>
-                    <input type="number" name="mobile" id="mobile" class="form-control">
-                  </div>
+                    <input type="number" name="mobile" id="mobile" style="padding: 8px;" class="form-control" placeholder="Enter your mobile number">
+                  </div> 
 
-                  <div class="col-lg-12 my-4">
+                  <div class="col-lg-12 my-2">
                     <label class="py-1" for="password">Password<span>*</span></label>
-                    <input type="password" name="password" id="password" class="form-control">
+                    <input type="password" name="password" id="password" style="padding: 8px;" class="form-control" placeholder="Choose your password">
                   </div>
 
-                  <div class="col-lg-12 my-4">
+                  <div class="col-lg-12 my-2">
                     <label class="py-1" for="confirm_password">Confirm Password<span>*</span></label>
-                    <input type="password" name="confirm_password" id="confirm_password" class="form-control">
+                    <input type="password" name="confirm_password" style="padding: 8px;" id="confirm_password" class="form-control" placeholder="Confirm your password">
                   </div>
-                  <p id="res" style="color: red;"></p>
-
-
+                  <div class="col-lg-12 my-2">
+                    <label class="py-1" for="first_name">First Name<span>*</span></label>
+                    <input type="text" name="first_name" style="padding: 8px;" class="form-control" placeholder="Enter your name">
+                  </div>
+                  <div class="col-lg-12 my-2">
+                    <label class="py-1" for="last_name">Last Name<span>*</span></label>
+                    <input type="text" name="last_name"  style="padding: 8px;" class="form-control" placeholder="Enter your last name">
+                  </div>
+                  <div class="col-lg-12 my-2">
+                    <label class="py-1" for="last_name">Second Last Name <span>(optional)</span></label>
+                    <input type="text" name="last_name" style="padding: 8px;" class="form-control" placeholder="Enter your second last name">
+                  </div>
+                  <p style="font-size:10px;"> * Name must match government issued ID.A mismatch could temporarily <br>
+                    disable adds and withdrawals on your account.</P>
+                  
+                  {% comment %} <div class="col-lg-12 "> 
+                   <button style="border:none;padding: 5px 120px;"> Click to Verify </button>
+                  </div> {% endcomment %}
                   <!-- <div class="col-lg-12 my-4">
                     <label class="py-1" for="referral_code">Referral Code (Optional)<span>*</span></label>
                     <input type="text" name="referral_code" id="referral_code" class="form-control">
                   </div> -->
-
+                  <p id="res" style="color: red;"></p>
                   <input type="text" id="code" class="form-control form-control-lg" name="code" style="display:none;" />
                   <input type="text" id="user_otp" class="form-control form-control-lg" name="user_otp"
                     style="display:none;" />
 
                   <div class="col-lg-12">
 
-                    <input type="submit" class="form-control" value="Sign-Up">
+                    <input type="submit" class="form-control" value="Create account"  style="border-radius:25px; ">
                   </div>
 
-                  <div class="col-lg-12 my-5">
+                  <div class="col-lg-12 my-3">
                     <p style="color:#2B3674;">If you have account already? <span><a href="/hiring_manager/signin"
                           style="color:#9B51E0;">Sign-In</a></span></p>
                   </div>
@@ -100,7 +115,7 @@
 
           <div class="sigin_page_part5">
             <img src="{% static 'images/Logo.png'%}">
-            <h2>Why register on marryoo?</h2>
+            <h2>Why register on Marriyo?</h2>
           </div>
 
           <div class="sigin_page_part8">
@@ -113,7 +128,7 @@
 
 
               <div class="sigin_page_part6 mt-3 px-2">
-                <h6>Non.1 rated Site</h6>
+                <h6>No.1 rated Site</h6>
                 <p>Most recommended MatchMaking Service</p>
               </div>
 

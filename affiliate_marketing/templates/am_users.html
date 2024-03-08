@@ -42,7 +42,7 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:absolute;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:absolute;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rIghts reserved</h5>
   </header>
   
   </div>
@@ -66,7 +66,7 @@
     <!-- over -->
 
     <!-- start -->
-    <div class="locl_adm_sec1 px-4 my-4">
+    <div class="locl_adm_sec1 px-4 my-2">
 
       <div>
         <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{my_user|length}} </span>Users</h3>
@@ -97,7 +97,7 @@
     <!-- over -->
 
     <!-- start -->
-    <div class="locl_adm_sec2 my-5">
+    <div class="locl_adm_sec2 my-2">
 
       <div class="locl_adm_table px-3">
 
@@ -198,61 +198,67 @@
           <button type="button" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times-circle" style="color:black;"></i></button>
         </div>
         <div class="modal-body prof_personal_filt2">
-           
-           <form method="post" action="" enctype="multipart/form-data">
-            {%csrf_token%}
-         
-             <div class="my-3">
-              <label for="exampleFormControlInput1" class="form-label">ID</label>
-              <input type="text" name="" class="form-control">
-             </div>
-  
-             <div class="my-4">
-              <label for="exampleFormControlInput1" class="form-label">Name</label>
-                <input type="text" name="" class="form-control">
-             </div>
-            
-             <div class="my-4">
-              <label for="exampleFormControlInput1" class="form-label">Email ID</label>
-               <input type="text" name="" class="form-control">
-             </div>
-  
-                    <div class="my-4">
-              <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
-               <input type="text" name="" class="form-control">
-             </div>
-  
-  
-                    <div class="my-4">
-              <label for="exampleFormControlInput1" class="form-label">Locations</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
-              </select>
-             </div>
-  
-                    <div class="my-4">
-              <label for="exampleFormControlInput1" class="form-label">Status</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
-              </select>
-             </div>
+          <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %} 
+          <div class="my-3">
+            <label for="exampleFormControlInput1" class="form-label">ID</label>
+            <select class="form-select py-3" name="user_id" id="id_select">
+              <option value="">Select</option>
+            {% for i in my_user %}
+                <option value="{{ i.uid }}">{{ i.uid }}</option>
+            {% endfor %}>
+            </select>
+           </div>
 
-  
-             <div class="prof_personal_savefilt1 text-center mb-5">
-               <button class="prof_personal_filbtn1 my-3" type="reset">Reset</button>
-               <button class="prof_personal_filbtn2 my-3" type="submit">Submit</button>
-             </div>
-             <div class="py-1">
-        
-             </div>  
-  
-           </form>
+           <div class="my-4">
+            <label for="exampleFormControlInput1" class="form-label">Name</label>
+              <input type="text" name="user_name" class="form-control">
+           </div>
+          
+           <div class="my-4">
+            <label for="exampleFormControlInput1" class="form-label">Email ID</label>
+             <input type="text" name="user_email" class="form-control">
+           </div>
 
-        </div>
+                  <div class="my-4">
+            <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
+             <input type="text" name="user_phone" class="form-control">
+           </div>
+
+{% comment %}   
+                  <div class="my-4">
+            <label for="exampleFormControlInput1" class="form-label">Locations</label>
+            <select class="form-select py-3" name="user_id" id="id_select">
+              <option value="">Select</option>
+            {% for i in my_user %}
+                <option value="{{ i. }}">{{ i.uid }}</option>
+            {% endfor %}>
+            </select>
+           </div> {% endcomment %}
+
+                  {% comment %} <div class="my-4">
+            <label for="exampleFormControlInput1" class="form-label">Status</label>
+             <select class="form-select py-3">
+              <option selected>Select</option>
+            </select>
+           </div> {% endcomment %}
+
+
+           <div class="prof_personal_savefilt1 text-center mb-5">
+             <button class="prof_personal_filbtn1 my-3" type="reset">Reset</button>
+             <button class="prof_personal_filbtn2 my-3" type="submit">Submit</button>
+           </div>
+           <div class="py-1">
       
+           </div>  
+
+         </form>
+
       </div>
+    
     </div>
   </div>
+</div>
 
   <!-- <div class="modal fade modal-md px-4" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog modal-dialog-centered">

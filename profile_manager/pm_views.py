@@ -293,6 +293,7 @@ def acc_balance(request,id):
 
 def profile_finders(request,id):
     value = request.COOKIES.get('profilemanager')
+    new=[]
     if value != None:
         print(value)
         # return redirect("/Dashboard_profile_finder/{value}")
@@ -302,28 +303,51 @@ def profile_finders(request,id):
         mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
         access = ""
         my_profile_finder = requests.get(f"http://127.0.0.1:3000/pm_my_clients/{id}").json()[id]
-
+        for x in my_profile_finder:
+            new.append(x)
     except:
         mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]  
         access = mydata['access_Privileges']
         print(mydata['aid'])
         my_profile_finder = requests.get(f"http://127.0.0.1:3000/pm_my_clients/{mydata['aid']}").json()[mydata['aid']]
+        for x in my_profile_finder:
+            new.append(x)
     finally:
-        context={
-            'key':mydata,
-            'current_path':request.get_full_path(),
-            'all_profile_finder':my_profile_finder,
-            'access_Privileges':access,
-        }
+        
         if request.method == "POST":
             if 'uid' in request.POST:
                 print(request.POST)
                 global uid
                 uid = request.POST['uid']
                 return redirect(f"/profile_manager/view_details/{mydata['uid']}")
+            elif "pf_id" in request.POST:
+                    print(request.POST)
+                    filter = {
+                    'f_u_id': request.POST['pf_id'],
+                    'f_u_name': request.POST['pf_name'].lower(),
+                    'f_u_email': request.POST['pf_email'].lower(),
+                    'f_u_phone': request.POST['pf_phone'],
+                    'f_u_location': request.POST['pf_location'].lower(),
+                    'f_u_status': request.POST['pf_status'].lower(),
+                    }
+
+                    p = set()
+
+                    for x in new:
+                        if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                        (filter['f_u_name'] == x['name'].lower() or not filter['f_u_name']) and \
+                        (filter['f_u_email'] == x['email'].lower() or not filter['f_u_email']) and \
+                        (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone'])and \
+                        (filter['f_u_location'] == x['r_state'].lower() or not filter['f_u_location'])and \
+                        (filter['f_u_status'] == x['r_status'].lower() or not filter['f_u_status']):
+                            p.add(x['uid'])
+
+                    new = [ad for ad in my_profile_finder if ad['uid'] in p]
+                    print(new)
             else:
                 print(request.POST)
                 print("ok")
+                
                 if "Approve" in request.POST:
                     data={
                         'uid':request.POST["Approve"],
@@ -340,6 +364,12 @@ def profile_finders(request,id):
                 response = requests.post(f"http://127.0.0.1:3000/status/{id}",data = data)
                 print(response)
         
+        context={
+            'key':mydata,
+            'current_path':request.get_full_path(),
+            'all_profile_finder':new,
+            'access_Privileges':access,
+        }
     return render(request,"profile_finders.html",context)
     
 def view_details(request,id):
@@ -529,6 +559,7 @@ def view_details(request,id):
 
 def complaints(request,id):
     value = request.COOKIES.get('profilemanager')
+    new=[]
     if value != None:
         print(value)
         # return redirect("/Dashboard_profile_finder/{value}")
@@ -538,40 +569,67 @@ def complaints(request,id):
         mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
         access = ""
         my_profile_finder = requests.get(f"http://127.0.0.1:3000/pm_my_clients/{id}").json()[id]
-
+        for x in my_profile_finder:
+            new.append(x)
     except:
         mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]  
         access = mydata['access_Privileges']
         print(mydata['aid'])
         my_profile_finder = requests.get(f"http://127.0.0.1:3000/pm_my_clients/{mydata['aid']}").json()[mydata['aid']]
-
+        for x in my_profile_finder:
+            new.append(x)
     finally:
         complaints_list = []
         for i in my_profile_finder:
             if i['complaints'] != "empty":
                 complaints_list.append(i)
-        context={
-            'key':mydata,
-            'current_path':request.get_full_path(),
-            'my_profile_finder':my_profile_finder,
-            'complaints_list':complaints_list,
-            'access_Privileges':access,
-
-        }
+        
         if request.method == "POST":
-            print(request.POST)
-            data = {
-                'complaints_replay': request.POST['complaints_replay'],
-                'pf_complaints': request.POST['pf_complaints'],
-                'my_manager':id,
-                'access_Privileges':access_Privileges,
-            }
-            response = requests.post(f"http://127.0.0.1:3000/my_complaints/{request.POST['uid']}",data = data)
-            print(data)
+            if "pf_complaints" in request.POST:
+                print(request.POST)
+                data = {
+                    'complaints_replay': request.POST['complaints_replay'],
+                    'pf_complaints': request.POST['pf_complaints'],
+                    'my_manager':id,
+                    'access_Privileges':access_Privileges,
+                }
+                response = requests.post(f"http://127.0.0.1:3000/my_complaints/{request.POST['uid']}",data = data)
+                print(data)
+            elif "pf_id" in request.POST:
+                print(request.POST)
+                filter = {
+                'f_u_id': request.POST['pf_id'].strip(),
+                'f_u_name': request.POST['pf_name'].strip().lower(),
+                'f_u_email': request.POST['pf_email'].strip().lower(),
+                'f_u_phone': request.POST['pf_phone'],
+                'f_u_location': request.POST['pf_location'].strip().lower(),
+                'f_u_status': request.POST['pf_status'].strip().lower(),
+                }
+
+                p = set()
+
+                for x in new:
+                    if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                    (filter['f_u_name'] == x['name'].lower() or not filter['f_u_name']) and \
+                    (filter['f_u_email'] == x['email'].lower() or not filter['f_u_email']) and \
+                    (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']) and \
+                    (filter['f_u_location'] == x['r_state'].lower() or not filter['f_u_location']) and \
+                    (filter['f_u_status'] == x['family_status'] or not filter['f_u_status']):
+                        p.add(x['uid'])
+
+                new = [ad for ad in my_profile_finder if ad['uid'] in p]
+                print(new)
+
+
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'my_profile_finder':new,
+        'complaints_list':complaints_list,
+        'access_Privileges':access,
+
+    }
     return render(request,"complaints.html",context)
-
-
-
 
 def profile_finders_approved_list(request,id):
     value = request.COOKIES.get('profilemanager')
@@ -630,6 +688,7 @@ def profile_finders_approved_list(request,id):
 
 def users(request,id):
     value = request.COOKIES.get('profilemanager')
+    new=[]
     if value != None:
         print(value)
         # return redirect("/Dashboard_profile_finder/{value}")
@@ -640,10 +699,14 @@ def users(request,id):
         mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{id}").json()[0]  
         my_user = requests.get(f"http://127.0.0.1:3000/pm_my_users_data/{id}").json()
         access = ''
+        for x in my_user:
+            new.append(x)
     except:
         mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]  
         my_user = requests.get(f"http://127.0.0.1:3000/pm_my_users_data/{mydata['aid']}").json()
         access = mydata['access_Privileges']
+        for x in my_user:
+            new.append(x)
     print(mydata)
     # print(mydata['access_Privileges'])
     # print(my_user)
@@ -679,10 +742,31 @@ def users(request,id):
             elif response.status_code == 203:
                 print("user already exist")
                 error = "User Already Exixts"
+
+        elif "user_id" in request.POST:
+            filter = {
+            'f_u_id': request.POST['user_id'],
+            'f_u_name': request.POST['user_name'].lower(),
+            'f_u_email': request.POST['user_email'].lower(),
+            'f_u_phone': request.POST['user_phone'],
+            }
+
+            p = set()
+
+            for x in new:
+                if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                (filter['f_u_name'] == x['first_name'].lower() or not filter['f_u_name']) and \
+                (filter['f_u_email'] == x['email'].lower() or not filter['f_u_email']) and \
+                (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']):
+                    p.add(x['uid'])
+
+            new = [ad for ad in my_user if ad['uid'] in p]
+            print(new)
+
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
-        'my_user':my_user,
+        'my_user':new,
         'error':error,
         'access_Privileges':access,
         
@@ -718,7 +802,7 @@ def add_user(request,id):
             print(response.text)
             print(response.status_code)
             if response.status_code == 200:
-                return redirect(f"http://127.0.0.1:8001/profile_manager/users/{id}")
+                return redirect(f"http://127.0.0.1:3000/profile_manager/users/{id}")
             elif response.status_code == 203:
                 print("user already exist")
                 error = "User Already Exixts"

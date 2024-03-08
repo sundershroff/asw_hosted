@@ -11,6 +11,22 @@ jsondec = json.decoder.JSONDecoder()
 def dashboard(request):
     return render(request,"dashboard.html")
 
+def createaccount(request):
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+        name = (x.get("name"))
+        neww.append(name)
+    countryname = json.dumps(neww)
+
+    context = {'response': response, 'region': response,'all':al,
+                                            'country': countryname,'states': states,}
+
+    return render(request,"createaccount.html",context)
+
 def signup(request):
     error = ""
     if request.method == "POST":
@@ -113,6 +129,7 @@ def upload_acc(request,id):
     try:
         #hiring manager list
         hiring_manager = requests.get("http://127.0.0.1:3000/all_hm_data/").json()
+        mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]
         neww=[]
         response = requests.get('https://api.first.org/data/v1/countries').json()
         all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
@@ -123,8 +140,8 @@ def upload_acc(request,id):
            neww.append(name)
         countryname = json.dumps(neww)
     
-        context = {'response': response, 'region': response,'all':al,
-                                              'country': countryname,'states': states,'hiring_manager':hiring_manager}
+        context = {'response': response, 'region': response,'all':al,'key':mydata,
+                    'country': countryname,'states': states,'hiring_manager':hiring_manager}
         if request.method == "POST":
             print(dict(request.POST))
             # print(request.FILES)
@@ -296,6 +313,7 @@ def edit_acc(request,id):
 
 def local_admin(request,id):
     value = request.COOKIES.get('hiringmanager')
+    new=[]
     if value != None:
         print(value)
         # return redirect("/Dashboard_profile_finder/{value}")
@@ -314,7 +332,15 @@ def local_admin(request,id):
     if requests.get(f"http://127.0.0.1:3000/hm_my_data/{idd}").json()[0]['my_profile_manager'] == None:
         pm_data =""
     else:
-        pm_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{idd}").json()[0]['my_profile_manager'])    
+        pm_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{idd}").json()[0]['my_profile_manager'])
+        for i in pm_data:
+            id_value=i['id_card']
+            if id_value == None:
+                i['status']="pending"
+                new.append(i)
+            else:
+                i['status']="verified"
+                new.append(i)    
     if request.method=="POST":
         print("hello")
         if 'uid' in request.POST:
@@ -322,13 +348,39 @@ def local_admin(request,id):
             global uid 
             uid = request.POST['uid']
             return redirect(f"/hiring_manager/hm_local_admin_upload/{idd}")
+        elif "user_id" in request.POST:
+            print("filter")
+            filter = {
+            'f_u_id': request.POST['user_id'].strip(),
+            'f_u_name': request.POST['name'].strip().lower(),
+            'f_u_email': request.POST['email'].strip(),
+            'f_u_phone': request.POST['mobile'].strip(),
+            'f_u_status' : request.POST['status'].strip(),
+            'f_location' : request.POST['location'].strip(),
+            
+            }
+
+            p = set()
+
+            for x in new:
+                if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                (filter['f_u_name'] == x['first_name'].lower() or not filter['f_u_name']) and \
+                (filter['f_u_email'] == x['email'] or not filter['f_u_email']) and \
+                (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']) and \
+                (filter['f_u_status'] == x['status'] or not filter['f_u_status']) and \
+                (filter['f_location'] == x['personal_country'] or not filter['f_location']):
+                    p.add(x['uid'])
+
+            new = [ad for ad in pm_data if ad['uid'] in p]
+            print(new)
         else:
             print(request.POST)
             print(request.FILES)
+
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
-        'pm_data':pm_data,
+        'pm_data':new,
         'access':access,
     }
     return render(request,"hm_localadmin.html",context)
@@ -377,6 +429,7 @@ def local_admin_upload(request,id,uid):
 
 def ad_provider(request,id):
     value = request.COOKIES.get('hiringmanager')
+    new=[]
     if value != None:
         print(value)
         # return redirect("/Dashboard_profile_finder/{value}")
@@ -397,12 +450,45 @@ def ad_provider(request,id):
         ad_pro_data =""
     else:
         ad_pro_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{idd}").json() [0]['ad_provider']) 
+        for i in ad_pro_data:
+            id_value=i['id_card']
+            if id_value == None:
+                i['status']="pending"
+                new.append(i)
+            else:
+                i['status']="verified"
+                new.append(i)
     if request.method=="POST":
         if 'uid' in request.POST:
             print(request.POST)
             global uid 
             uid = request.POST['uid']
             return redirect(f"/hiring_manager/hm_adprovider_upload/{idd}")
+        elif "user_id" in request.POST:
+            print("filter")
+            filter = {
+            'f_u_id': request.POST['user_id'].strip(),
+            'f_u_name': request.POST['pro_name'].strip().lower(),
+            'f_u_email': request.POST['email'].strip(),
+            'f_u_phone': request.POST['mobile'].strip(),
+            'f_u_status': request.POST['status'].strip(),
+            'f_location' : request.POST['location'].strip()
+
+            }
+
+            p = set()
+
+            for x in new:
+                if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                (filter['f_u_name'] == x['first_name'].lower or not filter['f_u_name']) and \
+                (filter['f_u_email'] == x['email'] or not filter['f_u_email']) and \
+                (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']) and \
+                (filter['f_u_status'] == x['status'] or not filter['f_u_status']) and \
+                (filter['f_location'] == x['personal_country'] or not filter['f_location']):
+                    p.add(x['uid'])
+
+            new = [ad for ad in ad_pro_data if ad['uid'] in p]
+            print(new)
         else:
             print(request.POST)
             print(request.FILES)
@@ -410,7 +496,7 @@ def ad_provider(request,id):
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
-        'ad_pro_data':ad_pro_data,
+        'ad_pro_data':new,
         "access":access,
     }
     return render(request,"hm_ad_provider.html",context)
@@ -471,6 +557,7 @@ def ad_provider_doc(request,id):
 
 def ad_distributor(request,id):
     value = request.COOKIES.get('hiringmanager')
+    new=[]
     if value != None:
         print(value)
         # return redirect("/Dashboard_profile_finder/{value}")
@@ -491,13 +578,46 @@ def ad_distributor(request,id):
     if requests.get(f"http://127.0.0.1:3000/hm_my_data/{idd}").json()[0]['ad_distributor'] == None:
         ad_pro_data =""
     else:
-        ad_pro_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{idd}").json() [0]['ad_distributor']) 
+        ad_pro_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{idd}").json() [0]['ad_distributor'])
+        for i in ad_pro_data:
+            id_value=i['id_card']
+            if id_value == None:
+                i['status']="pending"
+                new.append(i)
+            else:
+                i['status']="verified"
+                new.append(i) 
     if request.method=="POST":
         if 'uid' in request.POST:
             print(request.POST)
             global uid 
             uid = request.POST['uid']
             return redirect(f"/hiring_manager/hm_ad_distributor_upload/{idd}")
+        elif "user_id" in request.POST:
+            print("filter")
+            filter = {
+            'f_u_id': request.POST['user_id'].strip(),
+            'f_u_name': request.POST['dis_name'].strip().lower(),
+            'f_u_email': request.POST['email'].strip(),
+            'f_u_phone': request.POST['mobile'].strip(),
+            'f_u_status': request.POST['status'].strip(),
+            'f_location' : request.POST['location'].strip()
+            
+            }
+
+            p = set()
+
+            for x in new:
+                if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                (filter['f_u_name'] == x['first_name'].lower() or not filter['f_u_name']) and \
+                (filter['f_u_email'] == x['email'] or not filter['f_u_email']) and \
+                (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']) and \
+                (filter['f_u_status'] == x['status'] or not filter['f_u_status']) and \
+                (filter['f_location'] == x['personal_country'] or not filter['f_location']):
+                    p.add(x['uid'])
+
+            new = [ad for ad in ad_pro_data if ad['uid'] in p]
+            print(new)
         else:
             print(request.POST)
             print(request.FILES)
@@ -505,7 +625,7 @@ def ad_distributor(request,id):
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
-        'ad_pro_data':ad_pro_data,
+        'ad_pro_data':new,
         'access':access,
     }
     return render(request,"hm_ad_distributor.html",context)
@@ -559,6 +679,7 @@ def ad_distributor_doc(request,id):
 
 def sales(request,id):
     value = request.COOKIES.get('hiringmanager')
+    new=[]
     if value != None:
         print(value)
         # return redirect("/Dashboard_profile_finder/{value}")
@@ -578,17 +699,50 @@ def sales(request,id):
         sales_data =""
     else:
         sales_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{idd}").json()[0]['sales_manager'])
+        for i in sales_data:
+            id_value=i['id_card']
+            if id_value == None:
+                i['status']="pending"
+                new.append(i)
+            else:
+                i['status']="verified"
+                new.append(i)
     if request.method=="POST":
         if 'uid' in request.POST:
             global uid 
             uid = request.POST['uid']
             return redirect(f"/hiring_manager/hm_sales_person_doc/{idd}")
+        elif "user_id" in request.POST:
+            print("filter")
+            filter = {
+            'f_u_id': request.POST['user_id'].strip(),
+            'f_u_name': request.POST['name'].strip().lower(),
+            'f_u_email': request.POST['email'].strip(),
+            'f_u_phone': request.POST['mobile'].strip(),
+            'f_u_status' : request.POST['status'].strip(),
+            'f_location' : request.POST['location'].strip()
+            }
+
+            p = set()
+
+            for x in new:
+                if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                (filter['f_u_name'] == x['full_name'].lower() or not filter['f_u_name']) and \
+                (filter['f_u_email'] == x['email'] or not filter['f_u_email']) and \
+                (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']) and \
+                (filter['f_u_status'] == x['status'] or not filter['f_u_status']) and \
+                (filter['f_location'] == x['personal_country'] or not filter['f_location']):
+                    p.add(x['uid'])
+
+            new = [ad for ad in sales_data if ad['uid'] in p]
+            print(new)
         else:
             pass
+
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
-        'sales_data':sales_data,
+        'sales_data':new,
         'access':access
     }
     
@@ -640,6 +794,7 @@ def sales_doc(request,id):
 
 def affiliate_marketing(request,id):
     value = request.COOKIES.get('hiringmanager')
+    new=[]
     if value != None:
         print(value)
         # return redirect("/Dashboard_profile_finder/{value}")
@@ -659,17 +814,52 @@ def affiliate_marketing(request,id):
         af_data =""
     else:
         af_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{idd}").json()[0]['affiliate_marketing'])
+        for i in af_data:
+            id_value=i['id_card']
+            if id_value == None:
+                i['status']="pending"
+                new.append(i)
+            else:
+                i['status']="verified"
+                new.append(i)
+            
     if request.method=="POST":
         if 'uid' in request.POST:
             global uid 
             uid = request.POST['uid']
             return redirect(f"/hiring_manager/hm_affiliate_marketing_upload/{idd}")
+        
+        elif "user_id" in request.POST:
+
+            filter = {
+            'f_u_id': request.POST['user_id'].strip(),
+            'f_u_name': request.POST['name'].strip().lower(),
+            'f_u_email': request.POST['email'].strip(),
+            'f_u_phone': request.POST['mobile'].strip(),
+            'f_u_status':request.POST['status'].strip(),
+            'f_location' : request.POST["location"].strip()
+            }
+
+            p = set()
+
+            for x in new:
+                if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                (filter['f_u_name'] == x['first_name'].lower() or not filter['f_u_name']) and \
+                (filter['f_u_email'] == x['email'] or not filter['f_u_email']) and \
+                (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']) and \
+                (filter['f_u_status'] == x['status'] or not filter['f_u_status']) and \
+                (filter['f_location'] == x['personal_country'] or not filter['f_location']):
+                    p.add(x['uid'])
+
+            new = [ad for ad in af_data if ad['uid'] in p]
+            print(new)
         else:
             pass
+        
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
-        'af_data':af_data,
+        'af_data':new,
         'access':access,
     }
     
@@ -725,6 +915,7 @@ def affiliate_marketing_doc(request,id):
 
 def private_investigator(request,id):
     value = request.COOKIES.get('hiringmanager')
+    new=[]
     if value != None:
         print(value)
         # return redirect("/Dashboard_profile_finder/{value}")
@@ -744,17 +935,49 @@ def private_investigator(request,id):
         pm_data =""
     else:
         pm_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{idd}").json()[0]['private_investigator'])
+        for i in pm_data:
+            id_value=i['id_card']
+            if id_value == None:
+                i['status']="pending"
+                new.append(i)
+            else:
+                i['status']="verified"
+                new.append(i)
+           
     if request.method=="POST":
         if 'uid' in request.POST:
             global uid 
             uid = request.POST['uid']
             return redirect(f"/hiring_manager/hm_private_investigator_upload/{idd}")
+        elif "user_id" in request.POST:
+            filter = {
+            'f_u_id': request.POST['user_id'].strip(),
+            'f_u_name': request.POST['name'].strip().lower(),
+            'f_u_email': request.POST['email'].strip(),
+            'f_u_phone': request.POST['mobile'].strip(),
+            'f_u_status':request.POST['status'].strip(),
+            'f_location' : request.POST['location'].strip()
+            }
+
+            p = set()
+
+            for x in new:
+                if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                (filter['f_u_name'] == x['first_name'].lower() or not filter['f_u_name']) and \
+                (filter['f_u_email'] == x['email'] or not filter['f_u_email']) and \
+                (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']) and \
+                (filter['f_u_status'] == x['status'] or not filter['f_u_status'] ) and \
+                (filter['f_location'] == x['personal_country'] or not filter['f_location']):
+                    p.add(x['uid'])
+
+            new = [ad for ad in pm_data if ad['uid'] in p]
+            print(new)
         else:
             pass
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
-        'pm_data':pm_data,
+        'pm_data':new,
         'access':access,
     }
     
@@ -806,6 +1029,7 @@ def private_investigator_doc(request,id):
 
 def hiring_manager(request,id):
     value = request.COOKIES.get('hiringmanager')
+    new=[]
     if value != None:
         print(value)
         # return redirect("/Dashboard_profile_finder/{value}")
@@ -825,16 +1049,49 @@ def hiring_manager(request,id):
         hirinng_data =""
     else:
         hirinng_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{idd}").json()[0]['hiring_manager'])
-
+        for i in hirinng_data:
+            id_value=i['id_card']
+            if id_value == None:
+                i['status']="pending"
+                new.append(i)
+            else:
+                i['status']="verified"
+                new.append(i)
+            
+        
     if request.method=="POST":
-        print(request.POST)
-        global uid 
-        uid = request.POST['uid']
-        return redirect(f"/hiring_manager/hm_hiring_manager_doc/{idd}")
+        if "uid" in request.POST:
+            print(request.POST)
+            global uid 
+            uid = request.POST['uid']
+            return redirect(f"/hiring_manager/hm_hiring_manager_doc/{idd}")
+        elif "user_id" in request.POST:
+            filter = {
+            'f_u_id': request.POST['user_id'].strip(),
+            'f_u_name': request.POST['name'].strip().lower(),
+            'f_u_email': request.POST['email'].strip(),
+            'f_u_phone': request.POST['mobile'].strip(),
+            'f_u_status':request.POST['status'].strip(),
+            'f_location': request.POST['location'].strip()           
+            }
+
+            p = set()
+
+            for x in new:
+                if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                (filter['f_u_name'] == x['first_name'].lower() or not filter['f_u_name']) and \
+                (filter['f_u_email'] == x['email'] or not filter['f_u_email']) and \
+                (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone'])and \
+                (filter['f_u_status'] == x['status'] or not filter['f_u_status']) and \
+                (filter['f_location'] == x['personal_country'] or not filter['f_location']):
+                    p.add(x['uid'])
+
+            new = [ad for ad in hirinng_data if ad['uid'] in p]
+            print(new)
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
-        'hirinng_data':hirinng_data,
+        'hirinng_data':new[::-1],
         'access':access,
     } 
     return render(request,"hm_hiring_manager.html",context)
@@ -880,13 +1137,12 @@ def hiring_manager_doc(request,id):
         print(response.status_code)
         if response.status_code == 200:
             return redirect(f"/hiring_manager/hm_hiring_manager/{id}")
+        
     return render(request,"hm_hiring_manager_doc.html",context)
-
-
-
 
 def users(request,id):
     value = request.COOKIES.get('hiringmanager')
+    new=[]
     if value != None:
         print(value)
         # return redirect("/Dashboard_profile_finder/{value}")
@@ -898,12 +1154,16 @@ def users(request,id):
         my_user = requests.get(f"http://127.0.0.1:3000/hm_my_users_data/{id}").json()
         access = "" 
         idd = id
+        for x in my_user:
+            new.append(x)
     except:
         mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]
         access = mydata['access_Privileges']  
         print(access)
         idd = mydata['aid']
         my_user = requests.get(f"http://127.0.0.1:3000/hm_my_users_data/{idd}").json()
+        for x in my_user:
+            new.append(x)
     print(my_user)
     signin(request)
     if request.method== "POST":
@@ -940,11 +1200,31 @@ def users(request,id):
                 print("user already exist")
                 error = "User Already Exixts"
 
+        elif "user_id" in request.POST:
+            filter = {
+            'f_u_id': request.POST['user_id'],
+            'f_u_name': request.POST['user_name'].lower(),
+            'f_u_email': request.POST['user_email'],
+            'f_u_phone': request.POST['user_phone'],
+            
+            }
+
+            p = set()
+
+            for x in new:
+                if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                (filter['f_u_name'] == x['first_name'].lower() or not filter['f_u_name']) and \
+                (filter['f_u_email'] == x['email'] or not filter['f_u_email']) and \
+                (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']) :
+                    p.add(x['uid'])
+
+            new = [ad for ad in my_user if ad['uid'] in p]
+            print(new)
 
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
-        'my_user':my_user,
+        'my_user':new[::-1],
         'error':error,
         'access':access,
 
@@ -1056,10 +1336,21 @@ def setting(request,id):
         # return redirect("/Dashboard_profile_finder/{value}")
     else:
         return redirect("/hiring_manager/signin")
+    try:
+        mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0] 
+        my_user = requests.get(f"http://127.0.0.1:3000/hm_my_users_data/{id}").json()
+        access = "" 
+        idd = id
+    except:
+        mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]
+        access = mydata['access_Privileges']  
+        print(access)
+        idd = mydata['aid']
     mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
+        'access' : access
     }
     if request.method=="POST":
         print(request.POST)

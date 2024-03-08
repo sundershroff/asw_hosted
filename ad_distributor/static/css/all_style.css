@@ -43,6 +43,7 @@
 	width:42px;
 	height:42px;
 	border-radius:50%;
+	filter:brightness(1);
 }
 
 .dash_par2{
@@ -492,8 +493,8 @@
 
 .locl_adm_table th{
 	font-size:1em;
-	text-align:center;
-	padding:30px 0;
+	text-align:left;
+	padding:20px 0;
 }
 
 .locl_adm_table img{
@@ -505,9 +506,9 @@
 .locl_adm_table td{
 	font-size:1em;
 	font-weight:400;
-	text-align:center;
+	text-align:left;
   background-color:white;
-  padding:40px 0;
+  padding:15px 15px;
 }
 
 
@@ -985,13 +986,13 @@ input:checked + .slider:before {
 }
 
 .loc_adm_bala_tables th{
-	padding:30px 0;
+	padding:3px 0;
 	text-align:center;
 
 }
 
 .loc_adm_bala_tables td{
-	padding:30px 0;
+	padding:3px 0;
 	text-align:center;
 	font-weight:400;
 }

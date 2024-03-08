@@ -27,6 +27,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,500;9..40,700&family=Qwitcher+Grypen&family=Rubik+Pixels&display=swap" rel="stylesheet">
   <!-- over -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<style>
+  img{
+    width: 135px;
+    height: 111px;
+    margin-top: 20px;
+    margin-left: -178px;
+  }
+</style>
 </head>
 <body style=" background-color:#F4F2FF;">
    
@@ -45,7 +53,7 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rIghts reserved</h5>
   </header>
   
   </div>
@@ -53,26 +61,7 @@
   <div class="dash_bor_main1" >
     <!-- start1-->
     {% include "ad_dis_header.html"%}
-    {% comment %} <div class="dash_par1" style="background:white;">
-
-          <i class="fa-regular fa-bell"></i>
-
-        <div class="dash_brd_img1">
-         <img src="{% static 'images/girl1.png'%}">
-         <div class="dropdown">
-          <a class="btn dropdown-toggle" href="#" style="font-size:25px" role="button" id="" data-bs-toggle="dropdown" aria-expanded="false">
-           
-          </a>
-        
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-regular fa-user"></i> My Account</a></li>
-            <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa fa-cog" aria-hidden="true"></i> Account Settings</a></li>
-            <li><a class="dropdown-item" href="#"><i style="font-size:17px" class="fa-solid fa-arrow-right-from-bracket"></i> Log Out</a></li>
-          </ul>
-        </div>
-         </div>
-
-    </div> {% endcomment %}
+    
     <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
     <!-- over -->
 
@@ -129,19 +118,19 @@
         <div class="col-lg-4 my-3">
             <label class="form-label">Languages<span>*</span></label>
             <select class="form-select" name="languages" >
-              <option>Select</option>
+              <option value=" ">Select</option>
               <option value="English">English</option>
               <option value="Arabic">Arabic</option>
               <option value="French">French</option>
               <option value="Tamil">Tamil</option>
-              <option value="malayalam">Malayalam</option>
+              <option value="malayalam">Malayalam</option>s
               <option value="Hindi">Hindi</option>
             </select> 
         </div> 
         <div class="col-lg-4 my-3">
             <label class="form-label">Country<span>*</span></label>
             <select class="form-select" name="office_country" id="countrytwo" onchange="fun2.call(this,event)">
-              <option value="default">Select</option>
+              <option value=" ">Select</option>
                 {% for j in all %}
                   <option value="{{j.name}}">{{j.name}}</option>
                 {% endfor %}
@@ -151,7 +140,7 @@
             
             <label class="form-label">State<span>*</span></label>
             <select class="form-select" name="office_state" id="res3">
-              <option value="default">Select</option>
+              <option value=" ">Select</option>
               <script>
                 stat = {{ states|safe }};
             ttt = stat[0].states;
@@ -206,7 +195,185 @@
                     25-30 <i class="bi bi-x-circle-fill det_icon"></i></div> {% endcomment %}
               </div>
           </div>
-          <button class="document_btn my-3">Add More</button>
+          <button type="button" class="document_btn my-3" id="add_data1">Add More</button>
+        <div id="add_more1">
+          <p></p>
+          <div class="row">
+
+            <div class="col-lg-4 my-3">
+                <label class="form-label">Languages<span>*</span></label>
+                <select class="form-select" name="languages" >
+                  <option value="">Select</option>
+                  <option value="English">English</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="French">French</option>
+                  <option value="Tamil">Tamil</option>
+                  <option value="malayalam">Malayalam</option>
+                  <option value="Hindi">Hindi</option>
+                </select> 
+            </div> 
+            <div class="col-lg-4 my-3">
+                <label class="form-label">Country<span>*</span></label>
+                <select class="form-select" name="office_country" id="countrythree" onchange="fun3.call(this,event)">
+                  <option value=" ">Select</option>
+                    {% for j in all %}
+                      <option value="{{j.name}}">{{j.name}}</option>
+                    {% endfor %}
+                </select> 
+            </div> 
+            <div class="col-lg-4 my-3">
+                
+                <label class="form-label">State<span>*</span></label>
+                <select class="form-select" name="office_state" id="res4">
+                  <option value=" ">Select</option>
+                  <script>
+                    stat = {{ states|safe }};
+                ttt = stat[0].states;
+                for (i=0;i<ttt.length;i++){
+                   tt = ttt[i].name;
+                   document.write("<option value="tt">"+tt+"</option>");
+                }
+              </script>
+                </select> 
+               
+    
+            </div> 
+            </div>
+            <div class="row">
+                <div class="col-lg-4 my-3">
+                    <label class="form-label">District<span>*</span></label>
+                    
+                      <input type="text" name="office_district" class="form-control" placeholder=""> 
+                      
+    
+                     
+                </div>
+                <div class="col-lg-4 my-3">
+                    <label class="form-label">Gender<span>*</span></label>
+                    <select class="form-select" name="gender" >
+                      <option value="">Select</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="other">Other</option>
+                    </select> 
+                </div>
+                <div class="col-lg-4 my-3">
+                    
+                </div>
+              
+                
+              </div>
+              <div class="row">
+                <div class="col-lg-4 my-3">
+                    <label class="form-label">Ad Group<span>*</span></label>
+                    <input type="text" id="inputField3"  name="age_range" class="form-control" placeholder="25" oninput="displayValue1()">
+                  </div>
+                  <div class="col-lg-4 my-3">
+                    <label class="form-label"></label>
+                    <input style="margin-top:8px;" type="text" name="age_to" class="form-control" placeholder="30" id="inputField4" oninput="displayValue1()" >
+                  </div>
+                  <div id="age_dis" class="row col-lg-4 my-3" style="display:flex;justify-content: space-evenly;">
+                    <div id="age_dis" style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
+                    <span  id="displayArea1"> 25-30 </span> <span id="i_con"><i class="bi bi-x-circle-fill det_icon"></i></span>
+                    </div>
+                    {% comment %} <div style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
+                        25-30 <i class="bi bi-x-circle-fill det_icon"></i></div> {% endcomment %}
+                  </div>
+              </div>
+              {% comment %} <button type="button"  class="document_btn my-3" id="add_data2">Add More</button> {% endcomment %}
+              <button type="button" class="document_btn my-3" id="close_all">Close</button>
+              <button type="button" class="document_btn my-3" id="remove_all">Cancel</button>
+            </div>
+          
+        
+          {% comment %} <div id="add_more2">
+            <p></p>
+            <div class="row">
+  
+              <div class="col-lg-4 my-3">
+                  <label class="form-label">Languages<span>*</span></label>
+                  <select class="form-select" name="languages" >
+                    <option>Select</option>
+                    <option value="English">English</option>
+                    <option value="Arabic">Arabic</option>
+                    <option value="French">French</option>
+                    <option value="Tamil">Tamil</option>
+                    <option value="malayalam">Malayalam</option>
+                    <option value="Hindi">Hindi</option>
+                  </select> 
+              </div> 
+              <div class="col-lg-4 my-3">
+                  <label class="form-label">Country<span>*</span></label>
+                  <select class="form-select" name="office_country" id="countryfour" onchange="fun4.call(this,event)">
+                    <option value="default">Select</option>
+                      {% for j in all %}
+                        <option value="{{j.name}}">{{j.name}}</option>
+                      {% endfor %}
+                  </select> 
+              </div> 
+              <div class="col-lg-4 my-3">
+                  
+                  <label class="form-label">State<span>*</span></label>
+                  <select class="form-select" name="office_state" id="res5">
+                    <option value="default">Select</option>
+                    <script>
+                      stat = {{ states|safe }};
+                  ttt = stat[0].states;
+                  for (i=0;i<ttt.length;i++){
+                     tt = ttt[i].name;
+                     document.write("<option value="tt">"+tt+"</option>");
+                  }
+                </script>
+                  </select> 
+                 
+      
+              </div> 
+              </div>
+              <div class="row">
+                  <div class="col-lg-4 my-3">
+                      <label class="form-label">District<span>*</span></label>
+                      
+                        <input type="text" name="office_district" class="form-control" placeholder=""> 
+                        
+      
+                       
+                  </div>
+                  <div class="col-lg-4 my-3">
+                      <label class="form-label">Gender<span>*</span></label>
+                      <select class="form-select" name="gender" >
+                        <option value="">Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="other">Other</option>
+                      </select> 
+                  </div>
+                  <div class="col-lg-4 my-3">
+                      
+                  </div>
+                
+                  
+                </div>
+                <div class="row">
+                  <div class="col-lg-4 my-3">
+                      <label class="form-label">Ad Group<span>*</span></label>
+                      <input type="text" id="inputField1"  name="age_range" class="form-control" placeholder="25" oninput="displayValue()">
+                    </div>
+                    <div class="col-lg-4 my-3">
+                      <label class="form-label"></label>
+                      <input style="margin-top:8px;" type="text" name="age_to" class="form-control" placeholder="30" id="inputField2" oninput="displayValue()" >
+                    </div>
+                    <div id="age_dis" class="row col-lg-4 my-3" style="display:flex;justify-content: space-evenly;">
+                      <div id="age_dis" style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
+                      <span  id="displayArea"> 25-30 </span> <span id="i_con"><i class="bi bi-x-circle-fill det_icon"></i></span>
+                      </div>
+                      {% comment %} <div style="background-color:#dce1ff;border-radius:5px;width:max-content;padding:13px;margin-top:33px">
+                          25-30 <i class="bi bi-x-circle-fill det_icon"></i></div> {% endcomment %}
+                    {% comment %} </div>
+                </div>
+                <button class="document_btn my-3" id="close_all">Close</button>
+              </div>  {% endcomment %}
+           
+
         <h4 class="my-4" style="color:#2B3674;">Upload Advertisements</h4>
           
           <div class="row">
@@ -257,11 +424,7 @@
           <option value="3">3</option>
           <option value="4">4</option>
           <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
+          
         </select> 
     </div>
     <p style="color:#a0b2ff"><i>If you select special days you need to pay some additional charge</i></p>
@@ -282,14 +445,15 @@
        <div data-toggle="modal" data-target="#otherads" style="cursor:pointer;background-color: #e8ebff;color:#7B61FF;padding:20px 50px;font-size: 50px;border-radius:10px;width:fit-content">
         <div class="icon"><i class="bi bi-plus-circle">  </i> 
           </div>
-          <input type="file" name="other_ads" style="
-          opacity: 0;
-          position:absolute;     height: 61px;
-          width: 59px;
-          margin-top: -68px;">
-          
-                
+          <input type="file" name="other_ads" style="opacity: 0;position:absolute;height: 61px;width: 59px;margin-top: -68px;" id="fileInput" onchange="previewImage()">
+                 
        </div>
+    </div>
+    <div class="col-lg-4 my-3" >
+      <div id="imagePreview" style="width: 150px; height: 111px;margin-top: 18px;margin-left: 3px;margin-right: 9px;border:none;">
+
+      </div>
+
     </div>
 </div>
 <h4  class="my-4" style="color:#2B3674;">Call To Action</h4>
@@ -324,7 +488,6 @@
         <div class="local_admin_edi_subbtn my-4">
 
           <button style="
-          background-color: whitw;
           color: #7B61FF;
           background-color: white;
           border: 1px solid #7B61FF;
@@ -525,12 +688,59 @@
         }
         
         </script>
+
+        <script type="text/javascript">
+          function fun3(event){
+          a = document.getElementById("countrythree").value;
+          <!--document.getElementById("res").innerHTML=a;-->
+          c = {{ country|safe }};
+          position =c.indexOf(a);
+          <!--document.getElementById("res1").innerHTML=position;-->
+          stat = {{ states|safe }};
+          ttt = stat[position].states;
+          tt = "<select>";
+          for (i=0;i<ttt.length;i++){
+             tt += "<option>"+ttt[i].name+"</option>";
+          }
+               tt+="</select>";
+                document.getElementById("res4").innerHTML=tt;
+          
+          }
+          
+          </script>
+
+          <script type="text/javascript">
+            function fun4(event){
+            a = document.getElementById("countryfour").value;
+            <!--document.getElementById("res").innerHTML=a;-->
+            c = {{ country|safe }};
+            position =c.indexOf(a);
+            <!--document.getElementById("res1").innerHTML=position;-->
+            stat = {{ states|safe }};
+            ttt = stat[position].states;
+            tt = "<select>";
+            for (i=0;i<ttt.length;i++){
+               tt += "<option>"+ttt[i].name+"</option>";
+            }
+                 tt+="</select>";
+                  document.getElementById("res5").innerHTML=tt;
+            
+            }
+            
+            </script>
+
         <script>
           function displayValue() {
             var inputValue1 = document.getElementById('inputField1').value;
             var inputValue2 = document.getElementById('inputField2').value;
       
             document.getElementById('displayArea').textContent = inputValue1+ "-" +inputValue2 ;
+          }
+          function displayValue1() {
+            var inputValue1 = document.getElementById('inputField3').value;
+            var inputValue2 = document.getElementById('inputField4').value;
+            
+            document.getElementById('displayArea1').textContent =inputValue1+ "-"+inputValue2;
           }
         </script>
         <script>
@@ -541,10 +751,64 @@
           });
         </script>
        
+        <script>
+          function previewImage() {
+            var fileInput = document.getElementById('fileInput');
+            var imagePreview = document.getElementById('imagePreview');
       
+            
+            if (fileInput.files.length > 0) {
+              var file = fileInput.files[0];
+              var reader = new FileReader();
+      
+             
+              reader.onload = function (e) {
+               
+                var img = document.createElement('img');
+                img.src = e.target.result;
+      
+                
+                imagePreview.innerHTML = '';
+                imagePreview.appendChild(img);
+              };
+      
+             
+              reader.readAsDataURL(file);
+            } else {
+             
+              imagePreview.innerHTML = '';
+            }
+          }
+        </script>
+
+
+        <script>
+
+          $(document).ready(function(){
+            $("#add_more1").hide();
+            $("#add_more2").hide();
+          
+            $("#add_data1").click(function(){
+              $("#add_more1").show();
+              $("#add_more2").hide();
+            });
+            $("#add_data2").click(function(){
+              $("#add_more2").show();
+            });
+            $("#close_all").click(function(){
+              $("#add_more1").hide();
+            $("#add_more2").hide();
+            });
+            $("#remove_all").click(function(){
+              $("#add_more1").remove();
+            $("#add_more2").remove();
+            });
+          });
+
+        </script>
       <script src="{% static 'js/main.js'%}"></script>
 
 </body>
 </html>
 
-<!--   -->
+<!--  end -->

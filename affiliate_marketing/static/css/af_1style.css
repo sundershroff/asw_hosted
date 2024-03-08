@@ -491,8 +491,8 @@
 
 .locl_adm_table th{
 	font-size:1em;
-	text-align:center;
-	padding:30px 0;
+	text-align:left;
+	padding:15px 15px;
 }
 
 .locl_adm_table img{
@@ -508,9 +508,9 @@
 .locl_adm_table td{
 	font-size:1em;
 	font-weight:400;
-	text-align:center;
+	text-align:left;
   background-color:white;
-  padding:40px 0;
+  padding:15px 15px;
 }
 
 

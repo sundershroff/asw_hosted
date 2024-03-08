@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Local Admin Dashboard</title>
-  <link rel="stylesheet" href="{% static 'css/sm_dashboard.css' %}">
+  <link rel="stylesheet" href="{% static 'css/af_dashboard.css' %}">
 
 	  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -39,7 +39,7 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rights reserved</h5>
   </header>
   
   </div>
@@ -69,17 +69,17 @@
     <!-- over -->
 
     <!-- start2 -->
-    <div class="dash_par2 my-5 px-3"> 
+    <div class="dash_par2 my-2 px-3"> 
          
-        <h4>Dashboard</h4>
+        <h4 id="dash">Dashboard</h4>
 
-        <button>Download Report <i class="fa-solid fa-file-excel"></i></button>
+        <button id="down_report">Download Report <i class="fa-solid fa-file-excel"></i></button>
 
     </div>
     <!-- over -->
 
     <!-- start3 -->
-      <div class="dash_par3 my-4 px-3"> 
+      <div class="dash_par3 my-2 px-3"> 
          
         <div class="dash_bor_box">
            
@@ -149,14 +149,14 @@
     </div>
     <!-- over -->
     <!-- start -->
-    <div class="dash_bor_rsp my-4 px-3">
+    <div class="dash_bor_rsp my-3 px-3">
 
-      <div>
+      <div id="recent">
         <h4>Recent Clients</h4>
       </div>
 
 
-      <div class="dash_bor_rsp_1">
+      <div class="dash_bor_rsp_1" id="ind">
         <i class="fa-solid fa-ellipsis-vertical"></i>
 
         <select class="form-select">
@@ -172,9 +172,9 @@
     <!-- start -->
      <div class="dash_bor_table px-4">
 
-      <table class=" table table-borderless">
+      <table class=" table table-borderless" style="margin-bottom: 0.1rem;">
 
-      <tr class="me-5">
+      <tr class="me-3">
         
         <th class="py-4">#No</th>
         <th class="py-4">User Id</th>
@@ -197,18 +197,17 @@
         {%endif%} -->
         <td class="py-4">{{i.email}}</td>
       </tr>
-      {%endfor%}
+      {% endfor %}
       
        
 
-        <div class="py-4">
       
 
     </table>
 
   
 
-    <div class="dash_bor_rsp_va my-3">
+    <div class="dash_bor_rsp_va mb-3" style="border-radius: 0px 0px 10px 10px;">
       <a href="/affiliate_marketing/af_commisions/{{key.uid}}" class="mx-3">View All</a>
     </div>
 
@@ -222,19 +221,19 @@
           
             
               <form method="post" action="" enctype="multipart/form-data">
-                {%csrf_token%}
+                {% csrf_token %}
        <div class="row py-3">
-        
-                  <div class="col-lg-4 col-md-4">
+                  
+                  <div class="col-md-4 px-4">
                    <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>From</b><sup style="color: #9B51E0">*</sup></label>
                    <input type="date" name="from_date" class="form-control"  required>
                    </div>
-                   <div class="col-lg-4 col-md-4">
+                   <div class="col-md-4">
                     <label for="exampleFormControlInput1" class="form-label editpro_formhed"><b>To</b><sup style="color: #9B51E0">*</sup></label>
                     <input type="date" name="to_date" class="form-control"  required>
                     </div>
  
-                   <div class="col-lg-4 col-md-4">
+                   <div class="col-md-4 px-3">
                     <label for="exampleFormControlInput1" class="form-label editpro_formhed" style="visibility:hidden"><b>submit</b><sup style="color: #9B51E0">*</sup></label>
 
                     <button type="submit" class="form-control " style="background-color: #3d2a83"><span style="color: aliceblue;">Submit</span></button>

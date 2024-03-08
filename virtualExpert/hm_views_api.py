@@ -35,6 +35,8 @@ def hm_signup(request):
                     'email': request.data["email"],
                     'mobile': request.data["mobile"],
                     'password': request.data["password"],
+                    'first_name': request.POST['first_name'],
+                    'last_name': request.POST['last_name'],
                     'uid': hm_extension.id_generate(),
                     'otp': hm_extension.otp_generate(),
                     'created_date':str(x.strftime("%d"))+" "+str(x.strftime("%B"))+","+str(x.year)
@@ -141,102 +143,214 @@ def hm_upload_account(request,id):
         fs = FileSystemStorage()
         userdata = hiringmanager.objects.get(uid=id)
         # print(userdata)
-        #degree certificate
-        degree_certificate_1 = str(request.FILES['degree_cer']).replace(" ", "_")
-        path_deg = fs.save(f"virtual_expert/hiring_manager/{id}/degree_certificate/"+degree_certificate_1, request.FILES['degree_cer'])
-        full_path_degree = all_image_url+fs.url(path_deg)
-        
         if 'personal_city' in request.POST:
             personal_city = request.POST['personal_city']
         else:
             personal_city = "empty"
+        #degree certificate
+        degree_certificate_1 = str(request.FILES['degree_cer']).replace(" ", "_")
+        path_deg = fs.save(f"virtual_expert/hiring_manager/{id}/degree_certificate/"+degree_certificate_1, request.FILES['degree_cer'])
+        full_path_degree = all_image_url+fs.url(path_deg)
+        # Aadhaar 
+        if 'aadhaar_no' in request.POST:
+            aadhaar_no = request.POST['aadhaar_no']
+            aadhaar_card_1= str(request.FILES['aadhaar_card']).replace(" ", "_")
+            path_adhar = fs.save(f"virtual_expert/hiring_manager/{id}/aadhaar_card/"+aadhaar_card_1, request.FILES['aadhaar_card'])
+            full_path_aadhaar = all_image_url+fs.url(path_adhar)
+        else:
+            aadhaar_no = "empty"
+            full_path_aadhaar = "empty"
+        #  Pan_Card
+        if 'pan_no' in request.POST:
+            pan_no = request.POST['pan_no']
+            pan_card_1 = str(request.FILES['pan_card']).replace(" ", "_")
+            path1 = fs.save(f"virtual_expert/hiring_manager/{id}/pan_card/"+pan_card_1, request.FILES['pan_card'])
+            full_path_pan = all_image_url+fs.url(path1)
+        else:
+            pan_no = "empty"
+            full_path_pan = "empty"
+        # Driving Licence
+        if 'drive_licence_no' in request.POST:
+            drive_licence_no = request.POST['drive_licence_no']
+            drive_licence_date = request.POST['drive_licence_date']
+            licence_state = request.POST['licence_state']
+            drive_licence_1 = str(request.FILES['drive_licence']).replace(" ", "_")
+            path1 = fs.save(f"virtual_expert/hiring_manager/{id}/driving_licence/"+drive_licence_1, request.FILES['drive_licence'])
+            full_path_lic = all_image_url+fs.url(path1)
+        else:
+            drive_licence_no = "empty"
+            drive_licence_date = "empty"
+            licence_state = "empty"
+            full_path_lic = "empty"
+
+        
+    # Previous Application Details
+        if 'past_applied_date' in request.POST:
+            past_applied_date = request.POST['past_applied_date']
+            past_applied_position = request.POST['past_applied_position']
+        else:
+            past_applied_date = "empty"
+            past_applied_position = "empty"
+    # Govt Job 
+        if 'govtjob_start_date' in request.POST:
+            govtjob_start_date = request.POST['govtjob_start_date']
+            govtjob_end_date = request.POST['govtjob_end_date']
+        else:
+            govtjob_start_date = "empty"
+            govtjob_end_date = "empty"
+    # notary Licence
+        if 'notary_lic_no' in request.POST:
+            notary_lic_no = request.POST['notary_lic_no']
+            notary_issued = request.POST['notary_issued']
+            notary_state = request.POST['notary_state']
+        else:
+            notary_lic_no = "empty"
+            notary_issued = "empty"
+            notary_state = "empty"
             
-        #experience certificate
-        if 'ex_cer' in request.FILES:
-            ex_certificate_1 = str(request.FILES['ex_cer']).replace(" ", "_")
-            path_ex = fs.save(f"virtual_expert/hiring_manager/{id}/experience_certificate/"+ex_certificate_1, request.FILES['ex_cer'])
+        if "judgment_felony" in request.POST:
+            judgment_felony=request.POST['judgment_felony']
+        else:
+            judgment_felony = "empty"
+    #experience certificate
+        if 'expr_certi' in request.FILES:
+            ex_certificate_1 = str(request.FILES['expr_certi']).replace(" ", "_")
+            path_ex = fs.save(f"virtual_expert/hiring_manager/{id}/experience_certificate/"+ex_certificate_1, request.FILES['expr_certi'])
             full_path_ex = all_image_url+fs.url(path_ex)
         else:
             full_path_ex = "empty"
-        if request.POST['work_type'] == "Personal":
+
+        if request.POST['mariyo_work_type'] == "Personal":
+            company_name="empty"
+            company_address= "empty"
             gst_number = "empty"
             gst_certificate = "empty"
-            company_pan_no = "empty"
-            arn_no = "empty"
-            pan_card = "empty"
+            company_phone = "empty"
+            company_email = "empty"
         else:
             #gst certificate
             gst_certificate_1 = str(request.FILES['gst_certificate']).replace(" ", "_")
             path = fs.save(f"virtual_expert/hiring_manager/{id}/gst_certificate/"+gst_certificate_1, request.FILES['gst_certificate'])
             full_path_gst = all_image_url+fs.url(path)
-            #pan card
-            pan_card_1 = str(request.FILES['pan_card']).replace(" ", "_")
-            path1 = fs.save(f"virtual_expert/hiring_manager/{id}/pan_card/"+pan_card_1, request.FILES['pan_card'])
-            full_path_pan = all_image_url+fs.url(path1)
-            #############
+
             gst_number = request.POST['gst_number']
             gst_certificate = full_path_gst
-            company_pan_no = request.POST['company_pan_no']
-            arn_no = request.POST['arn_no']
-            pan_card = full_path_pan
+            company_name = request.POST['company_name']
+            company_address = request.POST['company_address']
+            company_phone = request.POST['company_phone']
+            company_email = request.POST['company_email']          
+            
         if request.POST['work_job_title'] == '':
             work_job_title = "empty"
         else:
-            work_job_title = request.POST['work_job_title']
+            work_job_title =json.dumps(request.POST.getlist('work_job_title'))
         if request.POST['work_company_name'] == '':
             work_company_name = "empty"
         else:
-            work_company_name = request.POST['work_company_name']
-        if request.POST['work_job_location'] == '':
-            work_job_location = "empty"
+            work_company_name = json.dumps(request.POST.getlist('work_company_name'))
+        if request.POST[' work_start_date'] == '':
+            work_start_date = "empty"
         else:
-            work_job_location = request.POST['work_job_location']
-        if request.POST['ex_job_title'] == '':
-            ex_job_title = "empty"
+            work_start_date = json.dumps(request.POST.getlist('work_start_date'))
+
+        if request.POST['starting_salary'] == '':
+            starting_salary = "empty"
         else:
-            ex_job_title =request.POST['ex_job_title']
-        if request.POST['ex_company_name'] == '':
-            ex_company_name = "empty"
+            starting_salary = json.dumps(request.POST.getlist('starting_salary'))
+
+        if request.POST['work_end_date'] == '':
+            work_end_date = "empty"
         else:
-            ex_company_name =request.POST['ex_company_name']
-        if request.POST['year_experience'] == '':
-            year_experience = "empty"
+            work_end_date = json.dumps(request.POST.getlist('work_end_date'))
+
+        if request.POST['final_salary'] == '':
+            final_salary = "empty"
         else:
-            year_experience =request.POST['year_experience']
-        if request.POST['ex_location'] == '':
-            ex_location = "empty"
+            final_salary = json.dumps(request.POST.getlist('final_salary'))
+
+        if request.POST['reason_leaving'] == '':
+            reason_leaving = "empty"
         else:
-            ex_location =request.POST['ex_location']
+            reason_leaving =json.dumps(request.POST.getlist('reason_leaving'))
+
+        if request.POST['work_review_y'] == '':
+            work_review_y = "empty"
+        else:
+            work_review_y =json.dumps(request.POST.getlist('work_review_y'))
+        if request.POST['skills'] == '':
+            skills= "empty"
+        else:
+            skills = json.dumps(request.POST.getlist('skills'))
+        if request.POST['curent_busines'] == '':
+            curent_busines = "empty"
+        else:
+            curent_busines = request.POST['curent_busines']
+
+        if request.POST['past_business'] == '':
+            past_business = "empty"
+        else:
+            past_business =request.POST['past_business']
+
         print("helo")
         data = {
             'office_name': request.POST['office_name'],
             'office_country': request.POST['office_country'],
             'office_city': request.POST['office_city'],
             'office_address': request.POST['office_address'],
-            'first_name': request.POST['first_name'],
-            'last_name': request.POST['last_name'],
+            # 'first_name': request.POST['first_name'],
+            # 'last_name': request.POST['last_name'],
             'personal_country': request.POST['personal_country'],
             'personal_city':personal_city,
-            'personal_address': request.POST['personal_address'],
+            'personal_dob': request.POST['personal_dob'],
+            'personal_age': request.POST['personal_age'],
+            'house_number' : request.POST['house_number'],
+            'street_name' : request.POST['street_name'],
+            'pin_code' : request.POST['pin_code'],
             'my_hiring_manager': request.POST['my_hiring_manager'],           
             # 'id_card': full_path
+
+            'aadhaar_no' : aadhaar_no,
+            'aadhaar_card': full_path_aadhaar,
+            'pan_no':pan_no,
+            'pan_card':full_path_pan,
+            'drive_licence_no' :drive_licence_no,
+            'drive_licence' : full_path_lic,
+            'drive_licence_date' :drive_licence_date,
+            'licence_state' :licence_state,
+            'past_applied_date':past_applied_date,
+            'past_applied_position':past_applied_position,
+            'govtjob_start_date':govtjob_start_date,
+            'govtjob_end_date': govtjob_end_date,
+            'judgment_felony' : judgment_felony,
+            'notary_lic_no' : notary_lic_no,
+            'notary_issued ':notary_issued ,
+            'notary_state' : notary_state,
             'level_education': json.dumps(request.POST.getlist('level_education')),           
-            'field_study': json.dumps(request.POST.getlist('field_study')),           
-            'work_job_title': work_job_title,           
-            'work_company_name': work_company_name,           
-            'work_job_location': work_job_location,           
-            'ex_job_title': ex_job_title,           
-            'ex_company_name': ex_company_name,           
-            'year_experience': year_experience,           
-            'ex_location': ex_location,           
-            'degree_cer': full_path_degree,           
-            'ex_cer': full_path_ex,           
-            'work_type': request.POST['work_type'],           
-            'gst_number': gst_number,           
-            'gst_certificate': gst_certificate,           
-            'company_pan_no': company_pan_no,           
-            'arn_no': arn_no,           
-            'pan_card': pan_card           
+            'field_study': json.dumps(request.POST.getlist('field_study')),
+            'school_colege' : json.dumps(request.POST.getlist('school_colege')),
+            'completed_year' : json.dumps(request.POST.getlist('completed_year')), 
+            'study_location': json.dumps(request.POST.getlist('study_location')),
+            'degree_cer' : full_path_degree,
+            'skills' : skills,
+            'work_job_title' : work_job_title,           
+            'work_company_name' : work_company_name,
+            'work_start_date' : work_start_date,
+            'starting_salary' : starting_salary,
+            'work_end_date' :  work_end_date,
+            'final_salary' : final_salary,
+            'reason_leaving' : reason_leaving,
+            'work_review_y' :  work_review_y,
+            'expr_certi' : full_path_ex,
+            'curent_busines' : curent_busines,
+            'past_business' : past_business,
+            'mariyo_work_type' : request.POST['mariyo_work_type'],
+            'company_name' : company_name,
+            'company_address' : company_address,
+            'company_phone' : company_phone,
+            'company_email' : company_email,
+            'gst_number' :  gst_number,
+            'gst_certificate' : gst_certificate,         
+            # 'arn_no': arn_no,                       
         }
 
         print(data)

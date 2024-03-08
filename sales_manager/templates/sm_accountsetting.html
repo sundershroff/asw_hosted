@@ -47,7 +47,7 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rights reserved</h5>
   </header>
   
   </div>
@@ -71,23 +71,23 @@
 
     <!-- start -->
 
-    <div class="local_adm_setting px-3 py-4">
+    <div class="local_adm_setting px-3 py-3">
 
       <h4>Account Setting</h4>
 
-      <div class="local_adm_sett_part1 my-5">
+      <div class="local_adm_sett_part1 my-2">
 
-        <h4 class="my-4">Want to reset your password?</h4>
+        <h4 class="my-2">Want to reset your password?</h4>
 
-        <form class="my-5" method="POST">
-          {%csrf_token%}
-        <button class="my-4" data-bs-toggle="modal" data-bs-target="#emailsucc" name="pass_reset"  value="{{key.email}}">send reset link to email</button>
+        <form class="my-2" method="POST">
+          {% csrf_token %}
+        <button class="my-3" data-bs-toggle="modal" data-bs-target="#emailsucc" name="pass_reset"  value="{{key.email}}">send reset link to email</button>
         </form>
 
-        <h4 class="my-5">Update Email ID?</h4>
+        <h4 class="my-2">Update Email ID?</h4>
 
-        <form class="my-5" method="POST">
-          {%csrf_token%}
+        <form class="my-2" method="POST">
+          {% csrf_token %}
 
           <label class="form-label">Email Id<span>*</span></label>
 

@@ -35,7 +35,7 @@
     </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rights reserved</h5>
   </header>
   
   </div>
@@ -67,7 +67,7 @@
     <!-- over -->
 
     <!-- start2 -->
-    <div class="dash_par2 my-5 px-3"> 
+    <div class="dash_par2 my-2 px-3"> 
          
         <h4>Dashboard</h4>
 
@@ -95,7 +95,7 @@
     <!-- over -->
 
     <!-- start3 -->
-      <div class="dash_par3 my-4 px-3"> 
+      <div class="dash_par3 px-3"> 
          
         <div class="dash_bor_box">
            
@@ -188,7 +188,7 @@
     <!-- start -->
      <div class="dash_bor_table px-4">
       
-      <table class=" table table-borderless">
+      <table class=" table table-borderless" style="margin-bottom: 0.1rem;">
 
       <tr class="me-5">
         
@@ -229,16 +229,11 @@
         <td class="py-4">frankd@funtap.vn</td>
       </tr> {% endcomment %}
 
-       
-
-        <div class="py-4">
-      
-
     </table>
 
   
 
-    <div class="dash_bor_rsp_va my-3">
+    <div class="dash_bor_rsp_va" style="border-radius: 0px 0px 10px 10px;">
       <a href="/ad_distributor/ad_dis_list/{{key.uid}}" class="mx-3">View All</a>
     </div>
 
@@ -247,7 +242,7 @@
 
     <!-- start -->
 
-    <div class="dash_bor_tables my-5">
+    <div class="dash_bor_tables my-3">
 
       <div class="dash_bor_table1">
 
@@ -257,7 +252,7 @@
         </div>
 
         <div class="px-4 my-3">
-          <table class="table table-borderless">
+          <table class="table table-borderless" style="margin-bottom: 0.1rem;">
 
             <tr>
               <th class="py-4">Ad</th>
@@ -266,12 +261,14 @@
               <th class="py-4">Coins</th>
             </tr>
             {% for i in all_data|dictsortreversed:"ad_created_date" %}
+            {% if i.coin != None %}
             <tr>
               <td class="py-4">{{i.ad_id}}</td>
               <td class="py-4">{{i.ad_type}}</td>
               <td class="py-4">{{i.ad_created_date}}</td>
               <td class="py-4">{{i.coin}}</td>
             </tr>
+            {% endif %}
             {% endfor %}
             {% comment %} <tr>
                 <td class="py-4">AD-01</td>
@@ -293,7 +290,8 @@
                 <td class="py-4">1</td>
               </tr> {% endcomment %}
           </table>
-             <div class="dash_bor_rsp_va my-3">
+
+             <div class="dash_bor_rsp_va" style="border-radius: 0px 0px 10px 10px;" >
       <a href="/ad_provider/ad_pro_coins/{{key.uid}}" class="mx-3">View All</a>
     </div>
         </div>
@@ -319,7 +317,7 @@
 
                 <div class="row py-lg-5">
                   {% for s in result %}
-                    <div class="col-lg-6 col-md-6">
+                    <div id="ad_typ_count" class="col-lg-6 col-md-4">
                         <center><div style="background-color:  #fdf7f2;height:100px;width:220px;border-radius:80px;margin-top:25px;margin-bottom:10px;padding:12px;">
                         <h3 style="color:#F27E64;">{{s.count}}</h3>
                        <p style="color:#6E717A;">{{s.word}}</p>

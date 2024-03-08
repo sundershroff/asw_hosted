@@ -57,7 +57,7 @@
       </nav>
       .nav-menu 
     </div>
-    <h5 style="position:absolute;bottom:20px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:absolute;bottom:20px;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rights reserved</h5>
   </header>
   
   </div> -->
@@ -80,13 +80,13 @@
    
     
 <div class="container">
-  <div class="locl_adm_sec1 px-4 my-4 py-5">
+  <div class="locl_adm_sec1 px-4 my-2 py-2">
     <img src="{% static 'images/Logo_2.png'%}" style="width: 125px">
   </div>
     <!-- start -->
-    <div class="local_admin_edi_acc px-3 py-4">
+    <div class="local_admin_edi_acc px-3 py-1">
 
-       <h3 class="mb-4"><span style="color:#2B3674;font-weight:500;font-size: 33px;">Complete Profile</span></h3>
+       <h3 class="mb-4"><span style="color:#2B3674;font-weight:500;font-size: 33px;">Profile Details</span></h3>
        <div class="locl_adm_sec1 px-4 my-2" style="padding-left: 0px !important;">
         <h6 style="font-size: 14px;">Enter Your Basic Details For The Better Service!</h6>
   
@@ -136,7 +136,7 @@
           
         </div> 
 
-        <h4 class="my-4" style="color:#7B61FF;">Personal Details</h4>
+        <h4 class="my-4" style="color:#7B61FF;">Personal Information</h4>
           
           <div class="row">
             <div class="col-lg-12">
@@ -144,13 +144,56 @@
 
                 <div class="col-lg-6 my-3">
                   <label class="form-label">First Name<span>*</span></label>
-                  <input type="text" name="first_name" class="form-control" placeholder="first name">
+                  <input type="text" name="first_name" class="form-control" value="{{key.first_name}}">
                 </div>
 
                  <div class="col-lg-6 my-3">
                   <label class="form-label">Last Name<span>*</span></label>
-                  <input type="text" name="last_name" class="form-control" placeholder="last name">
+                  <input type="text" name="last_name" class="form-control" value="{{key.last_name}}">
                 </div>
+                <div class="col-lg-6 my-3">
+                  <label class="form-label">Email<span>*</span></label>
+                  <input type="text" name="email" class="form-control" value="{{key.email}}">
+                </div>
+
+                 <div class="col-lg-6 my-3">
+                  <label class="form-label">Mobile Number<span>*</span></label>
+                  <input type="text" name="mobile" class="form-control" value="+91 {{key.mobile}}">
+                </div>
+                <div class="col-lg-12 my-2">
+                  <div class="row">
+                    <div class="col-lg-3">
+                    <h6 style="color:red">1)  Are you 18 years old or more? </h6>
+                    </div>
+                   <div class="col-lg-1">
+                   <input type="radio" name="old_yn" id="age_value"  class="relevant-question" value="Yes"> 
+                   <label class="form-label">Yes</label>
+                  </div>
+                  <div class="col-lg-1">
+                   <input type="radio" name="old_yn" id="age_value" class="relevant-question" value="No">
+                   <label class="form-label">No</label>
+                  </div>
+                  <div class="col">
+                  </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 my-3">
+                  <label class="form-label">Date of Birth:<span>*</span></label>
+                  <input type="date" id="dob" name="personal_dob" class="form-control" placeholder="Enter your DOB" onchange="calculateAge()">
+                </div>
+                <div class="col-lg-6 my-3">
+                  <label class="form-label">Age:<span>*</span></label>
+                  <input type="text" name="personal_age" id="age" class="form-control" placeholder="Age">
+                </div>
+                <div class="col-lg-6 my-3">
+                  <label class="form-label">House Name/Apartment Number:<span>*</span></label>
+                  <input type="text" name="house_number"  class="form-control" placeholder="House/Apartment">
+                </div>
+                <div class="col-lg-6 my-3">
+                  <label class="form-label">Street/City:<span>*</span></label>
+                  <input type="text" name="street_name"  class="form-control" placeholder=" ">
+                </div>
+
                 <div class="col-lg-6 my-3">
                   <label class="form-label">Country<span>*</span></label>
                   <select id="countrytwo" class="form-select" name="personal_country" onchange="fun2.call(this,event)">
@@ -162,7 +205,7 @@
                 </div>
 
                  <div class="col-lg-6 my-3">
-                  <label class="form-label">City<span>*</span></label>
+                  <label class="form-label">State<span>*</span></label>
                   <select id="res3" class="form-select" name="personal_city">
               <option value="default">Select</option>
               <script>
@@ -175,17 +218,17 @@
           </script>
             </select>
                 </div>
-
-                <div class="col-6 my-3">
-                  <label class="form-label">Addresss<span>*</span></label>
-                  <textarea name="personal_address" class="form-control" placeholder="Address" style="min-height: calc(1.5em + 5.75rem + calc(var(--bs-border-width) * 2));"></textarea>
-
+              
+                <div class="col-lg-6 my-3">
+                  <label class="form-label">Pin/Zip Code:<span>*</span></label>
+                  <input type="text" name="pin_code"  class="form-control" placeholder="">
                 </div>
+              
 
                 <div class="col-lg-6 my-3">
                   <label class="form-label">Hiring Manager<span>*</span></label>
                   <select class="form-select" name="my_hiring_manager">
-                    <option value="default">Select</option>
+                    <option value="">Select</option>
                     {% for i in hiring_manager %}
                     <option value="{{i.uid}}">{{i.first_name}} {{i.last_name}}</option>
                     {% endfor %}
@@ -196,43 +239,321 @@
               </div>
               
             </div>
-            <div class="col-lg-4">
-              
-              {% comment %} <div class="row">
-                 <div class="col-12 my-3">
-                 <label class="form-label">ID Card<span>*</span></label>
-
-                  <div class="local_admin_drag_area">
-                 
-                     <div class="icon"><i class="fa-solid fa-file-image"></i></div>
-                      <header>Drag or click here to Upload your ID </header>
-
-                      <input type="file" name="id_card" style="
-                      opacity: 0;
-                      position: absolute;">
-                
-
+            <h4 class="my-2" style="color:#7B61FF;">Identification Information</h4>
+          <div class="col-lg-12 my-3">
+            <div class="row">
+              <div class="col-lg-12 my-3">
+                <div class="row">
+                  <div class="col-lg-6">
+                  <h6><span style="color:red">* </span>Select your government-issued photo ID and enter that ID Number:</h6>
                   </div>
-
+                 <div class="col-lg-2">
+                 <input type="radio" name="gov_id" id="adhar_selct" value="Aadhaar"> 
+                 <label class="form-label">Aadhaar</label>
+                </div>
+                <div class="col-lg-2">
+                 <input type="radio" name="gov_id" id="pan_selct" value="Pan">
+                 <label class="form-label">Pan Card</label>
+                </div>
+                <div class="col-lg-2">
+                  <input type="radio" name="gov_id" id="both_selct" value="Both">
+                  <label class="form-label">Both</label>
+                 </div>
+                </div> 
+              </div>
+              <div class="col-lg-12 my-3" id="adhar">
+                <div class="row">
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Aadhaar Number<span>*</span></label>
+                    <input type="text" name="aadhaar_no" class="form-control" placeholder="Enter Your Aadhaar Number">
+                  
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Aadhaar Card<span>*</span></label>
+                    <div class="local_admin_drag_area">
+             
+                      <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                        <header>Drag or click here to Upload your Certificate </header>
+  
+                        <input type="file" name="aadhaar_card" style="
+                        opacity: 0;
+                        position: absolute;">
+                 
+ 
+                       </div>                    
+                   </div>
+                  </div>
                 </div>
               </div>
-            </div> {% endcomment %}
+              <div class="col-lg-12 my-3" id="pan">
+                <div class="row">
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Pan Number<span>*</span></label>
+                    <input type="text" name="pan_no" class="form-control" placeholder="Enter Your Pan Number">
+                  
+                  </div>
+                </div>
+                  <div class="row">
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Pan Card<span>*</span></label>
+                    <div class="local_admin_drag_area">
+             
+                      <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                        <header>Drag or click here to Upload your Certificate </header>
+  
+                        <input type="file" name="pan_card" style="
+                        opacity: 0;
+                        position: absolute;">
+                 
+ 
+                       </div>                    
+                   </div> 
+                  </div>
+              </div>
+              <div class="col-lg-12 my-3" >
+                <div class=" col-lg-12 my-3">
+                  <div class="row">
+                    <div class="col-lg-3">
+                    <h6 ><span style="color:red">* </span>Do you have a driving license?</h6>
+                    </div>
+                   <div class="col-lg-2">
+                   <input type="radio" name="driving" id="drive_yes" value="Yes"> 
+                   <label class="form-label">Yes</label>
+                  </div>
+                  <div class="col-lg-2">
+                   <input type="radio" name="driving" id="drive_no" value="No">
+                   <label class="form-label">No</label>
+                  </div>
+                </div>
+                
+                <div class=" col-lg-12 my-3" id="drive">
+                  <div class="row">
+                  <div class="col-lg-6 my-4">
+                    <label class="form-label">Driving Licence Number<span>*</span></label>
+                    <input type="text" name="drive_licence_no" class="form-control" placeholder="Enter Your Driving Licence Number">
+                    
+                    <div class=" my-3">
+                      <label class="form-label">Licence Issued Date<span>*</span></label>
+                      <input type="date" name="drive_licence_date" class="form-control" >
+                    
+                    </div> 
+                    <div class="my-3">
+                      <label class="form-label">Licence Issued State<span>*</span></label>
+                      <input type="text" name="licence_state" class="form-control"  >
+                    
+                    </div> 
+                  </div>
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Driving Licence<span>*</span></label>
+                    <div class="local_admin_drag_area">
+             
+                      <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                        <header>Drag or click here to Upload your Certificate </header>
+  
+                        <input type="file" name="drive_licence" style="
+                        opacity: 0;
+                        position: absolute;">
+                 
+                       </div>                    
+                   </div> 
+                  </div>
+                 
+                </div>
+              </div>
 
+            </div>
           </div>
-          <h4 class="my-4" style="color:#7B61FF;">Qualifications</h4>
-          <h3 class="my-4">Education Details</h3>
+          <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-5">
+              <h6 style="color:red">2) Have you ever applied to this organization in the past? </h6>
+              </div>
+             <div class="col-lg-2">
+             <input type="radio" name="applied_yn" id="applied_yes" class="relevant-question" value="Yes"> 
+             <label class="form-label">Yes</label>
+            </div>
+            <div class="col-lg-2">
+             <input type="radio" name="applied_yn" id="applied_no"  class="relevant-question" value="No">
+             <label class="form-label">No</label>
+            </div>
+            <div class="col-lg-3">
+            </div>
+            </div>
+          </div>
+          <div class="row" id="applied_past">
+            <div class="col-lg-6 my-3">
+              <label class="form-label">* When is applied (date):<span>*</span></label>
+              <input type="date"  name="past_applied_date" class="form-control" >
+            </div>
+            <div class="col-lg-6 my-3">
+              <label class="form-label">* Which position is applied?<span>*</span></label>
+              <input type="text"  name="past_applied_position" class="form-control" >
+            </div>
+            {% comment %} <div class="col-lg-6 my-3">
+              <label class="form-label">*Citizen of the country:<span>*</span></label>
+              <input type="text"  name="applied_country" class="form-control">
+            </div> {% endcomment %}
+          </div>
+          </div>     
+        </div>  
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-8">
+              <h6 style="color:red">3) Have you ever been convicted, pleaded guilty, contested, or had a white-held judgment
+                to a felony? </h6>
+              </div>
+             <div class="col-lg-2">
+             <input type="radio" name="judgment_yn" id="judgment_yes" class="relevant-question" value="Yes"> 
+             <label class="form-label">Yes</label>
+            </div>
+            <div class="col-lg-2">
+             <input type="radio" name="judgment_yn" id="judgment_no" class="relevant-question" value="No">
+             <label class="form-label">No</label>
+            </div>
+           
+            </div>
+          </div>
+          <div class="row" id="judgment_box">
+            <div class="col-lg-6 my-3">
+              <label class="form-label">please explain:<span>*</span></label>
+              <textarea name="judgment_felony" class="form-control"  style="min-height: calc(1.5em + 5.75rem + calc(var(--bs-border-width) * 2));" > </textarea>
+            </div>
+            
+          </div>
+          </div>     
+        
+
+        <div class="row">
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-lg-8">
+                <h6 style="color:red">4) Have you ever worked in a government sector?</h6>
+                </div>
+                <div class="col-lg-2">
+                <input type="radio" name="govt_yn" id="govt_yes" class="relevant-question" value="Yes"> 
+                <label class="form-label">Yes</label>
+                </div>
+                <div class="col-lg-2">
+                <input type="radio" name="govt_yn" id="govt_no" class="relevant-question" value="No">
+                <label class="form-label">No</label>
+                </div>
+           
+              </div>
+            </div>
+          <div class="row" id="govt_sector">
+              <div class="col-lg-6 my-3">
+                <label class="form-label">Start Date:</label>
+                <input type="date"  name="govtjob_start_date" class="form-control" >
+              </div>
+              <div class="col-lg-6 my-3">
+                <label class="form-label">End Date:</label>
+                <input type="date"  name="govtjob_end_date" class="form-control" >
+              </div>
+            
+          </div>
+        </div>     
+        
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row">
+              <div class="col-lg-8">
+              <h6 style="color:red">5) Do you have Notary Licence?</h6>
+              </div>
+             <div class="col-lg-2">
+             <input type="radio" name="notary_yn" id="notary_yes" class="relevant-question" value="Yes"> 
+             <label class="form-label">Yes</label>
+            </div>
+            <div class="col-lg-2">
+             <input type="radio" name="notary_yn" id="notary_no" class="relevant-question" value="No">
+             <label class="form-label">No</label>
+            </div>
+           
+            </div>
+          </div>
+          <div class="row" id="notary_licence">
+            <div class="col-lg-6 my-3">
+              <label class="form-label">Notary Licence Number:</label>
+              <input type="text"  name="notary_lic_no" class="form-control" >
+            </div>
+            <div class="col-lg-6 my-3">
+              <label class="form-label">Issued Date:</label>
+              <input type="date"  name="notary_issued" class="form-control" >
+            </div>
+            <div class="col-lg-6 my-3">
+              <label class="form-label">State:</label>
+              <input type="text"  name="notary_state" class="form-control" >
+            </div>
+            
+          </div>
+          </div>     
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-lg-8">
+                <h6 style="color:red">6) Do you know english reading and typing?</h6>
+                </div>
+                <div class="col-lg-2">
+                <input type="radio" name="english_yn" id="english_yes" class="relevant-question" value="Yes"> 
+                <label class="form-label">Yes</label>
+                </div>
+                <div class="col-lg-2">
+                <input type="radio" name="english_yn" id="english_no" class="relevant-question" value="No">
+                <label class="form-label">No</label>
+                </div>
+           
+              </div>
+            </div>
+          
+
+        </div> 
+         
+          <h4 class="my-2" style="color:#7B61FF;">Qualifications</h4>
+          <h3 class="my-2">Education Details</h3>
           <div class="row">
             <div class="col-lg-12" id="addeducationdetail">
               <div class="row">
 
                 <div class="col-lg-6 my-3">
                   <label class="form-label">Level of Education<span>*</span></label>
-                  <input type="text" name="level_education" class="form-control" placeholder="Level of Education" required>
+                  <input type="text" name="level_education" class="form-control" placeholder="Course Name" required>
                 </div>
 
                  <div class="col-lg-6 my-3">
                   <label class="form-label">Field Of Study<span>*</span></label>
-                  <input type="text" name="field_study" class="form-control" placeholder="Field Of Study" required>
+                  <input type="text" name="field_study" class="form-control" placeholder="Major Subject" required>
+                </div>
+                <div class="col-lg-6 my-3">
+                  <label class="form-label">Name of School / College / University:<span>*</span></label>
+                  <input type="text" name="school_colege" class="form-control" placeholder="Name of school/college " required>
+                </div>
+                <div class="col-lg-6 my-3">
+                  <label class="form-label">Completed Year<span>*</span></label>
+                  <input type="text" name="completed_year" class="form-control" placeholder="Completed Year" required>
+                </div>
+                <div class="col-lg-6 my-3">
+                  <label class="form-label">Location<span>*</span></label>
+                  <input type="text" name="study_location" class="form-control" placeholder="location/Address" required>
+                </div>
+                <div class="row">
+                <div class="col-lg-6 my-3">
+                  <label class="form-label">Degree Certificate<span>*</span></label>
+                  <div class="local_admin_drag_area">
+           
+                    <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                     <header>Drag or click here to Upload Certificate </header>
+
+                     <input type="file" name="degree_cer" style="
+                     opacity: 0;
+                     position: absolute;" required>
+               
+
+                 </div>  </div>
                 </div>
               </div>
             </div>
@@ -241,108 +562,316 @@
                   color: white;border: 2px solid white;"> Add More</button>
                 </div>
              </div>
-
-              <h3 class="my-4">Work Details</h3>
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="row">
-
-                <div class="col-lg-6 my-3">
-                  <label class="form-label">Job Title<span>*</span></label>
-                  <input type="text" name="work_job_title" class="form-control" placeholder="Job Title">
+           
+             <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-4">
+                    <h6 ><span style="color:red">* </span>Do you have any other skills?</h6>
+                  </div>
+                  <div class="col-lg-2">
+                  <input type="radio" name="skill_yn" id="skill_yes" value="Yes"> 
+                  <label class="form-label">Yes</label>
+                  </div>
+                  <div class="col-lg-2">
+                  <input type="radio" name="skill_yn" id="skill_no" value="No">
+                  <label class="form-label">No</label>
+                  </div>
+                  <div class="col-lg-4"></div>
                 </div>
+              </div>
+              <div class="row" id="skill">
+                <div class="col-lg-6 my-3"  >
+                  <label class="form-label">Skill Details:</label>
+                  <input type="text"  name="skills" class="form-control" >
+                </div>
+              </div>
+                <div class="local_admin_edi_subbtn my-4">
+                  <button type="button" id="skill_btn" data-bs-toggle="modal" data-bs-target="" style="background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);
+                  color: white;border: 2px solid white;"> Add More</button>
+                </div>
+              
 
-                 <div class="col-lg-6 my-3">
-                  <label class="form-label">Company Name<span>*</span></label>
-                  <input type="text" name="work_company_name" class="form-control" placeholder="Company Name">
+          </div>   
+
+
+
+
+            <h3 class="my-4">Work And Experience Details</h3>
+          <div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row">
+
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Job Title<span>*</span></label>
+                    <input type="text" name="work_job_title" class="form-control" placeholder="Job Title">
+                  </div>
+
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Company Name<span>*</span></label>
+                    <input type="text" name="work_company_name" class="form-control" placeholder="Company Name">
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col-lg-6 my-3">
-                    <label class="form-label">Job Location<span>*</span></label>
-                    <input type="text" name="work_job_location" class="form-control" placeholder="Job Title">
+                    <label class="form-label">Start Date<span>*</span></label>
+                    <input type="date" name="work_start_date" class="form-control" >
+                  </div>
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Salary<span>*</span></label>
+                    <input type="text" name="starting_salary" class="form-control" placeholder="Starting Salary">
                   </div>
                 </div>
-              </div></div></div>
-
-              <h3 class="my-4">Experience</h3>
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="row">
-    
-                    <div class="col-lg-6 my-3">
-                      <label class="form-label">Job Title<span>*</span></label>
-                      <input type="text" name="ex_job_title" class="form-control" placeholder="Job Title">
-                    </div>
-    
-                     <div class="col-lg-6 my-3">
-                      <label class="form-label">Company Name<span>*</span></label>
-                      <input type="text" name="ex_company_name" class="form-control" placeholder="Company Name">
-                    </div>
-                  </div>
-                  <div class="row">
-    
-                    <div class="col-lg-6 my-3">
-                      <label class="form-label">Year Of Experience<span>*</span></label>
-                      <input type="text" name="year_experience" class="form-control" placeholder="Year Of Experience">
-                    </div>
-                    <div class="col-lg-6 my-3">
-                      <label class="form-label">Location<span>*</span></label>
-                      <input type="text" name="ex_location" class="form-control" placeholder="Location">
-                    </div>
-                  </div>
-                </div></div>
-                <h3 class="my-4">Document Upload</h3>
                 <div class="row">
-                  <div class="col-lg-12" id="">
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">End Date<span>*</span></label>
+                    <input type="date" name="work_end_date" class="form-control" >
+                  </div>
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Final Salary<span>*</span></label>
+                    <input type="text" name="final_salary" class="form-control" placeholder="Final Salary">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Reason for Leaving<span>*</span></label>
+                    <input type="text" name="reason_leaving" class="form-control" placeholder="Reason" >
+                  </div>
+                </div>
+                
+              </div>
+              
+                  <div class="col-lg-12">
                     <div class="row">
-      
-                      <div class="col-lg-6 my-3">
-                        <label class="form-label">Degree Certificate<span>*</span></label>
-                        <div class="local_admin_drag_area">
-                 
-                          <div class="icon"><i class="fa-solid fa-file-image"></i></div>
-                           <header>Drag or click here to Upload Certificate </header>
-     
-                           <input type="file" name="degree_cer" style="
-                           opacity: 0;
-                           position: absolute;" required>
-                     
-     
-                       </div>                      </div>
-      
-                       <div class="col-lg-6 my-3">
-                        <label class="form-label">Experience Certificate<span>*</span></label>
-                        <div class="local_admin_drag_area">
-                 
-                          <div class="icon"><i class="fa-solid fa-file-image"></i></div>
-                           <header>Drag or click here to Upload your Certificate </header>
-     
-                           <input type="file" name="ex_cer" style="
-                           opacity: 0;
-                           position: absolute;">
-                     
-     
-                       </div>                      </div>
+                      <div class="col-lg-5">
+                        <h6 ><span style="color:red">*</span>May we contact the employer?</h6>
+                      </div>
+                      <div class="col-lg-2">
+                      <input type="radio" name="contact_yn" id="contact_yes" value="Yes"> 
+                      <label class="form-label">Yes</label>
+                      </div>
+                      <div class="col-lg-2">
+                      <input type="radio" name="contact_yn" id="contact_no" value="No">
+                      <label class="form-label">No</label>
+                      </div>
+                      <div class="col-lg-3"></div>  
                     </div>
                   </div>
-                </div>      
-                  <div class="row">
-                    <label class="form-label">Type<span>*</span></label>
-                    <div class="col-lg-6 my-3">
-                     <select name="work_type"  class="form-control" id="for_what" required="Select any one">
-                      <option value="">Select Any One</option>
-                      <option value="Buisness" data-attribute="1">BUISNESS</option>
-                      <option value="Personal" data-attribute="2">PERSONAL</option>
-                     </select>
+              
+              <div class="row">
+                  <div class="col-lg-6 my-3" id="explanation">
+                    <label class="form-label">If not, please explain<span>*</span></label>
+                    <input type="text" name="work_review_y" class="form-control" placeholder="Explain" >
+                  </div>
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Experience Certificate<span>*</span></label>
+                    <div class="local_admin_drag_area">
+            
+                      <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                      <header>Drag or click here to Upload your Certificate </header>
+
+                      <input type="file" name="expr_certi" style="
+                      opacity: 0;
+                      position: absolute;">
+                
                     </div>
+                  </div>                     
+              </div>
+            </div>
+            <div class="local_admin_edi_subbtn my-4" id="exp_btn">
+              <button type="button" id="experience-btn" data-bs-toggle="modal" data-bs-target="" style="background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);
+              color: white;border: 2px solid white;"> Add More</button>
+            </div>
+            <div class="row" id="experience1">
+              <div class="col-lg-12">
+                <div class="row">
+
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Job Title<span>*</span></label>
+                    <input type="text" name="work_job_title" class="form-control" placeholder="Job Title">
+                  </div>
+
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Company Name<span>*</span></label>
+                    <input type="text" name="work_company_name" class="form-control" placeholder="Company Name">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Start Date<span>*</span></label>
+                    <input type="date" name="work_start_date" class="form-control" >
+                  </div>
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Salary<span>*</span></label>
+                    <input type="text" name="starting_salary" class="form-control" placeholder="Starting Salary">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">End Date<span>*</span></label>
+                    <input type="date" name="work_end_date" class="form-control" >
+                  </div>
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Final Salary<span>*</span></label>
+                    <input type="text" name="final_salary" class="form-control" placeholder="Final Salary">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Reason for Leaving<span>*</span></label>
+                    <input type="text" name="reason_leaving" class="form-control" placeholder="Reason" >
+                  </div>
+                </div>
+                
+              </div>
+              
+                  <div class="col-lg-12">
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <h6 ><span style="color:red">*</span>May we contact the employer?</h6>
+                      </div>
+                      <div class="col-lg-2">
+                      <input type="radio" name="contact_yn" id="contact1_yes" value="Yes"> 
+                      <label class="form-label">Yes</label>
+                      </div>
+                      <div class="col-lg-2">
+                      <input type="radio" name="contact_yn" id="contact1_no" value="No">
+                      <label class="form-label">No</label>
+                      </div>
+                      <div class="col-lg-3"></div>  
+                    </div>
+                  </div>
+              
+              <div class="row">
+                  <div class="col-lg-6 my-3" id="explanation1">
+                    <label class="form-label">If not, please explain<span>*</span></label>
+                    <input type="text" name=" work_review_y" class="form-control" placeholder="Explain" >
+                  </div>
+                  <div class="col-lg-6 my-3">
+                    <label class="form-label">Experience Certificate<span>*</span></label>
+                    <div class="local_admin_drag_area">
+            
+                      <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                      <header>Drag or click here to Upload your Certificate </header>
+
+                      <input type="file" name="expr_certi" style="
+                      opacity: 0;
+                      position: absolute;">
+                
+                    </div>
+                  </div>                     
+              </div>
+             
+              <div class="local_admin_edi_subbtn my-4" id="can2_btn">
+                <button type="button" id="cancel-btn" data-bs-toggle="modal" data-bs-target="" style="background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);
+                color: white;border: 2px solid white;"> Cancel</button>
+                {% comment %} <button type="button" id="close-btn" data-bs-toggle="modal" data-bs-target="" style="background: linear-gradient(56deg, #2B44CC 17.79%, #D883F0 73.51%, #E487F3 77.35%);
+                color: white;border: 2px solid white;"> Close</button> {% endcomment %}
+              </div>
+            </div>
+            
+          </div>
+              {% comment %} <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+    
+                      <div class="col-lg-6 my-3">
+                        <label class="form-label">Job Title<span>*</span></label>
+                        <input type="text" name="ex_job_title" class="form-control" placeholder="Job Title">
+                      </div>
+    
+                      <div class="col-lg-6 my-3">
+                        <label class="form-label">Company Name<span>*</span></label>
+                        <input type="text" name="ex_company_name" class="form-control" placeholder="Company Name">
+                      </div>
+                    </div>
+                    <div class="row">
+    
+                      <div class="col-lg-6 my-3">
+                        <label class="form-label">Year Of Experience<span>*</span></label>
+                        <input type="text" name="year_experience" class="form-control" placeholder="Year Of Experience">
+                      </div>
+                      <div class="col-lg-6 my-3">
+                        <label class="form-label">Location<span>*</span></label>
+                        <input type="text" name="ex_location" class="form-control" placeholder="Location">
+                      </div>
+                  </div>
+                </div>
+              </div> {% endcomment %}
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-4">
+                    <h6 ><span style="color:red">* </span>Do you have any business?</h6>
+                  </div>
+                  <div class="col-lg-2">
+                  <input type="radio" name="busin_yn" id="busin_current" value="current"> 
+                  <label class="form-label">Current</label>
+                  </div>
+                  <div class="col-lg-2">
+                  <input type="radio" name="busin_yn" id="busin_past" value="past">
+                  <label class="form-label">Past</label>
+                  </div>
+                  <div class="col-lg-2">
+                    <input type="radio" name="busin_yn" id="busin_no" value="No">
+                    <label class="form-label">No</label>
+                    </div>
+                  <div class="col-lg-4"></div>
+                </div>
+              </div>
+              <div class="col-lg-6" id="busin_explain">
+                <input type="text" name="curent_busines"  class="form-control" placeholder="Explain">
+              </div>
+              <div class="col-lg-6" id="busin_explain1">
+                <input type="text" name="past_business"  class="form-control" placeholder="Explain">
+              </div>
+
+              
+                  <div class="row">
+                    <div class="col-lg-12 my-3">
+                      <h3 ><span style="color:red">* </span>Select the type of account you want:</h3>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-2"></div>
+                      <div class="col-lg-3">
+                      <input type="radio" name="mariyo_work_type"  id="select_b" value="Business"> 
+                      <label class="form-label">BUISNESS</label>
+                      </div>
+                      <div class="col-lg-3">
+                      <input type="radio" name="mariyo_work_typen"  id="select_p" value="Personal">
+                      <label class="form-label">PERSONAL</label>
+                      </div>
+                    </div>
+                   
                   </div>
                   <div class="row" id="buisness_1">
-                    <div class="col-lg-12" id="">
+                    <div class="col-lg-12" >
                       <div class="row">
-        
+
                         <div class="col-lg-6 my-3">
-                          <label class="form-label">GST Number<span>*</span></label>
-                          <input type="text" name="gst_number" class="form-control" placeholder="GST Number" required>
+                          <label class="form-label">Company Legal Name<span>*</span></label>
+                          <input type="text" name="company_name" class="form-control" placeholder="Company Name">
+                        </div>
+
+                        <div class="col-lg-6 my-3">
+                          <label class="form-label">Company Address<span>*</span></label>
+                          <input type="text" name="company_address" class="form-control" placeholder="Company Address">
+                        </div>
+                      
+                      
+
+                        <div class="col-lg-6 my-3">
+                          <label class="form-label">Company Phone Number<span>*</span></label>
+                          <input type="text" name="company_phone" class="form-control" placeholder="Phone Number">
+                        </div>
+
+                        <div class="col-lg-6 my-3">
+                          <label class="form-label">Company Email<span>*</span></label>
+                          <input type="email" name="company_email" class="form-control" placeholder="Company Mail">
+                        </div>
+                        <div class="col-lg-6 my-3">
+                          <label class="form-label">GST/TAX Number<span>*</span></label>
+                          <input type="email" name="gst_number" class="form-control" placeholder="Registered Number">
                         </div>
                       </div>
                       <div class="row">
@@ -360,21 +889,21 @@
        
                          </div>                      </div>
                       </div>
-                      <div class="row">
+                      {% comment %} <div class="row">
         
                         <div class="col-lg-6 my-3">
                           <label class="form-label">Company Pan Number<span>*</span></label>
                           <input type="text" name="company_pan_no" class="form-control" placeholder="Company Pan Number" required>
                         </div>
-                      </div>
-                      <div class="row">
+                      </div> {% endcomment %}
+                      {% comment %} <div class="row">
         
                         <div class="col-lg-6 my-3">
                           <label class="form-label">ARN Number<span>*</span></label>
                           <input type="text" name="arn_no" class="form-control" placeholder="ARN Number" required>
                         </div>
-                      </div>
-                      <div class="row">
+                      </div> {% endcomment %}
+                      {% comment %} <div class="row">
                         <div class="col-lg-6 my-3">
                          <label class="form-label">PAN Card<span>*</span></label>
                          <div class="local_admin_drag_area">
@@ -388,8 +917,8 @@
                       
       
                         </div>                      </div>
-                     </div>
-                    </div>
+                     </div>{% endcomment %}
+                    </div> 
                   </div>      
   
     
@@ -443,6 +972,10 @@
           
         </div>
       </div>
+
+
+      <script src="{% static 'js/main.js'%}"></script>
+        
       <script>
         // just for the demos, avoids form submit
         jQuery.validator.setDefaults({
@@ -495,8 +1028,8 @@
                     form.submit();
                 }
         });
-        </script>
-        <script>
+      </script>
+      <script>
           $(document).ready(function () {
               $("#success").click(function(){
                   setTimeout(function() {
@@ -505,35 +1038,39 @@
               });
           });
       </script>
-<style>
-  label.valid {
-    background: url(images/checked.gif) no-repeat;
-    display: none;
-    width: 16px;
-    height: 16px;
-}
-label.error{
-	color:red;
-}
-</style>
-<script type="text/javascript">
-  function fun1(event){
-  a = document.getElementById("countryone").value;
-  <!--document.getElementById("res").innerHTML=a;-->
-  c = {{ country|safe }};
-  position =c.indexOf(a);
-  <!--document.getElementById("res1").innerHTML=position;-->
-  stat = {{ states|safe }};
-  ttt = stat[position].states;
-  tt = "<select>";
-  for (i=0;i<ttt.length;i++){
-     tt += "<option>"+ttt[i].name+"</option>";
-  }
-       tt+="</select>";
-        document.getElementById("res2").innerHTML=tt;
-  }
+    <style>
+      label.valid
+       {
+          background: url(images/checked.gif) no-repeat;
+          display: none;
+          width: 16px;
+          height: 16px;
+        }
+      label.error
+      {
+        color:red;
+      }
+    </style>
+
+  <script type="text/javascript">
+     function fun1(event) {
+      a = document.getElementById("countryone").value;
+      <!--document.getElementById("res").innerHTML=a;-->
+      c = {{ country|safe }};
+      position =c.indexOf(a);
+      <!--document.getElementById("res1").innerHTML=position;-->
+      stat = {{ states|safe }};
+      ttt = stat[position].states;
+      tt = "<select>";
+      for (i=0;i<ttt.length;i++){
+        tt += "<option>"+ttt[i].name+"</option>";
+      }
+          tt+="</select>";
+            document.getElementById("res2").innerHTML=tt;
+      }
   
   </script>
+
   <script type="text/javascript">
     function fun2(event){
     a = document.getElementById("countrytwo").value;
@@ -552,42 +1089,226 @@ label.error{
     }
     
     </script>
-      <script src="{% static 'js/main.js'%}"></script>
-      
+  
 
-      <script>
+      <script type="text/javascript">
         $(document).ready(function(){
           $("#addeducation").click(function(){
-            $("#addeducationdetail").append("  <div class=row>"+
-"<div class=col-lg-6 my-3>"+
-  "<label class=form-label>Level of Education<span>*</span></label>"+
-  "<input type=text name=level_education class=form-control placeholder=Level"+"&nbsp;"+"Of"+"&nbsp;"+"Education"+">"+
-"</div>"+
+            var educationTemplate = `<div class="row">
+              <hr>
+              <div class="col-lg-6 my-3">
+                <label class="form-label">Level of Education<span>*</span></label>
+                <input type="text" name="level_education" class="form-control" placeholder="Course Name" required>
+              </div>
 
- "<div class=col-lg-6 my-3>"+
-  "<label class=form-label>Field Of Study<span>*</span></label>"+
-  "<input type=text name=field_study class=form-control placeholder=Field"+"&nbsp;"+"Of"+"&nbsp;"+"Study>"+
-"</div>"+
-"</div>");
-          });
-        
-        
+               <div class="col-lg-6 my-3">
+                <label class="form-label">Field Of Study<span>*</span></label>
+                <input type="text" name="field_study" class="form-control" placeholder="Major Subject" required>
+              </div>
+              <div class="col-lg-6 my-3">
+                <label class="form-label">Name of School / College / University:<span>*</span></label>
+                <input type="text" name="school_colege" class="form-control" placeholder="Name of school/college " required>
+              </div>
+              <div class="col-lg-6 my-3">
+                <label class="form-label">Completed Year<span>*</span></label>
+                <input type="text" name="comp_year" class="form-control" placeholder="Completed Year" required>
+              </div>
+              <div class="col-lg-6 my-3">
+                <label class="form-label">Location<span>*</span></label>
+                <input type="text" name="study_location" class="form-control" placeholder="location/Address" required>
+              </div>
+              <div class="row">
+              <div class="col-lg-6 my-3">
+                <label class="form-label">Degree Certificate<span>*</span></label>
+                <div class="local_admin_drag_area">
+         
+                  <div class="icon"><i class="fa-solid fa-file-image"></i></div>
+                   <header>Drag or click here to Upload Certificate </header>
+
+                   <input type="file" name="degree_cer" style="
+                   opacity: 0;
+                   position: absolute;" required>
+             
+
+               </div>  </div>
+              </div>
+            </div>
+          `;
+          $(educationTemplate).appendTo("#addeducationdetail");
+          });        
         });
+        </script>
+
+        <script>
+          $(document).ready(function(){
+            $("#skill_btn").click(function(){
+              var educationTemplate = `<div class="col-lg-6 my-3"  id="skill">
+                <label class="form-label">Skill Details:</label>
+                <input type="text"  name="skill_detail" class="form-control" >
+              </div>`;
+              $(educationTemplate).appendTo("#skill");
+            });        
+          });
+          </script>
+
+        <script>
+          $(document).ready(function() { 
+            $('#buisness_1').hide(); 
+
+            $('#select_b').click(function() { 
+              
+              $('#buisness_1').show(); 
+            
+            }); 
+             $('#select_p').click(function() { 
+              
+              $('#buisness_1').hide(); 
+            
+            }); 
+          }); 
+        </script> 
+  
+
+
+        <script>
+          function calculateAge() {
+            const currentDate = new Date();
+      
+            const dobInput = document.getElementById("dob");
+            const dobValue = new Date(dobInput.value);
+      
+           
+            const timeDifference = currentDate - dobValue;
+      
+            // Calculate age in years
+            const ageInMilliseconds = new Date(timeDifference);
+            const ageInYears = Math.abs(ageInMilliseconds.getUTCFullYear() - 1970);
+      
+            // Display the result
+            document.getElementById("age").value = ageInYears + " years";
+          }
         </script>
         <script>
           $(document).ready(function() { 
-            $('#for_what').change(function() { 
-              var selectedOption = $(this).val(); 
-              if (selectedOption === 'Personal') { 
-                $('#buisness_1').hide(); 
-              }
-            if (selectedOption === 'Buisness') { 
-      
-              $('#buisness_1').show(); 
-              }
+            $("#adhar").hide();
+            $("#pan").hide();
+            $("#drive").hide();
+            $("#applied_past").hide();
+            $("#judgment_box").hide();
+            $("#govt_sector").hide();
+            $("#notary_licence").hide();
+            $("#explanation").hide();
+            $("#explanation1").hide();
+            $("#experience1").hide();
+            $("#can2_btn").hide();
+            $("#busin_explain").hide();
+            $("#busin_explain1").hide();
+            
+            $("#adhar_selct").click(function(){
+              $("#adhar").show();
+              $("#pan").hide();
+            });
+            $("#pan_selct").click(function(){
+              $("#adhar").hide();
+              $("#pan").show();
+
+            });
+            $("#both_selct").click(function(){
+              $("#adhar").show();
+            $("#pan").show();
+            });
+
+            $("#drive_yes").click(function(){
+              $("#drive").show();
+            });
+            $("#drive_no").click(function(){
+              $("#drive").hide();
+            });
+            $("#applied_yes").click(function(){
+              $("#applied_past").show();
+            });
+            $("#applied_no").click(function(){
+              $("#applied_past").hide();
+            });
+            $("#judgment_yes").click(function(){
+              $("#judgment_box").show();
+            });
+            $("#judgment_no").click(function(){
+              $("#judgment_box").hide();
+            });
+            $("#govt_yes").click(function(){
+              $("#govt_sector").show();
+            });
+            $("#govt_no").click(function(){
+              $("#govt_sector").hide();
+            });
+            $("#notary_yes").click(function(){
+              $("#notary_licence").show();
+            });
+            $("#notary_no").click(function(){
+              $("#notary_licence").hide();
+            });
+            $("#contact_no").click(function(){
+              $("#explanation").show();
+            });
+            $("#contact_yes").click(function(){
+              $("#explanation").hide();
+            });
+            $("#contact1_no").click(function(){
+              $("#explanation1").show();
+            });
+            $("#contact1_yes").click(function(){
+              $("#explanation1").hide();
+            });
+            $("#experience-btn").click(function(){
+              $("#experience1").show();
+              $("#can2_btn").show();
+              $("#exp_btn").hide();
+            });
+            $("#close-btn").click(function(){
+              $("#experience1").hide();
+              $("#exp_btn").show();
+            });
+            $("#busin_current").click(function(){
+              $("#busin_explain").show();
+              $("#busin_explain1").hide();
+            });
+            $("#busin_past").click(function(){
+              $("#busin_explain1").show();
+              $("#busin_explain").hide();
+            });
+            $("#busin_no").click(function(){
+              $("#busin_explain1").hide();
+              $("#busin_explain").hide();
+            });
           }); 
-          }); 
-        </script>  
+        </script> 
+        
+        <script>
+
+        document.getElementById('myform').addEventListener('submit', function (event) {
+          event.preventDefault(); 
+
+   
+       const relevantAnswers = Array.from(document.querySelectorAll('.relevant-question:checked')).map(input => input.value === 'Yes');
+       console.log(relevantAnswers);
+    
+      if (relevantAnswers.length === 6) {
+       
+        const isEligible = relevantAnswers[0] && !relevantAnswers[1] && !relevantAnswers[2] && !relevantAnswers[3] && relevantAnswers[4] && relevantAnswers[5];
+
+       
+        if (isEligible) {
+            alert("Congratulations! You are eligible to meet the hiring criteria. Application submitted successfully.");
+        } else {
+            alert("Sorry, you are not eligible to meet the hiring criteria. Application cannot be submitted.");
+        }
+    } else {
+        
+        alert("Please answer all relevant questions before submitting the application.");
+    }
+     });
+     </script>
 </body>
 </html>
 

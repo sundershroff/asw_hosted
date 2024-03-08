@@ -39,7 +39,7 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rights reserved</h5>
   </header>
   
   </div>
@@ -47,7 +47,7 @@
   {% include "header.html" %}
 
     <!-- start -->
-    <div class="locl_adm_sec1 px-4 my-4">
+    <div class="locl_adm_sec1 px-4 my-2">
 
       <div>
         <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{pm_data|length}} </span>Private Investigator in the list</h3>
@@ -62,7 +62,7 @@
         </div>
 
         </form>
-        <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
+        <button data-bs-toggle="modal" data-bs-target="#filter_modal1" style="height:40px">Filter <i class="fa-solid fa-filter"></i></button>
         <button style="background-color:  #3247CE;color:#fff">Download Template <i  class="bi bi-download"></i></button>
       </div>
       
@@ -70,7 +70,7 @@
     <!-- over -->
 
     <!-- start -->
-    <div class="locl_adm_sec2 my-5">
+    <div class="locl_adm_sec2 my-2">
 
       <div class="loc_adm_bala_tables px-3">
 
@@ -86,11 +86,11 @@
               <th>Status</th>
         {% if "Upload Privateinvestigator document" in access %}
               <th>Actions</th>
-              {%else%}
-              {%endif%}
+              {% else %}
+              {% endif %}
           {% if access == "" %}
               <th>Actions</th>
-              {%endif%}
+              {% endif %}
 
             </tr>
           </thead>
@@ -130,8 +130,8 @@
                     opacity:30%;
                 "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#"></i></button></a>
                 {% endif %} 
-          {%else%}
-          {%endif%}
+          {% else %}
+          {% endif %}
     {% if access == "" %}
           {% if i.id_card == None %}
           <button type="submit" value="{{i.uid}}" name="uid" style="
@@ -145,7 +145,7 @@
           opacity:30%;
       "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#"></i></button></a>
       {% endif %} 
-  {%endif%}
+  {% endif %}
         </form>
             </td>
               
@@ -233,40 +233,50 @@
         </div>
         <div class="modal-body prof_personal_filt2">
            
-           <form method="post" action="#">
-         
+           <form method="post" action="">
+            {% csrf_token %}
              <div class="my-3">
               <label for="exampleFormControlInput1" class="form-label">ID</label>
-              <input type="text" name="" class="form-control">
+              <select class="form-select py-3" name="user_id">
+                <option value="">select</option>
+                {% for i in pm_data %}
+                  <option value="{{i.uid}}">{{i.uid}}</option>
+                  {% endfor %}
+              </select>
              </div>
   
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Name</label>
-                <input type="text" name="" class="form-control">
+                <input type="text" name="name" class="form-control">
              </div>
             
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Email ID</label>
-               <input type="text" name="" class="form-control">
+               <input type="text" name="email" class="form-control">
              </div>
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
-               <input type="text" name="" class="form-control">
+               <input type="text" name="mobile" class="form-control">
              </div>
   
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Locations</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
+               <select class="form-select py-3" name="location">
+                <option value="">Select</option>
+                {% for i in pm_data %}
+                <option value="{{i.personal_country}}">{{i.personal_country}}</option>
+                {% endfor %}
               </select>
              </div>
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Status</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
+               <select class="form-select py-3" name="status">
+                <option value="">Select</option>
+                <option value="pending">Pending</option>
+                <option value="verified">Verified</option>
               </select>
              </div>
 

@@ -168,7 +168,7 @@ def admin_dashboard(request,id):
     else:
         return redirect("/affiliate_marketing/signin/")
     try:
-        access=""
+        access = ""
 
         if request.method == "POST":
             new=[]
@@ -220,7 +220,8 @@ def admin_dashboard(request,id):
                 'current_path':request.get_full_path(),
                 'all_profile_finder':all_profile_finder[::-1],
                 'all_data':new[::-1],
-                'all_date':all_date,   
+                'all_date':all_date, 
+                'access' : access  
             }
             
         else:
@@ -249,9 +250,7 @@ def admin_dashboard(request,id):
                 'all_profile_finder':all_profile_finder[::-1],
                 'all_data':new[::-1],
                 'access':access,
-                            
-
-                
+                           
             }
         return render(request,"af_marketingdashboard.html",context)
     except:
@@ -554,18 +553,26 @@ def users(request,id):
     else:
         return redirect("/affiliate_marketing/signin/")
     try:
+        new=[]
         error = ""
         mydata = requests.get(f"http://127.0.0.1:3000/my_aff_data/{id}").json()[0]  
         my_user = requests.get(f"http://127.0.0.1:3000/am_my_users_data/{id}").json()
         print(my_user)
         access=""
+        for x in my_user:
+            new.append(x)
+
     except:
+        new=[]
         error = ""
         mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]  
         # print(mydata['aid'])
         my_user = requests.get(f"http://127.0.0.1:3000/am_my_users_data/{mydata['aid']}").json()
         print(my_user)
         access = mydata['access_Privileges']
+        for x in my_user:
+            new.append(x)
+
     if request.method== "POST":
         print(request.POST)
         if "delete" in request.POST:
@@ -595,18 +602,39 @@ def users(request,id):
             # print(response.text)
             # print(response.status_code)
             if response.status_code == 200:
-                return redirect(f"http://127.0.0.1:8001/affiliate_marketing/am_users/{id}")
+                return redirect(f"http://51.20.61.70:8001/affiliate_marketing/am_users/{id}")
             elif response.status_code == 203:
                 print("user already exist")
                 error = "User Already Exixts"
+
+
+        elif "user_id" in request.POST:
+            filter = {
+            'f_u_id': request.POST['user_id'],
+            'f_u_name': request.POST['user_name'].lower(),
+            'f_u_email': request.POST['user_email'].lower(),
+            'f_u_phone': request.POST['user_phone'],
+
+            }
+
+            p = set()
+
+            for x in new:
+                if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                (filter['f_u_name'] == x['first_name'].lower() or not filter['f_u_name']) and \
+                (filter['f_u_email'] == x['email'].lower() or not filter['f_u_email']) and \
+                (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']):
+                    p.add(x['uid'])
+
+            new = [ad for ad in my_user if ad['uid'] in p]
+            print(new)
+
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
-        'my_user':my_user,
+        'my_user':new,
         'error':error,
-        'access':access,
-
-    
+        'access':access,    
     }
     return render(request,"am_users.html",context)
 

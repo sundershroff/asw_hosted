@@ -37,7 +37,7 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rights reserved</h5>
   </header>
   
   </div>
@@ -50,7 +50,7 @@
     <!-- over -->
 
     <!-- start -->
-    <div class="locl_adm_sec1 px-4 my-4">
+    <div class="locl_adm_sec1 px-4 my-2">
 
       <div>
         <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{my_user|length}}</span>Users</h3>
@@ -65,13 +65,13 @@
         </div>
 
         </form>
-        <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
+        <button data-bs-toggle="modal" data-bs-target="#filter_modal1" style="height:40px;">Filter <i class="fa-solid fa-filter"></i></button>
         {% if "Add user" in access_Privileges %}
-       <button > <a href="/profile_manager/add_user/{{key.uid}}" style="color: white;text-decoration: none;">Add New</a><i class="fa-solid fa-circle-plus"></i></button> 
+       <button > <a href="/profile_manager/add_user/{{key.uid}}" style="color:white;text-decoration:none;height:38px;">Add New</a><i class="fa-solid fa-circle-plus"></i></button> 
         {% else%}
         {% endif %}
         {% if access_Privileges == "" %}
-        <button > <a href="/profile_manager/add_user/{{key.uid}}" style="color: white;text-decoration: none;">Add New</a><i class="fa-solid fa-circle-plus"></i></button> 
+        <button> <a href="/profile_manager/add_user/{{key.uid}}" style="color: white;text-decoration: none;height:38px;">Add New</a><i class="fa-solid fa-circle-plus"></i></button> 
         {% endif %}
       </div>
       
@@ -79,9 +79,9 @@
     <!-- over -->
 
     <!-- start -->
-    <div class="locl_adm_sec2 my-5" style="height: 100%;">
+    <div class="locl_adm_sec2 my-3" style="height: 100%;">
 
-      <div class="locl_adm_table px-3" style="height: 65%;">
+      <div class="locl_adm_table px-3" >
 
         <table>
           <thead>
@@ -98,8 +98,8 @@
             </tr>
           </thead>
            <tbody>
-           {% for i in my_user %}
-           
+           {% for i in my_user %} 
+
             <tr>
 
              <td data-label = "No">{{forloop.counter}}</td>
@@ -178,42 +178,51 @@
         </div>
         <div class="modal-body prof_personal_filt2">
            
-           <form method="post" action="#">
+          <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
          
              <div class="my-3">
               <label for="exampleFormControlInput1" class="form-label">ID</label>
-              <input type="text" name="" class="form-control">
+              <select class="form-select py-3" name="user_id" id="id_select">
+                <option value="">Select</option>
+              {% for i in my_user %}
+                  <option value="{{i.uid}}">{{ i.uid }}</option>
+              {% endfor %}>
+              </select>
              </div>
   
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Name</label>
-                <input type="text" name="" class="form-control">
+                <input type="text" name="user_name" class="form-control">
              </div>
             
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Email ID</label>
-               <input type="text" name="" class="form-control">
+               <input type="text" name="user_email" class="form-control">
              </div>
   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
-               <input type="text" name="" class="form-control">
+               <input type="text" name="user_phone" class="form-control">
              </div>
   
-  
+{% comment %}   
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Locations</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
+              <select class="form-select py-3" name="user_id" id="id_select">
+                <option value="">Select</option>
+              {% for i in my_user %}
+                  <option value="{{ i. }}">{{ i.uid }}</option>
+              {% endfor %}>
               </select>
-             </div>
+             </div> {% endcomment %}
   
-                    <div class="my-4">
+                    {% comment %} <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Status</label>
                <select class="form-select py-3">
                 <option selected>Select</option>
               </select>
-             </div>
+             </div> {% endcomment %}
 
   
              <div class="prof_personal_savefilt1 text-center mb-5">
@@ -225,6 +234,7 @@
              </div>  
   
            </form>
+
 
         </div>
       

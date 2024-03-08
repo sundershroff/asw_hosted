@@ -36,7 +36,7 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:;bottom:;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rights reserved</h5>
   </header>
   
   </div>
@@ -68,7 +68,7 @@
     <!-- over -->
 
     <!-- start -->
-    <div class="locl_adm_sec1 px-4 my-4">
+    <div class="locl_adm_sec1 px-3 my-3">
 
       <div>
         <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{count}}</span>Ads in the list</h3>
@@ -94,7 +94,7 @@
     </div>
     <!-- over -->
 <!-- start -->
-<div class="locl_adm_sec2 px-4 my-5">
+<div class="locl_adm_sec2 px-3 my-3">
   <div style="background-color:#fff;margin-top:15px;height:auto;padding:17px;">
     <a href="/ad_provider/ad_pro_list/{{key.uid}}" class="ad_nonactive_menu p-2"><b>All</b> </a> 
       <a href="/ad_provider/ad_pro_active/{{key.uid}}" class="ad_nonactive_menu p-3">Active</a>
@@ -108,7 +108,7 @@
 </div>
  <!-- over -->
     <!-- start -->
-    
+
     <div class="locl_adm_sec2 px-4 my-2">
       {% for i in all_data %}
       {% if i.status == "Closed"%}
@@ -132,7 +132,7 @@
             <div class="col-lg-6 col-md-6">
                 <div class="ads_rect">
                 <div class="ads_div"><p style="color: #2B3674;" class="ads_div_p"><b>{{i.no_views}}</b></p><br><p style="float:right">Views</p></div>
-                <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>100</b></p><br><p style="float:right">Balance Amount</p></div>
+                <div class="ads_div"><p style="color: #7B61FF;" class="ads_div_p"><b>{{i.amount}}</b></p><br><p style="float:right">Balance Amount</p></div>
                 <div class="ads_div"><div style="float:right"><i class="bi bi-coin ads_icn"></i><span style="color: #27AE60;" class="ads_div_p"><b>4</b></span></div><br><div><p style="float:right">Coin(0.5/Views)</p></div></div>
                 </div>
                 {% if i.status == "Active" %}
@@ -149,6 +149,7 @@
             </div>
                           
           </div>
+          
             {% endif %}
           {% endfor %}
           {% comment %} <div class="row rowbg">
@@ -247,19 +248,26 @@
         </div>
         <div class="modal-body prof_personal_filt2">
            
-           <form method="post" action="#">
-         
+          <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
              <div class="my-3">
               <label for="exampleFormControlInput1" class="form-label">ID</label>
-              <input type="text" name="" class="form-control">
+              <select class="form-select py-3" name="ad_id" id="id_select">
+              <option value=" ">Select</option>
+            {% for i in all_data %}
+                {% if i.status == "Closed" %}
+                <option value="{{ i.ad_id }}">{{ i.ad_id }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
              </div>
   
              <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Name</label>
-                <input type="text" name="" class="form-control">
+                <input type="text" name="ad_name" class="form-control">
              </div>
             
-             <div class="my-4">
+             {% comment %} <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Email ID</label>
                <input type="text" name="" class="form-control">
              </div>
@@ -267,24 +275,19 @@
                     <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
                <input type="text" name="" class="form-control">
+             </div> {% endcomment %}
+  
+             <div class="my-4">
+              <label for="exampleFormControlInput1" class="form-label">AD Type</label>
+              <input type="text" name="ad_type" class="form-control">
              </div>
   
-  
-                    <div class="my-4">
-              <label for="exampleFormControlInput1" class="form-label">Locations</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
-              </select>
-             </div>
-  
-                    <div class="my-4">
+                    {% comment %} <div class="my-4">
               <label for="exampleFormControlInput1" class="form-label">Status</label>
-               <select class="form-select py-3">
-                <option selected>Select</option>
-              </select>
-             </div>
+              <input name="ad_status" type="text" class="form-control">
+             </div> {% endcomment %}
 
-  
+            
              <div class="prof_personal_savefilt1 text-center mb-5">
                <button class="prof_personal_filbtn1 my-3" type="reset">Reset</button>
                <button class="prof_personal_filbtn2 my-3" type="submit">Submit</button>
@@ -294,12 +297,17 @@
              </div>  
   
            </form>
-
+         
         </div>
       
       </div>
     </div>
   </div>
+
+
+
+
+<!--  Reason modal -->
 
   <div class="modal fade modal-md px-4" id="reason" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
     <div class="modal-dialog">

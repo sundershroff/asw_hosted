@@ -185,6 +185,7 @@ def admin_dashboard(request,id):
         sm_adss=[]
         new1=[]
         new=[]
+        ads_count=[]
         for j in alldis_ads:
             addis=jsondec.decode(j["ad_dis"])
             new.append(addis)
@@ -192,11 +193,13 @@ def admin_dashboard(request,id):
                 d=(adis.get("sales_manager"))
                 if id == d:
                     sm_ads.append(j)
+                    ads_count.append(j)
                     break
         totalcoin= 0
         for item in sm_ads:
             if item['coin'] != None:
                 totalcoin+=int(item['coin'])
+
         # adprovider displaying
         for i in allads:
             b=jsondec.decode(i['ad_pro'])
@@ -205,7 +208,9 @@ def admin_dashboard(request,id):
                 a=(l.get("sales_manager"))
                 if id == a:
                     sm_adss.append(i)
+                    ads_count.append(i)
                     break
+
         for item in sm_adss:
             if item['commission']!=None:
                 item['amount'] = int(item['commission']) * 10
@@ -224,7 +229,7 @@ def admin_dashboard(request,id):
 
         # adtype displaying
         wordtype=[]
-        for k in sm_ads:
+        for k in ads_count:
             adtype=(k.get("ad_type"))
             wordtype.append(adtype)
         wordcount=Counter(wordtype)
@@ -274,6 +279,7 @@ def admin_dashboard(request,id):
         sm_adss=[]
         new1=[]
         new=[]
+        ads_count=[]
         for j in alldis_ads:
             addis=jsondec.decode(j["ad_dis"])
             new.append(addis)
@@ -281,11 +287,12 @@ def admin_dashboard(request,id):
                 d=(adis.get("sales_manager"))
                 if id == d:
                     sm_ads.append(j)
+                    ads_count.append(j)
                     break
         totalcoin= 0
         for item in sm_ads:
             if item['coin'] != None:
-                totalcoin+=int(item['coin'])
+                totalcoin += int(item['coin'])
         # adprovider displaying
         for i in allads:
             b=jsondec.decode(i['ad_pro'])
@@ -294,6 +301,7 @@ def admin_dashboard(request,id):
                 a=(l.get("sales_manager"))
                 if id == a:
                     sm_adss.append(i)
+                    ads_count.append(i)
                     break
         for item in sm_adss:
             if item['commission']!=None:
@@ -310,10 +318,10 @@ def admin_dashboard(request,id):
                 c.append(i)
         
         totalclient=len(c)+len(sm_ads)
-
+        
         # adtype displaying
         wordtype=[]
-        for k in sm_ads:
+        for k in ads_count:
             adtype=(k.get("ad_type"))
             wordtype.append(adtype)
         wordcount=Counter(wordtype)
@@ -703,77 +711,29 @@ def hand_list(request,id):
         elif 'uid' in request.POST:
             print(request.POST)
             filter={
-                'f_uid':request.POST['uid'],
-                'f_client_name':request.POST['client_name'],
-                'f_email':request.POST['email'],
-                'f_phone_number':request.POST['phone_number'],
-                'f_client_location':request.POST['client_location'],
-                'f_active_status':request.POST['active_status']
-    
+                'f_uid':request.POST['uid'].strip(),
+                'f_client_name':request.POST['client_name'].strip().lower(),
+                'f_email':request.POST['email'].strip().lower(),
+                'f_phone_number':request.POST['phone_number'].strip(),
+                'f_client_location':request.POST['client_location'].strip().lower(),
+                'f_status':request.POST['active_status'].strip() 
             }
+            print(filter)
             
-            p = []
+            p = set()
             for x in c:
-                if filter['f_uid'] == x['uid'] :
-                    f_uid = x['uid']
-                elif filter['f_uid'] == "":
-                    f_uid = ""
-                else:
-                    f_uid = "no"
-                if filter['f_client_name'] == x['client_name']:
-                    f_client_name = x['uid']
-                elif filter['f_client_name'] == "":
-                    f_client_name = ""
-                else:
-                    f_client_name = "no"
-                if filter['f_email'] == x['email'] :
-                    f_email = x['uid']
-                elif filter['f_email'] == "":
-                    f_email = ""
-                else:
-                    f_email = "no"
-                if filter['f_phone_number'] == x['phone_number']:
-                    f_phone_number = x['uid']
-                elif filter['f_phone_number'] == "":
-                    f_phone_number = ""
-                else:
-                    f_phone_number = "no"
-                if filter['f_client_location'] == x['client_location']:
-                    f_client_location = x['uid']
-                elif filter['f_client_location'] == "":
-                    f_client_location = ""
-                else:
-                    f_client_location = "no"
-                if filter['f_active_status'] == x['active_status']:
-                    f_active_status = x['uid']
-                elif filter['f_active_status'] == "":
-                    f_active_status = ""
-                else:
-                    f_active_status = "no"
+                
+                if (filter['f_uid'] == x['uid'] or not filter['f_uid']) and \
+                (filter['f_client_name'] == x['client_name'].lower() or not filter['f_client_name']) and \
+                (filter['f_email'] == x['email'].lower() or not filter['f_email']) and \
+                (filter['f_phone_number'] == x['phone_number'] or not filter['f_phone_number']) and \
+                (filter['f_client_location'] == x['client_location'].lower() or not filter['f_client_location']) and \
+                (filter['f_status'] == str(x['active_status']) or not filter['f_status']):
+                    p.add(x['uid'])
 
-                pref = {f_uid,f_client_name,f_email,f_phone_number,f_client_location,f_active_status}
-                print(pref)
-                if "no" not in pref:
-                    pref.remove("")
-                    for con in pref:
-                        p.append(con)
-                        print(p)
-            
-
-            
-                    
-            c=[]
-            userlist=[]
-            for y in all_client_data:
-                userlist.append(y['uid'])
-            print(userlist)
-            for x in p:
-                # print(x)
-                numb = userlist.index(x)
-                print(numb)
-                get_Selected = all_client_data[numb]
-                c.append(get_Selected)  
-            print(c)
+            c= [ad for ad in all_client_data if ad['uid'] in p]
+                 
+            print(p)
 
         else:     
             print(request.POST)
@@ -1167,18 +1127,25 @@ def users(request,id):
     else:
         return redirect("/sales_manager/signin/")
     try:
+        new=[]
         error = ""
         mydata = requests.get(f"http://127.0.0.1:3000/sm_my_data/{id}").json()[0]
         my_user = requests.get(f"http://127.0.0.1:3000/sm_my_users_data/{id}").json()
         print(my_user)
         access = ""
+        for x in my_user:
+            new.append(x)
     except:
+        new=[]
         error = ""
         mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]  
         print(mydata)
         my_user = requests.get(f"http://127.0.0.1:3000/sm_my_users_data/{mydata['aid']}").json()
         print(my_user)
         access = mydata['access_Privileges']
+        for x in my_user:
+            new.append(x)
+
     if request.method== "POST":
         print(request.POST)
         if "delete" in request.POST:
@@ -1209,22 +1176,38 @@ def users(request,id):
             # print(response.text)
             # print(response.status_code)
             if response.status_code == 200:
-                return redirect(f"http://127.0.0.1:8001/sales_manager/sm_users/{id}")
+                return redirect(f"http://51.20.61.70:8001/sales_manager/sm_users/{id}")
             elif response.status_code == 203:
                 print("user already exist")
                 error = "User Already Exixts"
+                
+        elif "user_id" in request.POST:
+            filter = {
+                'f_u_id': request.POST['user_id'],
+                'f_u_name': request.POST['user_name'].lower(),
+                'f_u_email': request.POST['user_email'].lower(),
+                'f_u_phone': request.POST['user_phone'],
+                }
 
-    
+            p = set()
+
+            for x in new:
+                if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                (filter['f_u_name'] == x['first_name'].lower() or not filter['f_u_name']) and \
+                (filter['f_u_email'] == x['email'].lower() or not filter['f_u_email']) and \
+                (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']):
+                    p.add(x['uid'])
+
+            new = [ad for ad in my_user if ad['uid'] in p]
+            print(new)
 
 
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
-        'my_user':my_user,
+        'my_user':new,
         'error':error,
         'access':access,
-
-
     
     }
     return render(request,"sm_users.html",context)
@@ -1238,6 +1221,22 @@ def add_users(request,id):
     else:
         return redirect("/sales_manager/signin/")
     error=""
+    try:
+        error = ""
+        mydata = requests.get(f"http://127.0.0.1:3000/sm_my_data/{id}").json()[0]
+        my_user = requests.get(f"http://127.0.0.1:3000/sm_my_users_data/{id}").json()
+        print(my_user)
+        access = ""
+        idd = id
+    except:
+        error = ""
+        mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]  
+        print(mydata)
+        my_user = requests.get(f"http://127.0.0.1:3000/sm_my_users_data/{mydata['aid']}").json()
+        print(my_user)
+        access = mydata['access_Privileges']
+        idd = mydata['aid']
+
     try:
         mydata = requests.get(f"http://127.0.0.1:3000/sm_my_data/{id}").json()[0]
         if request.method=="POST":
@@ -1266,7 +1265,8 @@ def add_users(request,id):
         context={
             'key':mydata,
             'current_path':request.get_full_path(),
-            'error':error,   
+            'error':error,
+            'access':access   
 
         }
 
@@ -1296,11 +1296,12 @@ def add_users(request,id):
             elif response.status_code == 203:
                 print("user already exist")
                 error = "User Already Exixts"
+
         context={
             'key':mydata,
             'current_path':request.get_full_path(),
             'error':error,   
-
+            'access' :access
         }
 
         return render(request,"sm_addusers.html",context)
@@ -1369,13 +1370,24 @@ def setting(request,id):
         # return redirect("/Dashboard_profile_finder/{value}")
     else:
         return redirect("/sales_manager/signin/")
+
+    try:
+        error = ""
+        mydata = requests.get(f"http://127.0.0.1:3000/sm_my_data/{id}").json()[0]
+        my_user = requests.get(f"http://127.0.0.1:3000/sm_my_users_data/{id}").json()
+        print(my_user)
+        access = ""
+        idd = id
+    except:
+        error = ""
+        mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]  
+        print(mydata)
+        my_user = requests.get(f"http://127.0.0.1:3000/sm_my_users_data/{mydata['aid']}").json()
+        print(my_user)
+        access = mydata['access_Privileges']
+        idd = mydata['aid']
     mydata = requests.get(f"http://127.0.0.1:3000/sm_my_data/{id}").json()[0]  
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path()
-    }
-
-
+   
     if request.method=="POST":
         print(request.POST)
         if 'pass_reset' in request.POST:
@@ -1391,7 +1403,12 @@ def setting(request,id):
             print(response.status_code)
             print(response.text)
             return render(request,"sm_accountsetting.html",context)
-
+        
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'access':access
+        }
     return render(request,"sm_accountsetting.html",context)
 
 
@@ -1445,24 +1462,19 @@ def ad_pro_ads(request,id):
     ad_data=requests.get("http://127.0.0.1:3000/ad_dis_list/").json()
     # print(all_data)
     new=[]
+    clients=[]
     for i in all_data:
         a=(i.get('sales_manager'))
         if idd == a: 
             new.append(i)
+            clients.append(i)
 
     for i in ad_data:
         d=(i.get('sales_manager'))
         if idd == d:
             new.append(i)
-
-
- 
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path(),
-        'all_data':new,      
-   
-    }
+            clients.append(i)
+    
     if request.method == "POST":
         if 'view' in request.POST:
             # print(request.POST)
@@ -1474,7 +1486,38 @@ def ad_pro_ads(request,id):
             global uid_dis
             uid_dis=request.POST['view_dis']
             return redirect(f"/sales_manager/sm_ad_dis_details/{id}")
+        
+        elif "uid" in request.POST:
+            filter = {
+                'f_u_id': request.POST['uid'],
+                'f_u_name': request.POST['client_name'].lower(),
+                'f_u_email': request.POST['email'].lower(),
+                'f_u_phone': request.POST['phone_number'],
+                'f_google_map':request.POST['google_map'],
+                
+                }
 
+            p = set()
+
+            for x in new:
+                
+                if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                (filter['f_u_name'] == x['first_name'].lower() or not filter['f_u_name']) and \
+                (filter['f_u_email'] == x['email'].lower() or not filter['f_u_email']) and \
+                (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']) and \
+                (filter['f_google_map'] == x['personal_address'] or not filter['f_google_map']):
+                    p.add(x['uid'])
+
+            new = [ad for ad in clients if ad['uid'] in p]
+            print(new)
+        
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'all_data':new[::-1], 
+        'access':access     
+   
+    }
     return render(request,"sm_all_ads_list.html",context)
 
 # forget password

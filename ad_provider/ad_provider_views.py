@@ -180,19 +180,19 @@ def admin_dashboard(request,id):
     all_profile_finder = requests.get("http://127.0.0.1:3000/alluserdata/").json()
     all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
 
-    for j in all_data:
-        ad_type=j.get("ad_type")
-        type.append(ad_type)
-    
-    
-    word_counts = Counter(type)
-    result = [{'word': word, 'count': count} for word, count in word_counts.items()]
-
     for i in all_data:
         uid=jsondec.decode(i.get("ad_pro"))
         id_value = uid['uid']
         if id_value == idd:
             new.append(i)
+            
+    for j in new:
+        ad_type=j.get("ad_type")
+        type.append(ad_type)
+    
+    print(type)
+    word_counts = Counter(type)
+    result = [{'word': word, 'count': count} for word, count in word_counts.items()]
 
     context={
         'key':mydata,
@@ -200,7 +200,7 @@ def admin_dashboard(request,id):
         'all_profile_finder':all_profile_finder[::-1],
         'all_data':new,
         'result': result,
-        'user_access':access,
+        'user_access': "",
     }
     
     for dict_data in all_data:
@@ -340,11 +340,20 @@ def add_funds(request,id):
         # return redirect("/Dashboard_profile_finder/{value}")
     else:
         return redirect("/ad_provider/signin/")
-    
+    try:
+        mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]
+        idd = id
+        access = ""
+    except:  
+        mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]
+        access = mydata['access_Privileges']
+        print(mydata['aid'])
+        idd = mydata['aid']
     mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0] 
     context={
         'key':mydata,
-        'current_path':request.get_full_path()
+        'current_path':request.get_full_path(),
+         'user_access':access,
         
     }
     return render(request,"ad_pro_adFunds.html",context)
@@ -357,6 +366,15 @@ def ad_pro_coins(request,id):
         # return redirect("/Dashboard_profile_finder/{value}")
     else:
         return redirect("/ad_provider/signin/")
+    try:
+        mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]
+        idd = id
+        access = ""
+    except:  
+        mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]
+        access = mydata['access_Privileges']
+        print(mydata['aid'])
+        idd = mydata['aid']
     new=[]
     mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]
     all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json() 
@@ -367,13 +385,19 @@ def ad_pro_coins(request,id):
         if id_value == id:
             new.append(i)
     
-    total_coin = sum(int(item.get('coin', 0)) for item in new)
+    total_coin=0
+    for item in new:
+            if item['coin'] != None:
+                total_coin += int(item['coin'])
+
+    print(total_coin)
 
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
         'all_data' : new,
-        'total_coin' : total_coin
+        'total_coin' : total_coin,
+        'user access': access
         
     }
 
@@ -405,23 +429,21 @@ def ads_list_all(request,id):
     for x in emra_data:
         emra_value=x.get('emra_coin_value')
 
-#  Emera coin value 
-    for item in new:
-        if item['coin'] != None:
-            item['amount'] = int(item['coin']) * int(emra_value)
 
+# append ads_data to new list
     for i in all_data:
         uid=jsondec.decode(i.get("ad_pro"))
         id_value = uid['uid']
         if id_value == idd:
             new.append(i)
 
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path(),
-        'all_data':new,
-        'user_access':access,
-        }
+#  Emera coin value 
+    for item in new:
+        if item['coin'] != None:
+            item['amount'] = int(item['coin']) * int(emra_value)
+        else:
+            item['amount'] = 0
+        
     
     if request.method == "POST":
         if "detail" in request.POST:
@@ -437,12 +459,41 @@ def ads_list_all(request,id):
             dis_id = request.POST['edi_ad']
             print(dis_id)
             return redirect(f"/ad_provider/ad_pro_editAd/{id}")
+        
+        elif "ad_id" in request.POST:
+            print(request.POST)
+            filter={
+                'f_ad_id': request.POST['ad_id'].strip(),
+                'f_ad_name': request.POST['ad_name'].strip().lower(),
+                'f_ad_type': request.POST['ad_type'].strip().lower(),
+                'f_ad_status': request.POST['ad_status'].strip().lower(),
+    
+            }
+            
+            p = set()
+
+            for x in new:
+                if (filter['f_ad_id'] == x['ad_id'] or not filter['f_ad_id']) and \
+                (filter['f_ad_name'] == x['ad_name'].lower() or not filter['f_ad_name']) and \
+                (filter['f_ad_type'] == x['ad_type'].lower() or not filter['f_ad_type']) and \
+                (filter['f_ad_status'] == x['status'].lower() or not filter['f_ad_status']):
+                    p.add(x['ad_id'])
+
+            new = [ad for ad in all_data if ad['ad_id'] in p]
+            print(new)
+
         else:
             print(request.POST)
             response=requests.post(f"http://127.0.0.1:3000/status_deactive_to_active/{idd}",data = request.POST)
             print(response)
             return redirect(f"/ad_provider/ad_pro_list/{id}")
-
+        
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'all_data':new[::-1],
+        'user_access':access,
+        }
     return render(request,"ad_pro_list.html",context)
 
 def ads_active(request,id):
@@ -465,6 +516,10 @@ def ads_active(request,id):
     new=[]
     a=[]
     all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
+    emra_data=requests.get(f"http://127.0.0.1:3000/superadmin/emra_coin/{idd}").json()
+    for x in emra_data:
+        emra_value=x.get('emra_coin_value')
+
     for i in all_data:
         uid=jsondec.decode(i.get("ad_pro"))
         id_value = uid['uid']
@@ -477,12 +532,14 @@ def ads_active(request,id):
        
     status_count=a.count("Active")
     
+    #  Emera coin value 
+    for item in new:
+        if item['coin'] != None:
+            item['amount'] = int(item['coin']) * int(emra_value)
+        else:
+            item['amount'] = 0
+
     
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path(),
-        'all_data':new,
-        'count':status_count }
 
     if "detail" in request.POST:
         print(request.POST)
@@ -490,9 +547,38 @@ def ads_active(request,id):
         ads_id=request.POST['detail']
         print(ads_id)
         return redirect(f"/ad_provider/ad_pro_adDetails/{id}")
+    elif "ad_id" in request.POST:
+            print(request.POST)
+            filter={
+                'f_ad_id': request.POST['ad_id'].strip(),
+                'f_ad_name': request.POST['ad_name'].strip().lower(),
+                'f_ad_type': request.POST['ad_type'].strip().lower(),
+                
+    
+            }
+            
+            p = set()
+
+            for x in new:
+                if (filter['f_ad_id'] == x['ad_id'] or not filter['f_ad_id']) and \
+                (filter['f_ad_name'] == x['ad_name'].lower() or not filter['f_ad_name']) and \
+                (filter['f_ad_type'] == x['ad_type'].lower() or not filter['f_ad_type']):
+                    p.add(x['ad_id'])
+
+            new = [ad for ad in all_data if ad['ad_id'] in p]
+            print(new)
 
     else:
         print(" ")
+
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'all_data':new[::-1],
+        'user_access':access,
+        'count':status_count }
+    
+
     return render(request,"ad_pro_active.html",context)
 
 
@@ -516,6 +602,10 @@ def ads_pending(request,id):
     new=[]
     a=[]
     all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
+    emra_data=requests.get(f"http://127.0.0.1:3000/superadmin/emra_coin/{idd}").json()
+    for x in emra_data:
+        emra_value=x.get('emra_coin_value')
+
     for i in all_data:
         uid=jsondec.decode(i.get("ad_pro"))
         id_value = uid['uid']
@@ -528,12 +618,14 @@ def ads_pending(request,id):
        
     status_count=a.count("Pending")
     
+    #  Emera coin value 
+    for item in new:
+        if item['coin'] != None:
+            item['amount'] = int(item['coin']) * int(emra_value)
+        else:
+            item['amount'] = 0
 
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path(),
-        'all_data':new,
-        'count':status_count }
+    
     
     if "detail" in request.POST:
         print(request.POST)
@@ -542,8 +634,34 @@ def ads_pending(request,id):
         print(ads_id)
         return redirect(f"/ad_provider/ad_pro_adDetails/{id}")
     
+    elif "ad_id" in request.POST:
+            print(request.POST)
+            filter={
+                'f_ad_id': request.POST['ad_id'].strip(),
+                'f_ad_name': request.POST['ad_name'].strip().lower(),
+                'f_ad_type': request.POST['ad_type'].strip().lower(),
+               
+            }
+            
+            p = set()
+
+            for x in new:
+                if (filter['f_ad_id'] == x['ad_id'] or not filter['f_ad_id']) and \
+                (filter['f_ad_name'] == x['ad_name'].lower() or not filter['f_ad_name']) and \
+                (filter['f_ad_type'] == x['ad_type'].lower() or not filter['f_ad_type']):
+                    p.add(x['ad_id'])
+
+            new = [ad for ad in all_data if ad['ad_id'] in p]
+            print(new)
     else:
         print(" ")
+
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'all_data':new[::-1],
+        'user_access':access,
+        'count':status_count }
     return render(request,"ad_pro_pending.html",context)
 
 def ads_deactive(request,id):
@@ -566,6 +684,10 @@ def ads_deactive(request,id):
     new=[]
     a=[]
     all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
+    emra_data=requests.get(f"http://127.0.0.1:3000/superadmin/emra_coin/{idd}").json()
+    for x in emra_data:
+        emra_value=x.get('emra_coin_value')
+
     for i in all_data:
         uid=jsondec.decode(i.get("ad_pro"))
         id_value = uid['uid']
@@ -578,12 +700,14 @@ def ads_deactive(request,id):
        
     status_count=a.count("Deactive")
     
+    #  Emera coin value 
+    for item in new:
+        if item['coin'] != None:
+            item['amount'] = int(item['coin']) * int(emra_value)
+        else:
+            item['amount'] = 0
 
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path(),
-        'all_data':new,
-        'count':status_count }
+   
     
     if "detail" in request.POST:
         print(request.POST)
@@ -591,10 +715,38 @@ def ads_deactive(request,id):
         ads_id=request.POST['detail']
         print(ads_id)
         return redirect(f"/ad_provider/ad_pro_adDetails/{id}") 
+    elif "ad_id" in request.POST:
+            print(request.POST)
+            filter={
+                'f_ad_id': request.POST['ad_id'].strip(),
+                'f_ad_name': request.POST['ad_name'].strip().lower(),
+                'f_ad_type': request.POST['ad_type'].strip().lower(),
+                
     
+            }
+            
+            p = set()
+
+            for x in new:
+                if (filter['f_ad_id'] == x['ad_id'] or not filter['f_ad_id']) and \
+                (filter['f_ad_name'] == x['ad_name'].lower() or not filter['f_ad_name']) and \
+                (filter['f_ad_type'] == x['ad_type'].lower() or not filter['f_ad_type']):
+                    p.add(x['ad_id'])
+
+            new = [ad for ad in all_data if ad['ad_id'] in p]
+            print(new)
     
     else:
         print(" ")
+
+
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'all_data':new[::-1],
+        'user_access':access,
+        'count':status_count }
+    
     return render(request,"ad_pro_deactive.html",context)
 
 def ads_closed(request,id):
@@ -617,23 +769,30 @@ def ads_closed(request,id):
     new=[]
     a=[]
     all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
+    emra_data=requests.get(f"http://127.0.0.1:3000/superadmin/emra_coin/{idd}").json()
+    for x in emra_data:
+        emra_value=x.get('emra_coin_value')
+
     for i in all_data:
         uid=jsondec.decode(i.get("ad_pro"))
         id_value = uid['uid']
         if id_value == idd:
             new.append(i)
+    print(new)
+
     for j in new:
         status=j.get("status")
         a.append(status)
        
     status_count=a.count("Closed")
     
+    #  Emera coin value 
+    for item in new:
+        if item['coin'] != None:
+            item['amount'] = int(item['coin']) * int(emra_value)
+        else:
+            item['amount'] = 0
 
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path(),
-        'all_data':new,
-        'count':status_count }
     
     if "detail" in request.POST:
         print(request.POST)
@@ -641,22 +800,38 @@ def ads_closed(request,id):
         ads_id=request.POST['detail']
         print(ads_id)
         return redirect(f"/ad_provider/ad_pro_adDetails/{id}")
-    
 
-    for dict_data in all_data:
-        status=dict_data['status']
-        
-        if status == "Closed" or status == "closed":
-            context1={
-            'key':mydata,
-            'current_path':request.get_full_path(),
-            'all_data':all_data
-
+    elif "ad_id" in request.POST:
+            print(request.POST)
+            filter={
+                'f_ad_id': request.POST['ad_id'].strip(),
+                'f_ad_name': request.POST['ad_name'].strip().lower(),
+                'f_ad_type': request.POST['ad_type'].strip().lower(),
             }
-            return render(request,"ad_pro_closed.html",context1)
+            
+            p = set()
+
+            for x in new:
+                if (filter['f_ad_id'] == x['ad_id'] or not filter['f_ad_id']) and \
+                (filter['f_ad_name'] == x['ad_name'].lower() or not filter['f_ad_name']) and \
+                (filter['f_ad_type'] == x['ad_type'].lower() or not filter['f_ad_type']):
+                    p.add(x['ad_id'])
+
+            new = [ad for ad in all_data if ad['ad_id'] in p]
+            print(new)
+            
     else:
         print("no data")
+
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'all_data':new[::-1],
+        'user_access':access,
+        'count':status_count
+          }
     return render(request,"ad_pro_closed.html",context)
+    
 
 # /// Ad_pro Ads Creation//////
 def ad_pro_createAd(request,id):
@@ -701,7 +876,7 @@ def ad_pro_createAd(request,id):
     countryname = json.dumps(neww)
 
     context = {'key':mydata,'current_path':request.get_full_path(),
-                'response': response, 'region': response,'all':al,
+                'response': response, 'region': response,'all':al,'user_access':access,
                 'country': countryname,'states': states,   'all_data': new,
                 'user_access':access}
     if "office_state" in request.POST:
@@ -720,39 +895,15 @@ def ad_pro_createAd(request,id):
     #         commission="0"
 
     if request.method == "POST":
-        print(request.POST)
-        data = {
-        'ad_name': request.POST['ad_name'],
-        'ad_dis': id,
-        'category': request.POST['category'],
-        'ad_type': request.POST['ad_type'],
-        'languages': request.POST['languages'],
-        'office_country': request.POST['office_country'],
-        'office_state':city,
-        'office_district': request.POST['office_district'],
-        'gender': request.POST['gender'],
-        'age_range': request.POST['age_range'],
-        'age_to': request.POST['age_to'],          
-        # 'no_views':request.POST['no_views'],
-        'days_required':request.POST['days_required'],
-        'times_repeat':request.POST['times_repeat'],
-        'ad_details':request.POST['ad_details'],
-        'action_name':request.POST['action_name'],
-        'action_url':request.POST['action_url'],
-        # 'id_card': request.FILES['id_card'],
-        # 'other_ads':request.FILES['other_ads'],
-        # 'coin':coin,
-        # 'commission':commission 
-        }
-        print(data)
+        print("Posted values",request.POST)
+        dic_values=dict(request.POST)
         print(request.FILES)
-        response = requests.post(f"http://127.0.0.1:3000/create_new_ads/{id}", data = data,files=request.FILES)
+        response = requests.post(f"http://127.0.0.1:3000/create_new_ads/{id}", data = dic_values,files=request.FILES)
         print(response)
         # print(response.status_code)
         # print(response.text)
         return redirect(f"/ad_provider/ad_pro_list/{id}")
     return render(request,"ad_pro_createAd.html",context)
-
 
 def ad_pro_editAd(request,id):
     value = request.COOKIES.get('ad_provider')
@@ -772,20 +923,81 @@ def ad_pro_editAd(request,id):
         idd = mydata['aid']
 
     ads_list_all(request,id)
-    print(dis_id)
+    # print(dis_id)
     ads_data=requests.get(f"http://127.0.0.1:3000/ad_pro_ad_details/{dis_id}").json()
     
+    #Ads_list details
+    languages_value=[]
+    office_country_value=[]
+    office_state_value=[]
+    office_district_value=[]
+    gender_value=[]
+    age_range_value=[]
+    age_to_value=[]
+    languages = ads_data['languages'][1:-1].split(", ")
+    office_country = ads_data['office_country'][1:-1].split(", ")
+    office_state = ads_data['office_state'][1:-1].split(", ")
+    office_district = ads_data['office_district'][1:-1].split(", ")
+    gender = ads_data['gender'][1:-1].split(", ")
+    age_range = ads_data['age_range'][1:-1].split(", ")
+    age_to = ads_data['age_to'][1:-1].split(", ")
+    for office_country_x in office_country:
+        office_country_value.append(office_country_x[1:-1])
+    for office_state_x in office_state:
+        office_state_value.append(office_state_x[1:-1])
+    for languages_x in languages:
+        languages_value.append(languages_x[1:-1])
+    for gender_x in gender:
+        gender_value.append(gender_x[1:-1])
+    for age_range_x in age_range:
+        age_range_value.append(age_range_x[1:-1])
+    for age_to_x in age_to:
+        age_to_value.append(age_to_x[1:-1])
+    for office_district_x in office_district:
+        office_district_value.append(office_district_x[1:-1])
+    ad_data1={}
+    sib = [ad_data1]
+    for i, office_country_data in enumerate(office_country_value):
+        key = f'office_country_{i}'
+        if key not in ad_data1:
+            ad_data1[key] = office_country_data
+    for i, languages_data in enumerate(languages_value):
+        key = f'languages_{i}'
+        if key not in ad_data1:
+            ad_data1[key] = languages_data
+    for i, office_district_data in enumerate(office_district_value):
+            key = f'office_district_{i}'
+            if key not in ad_data1:
+                ad_data1[key] = office_district_data
+    for i, office_state_data in enumerate(office_state_value):
+            key = f'office_state_{i}'
+            if key not in ad_data1:
+                ad_data1[key] = office_state_data
+    for i, gender_data in enumerate(gender_value):
+            key=f'gender_{i}'
+            if key not in ad_data1:
+                ad_data1[key] = gender_data
+    for i, age_range_data in enumerate(age_range_value):
+            key=f'age_range_{i}'
+            if key not in ad_data1:
+                ad_data1[key] = age_range_data
+    for i, age_to_data in enumerate(age_to_value):
+            key=f'age_to_{i}' 
+            if key not in ad_data1:
+                ad_data1[key] = age_to_data        
+    
+    print(sib)
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
         'ad_data':ads_data,
-        'user_access':access
+        'user_access':access,
+        'ad_list_data':sib,
         }
     
     if request.method == "POST":
-        # print(request.POST)
-        # print(request.FILES)
-        response = requests.post(f"http://127.0.0.1:3000/ad_pro_edit_ads/{dis_id}", data = request.POST,files=request.FILES)
+        dic_values=dict(request.POST)
+        response = requests.post(f"http://127.0.0.1:3000/ad_pro_edit_ads/{dis_id}", data = dic_values,files=request.FILES)
         print(response)
         # print(response.status_code)
         # print(response.text)
@@ -808,8 +1020,7 @@ def ad_pro_adDetails(request,id):
         mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]
         access = mydata['access_Privileges']
         print(mydata['aid'])
-        idd = mydata['aid']
-    
+        idd = mydata['aid']  
     ads_list_all(request,id)
     print(ads_id)
     ads_data=requests.get(f"http://127.0.0.1:3000/ad_pro_ad_details/{ads_id}").json()
@@ -863,7 +1074,8 @@ def ad_pro_payment(request,id):
         idd = mydata['aid']
     context={
         'key':mydata,
-        'current_path':request.get_full_path()
+        'current_path':request.get_full_path(),
+        'user_access' : access
 
     }
 
@@ -888,6 +1100,9 @@ def ad_pro_users(request,id):
         idd = mydata['aid']
     error = ""
     my_user = requests.get(f"http://127.0.0.1:3000/ad_pro_my_users_data/{idd}").json()
+    new=[]
+    for x in my_user:
+        new.append(x)
     print(my_user)
     if request.method== "POST":
         print(request.POST)
@@ -919,14 +1134,39 @@ def ad_pro_users(request,id):
             # print(response.text)
             # print(response.status_code)
             if response.status_code == 200:
-                return redirect(f"http://127.0.0.1:8001/ad_provider/ad_pro_users/{id}")
+                return redirect(f"http://51.20.61.70:8001/ad_provider/ad_pro_users/{id}")
             elif response.status_code == 203:
                 print("user already exist")
                 error = "User Already Exixts"
+
+        elif "user_id" in request.POST:
+
+            filter = {
+            'f_u_id': request.POST['user_id'],
+            'f_u_name': request.POST['user_name'].lower(),
+            'f_u_email': request.POST['user_email'].lower(),
+            'f_u_phone': request.POST['user_phone'],
+            }
+
+            p = set()
+
+            for x in new:
+                if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                (filter['f_u_name'] == x['first_name'].lower() or not filter['f_u_name']) and \
+                (filter['f_u_email'] == x['email'].lower() or not filter['f_u_email']) and \
+                (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']):
+                    p.add(x['uid'])
+
+            new = [ad for ad in my_user if ad['uid'] in p]
+            print(new)
+
+        else:
+            print("no data")
+
     context={
         'key':mydata,
         'current_path':request.get_full_path(),
-        'my_user':my_user,
+        'my_user':new,
         'error':error,
         'user_access' : access,
     
@@ -941,7 +1181,15 @@ def ad_pro_addusers(request,id):
         # return redirect("/Dashboard_profile_finder/{value}")
     else:
         return redirect("/ad_provider/signin/")
-    
+    try:
+        mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]
+        idd = id
+        access = ""
+    except:  
+        mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]
+        access = mydata['access_Privileges']
+        print(mydata['aid'])
+        idd = mydata['aid']
     error=""
     mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]  
     if request.method=="POST":
@@ -1035,12 +1283,17 @@ def ad_pro_settings(request,id):
         # return redirect("/Dashboard_profile_finder/{value}")
     else:
         return redirect("/ad_provider/signin/")
+    try:
+        mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0]
+        idd = id
+        access = ""
+    except:  
+        mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]
+        access = mydata['access_Privileges']
+        print(mydata['aid'])
+        idd = mydata['aid']
     mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{id}").json()[0] 
-    context={
-        'key':mydata,
-        'current_path':request.get_full_path()
-
-    }
+    
     if request.method=="POST":
         print(request.POST)
         if 'pass_reset' in request.POST:
@@ -1054,7 +1307,12 @@ def ad_pro_settings(request,id):
             print(response.status_code)
             print(response.text)
             return render(request,"ad_pro_settings.html",context)
-
+        
+    context={
+        'key':mydata,
+        'current_path':request.get_full_path(),
+        'user_access' : access
+    }
     return render(request,"ad_pro_settings.html",context)
 
 # //// Password Reset////

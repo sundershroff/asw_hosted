@@ -42,7 +42,7 @@
       </nav>
       <!-- .nav-menu -->
     </div>
-    <h5 style="position:absolute;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marryoo. All rIghts reserved</h5>
+    <h5 style="position:absolute;bottom:0px;color:white;font-size:0.6em;left:20px;">© 2020 Marriyo. All rights reserved</h5>
   </header>
   
   </div>
@@ -66,7 +66,7 @@
     <!-- over -->
 
     <!-- start -->
-    <div class="locl_adm_sec1 px-4 my-4">
+    <div class="locl_adm_sec1 px-4 my-2">
 
       <div>
         <h3><span style="color:rgba(123, 97, 255, 1);font-weight:700;">{{my_user|length}} </span>Users</h3>
@@ -81,17 +81,17 @@
         </div>
 
         </form>
-        <button data-bs-toggle="modal" data-bs-target="#filter_modal1">Filter <i class="fa-solid fa-filter"></i></button>
+        <button data-bs-toggle="modal" data-bs-target="#filter_modal1" style="height:40px;">Filter <i class="fa-solid fa-filter"></i></button>
 
         {% if "Add User" in access %}
-        <a href="/sales_manager/sm_addusers/{{key.uid}}"><button class="adduser_btn" >Add New <i class="fa-solid fa-circle-plus"></i></button></a>
-        {%else%}
+        <a href="/sales_manager/sm_addusers/{{key.uid}}"><button class="adduser_btn" style="height:38px;">Add New <i class="fa-solid fa-circle-plus"></i></button></a>
+        {% else %}
         <!-- <a href="#"><button class="adduser_btn" >Add New <i class="fa-solid fa-circle-plus"></i></button></a>  -->  
-        {%endif%}
+        {% endif %}
         
   {% if access == "" %}
-  <a href="/sales_manager/sm_addusers/{{key.uid}}"><button class="adduser_btn" >Add New <i class="fa-solid fa-circle-plus"></i></button></a>
-    {%endif%}
+  <a href="/sales_manager/sm_addusers/{{key.uid}}"><button class="adduser_btn" style="height:38px;" >Add New <i class="fa-solid fa-circle-plus"></i></button></a>
+    {% endif %}
       </div>
 
       
@@ -99,7 +99,7 @@
     <!-- over -->
 
     <!-- start -->
-    <div class="locl_adm_sec2 my-5">
+    <div class="locl_adm_sec2 my-2">
 
       <div class="locl_adm_table px-3">
 
@@ -157,20 +157,20 @@
       <li><a href=""><button type="submit" class="btn btn-primary" name="edit" value="{{i.uid}}">Edit</button></a></a></li>
       {% else%}
     <!-- </li> <button class="btn btn-primary"><a href="#">EDIT</a></button></li> -->
-      {%endif%}
+      {% endif %}
   {% if access == "" %}
        <li><a href=""><button type="submit" class="btn btn-primary" name="edit" value="{{i.uid}}">Edit</button></a></a></li>
-  {%endif%}
+  {% endif %}
 
 
        {% if "Delete User" in access %}     
        <li><a href="" ><button type="submit" class="btn btn-danger" name="delete" value="{{i.uid}}">Delete</button></a> </li>
-        {%else%}
+        {% else %}
         <!-- <li><button class="btn btn-danger"><a href="#">DELETE</a></button></li> -->
-        {%endif%}
+        {% endif %}
   {% if access == "" %}
       <li><a href="" ><button type="submit" class="btn btn-danger" name="delete" value="{{i.uid}}">Delete</button></a> </li>
-  {%endif%}
+  {% endif %}
      
       </ul>
    </form>
@@ -179,7 +179,7 @@
  </div>
 </div>
 </div>
-{%endfor %}
+{% endfor %}
 
         
 
@@ -206,13 +206,13 @@
         </div>
         <div class="modal-body prof_personal_filt2">
            
-           <form method="post" action="" enctype="multipart/form-data">
-            {%csrf_token%}
+          <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
          
              <div class="my-3">
               <label for="exampleFormControlInput1" class="form-label">ID</label>
-              <select class="form-select py-3" name="uid" id="id_select">
-                <option value="default">Select</option>
+              <select class="form-select py-3" name="user_id" id="id_select">
+                <option value="">Select</option>
                 {% for i in my_user %}
                     <option value="{{ i.uid }}">{{ i.uid }}</option>
                 {% endfor %}
@@ -221,17 +221,17 @@
   
              <div class="my-4">
               <label for="first_name" class="form-label">Name</label>
-              <input type="text" name="first_name" class="form-control" id="first_name">
+              <input type="text" name="user_name" class="form-control" id="first_name">
              </div>
             
              <div class="my-4">
               <label for="email" class="form-label">Email ID</label>
-              <input type="text" name="email" class="form-control" id="email">
+              <input type="text" name="user_email" class="form-control" id="email">
             </div>
   
                     <div class="my-4">
               <label for="phone_number" class="form-label">Phone Number</label>
-               <input type="text" name="mobile" class="form-control" id="phone_number">
+               <input type="text" name="user_phone" class="form-control" id="phone_number">
 
              </div>
   

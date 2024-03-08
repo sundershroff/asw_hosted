@@ -138,6 +138,15 @@
       <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
       <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-gear"></i> <span>Settings</span></a></li>
     </ul>
+    {% elif "ad_provider/ad_pro_coins" in current_path %}
+    <ul>
+      <li><a href="/ad_provider/ad_provider_admin_dashboard/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-grid-fill"></i> <span>Dashboard</span></a></li>
+      <li><a href="/ad_provider/ad_pro_account/{{key.uid}}" class="nav-link scrollto active"><i class="bx bi-person-fill"></i> <span>Profile</span></a></li>
+      <li><a href="/ad_provider/ad_pro_list/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-file-text"></i> <span>Ads</span></a></li>
+      <li><a href="/ad_provider/ad_pro_users/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-person-fill"></i> <span>Users</span></a></li>
+      <li><a href="/ad_provider/ad_pro_settings/{{key.uid}}" class="nav-link scrollto "><i class="bx bi-gear"></i> <span>Settings</span></a></li>
+    </ul>
+    
     {% endif %}
 {% else %}
   

@@ -245,7 +245,7 @@ def admin_dashboard(request,id):
                 elif j['rating'] == "2.0":
                     two.append(j['rating'])
                 elif j['rating'] == "3.0":
-                    three.append(j['rating'])
+                    three.append( j['rating'])
                 elif j['rating'] == "4.0":
                     four.append(j['rating'])
                 elif j['rating'] == "5.0":
@@ -428,13 +428,38 @@ def client_list(request,id):
             global client_one
             client_one = request.POST['client_one']
             return redirect(f"/pi_client_details/{id}")
+        
+        elif "pf_id" in request.POST:
+            print(request.POST)
+            filter = {
+            'f_u_id': request.POST['pf_id'].strip(),
+            'f_u_name': request.POST['pf_name'].strip().lower(),
+            'f_u_email': request.POST['pf_email'].strip().lower(),
+            'f_u_phone': request.POST['pf_phone'].strip(),
+            'f_u_location': request.POST['pf_location'].strip().lower(),
+            'f_u_status': request.POST['pf_status'].strip().lower(),
+            }
+
+            p = set()
+
+            for x in all_profinder_data_values:
+                if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                (filter['f_u_name'] == x['name'].lower() or not filter['f_u_name']) and \
+                (filter['f_u_email'] == x['email'].lower() or not filter['f_u_email']) and \
+                (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']) and \
+                (filter['f_u_location'] == x['r_state'].lower() or not filter['f_u_location']) and \
+                (filter['f_u_status'] == x['family_status'].lower() or not filter['f_u_status'] ):
+                    p.add(x['uid'])
+
+            all_profinder_data_values = [x for x in all_profinder_data_values if x['uid'] in p]
+            print(all_profinder_data_values)
+
         context={'key':my,
                  'current_path':request.get_full_path(),
                  'all_profinder_data':all_profinder_data_values,
                  'my_client':my_client,
                  }
         return render(request,"Client_list.html",context)
-
 def client_details(request,id):
         value = request.COOKIES.get('private_investigator')
         if value != None:
@@ -464,7 +489,6 @@ def client_details(request,id):
                  'question_and_Answer':question,
                  }
         return render(request,"client_details.html",context)
-
 
 def subscription(request,id):
         value = request.COOKIES.get('private_investigator')
@@ -518,6 +542,33 @@ def add_client(request,id):
            global my_client_one
            my_client_one = request.POST['my_client_one']  
            return redirect(f"/pi_client_feedback/{id}")
+        
+        elif "pf_id" in request.POST:
+                    print(request.POST)
+                    filter = {
+                    'f_u_id': request.POST['pf_id'].strip(),
+                    'f_u_name': request.POST['pf_name'].strip().lower(),
+                    'f_u_email': request.POST['pf_email'].strip().lower(),
+                    'f_u_phone': request.POST['pf_phone'].strip(),
+                    'f_u_location': request.POST['pf_location'].strip().lower(),
+                    'f_u_status': request.POST['pf_status'].strip().lower(),
+                    }
+
+                    p = set()
+
+                    for x in my_client:
+                        if (filter['f_u_id'] == x['uid'] or not filter['f_u_id']) and \
+                        (filter['f_u_name'] == x['name'].lower() or not filter['f_u_name']) and \
+                        (filter['f_u_email'] == x['email'].lower() or not filter['f_u_email']) and \
+                        (filter['f_u_phone'] == x['mobile'] or not filter['f_u_phone']) and \
+                        (filter['f_u_location'] == x['r_state'].lower() or not filter['f_u_location']) and \
+                        (filter['f_u_status'] == x['family_status'].lower() or not filter['f_u_status']):
+                            p.add(x['uid'])
+
+                    my_client = [ad for ad in my_client if ad['uid'] in p]
+                    print(my_client)
+
+                    
         context={'key':my,
                  'current_path':request.get_full_path(),
                  'my_client':my_client,

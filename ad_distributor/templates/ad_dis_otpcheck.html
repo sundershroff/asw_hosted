@@ -15,18 +15,18 @@
     <body>
       <div class="container height-100 d-flex justify-content-center align-items-center">
         <div class="position-relative">
-           <div class="w-50 ms-auto me-auto mt-10 mb-10 p-2 text-center">
+           <div class="mt-10 mb-10 p-2 text-center">
               <h4>OTP</h4>
               <div>  
                 <small>Please enter the One Time Password to verify your account</small> 
               </div>
               <form method="POST" id="myform">
                 {% csrf_token %}
-                <div id="otp" class="inputs d-flex flex-row justify-content-center mt-4 mb-4 w-50 ms-auto me-auto user_otp"> 
-                  <input class="m-2 me-0 text-center form-control rounded" name="otp1" placeholder="--" type="text" id="user_otp" maxlength="1" /> 
-                  <input class="m-2 me-0 text-center form-control rounded" name="otp2" placeholder="--" type="text" id="user_otp" maxlength="1" /> 
-                  <input class="m-2 me-0 text-center form-control rounded" name="otp3" placeholder="--" type="text" id="user_otp" maxlength="1" /> 
-                  <input class="m-2 me-0 text-center form-control rounded" name="otp4" placeholder="--" type="text" id="user_otp" maxlength="1" /> 
+                <div id="otp" class="inputs d-flex flex-row justify-content-center mt-4 mb-4 w-50 ms-auto me-auto user_otp" style="gap:10px"> 
+                  <input class="text-center form-control rounded" name="otp1" placeholder="--" type="text" id="user_otp" maxlength="1" /> 
+                  <input class="text-center form-control rounded" name="otp2" placeholder="--" type="text" id="user_otp" maxlength="1" /> 
+                  <input class="text-center form-control rounded" name="otp3" placeholder="--" type="text" id="user_otp" maxlength="1" /> 
+                  <input class="text-center form-control rounded" name="otp4" placeholder="--" type="text" id="user_otp" maxlength="1" /> 
                 </div>
         
              
@@ -59,13 +59,13 @@
                 { 
                   return true; 
                 } 
-                else if (event.keyCode> 47 && event.keyCode < 58) 
+                else if (event.keyCode > 47 && event.keyCode < 58) 
                 { 
                   inputs[i].value=event.key; 
                   if (i !==inputs.length - 1) inputs[i + 1].focus(); 
                   event.preventDefault(); 
                 } 
-                else if (event.keyCode> 64 && event.keyCode < 91) 
+                else if (event.keyCode > 64 && event.keyCode < 91) 
                 { 
                   inputs[i].value=String.fromCharCode(event.keyCode); 
                   if (i !==inputs.length - 1) inputs[i + 1].focus(); 

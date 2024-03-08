@@ -95,7 +95,77 @@ h6 {
   padding-left: 30px;
   padding-right: 30px;
 }
+#search_input
+{
+  width: 241px;
+  height: 40px;
+  padding: 0 10px;
+  border: 3px solid rgba(102, 102, 102, 0.1);
+  background-color: rgba(123, 97, 255, 0.1);
+  outline: none;
+  border-radius: 9px;
+}
+button#filter_btn{
+  background-color:white !important;
+	color:rgba(123, 97, 255, 1) !important;
+	border:2px solid rgba(123, 97, 255, 1) !important;
+  padding:8px 25px !important;
+	border-radius:10px !important;
+	transition:0.5s !important;
+	font-weight:700 !important;
+}
 
+.prof_personal_savefilt1 a{
+	text-align:center;
+	color:#7B61FF;
+	font-weight:500;
+	text-decoration:none;
+}
+.prof_personal_savefilt1 a:hover{
+	text-decoration:underline;
+}
+.prof_personal_filbtn1{
+  color:#7B61FF;
+  transition:0.5s;
+	border:1px solid #7B61FF;
+	background:white;
+}
+
+.prof_personal_filbtn2{
+	background: linear-gradient(63deg,blue,#b772b7 );
+	color:white;
+	transition:0.5s;
+  	border:1px solid white;
+}
+
+.prof_personal_savefilt1 button{
+	 border-radius:10px;
+	padding:7px 60px;
+}
+
+.prof_personal_filbtn2:hover{
+	background:white;
+	transition:0.5s;
+	color:black;
+	border:1px solid black;
+}
+.prof_personal_filbtn1:hover{
+	background:#7B61FF;
+	transition:0.5s;
+	color:white;
+
+}
+
+.prof_personal_filt2 label{
+	color:#2B3674;
+	font-weight:500;
+    font-size:1em;
+}
+
+.prof_personal_filt i{
+	font-size:1.4em;
+	color:black;
+}
 @media (max-width: 1199px) {
   #header {
     left: -300px;

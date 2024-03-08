@@ -1891,14 +1891,15 @@ ul.nav.nav-tabs li a.nav-link.active.h6 {
 	display:flex;
 	justify-content:center;
 	align-items:center;
+    /* height:500px; */
 }
 
 .dashboard_icons{
-	margin:18px 0;
+	margin:10px 0;
 }
 .dashboard_icons img{
 
-  padding:15px 18px;
+  padding:13px 18px;
   border:2px solid #E5E5E5;
   border-radius:10px;
   transition:0.5s;
@@ -1911,7 +1912,7 @@ ul.nav.nav-tabs li a.nav-link.active.h6 {
 }
 
 .dashboard_icons a{
-	margin-right:70px;
+	margin-right:50px;
 }
 
 .dashboard_icons span{
@@ -1936,8 +1937,9 @@ ul.nav.nav-tabs li a.nav-link.active.h6 {
 	background-repeat:no-repeat;
 	background-size:cover;
 	background-position:center;
-	border-radius:10px;
+	border-radius:10px 0 0 0;
   position:relative;
+  margin-right: -12px;
 }
 
 

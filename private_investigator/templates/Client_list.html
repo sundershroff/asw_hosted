@@ -64,20 +64,14 @@
         </div>
          <div class="col-md-6 mt-3 mb-3 d-flex justify-content-end align-items-center">
          
-           <div class="form-inputs ms-3">
-             <input class="form-control" type="text" placeholder="Search">
+           <div class="form-inputs ms-3" >
+             <input id="search_input" class="form-control" type="text" placeholder="Search">
              <i class="bx bx-search"></i>
            </div>
-           <div class="dropdown">
-             <button class="btn" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-               Filter <span class="bi bi-filter"></span>
-             </button>
-             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-               <li><button class="dropdown-item" type="button">Action</button></li>
-               <li><button class="dropdown-item" type="button">Another action</button></li>
-               <li><button class="dropdown-item" type="button">Something else here</button></li>
-             </ul>
-           </div>
+           {% comment %} <div class="dropdown"> {% endcomment %}
+            <button id="filter_btn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filter_modal0">Filter <i class="fa-solid fa-filter"></i></button>
+
+           {% comment %} </div> {% endcomment %}
          </div>
        </div>
        <!-- ... (rest of your "Clients" section content) ... -->
@@ -136,16 +130,7 @@
     </div>
 </div>
       
-<div class="col-md-6 col-lg-3  client-container">
-  <img src="/media/images/man2.webp" alt="" class="clientimg">
-  <div class="client-details">
-      <span class="clientname mb-2">Cameron Williamson</span>
-      <span class="clientID mb-1">ID :#123AD</span>
-      <span class="clientpalce mb-2">Dubai, United Arab Emirates</span>
-      <i class="clientquotes mb-2">"Life is full of possibility"</i>
-      <i class="bi bi-circle-fill me-3 mb-3"><span class="online ms-1">Online</span>  </i>
-  </div>
-</div>
+
 <div class="col-md-6 col-lg-3  client-container">
   <img src="/media/images/man2.webp" alt="" class="clientimg">
   <div class="client-details">
@@ -200,6 +185,95 @@
   </footer>
   <!-- End  Footer -->
 
+<!-- modal -->
+ <div class="modal fade modal-md" id="filter_modal0" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header prof_personal_filt">
+        <h4 class="modal-title" id="exampleModalLabel" style="font-weight:700;" >Filter</h4>
+        <button type="button" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times-circle" style="color:black;"></i></button>
+      </div>
+      <div class="modal-body prof_personal_filt2">
+         
+         <form method="post" action="" enctype="multipart/form-data">
+          {% csrf_token %}
+           <div class="my-3">
+            <label for="exampleFormControlInput1" class="form-label">ID</label>
+            <select class="form-select py-3" name="pf_id" id="id_select">
+            <option value=" ">Select</option>
+          {% for i in all_profinder_data %}
+              <option value="{{ i.uid }}">{{ i.uid }}</option>
+          {% endfor %}
+      </select>
+           </div>
+
+           <div class="my-4">
+            <label for="exampleFormControlInput1" class="form-label">Name</label>
+              <input type="text" name="pf_name" class="form-control">
+           </div>
+          
+            <div class="my-4">
+            <label for="exampleFormControlInput1" class="form-label">Email ID</label>
+             <input type="text" name="pf_email" class="form-control">
+           </div>
+
+                  <div class="my-4">
+            <label for="exampleFormControlInput1" class="form-label">Phone Number</label>
+             <input type="text" name="pf_phone" class="form-control">
+           </div> 
+
+
+                   <div class="my-4">
+            <label for="exampleFormControlInput1" class="form-label">AD Type</label>
+            <input type="text" name="pf_location" class="form-control">
+           </div>
+
+                  <div class="my-4">
+            <label for="exampleFormControlInput1" class="form-label">Status</label>
+            <input name="pf_status" type="text" class="form-control">
+           </div> 
+
+          
+          <div class="prof_personal_savefilt1 text-center mb-5">
+             <button class="prof_personal_filbtn1 my-3" type="">Reset</button>
+             <button class="prof_personal_filbtn2 my-3" type="button">Submit</button>
+            </div> 
+            <div class="py-1">
+      
+           </div>  
+
+         </form>
+       
+      </div>
+    
+    </div>
+  </div> 
+</div>  
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Modal body..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Over -->
   <!-- Template Main JS File -->
   <script src="/media/js/main.js"></script>
 </body>
