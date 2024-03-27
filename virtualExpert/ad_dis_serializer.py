@@ -53,7 +53,7 @@ class addistributorSerializer(serializers.Serializer):
     company_pan_no = serializers.CharField()
     arn_no =serializers.CharField()
     pan_card =serializers.CharField()
-
+    notification_status=serializers.CharField()
 
 class SignupSerializer(serializers.Serializer):
     uid = serializers.CharField()
@@ -62,12 +62,16 @@ class SignupSerializer(serializers.Serializer):
     password = serializers.CharField()
     otp = serializers.IntegerField()
     created_date = serializers.CharField()
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
 
     
     def create(self, data):
         return ad_distributor.objects.create(
             uid = data['uid'],
             email = data['email'],
+            first_name = data['first_name'],
+            last_name = data['last_name'],
             mobile = data['mobile'],
             password = data['password'],
             otp = data['otp'],

@@ -114,6 +114,7 @@
             <label class="form-label">City<span>*</span></label>
             <select id="res2" class="form-select" name="office_city">
               <option value="default">Select</option>
+              
               <script>
                 stat = {{ states|safe }};
             ttt = stat[0].states;
@@ -421,7 +422,7 @@
           <div class="row" id="judgment_box">
             <div class="col-lg-6 my-3">
               <label class="form-label">please explain:<span>*</span></label>
-              <textarea name="judgment_felony" class="form-control"  style="min-height: calc(1.5em + 5.75rem + calc(var(--bs-border-width) * 2));" > </textarea>
+              <input type="text" name="judgment_felony" class="form-control"  style="min-height: calc(1.5em + 5.75rem + calc(var(--bs-border-width) * 2));" > 
             </div>
             
           </div>
@@ -495,7 +496,7 @@
           <div class="row">
             <div class="col-lg-12">
               <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                 <h6 style="color:red">6) Do you know english reading and typing?</h6>
                 </div>
                 <div class="col-lg-2">
@@ -838,7 +839,7 @@
                       <label class="form-label">BUISNESS</label>
                       </div>
                       <div class="col-lg-3">
-                      <input type="radio" name="mariyo_work_typen"  id="select_p" value="Personal">
+                      <input type="radio" name="mariyo_work_type"  id="select_p" value="Personal">
                       <label class="form-label">PERSONAL</label>
                       </div>
                     </div>
@@ -939,7 +940,7 @@
         <div class="local_admin_edi_subbtn my-4">
 
           <button>Cancel</button>
-          <button type="submit" id="success" data-bs-toggle="modal" data-bs-target=""> Update</button>
+          <button type="submit"  id="success" > Update</button>
           {% comment %} exampleModal {% endcomment %}
         </div>
            
@@ -955,7 +956,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade"id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+{% comment %} <div class="modal fade"id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="border:none;">
@@ -971,7 +972,7 @@
         <div class="modal-footer" style="border:none;">
           
         </div>
-      </div>
+      </div> {% endcomment %}
 
 
       <script src="{% static 'js/main.js'%}"></script>
@@ -1283,32 +1284,34 @@
             });
           }); 
         </script> 
-        
+        {% if alert_message %}
         <script>
-
-        document.getElementById('myform').addEventListener('submit', function (event) {
-          event.preventDefault(); 
-
-   
-       const relevantAnswers = Array.from(document.querySelectorAll('.relevant-question:checked')).map(input => input.value === 'Yes');
-       console.log(relevantAnswers);
-    
-      if (relevantAnswers.length === 6) {
-       
-        const isEligible = relevantAnswers[0] && !relevantAnswers[1] && !relevantAnswers[2] && !relevantAnswers[3] && relevantAnswers[4] && relevantAnswers[5];
-
-       
-        if (isEligible) {
-            alert("Congratulations! You are eligible to meet the hiring criteria. Application submitted successfully.");
-        } else {
-            alert("Sorry, you are not eligible to meet the hiring criteria. Application cannot be submitted.");
-        }
-    } else {
-        
-        alert("Please answer all relevant questions before submitting the application.");
-    }
-     });
-     </script>
+            alert("{{ alert_message }}");
+        </script>
+        {% endif %}
+       {% comment %} <script>
+        document.getElementById('applicationForm').addEventListener('click', function (event) {
+          event.preventDefault(); // Prevent the default form submission
+      
+          // Get the selected values for the relevant questions
+          const relevantAnswers = Array.from(document.querySelectorAll('.relevant-question:checked')).map(input => input.value === 'yes');
+      
+          // Check if exactly 6 relevant questions were answered
+          if (relevantAnswers.length === 6) {
+              // Check eligibility based on the answers
+              const isEligible = relevantAnswers[0] && !relevantAnswers[1] && !relevantAnswers[2] && relevantAnswers[3] && relevantAnswers[4] && relevantAnswers[5];
+      
+              // Display appropriate message based on eligibility
+              if (isEligible) {
+                  alert("Congratulations! You are eligible to meet the hiring criteria. Application submitted successfully.");
+              } else {
+                  alert("Sorry, you are not eligible to meet the hiring criteria. Application cannot be submitted.");
+              }
+          } else {
+              // Not all relevant questions were answered
+              alert("Please answer all relevant questions before submitting the application.");
+          }
+      }); {% endcomment %}
 </body>
 </html>
 

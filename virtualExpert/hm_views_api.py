@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse,JsonResponse
 
 from apiapp import models
 from virtualExpert import hm_serializer
 from virtualExpert.models import hiringmanager,Profilemanager,salesmanager,affliate_marketing,ad_distributor,ad_provider,users
+from virtualExpert.hm_serializer import upload_acc_Serializer
 from virtualExpert import hm_extension
 
 from rest_framework.decorators import api_view,renderer_classes,permission_classes
@@ -138,7 +139,14 @@ def hm_profile_picture(request,id):
 
 @api_view(['POST'])
 def hm_upload_account(request,id):
-    try:
+    # try:
+    if request.method=="POST":
+        print( "Backend", request.POST)
+        # if request.method == "POST":
+        image_names = []
+        image_list = []
+        cert_name=[]
+        cert_list=[]
         print(request.POST)
         fs = FileSystemStorage()
         userdata = hiringmanager.objects.get(uid=id)
@@ -147,12 +155,25 @@ def hm_upload_account(request,id):
             personal_city = request.POST['personal_city']
         else:
             personal_city = "empty"
+
+        if 'office_city' in request.POST:
+            office_city = request.POST['office_city']
+        else:
+            office_city = "empty"
         #degree certificate
-        degree_certificate_1 = str(request.FILES['degree_cer']).replace(" ", "_")
-        path_deg = fs.save(f"virtual_expert/hiring_manager/{id}/degree_certificate/"+degree_certificate_1, request.FILES['degree_cer'])
-        full_path_degree = all_image_url+fs.url(path_deg)
+        if 'degree_cer' in request.FILES:
+            for sav in request.FILES.getlist('degree_cer'): 
+                degree_certificate_1 = fs.save(
+                            f"virtual_expert/hiring_manager/{id}/degree_certificate/"+sav.name, sav)
+                image_names.append(str( degree_certificate_1).replace(" ","_"))
+            for iname in image_names:
+                path_deg = iname
+                image_list.append(all_image_url+fs.url(path_deg))
+            degree_cer=str(image_list)
+        else:
+            degree_cer="empty"
         # Aadhaar 
-        if 'aadhaar_no' in request.POST:
+        if 'aadhaar_card' in request.FILES:
             aadhaar_no = request.POST['aadhaar_no']
             aadhaar_card_1= str(request.FILES['aadhaar_card']).replace(" ", "_")
             path_adhar = fs.save(f"virtual_expert/hiring_manager/{id}/aadhaar_card/"+aadhaar_card_1, request.FILES['aadhaar_card'])
@@ -161,7 +182,7 @@ def hm_upload_account(request,id):
             aadhaar_no = "empty"
             full_path_aadhaar = "empty"
         #  Pan_Card
-        if 'pan_no' in request.POST:
+        if 'pan_card' in request.FILES:
             pan_no = request.POST['pan_no']
             pan_card_1 = str(request.FILES['pan_card']).replace(" ", "_")
             path1 = fs.save(f"virtual_expert/hiring_manager/{id}/pan_card/"+pan_card_1, request.FILES['pan_card'])
@@ -170,7 +191,7 @@ def hm_upload_account(request,id):
             pan_no = "empty"
             full_path_pan = "empty"
         # Driving Licence
-        if 'drive_licence_no' in request.POST:
+        if 'drive_licence' in request.FILES:
             drive_licence_no = request.POST['drive_licence_no']
             drive_licence_date = request.POST['drive_licence_date']
             licence_state = request.POST['licence_state']
@@ -184,39 +205,48 @@ def hm_upload_account(request,id):
             full_path_lic = "empty"
 
         
-    # Previous Application Details
-        if 'past_applied_date' in request.POST:
+         # Previous Application Details
+            
+        if request.POST['past_applied_date'] == '':
+            past_applied_date = "empty"
+            past_applied_position =  "empty"
+        else:
             past_applied_date = request.POST['past_applied_date']
             past_applied_position = request.POST['past_applied_position']
-        else:
-            past_applied_date = "empty"
-            past_applied_position = "empty"
-    # Govt Job 
-        if 'govtjob_start_date' in request.POST:
-            govtjob_start_date = request.POST['govtjob_start_date']
-            govtjob_end_date = request.POST['govtjob_end_date']
-        else:
+        # Govt Job 
+        if request.POST['govtjob_start_date'] == '':
             govtjob_start_date = "empty"
             govtjob_end_date = "empty"
-    # notary Licence
-        if 'notary_lic_no' in request.POST:
-            notary_lic_no = request.POST['notary_lic_no']
-            notary_issued = request.POST['notary_issued']
-            notary_state = request.POST['notary_state']
         else:
+            govtjob_start_date = request.POST['govtjob_start_date']
+            govtjob_end_date = request.POST['govtjob_end_date']
+        # notary Licence
+        if request.POST['notary_lic_no'] == '':
             notary_lic_no = "empty"
             notary_issued = "empty"
             notary_state = "empty"
-            
-        if "judgment_felony" in request.POST:
-            judgment_felony=request.POST['judgment_felony']
         else:
-            judgment_felony = "empty"
-    #experience certificate
+            notary_lic_no = request.POST['notary_lic_no']
+            notary_issued = request.POST['notary_issued']
+            notary_state = request.POST['notary_state']
+            
+        if request.POST['judgment_felony'] == '':
+            judgment_felony= "empty"
+        else:
+            judgment_felony = request.POST['judgment_felony']
+
+        #experience certificate
         if 'expr_certi' in request.FILES:
-            ex_certificate_1 = str(request.FILES['expr_certi']).replace(" ", "_")
-            path_ex = fs.save(f"virtual_expert/hiring_manager/{id}/experience_certificate/"+ex_certificate_1, request.FILES['expr_certi'])
-            full_path_ex = all_image_url+fs.url(path_ex)
+            for sav in request.FILES.getlist('expr_certi'): 
+                exp_certificate_1 = fs.save(
+                            f"virtual_expert/hiring_manager/{id}/experience_certificate/"+sav.name, sav)
+                cert_name.append(str( exp_certificate_1).replace(" ","_"))
+                
+            for iname in cert_name:
+                path_exp = iname
+                cert_list.append(all_image_url+fs.url(path_exp))
+           
+            full_path_ex = str(cert_list)
         else:
             full_path_ex = "empty"
 
@@ -248,7 +278,7 @@ def hm_upload_account(request,id):
             work_company_name = "empty"
         else:
             work_company_name = json.dumps(request.POST.getlist('work_company_name'))
-        if request.POST[' work_start_date'] == '':
+        if request.POST['work_start_date'] == '':
             work_start_date = "empty"
         else:
             work_start_date = json.dumps(request.POST.getlist('work_start_date'))
@@ -277,10 +307,12 @@ def hm_upload_account(request,id):
             work_review_y = "empty"
         else:
             work_review_y =json.dumps(request.POST.getlist('work_review_y'))
+
         if request.POST['skills'] == '':
             skills= "empty"
         else:
             skills = json.dumps(request.POST.getlist('skills'))
+            
         if request.POST['curent_busines'] == '':
             curent_busines = "empty"
         else:
@@ -291,11 +323,10 @@ def hm_upload_account(request,id):
         else:
             past_business =request.POST['past_business']
 
-        print("helo")
         data = {
             'office_name': request.POST['office_name'],
             'office_country': request.POST['office_country'],
-            'office_city': request.POST['office_city'],
+            'office_city': office_city,
             'office_address': request.POST['office_address'],
             # 'first_name': request.POST['first_name'],
             # 'last_name': request.POST['last_name'],
@@ -323,14 +354,14 @@ def hm_upload_account(request,id):
             'govtjob_end_date': govtjob_end_date,
             'judgment_felony' : judgment_felony,
             'notary_lic_no' : notary_lic_no,
-            'notary_issued ':notary_issued ,
+            'notary_issued ':notary_issued,
             'notary_state' : notary_state,
             'level_education': json.dumps(request.POST.getlist('level_education')),           
             'field_study': json.dumps(request.POST.getlist('field_study')),
             'school_colege' : json.dumps(request.POST.getlist('school_colege')),
             'completed_year' : json.dumps(request.POST.getlist('completed_year')), 
             'study_location': json.dumps(request.POST.getlist('study_location')),
-            'degree_cer' : full_path_degree,
+            'degree_cer' : degree_cer,
             'skills' : skills,
             'work_job_title' : work_job_title,           
             'work_company_name' : work_company_name,
@@ -352,11 +383,12 @@ def hm_upload_account(request,id):
             'gst_certificate' : gst_certificate,         
             # 'arn_no': arn_no,                       
         }
-
-        print(data)
+        print(notary_issued)
         basicdetailsserializer = hm_serializer.upload_acc_Serializer(
             instance=userdata, data=data, partial=True)
+        print(userdata)
         if basicdetailsserializer.is_valid():
+            print("validated")
             basicdetailsserializer.save()
             print("Valid Data")
             #hiring manager
@@ -385,8 +417,11 @@ def hm_upload_account(request,id):
             
             return Response(id, status=status.HTTP_200_OK)
         else:
-            return Response({"sserializer issue"}, status=status.HTTP_403_FORBIDDEN)
-    except:
+            print("Problem")
+            
+            return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+    # except:
+    else:
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
@@ -599,9 +634,6 @@ def profile_manager_upload_account(request,id):
             'id_card': full_path_one,
             'sign_document': full_path_two,
             'verification_img':verification_img   
-
-
-
         }
 
         print(data)
@@ -1920,3 +1952,99 @@ def hm_forget_password_otp(request, id):
                 return Response({"Invalid Json Format (OR) Invalid Key"}, status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['DELETE'])
+def hm_delete_data(request):   
+    try:
+        print(request.data['email'])
+        data_to_delete = hm_serializer.hiringmanager.objects.get(email = request.data['email'])
+
+        if data_to_delete:
+            data_to_delete.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({"message": "Data not found"}, status=status.HTTP_404_NOT_FOUND)
+    except:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+      
+# All Notifications Updation 
+@api_view(['POST'])
+def notification_up(request):
+    if request.method == "POST":
+        print(request.data)
+        data={
+            'not_id':hm_extension.id_generate(),
+            'noter_id': request.data['noter_id'],
+            'not_message': request.data['not_message'],
+            'notify_id':request.data['notify_id'],
+
+        }
+        basicdetailsserializer = hm_serializer.notificationSerializer(data = data)
+        if basicdetailsserializer.is_valid():
+            basicdetailsserializer.save()
+            print("Valid Data")
+            return Response({'success'},status=status.HTTP_200_OK)
+        else:
+            print("not valid")
+            return Response({"serializer prblm"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+
+# Getting Notification List for all users    
+@api_view(['GET'])
+def notification_data(request,id):
+    if request.method == 'GET':
+       allDataa = hm_serializer.Notification.objects.filter(notify_id = id).order_by('-notify_date')
+       alldataserializer = hm_serializer.notificationlistSerializer(allDataa,many=True)
+    return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+# delete single notification 
+@api_view(["POST"])
+def hm_notify_delete(request,id):
+    try:
+        delete_data = hm_serializer.Notification.objects.filter(not_id = id).values()
+        print(delete_data)
+        if delete_data:
+            delete_data.delete()
+            return Response({"Deleted"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"Data not found"}, status=status.HTTP_404_NOT_FOUND)
+    except:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+# Delete All Notification
+@api_view(['POST'])  
+def delete_all_notification(request,id):
+    try:
+        delete_all=hm_serializer.Notification.objects.filter(notify_id = id)
+        print(delete_all)
+        if delete_all:
+            delete_all.delete()
+            return Response({'All Deleted'},status=status.HTTP_200_OK)
+        else:
+            return Response({'no data'},status=status.HTTP_404_NOT_FOUND)
+    except:
+        return Response({'server prblm'},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+# HM notification Status change
+@api_view(["POST"])
+def hm_notify_status_true(request,id):
+    try:
+        user=get_object_or_404(hiringmanager,uid=id)
+        user.notification_status=True
+        user.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(["POST"])
+def hm_notify_status_false(request,id):
+    try:
+        user=get_object_or_404(hiringmanager,uid=id)
+        user.notification_status=False
+        user.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
+    

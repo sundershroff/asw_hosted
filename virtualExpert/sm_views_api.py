@@ -35,6 +35,7 @@ def sm_signup(request):
                     'email': request.data["email"],
                     'mobile': request.data["mobile"],
                     'password': request.data["password"],
+                    'full_name': request.POST['full_name'],
                     'uid': sm_extension.id_generate(),
                     'otp': sm_extension.otp_generate(),
                     'created_date':str(x.strftime("%d"))+" "+str(x.strftime("%B"))+","+str(x.year)
@@ -866,10 +867,45 @@ def sales_forget_password_otp(request, id):
         return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+@api_view(['DELETE'])
+def sm_delete_data(request):   
+    try:
+        print(request.data['email'])
+        data_to_delete = sm_serializer.salesmanager.objects.get(email = request.data['email'])
+
+        if data_to_delete:
+            data_to_delete.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({"message": "Data not found"}, status=status.HTTP_404_NOT_FOUND)
+    except:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
-
+# Notification status change       
+@api_view(["POST"])
+def sm_notify_status_true(request,id):
+    try:
+        print(id)
+        user=get_object_or_404(models.salesmanager,uid=id)
+        print(user)
+        user.notification_status=True
+        user.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(["POST"])
+def sm_notify_status_false(request,id):
+    try:
+        print(id)
+        user=get_object_or_404(models.salesmanager,uid=id)
+        print(user)
+        user.notification_status=False
+        user.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
 
 
 

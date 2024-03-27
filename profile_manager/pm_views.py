@@ -15,6 +15,22 @@ access_Privileges = ""
 def dashboard(request):
     return render(request,"dashboard.html")
 
+def createaccount(request):
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+        name = (x.get("name"))
+        neww.append(name)
+    countryname = json.dumps(neww)
+
+    context = {'response': response, 'region': response,'all':al,
+                                            'country': countryname,'states': states,}
+
+    return render(request,"pm_createaccount.html",context)
+
 def signup(request):
     error = ""
     if request.method == "POST":
@@ -29,6 +45,7 @@ def signup(request):
                    return redirect(f"/profile_manager/otp/{uidd}")
                 elif response.status_code == 302:
                     error = "User Already Exist"
+                    return redirect("/profile_manager/signin/")
         else:
             print("password doesn't match")
     context = {'error':error}
@@ -43,6 +60,7 @@ def signin(request):
     # print(current_path)
     # form1 = ProfileSigninForm()
     error = ""
+    context = {'error':error}
     if request.method == "POST":
         print(request.POST)
         # response = requests.post("http://54.159.186.219:8000/signin/",data=request.POST)
@@ -59,9 +77,49 @@ def signin(request):
             access_Privileges = ""
             uid = uidd
         if response.status_code == 200:
-            response = redirect(f"/profile_manager/admin_dashboard/{uid}")
-            response.set_cookie("profilemanager",uid)
-            return response
+            mydata = requests.get(f"http://127.0.0.1:3000/pm_my_data/{uid}").json()[0]
+            print("yes") 
+            user_otp = mydata.get('user_otp')
+            hm=mydata.get('hiring_manager')
+            if user_otp is not None:
+                id_card_data = mydata.get('id_card')
+                if id_card_data is None:
+                    if hm is not None:
+                        alert_message="You are under Verification Process...."
+                        context['alert_message'] = alert_message
+                        return render(request,"signin.html",context)
+                        
+                    else:
+                        return redirect(f"/profile_manager/upload_acc/{uid}")
+                
+                elif id_card_data is not None:
+                    print("error")
+                    response = redirect(f"/profile_manager/admin_dashboard/{uid}")
+                    response.set_cookie("profilemanager",uid)
+                    return response
+                
+            elif user_otp is None:
+                delete_hm = requests.delete("http://127.0.0.1:3000/pm_delete_data/",data=request.POST)
+                if delete_hm.status_code == 204:
+                    print("Data deleted successfully")
+                elif delete_hm.status_code == 404:
+                    print("Data not found")
+                else:
+                    print("Error occurred:")
+
+            else:
+                pass
+            # return redirect(f"/hiring_manager/hm_admin_dashboard/{uid}")
+        elif response.status_code == 401:
+            delete_hm = requests.delete("http://127.0.0.1:3000/pm_delete_data/",data=request.POST)
+            if delete_hm.status_code == 204:
+                print("Data deleted successfully")
+                error="Not Registered...Please click Create an Account"
+            else:
+                print("Error occurred:", delete_hm.status_code)
+        elif response.status_code == 404:
+            error="User Doesn't Exists"
+            
             # return redirect(f"/profile_manager/admin_dashboard/{uid}")
         else:
           error = "YOUR EMAILID OR PASSWORD IS INCORRECT"
@@ -155,7 +213,7 @@ def upload_acc(request,id):
         context = {'response': response, 'region': response,'all':al,
                     'country': countryname,'states': states,'hiring_manager':hiring_manager}
         if request.method == "POST":
-            # print(request.FILES)
+            u_id=request.POST['notary']
             dictio = dict(request.POST)
             print(dictio)
             # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
@@ -165,9 +223,18 @@ def upload_acc(request,id):
             print(response.text)
             uidd = (response.text[1:-1])
             if response.status_code == 200:
+                data={
+                        'noter_id':id,
+                        'not_message':"{id} selected you as his/her Hiring Manager",
+                        'notify_id': u_id,
+                    }
+                notify=requests.post("http://127.0.0.1:3000/notification_update/",data=data)
+                if notify.status_code == 200:
+                    status_up=requests.post(f"http://127.0.0.1:3000/pm_notify_status_true/{u_id}")
+                    print(status_up.status_code)
             # if get["otp"] == data['user_otp']:
-                # return redirect(f"/profile_manager/admin_dashboard/{uidd}")
-                pass
+                return redirect("/profile_manager/signin/")
+                
             else:
                return redirect(f"/profile_manager/upload_acc/{uidd}")
         return render(request,"upload_acc.html",context)
@@ -195,6 +262,13 @@ def admin_dashboard(request,id):
         my_profile_finder = requests.get(f"http://127.0.0.1:3000/pm_my_clients/{mydata['aid']}").json()[mydata['aid']]
 
     finally:
+        #Notification
+        if requests.get(f"http://127.0.0.1:3000/notification_data/{id}") == None:
+            notification=""
+            
+        else:
+            notification = requests.get(f"http://127.0.0.1:3000/notification_data/{id}")
+            notification_data = json.loads(notification.text)
         print(access)  
         print("hi")
         complaints_list = []
@@ -213,6 +287,7 @@ def admin_dashboard(request,id):
             'complaints_list':complaints_list,
             'approve_list':approve_list,
             'access_Privileges':"",
+            'notification':notification_data
 
         }
     return render(request,"pm_admin_dashboard.html",context)

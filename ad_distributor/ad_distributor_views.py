@@ -15,6 +15,22 @@ jsondec = json.decoder.JSONDecoder()
 def dashboard(request):
     return render(request,"dashboard.html")
 
+def createaccount(request):
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+        name = (x.get("name"))
+        neww.append(name)
+    countryname = json.dumps(neww)
+
+    context = {'response': response, 'region': response,'all':al,
+                                            'country': countryname,'states': states,}
+
+    return render(request,"createaccount.html",context)
+
 def signup(request):
     error = ""
     if request.method == "POST":
@@ -28,7 +44,11 @@ def signup(request):
                 if response.status_code == 200:
                    return redirect(f"/ad_distributor/otp/{uidd}")
                 elif response.status_code == 302:
-                    error = "User Already Exist"
+                    error = "User Already Exist"                    
+                    return redirect("/ad_distributor/signin/")                        
+                else:
+                    pass
+                
         else:
             print("password doesn't match")
     context = {'error':error}
@@ -38,6 +58,7 @@ def signin(request):
     value = request.COOKIES.get('ad_distributor')
     print(value)
     error = ""
+    context = {'error':error}
     if request.method == "POST":
         
         print(request.POST)
@@ -57,11 +78,52 @@ def signin(request):
         print(access_Privileges)
         print("main/user")
         if response.status_code == 200:
-            response = redirect(f"/ad_distributor/ad_distributor_admin_dashboard/{uid}")
-            response.set_cookie("ad_distributor",uid)
-            return response
+            mydata = requests.get(f"http://127.0.0.1:3000/ad_dis_my_data/{uid}").json()[0]
+             
+            user_otp = mydata.get('user_otp')
+            if user_otp is not None:
+                id_card_data = mydata.get('id_card')
+                hm=mydata.get('hiring_manager')
+                if id_card_data is None:
+                    if hm is not None:
+                        alert_message="You are Under Verification Process...."
+                        context['alert_message'] = alert_message
+                        return render(request,"ad_dis_signin.html",context)
+                    
+                    elif hm is None:
+                        return redirect(f"/ad_distributor/upload_acc/{uid}")
+                
+                elif id_card_data is not None:
+                    res = redirect(f"/ad_distributor/ad_distributor_admin_dashboard/{uid}")
+                    res.set_cookie("Ad_distributor",uid)
+                    return res
+                    
+                
+            elif user_otp is None:
+                delete_hm = requests.delete("http://127.0.0.1:3000/ad_dis_delete/",data=request.POST)
+                if delete_hm.status_code == 204:
+                    print("Data deleted successfully")
+                elif delete_hm.status_code == 404:
+                    print("Data not found")
+                else:
+                    print("Error occurred:")
+
+            else:
+                pass
+            # return redirect(f"/hiring_manager/hm_admin_dashboard/{uid}")
+        elif response.status_code == 401:
+            delete_hm = requests.delete("http://127.0.0.1:3000/ad_dis_delete/",data=request.POST)
+            if delete_hm.status_code == 204:
+                print("Data deleted successfully")
+                error="Not Registered...Please click Create an Account"
+            elif delete_hm.status_code == 404:
+                print("Data not found")
+            else:
+                print("Error occurred:", delete_hm.status_code)
+        elif response.status_code == 404:
+            error="User Doesn't Exists"
         else:
-          error = "YOUR EMAILID OR PASSWORD IS INCORRECT"
+          error = "YOUR EMAIL-ID OR PASSWORD IS INCORRECT"
 
     context = {'error':error}
     return render(request,"ad_dis_signin.html",context)
@@ -134,7 +196,7 @@ def upload_acc(request,id):
                         'sales_manager': sales_manager,}
         
         if request.method == "POST":
-            # print(request.POST)
+            uid=request.POST['hiring_manager']
             dictio = dict(request.POST)
             print(dictio)
             # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
@@ -144,8 +206,17 @@ def upload_acc(request,id):
             print(response.text)
             uidd = (response.text[1:-1])
             if response.status_code == 200:
+                data={
+                        'noter_id':id,
+                        'not_message':"{id} selected you as his/her Hiring Manager",
+                        'notify_id': uid,
+                    }
+                notify=requests.post("http://127.0.0.1:3000/notification_update/",data=data)
+                if notify.status_code == 200:
+                    status_up=requests.post(f"http://127.0.0.1:3000/pm_notify_status_true/{uid}")
+                    print(status_up.status_code)
             # if get["otp"] == data['user_otp']:
-                return redirect(f"/ad_distributor/ad_distributor_admin_dashboard/{uidd}")
+                return redirect("/ad_distributor/signup/")
             else:
                 pass
             
@@ -182,7 +253,14 @@ def admin_dashboard(request,id):
         access = mydata['access_Privileges']
         print(mydata['aid'])
         idd = mydata['aid']
+    #Notification
+    if requests.get(f"http://127.0.0.1:3000/notification_data/{idd}") == None:
+        notification=""
         
+    else:
+        notification = requests.get(f"http://127.0.0.1:3000/notification_data/{idd}")
+        notification_data = json.loads(notification.text) 
+
     all_profile_finder = requests.get("http://127.0.0.1:3000/alluserdata/").json()
     all_data=requests.get("http://127.0.0.1:3000/all_ads_data/").json()
     for i in all_data:
@@ -217,7 +295,8 @@ def admin_dashboard(request,id):
         'user_access' : access,
         'all_profile_finder':all_profile_finder[::-1],
         'all_data':new,
-        'result':result
+        'result':result,
+        'notification' : notification_data,
 
     }
     return render(request,"ad_dis_admin_dashboard.html",context)

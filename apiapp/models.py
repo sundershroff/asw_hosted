@@ -333,7 +333,7 @@ class private_investigator(models.Model):
     company_pan_no = models.TextField(null=True)
     arn_no =models.TextField(null=True)
     pan_card =models.TextField(null=True)
-    
+    notification_status=models.BooleanField(default=False,null=True)
     #my client
     # my_client= models.ForeignKey(ProfileFinder,null=True,on_delete=models.CASCADE)
     my_client = models.TextField(null=True)

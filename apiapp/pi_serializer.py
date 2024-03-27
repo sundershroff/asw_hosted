@@ -52,12 +52,14 @@ class PrivateinvestigatorSerializer(serializers.Serializer):
     company_pan_no = serializers.CharField()
     arn_no =serializers.CharField()
     pan_card =serializers.CharField()
-
+    notification_status=serializers.CharField()
 class SignupSerializer(serializers.Serializer):
     uid = serializers.CharField()
     email = serializers.EmailField()
     mobile = serializers.CharField()
     password = serializers.CharField()
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
     # referral_code = serializers.CharField()
     otp = serializers.IntegerField()
     created_date = serializers.CharField()
@@ -68,6 +70,8 @@ class SignupSerializer(serializers.Serializer):
             email = data['email'],
             mobile = data['mobile'],
             password = data['password'],
+            first_name = data['first_name'],
+            last_name = data['last_name'],
             # referral_code = data['referral_code'],
             otp = data['otp'],
             created_date = data['created_date'],

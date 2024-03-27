@@ -17,20 +17,44 @@ access_Privileges = ""
 def dashboard(request):
     return render(request,"dashboard.html")
 
+def createaccount(request):
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+        name = (x.get("name"))
+        neww.append(name)
+    countryname = json.dumps(neww)
+
+    context = {'response': response, 'region': response,'all':al,
+                                            'country': countryname,'states': states,}
+
+    return render(request,"sm_createaccount.html",context)
+
 def signup(request):
     error = ""
     if request.method == "POST":
         if request.POST['password'] == request.POST['confirm_password']:
-                # response = requests.post('http://54.159.186.219:8000/signup/',data=request.POST)
-                response = requests.post("http://127.0.0.1:3000/sm_signup/",data=request.POST)
-                print(response.status_code)
-                print(response.text)
-                uidd = (response.text[1:-1])
-                print(uidd)
-                if response.status_code == 200:
-                   return redirect(f"/sales_manager/otp/{uidd}")
-                elif response.status_code == 302:
-                    error = "User Already Exist"
+            data={
+                'email': request.POST["email"],
+                'mobile': request.POST["mobile"],
+                'password': request.POST["password"],
+                'full_name': request.POST['first_name']+request.POST['last_name'],
+
+            }    
+            # response = requests.post('http://54.159.186.219:8000/signup/',data=request.POST)
+            response = requests.post("http://127.0.0.1:3000/sm_signup/",data=data)
+            print(response.status_code)
+            print(response.text)
+            uidd = (response.text[1:-1])
+            print(uidd)
+            if response.status_code == 200:
+                return redirect(f"/sales_manager/otp/{uidd}")
+            elif response.status_code == 302:
+                error = "User Already Exist"
+                return redirect("/sales_manager/signin/")
         else:
             print("password doesn't match")
     context = {'error':error}
@@ -40,6 +64,7 @@ def signin(request):
     value = request.COOKIES.get('ad_provider')
     print(value)
     error = ""
+    context = {'error':error}
     if request.method == "POST":
         print(request.POST)
         # response = requests.post("http://54.159.186.219:8000/signin/",data=request.POST)
@@ -57,11 +82,48 @@ def signin(request):
             access_Privileges = ""
             uid = uidd
         if response.status_code == 200:
-            response = redirect(f"/sales_manager/sm_salesdashboard/{uid}")
-            response.set_cookie("sales_manager",uid)
-            return response
+            mydata = requests.get(f"http://127.0.0.1:3000/sm_my_data/{uid}").json()[0]
+            user_otp = mydata.get('user_otp')
+            if user_otp is not None:
+                id_card_data = mydata.get('id_card')
+                hm=mydata.get('hiring_manager')
+                if id_card_data is not None:
+                    if hm is not None:
+                        response = redirect(f"/sales_manager/sm_salesdashboard/{uid}")
+                        response.set_cookie("sales_manager",uid)
+                        return response
+                    else:
+                        return redirect(f"/sales_manager/sm_upload_profile/{uid}")
+                elif id_card_data is None:
+                    print("error")
+                    alert_message="You are under Verification Process...."
+                    context['alert_message'] = alert_message
+                    return render(request,"sm_signin.html",context)
+                
+                
+            elif user_otp is None:
+                delete_hm = requests.delete("http://127.0.0.1:3000/sm_delete_data/",data=request.POST)
+                if delete_hm.status_code == 204:
+                    print("Data deleted successfully")
+                    error="Not Registered...Please click Create an Account"
+                else:
+                    print("Error occurred:")
+
+            else:
+                pass
+            # return redirect(f"/hiring_manager/hm_admin_dashboard/{uid}")
+        elif response.status_code == 401:
+            delete_hm = requests.delete("http://127.0.0.1:3000/sm_delete_data/",data=request.POST)
+            if delete_hm.status_code == 204:
+                print("Data deleted successfully")
+                error="Not Registered...Please click Create an Account"
+            else:
+                print("Error occurred:", delete_hm.status_code)
+        elif response.status_code == 404:
+            error="User Doesn't Exists"
         else:
-          error = "YOUR EMAILID OR PASSWORD IS INCORRECT"
+            error = "YOUR EMAILID OR PASSWORD IS INCORRECT"
+
     context = {'error':error}
     return render(request,"sm_signin.html",context)
 
@@ -73,6 +135,7 @@ def otp(request,id):
         new.append(request.POST["otp2"])
         new.append(request.POST["otp3"])
         new.append(request.POST["otp4"])
+        
         data = {
             'user_otp':int(''.join(new).strip())
            
@@ -143,7 +206,7 @@ def upload_acc(request,id):
             if response.status_code == 200:
             # if get["otp"] == data['user_otp']:
                 # return redirect(f"/sales_manager/sm_salesdashboard/{uidd}")
-                return redirect(f"/sales_manager/sm_verification_fee/{uidd}")
+                return redirect("/sales_manager/signin/")
 
             else:
                 pass
@@ -176,6 +239,13 @@ def admin_dashboard(request,id):
 
         mydata = requests.get(f"http://127.0.0.1:3000/sm_my_data/{id}").json()[0]
         print(mydata)
+        #Notification
+        if requests.get(f"http://127.0.0.1:3000/notification_data/{id}") == None:
+            notification=""
+            
+        else:
+            notification = requests.get(f"http://127.0.0.1:3000/notification_data/{id}")
+            notification_data = json.loads(notification.text)
         all_profile_finder = requests.get("http://127.0.0.1:3000/alluserdata/").json()
         all_client_data=requests.get("http://127.0.0.1:3000/all_client_data/").json()
 
@@ -261,6 +331,7 @@ def admin_dashboard(request,id):
             'result':result,
             'total_commission':totalcommission,
             'incent_amount':incent_amount,
+            'notification' : notification_data
         }
         return render(request,"sm_salesdashboard.html",context)
 
@@ -269,6 +340,13 @@ def admin_dashboard(request,id):
         c=[]
         mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]
         print(mydata)
+        #Notification
+        if requests.get(f"http://127.0.0.1:3000/notification_data/{id}") == None:
+            notification=""
+            
+        else:
+            notification = requests.get(f"http://127.0.0.1:3000/notification_data/{id}")
+            notification_data = json.loads(notification.text)
         access = mydata['access_Privileges']
         all_profile_finder = requests.get("http://127.0.0.1:3000/alluserdata/").json()
         all_client_data=requests.get("http://127.0.0.1:3000/all_client_data/").json()
@@ -353,6 +431,7 @@ def admin_dashboard(request,id):
             'result':result,
             'total_commission':totalcommission,
             'incent_amount':incent_amount,
+            'notification':notification_data
         }
     return render(request,"sm_salesdashboard.html",context)
 
@@ -500,13 +579,14 @@ def edit_profile(request,id):
                 print(response)
                 print(response.status_code)
                 print(response.text)
-                return render(request,"sm_sales_profile.html",context)
+
+                return redirect(f"/sales_manager/sm_sales_profile/{id}")
             return render(request,"sm_editprofile.html",context)
         
             
         except:
             return render(request,"sm_editprofile.html")
-
+        
 def account_balance(request,id):
     value = request.COOKIES.get('sales_manager')
     if value != None:
@@ -603,7 +683,6 @@ def coin_details(request,id):
                 if id == d:
                     sm_ads.append(j)
                     break
-
 
         totalcoin=0
         for item in sm_ads:
@@ -704,7 +783,7 @@ def hand_list(request,id):
         elif 'active' in request.POST:
             a=request.POST["active"]
             print(a)
-            active_response = requests.post(f"http://127.0.0.1:3000/active_satus/{a}", data=request.POST)
+            # active_response = requests.post(f"http://127.0.0.1:3000/active_satus/{a}", data=request.POST)
             response = requests.post(f"http://127.0.0.1:3000/client_otp_active/{idd}", data=request.POST )
             print(response)
 

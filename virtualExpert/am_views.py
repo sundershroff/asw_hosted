@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse,JsonResponse
 
 
@@ -46,6 +46,7 @@ def am_signup(request):
                     'email': request.POST["email"],
                     'mobile': request.POST["mobile"],
                     'password': request.POST["password"],
+                    'full_name': request.POST['full_name'],
                     'uid': am_extension.id_generate(),
                     'otp': am_extension.otp_generate(),
                     'created_time':str(x.strftime("%I:%M %p")),
@@ -641,3 +642,45 @@ def my_profile_finder_data(request):
        allDataa = serializer.ProfileFinder.objects.all()
        alldataserializer = serializer.ProfileFinderSerializer(allDataa,many=True)
     return Response(data=alldataserializer.data, status=status.HTTP_200_OK)
+
+
+
+@api_view(['DELETE'])
+def am_delete_data(request):   
+    try:
+        print(request.data['email'])
+        data_to_delete = am_serializer.affliate_marketing.objects.get(email = request.data['email'])
+
+        if data_to_delete:
+            data_to_delete.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({"message": "Data not found"}, status=status.HTTP_404_NOT_FOUND)
+    except:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+
+# Notification status change       
+@api_view(["POST"])
+def am_notify_status_true(request,id):
+    try:
+        print(id)
+        user=get_object_or_404(models.affliate_marketing,uid=id)
+        print(user)
+        user.notification_status=True
+        user.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(["POST"])
+def am_notify_status_false(request,id):
+    try:
+        print(id)
+        user=get_object_or_404(models.affliate_marketing,uid=id)
+        print(user)
+        user.notification_status=False
+        user.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)

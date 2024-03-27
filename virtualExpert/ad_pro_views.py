@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse,JsonResponse
 
 
@@ -36,6 +36,8 @@ def ad_pro_signup(request):
                 datas = {
                     'email': request.data["email"],
                     'mobile': request.data["mobile"],
+                    'first_name': request.POST['first_name'],
+                    'last_name': request.POST['last_name'],
                     'password': request.data["password"],
                     'uid': ad_pro_extension.id_generate(),
                     'otp': ad_pro_extension.otp_generate(),
@@ -227,7 +229,7 @@ def ad_pro_upload_account(request,id):
             # 'id_card': full_path,
             'hiring_manager': request.POST['hiring_manager'],
             'sales_manager': request.POST['sales_manager'],
-            'type':request.POST['type'],
+            'type':"AdProvider",
             'level_education': json.dumps(request.POST.getlist('level_education')),           
             'field_study': json.dumps(request.POST.getlist('field_study')),           
             'work_job_title': work_job_title,           
@@ -850,3 +852,43 @@ def update_coin_value(request,id):
             return Response("no data", status=status.HTTP_404_NOT_FOUND)
         
 
+@api_view(['DELETE'])
+def ad_pro_delete(request):   
+    try:
+        print(request.data['email'])
+        data_to_delete = ad_pro_serializer.ad_provider.objects.get(email = request.data['email'])
+
+        if data_to_delete:
+            data_to_delete.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({"message": "Data not found"}, status=status.HTTP_404_NOT_FOUND)
+    except:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+
+# Notification status change
+       
+@api_view(["POST"])
+def ad_pro_notify_status_true(request,id):
+    try:
+        print(id)
+        user=get_object_or_404(models.ad_provider,uid=id)
+        print(user)
+        user.notification_status=True
+        user.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(["POST"])
+def ad_pro_notify_status_false(request,id):
+    try:
+        print(id)
+        user=get_object_or_404(models.ad_provider,uid=id)
+        print(user)
+        user.notification_status=False
+        user.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)

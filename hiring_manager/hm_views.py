@@ -40,7 +40,12 @@ def signup(request):
                 if response.status_code == 200:
                    return redirect(f"/hiring_manager/otp/{uidd}")
                 elif response.status_code == 302:
-                    error = "User Already Exist"
+                    error = "User Already Exist" 
+                    return redirect("/hiring_manager/signin/")
+                       
+                else:
+                    pass
+
         else:
             print("password doesn't match")
     context = {'error':error}
@@ -51,6 +56,7 @@ def signin(request):
     value = request.COOKIES.get('hiringmanager')
     print(value)
     error = ""
+    context = {'error':error}
     if request.method == "POST":
         print(request.POST)
         # response = requests.post("http://54.159.186.219:8000/signin/",data=request.POST)
@@ -67,13 +73,64 @@ def signin(request):
         except:
             access_Privileges = ""
             uid = uidd
+        # print(uid)
         if response.status_code == 200:
-            response = redirect(f"/hiring_manager/hm_admin_dashboard/{uid}")
-            response.set_cookie("hiringmanager",uid)
-            return response
+            mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{uid}").json()[0]
+            print(mydata.get('my_hiring_manager'))
+            print("hiring manager :",mydata)
+
+            user_otp = mydata.get('user_otp')
+            if user_otp is not None:
+                print("otp")
+                id_card_data = mydata.get('id_card')
+                hm=mydata.get('my_hiring_manager')
+                if id_card_data is None:
+                    print("idcard")
+                    if hm is not None:
+                        print("hm")
+                        alert_message="You are under Verification Process...."
+                        context['alert_message'] = alert_message
+                        return render(request,"hm_signin.html",context)
+                    
+                    elif hm is None:
+                        print("no hm")
+                        return redirect(f"/hiring_manager/hm_upload_acc/{uid}")
+                    
+                    else:
+                        return redirect(f"/hiring_manager/profile_picture/{uid}")
+                
+                elif id_card_data is not None:
+                    print("no idcard")
+                    res = redirect(f"/hiring_manager/hm_admin_dashboard/{uid}")
+                    res.set_cookie("hiringmanager",uid)
+                    return res
+                    
+                
+            elif user_otp is None:
+                delete_hm = requests.delete("http://127.0.0.1:3000/hm_delete_data/",data=request.POST)
+                if delete_hm.status_code == 204:
+                    print("Data deleted successfully")
+                elif delete_hm.status_code == 404:
+                    print("Data not found")
+                else:
+                    print("Error occurred:")
+
+            else:
+                pass
             # return redirect(f"/hiring_manager/hm_admin_dashboard/{uid}")
+        elif response.status_code == 401:
+            delete_hm = requests.delete("http://127.0.0.1:3000/hm_delete_data/",data=request.POST)
+            if delete_hm.status_code == 204:
+                print("Data deleted successfully")
+                error="Not Registered...Please click Create an Account"
+            elif delete_hm.status_code == 404:
+                print("Data not found")
+            else:
+                print("Error occurred:", delete_hm.status_code)
+        elif response.status_code == 404:
+            error="User Doesn't Exists"
         else:
-          error = "YOUR EMAILID OR PASSWORD IS INCORRECT"
+          error = "YOUR EMAIL-ID OR PASSWORD IS INCORRECT"
     context = {'error':error}
     return render(request,"hm_signin.html",context)
 
@@ -139,27 +196,84 @@ def upload_acc(request,id):
            name = (x.get("name"))
            neww.append(name)
         countryname = json.dumps(neww)
-    
+        # alert_message="Please Fill Your Basic Informations"
         context = {'response': response, 'region': response,'all':al,'key':mydata,
                     'country': countryname,'states': states,'hiring_manager':hiring_manager}
         if request.method == "POST":
-            print(dict(request.POST))
-            # print(request.FILES)
-            dictio = dict(request.POST)
-            # dictio['level_education'] = request.POST.getlist('level_education')
-            # print(dictio)
-            # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
-            response = requests.post(f"http://127.0.0.1:3000/hm_upload_account/{id}",   data = dictio,files=request.FILES)
-            # print(response)
-            # print(response.status_code)
-            # print(response.text)
-            uidd = (response.text[1:-1])
-            if response.status_code == 200:
-            # if get["otp"] == data['user_otp']:
-                return redirect(f"/hiring_manager/hm_admin_dashboard/{uidd}")
+            # print("hai")
+            major = request.POST.get('old_yn', '')
+            previous = request.POST.get('applied_yn', '')
+            court = request.POST.get('judgment_yn', '')
+            govt = request.POST.get('govt_yn', '')
+            nota = request.POST.get('notary_yn', '')
+            english = request.POST.get('english_yn', '')
+
+            # Converting Yes/No values to boolean
+            major_bool = major.lower() == 'yes'
+            previous_bool = previous.lower() == 'yes'
+            court_bool = court.lower() == 'yes'
+            govt_bool = govt.lower() == 'yes'
+            nota_bool = nota.lower() == 'yes'
+            english_bool = english.lower() == 'yes'
+            
+            if major_bool and not previous_bool and not court_bool and not govt_bool and nota_bool and english_bool:
                 
+                print(dict(request.POST))
+                # print(request.FILES)
+                dictio = dict(request.POST)
+                # dictio['level_education'] = request.POST.getlist('level_education')
+                print("front data",dictio)
+                # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
+                response = requests.post(f"http://127.0.0.1:3000/hm_upload_account/{id}",   data = dictio,files=request.FILES)
+                # print(response)
+                # print(response.status_code)
+                # print(response.text)
+                # uidd = (response.text[1:-1])
+                uid=request.POST['my_hiring_manager']
+                if response.status_code == 200:
+                    alert_message = 'Congratulations! You are eligible to meet the hiring criteria. Application submitted successfully.'
+                    data={
+                        'noter_id':id,
+                        'not_message':"{id} selected you as his/her Hiring Manager",
+                        'notify_id': uid,
+                    }
+                    notify=requests.post("http://127.0.0.1:3000/notification_update/",data=data)
+                    if notify.status_code == 200:
+                        status_up=requests.post(f"http://127.0.0.1:3000/hm_notify_status_true/{uid}")
+                        print(status_up.status_code)
+                    return redirect(f"/hiring_manager/signin/")
+                else:
+                    alert_message = 'Sorry! Server Issue, Cannot Update Your Data'
+                    print(alert_message)
+
             else:
-                pass
+              
+                print(dict(request.POST))
+                alert_message = 'Sorry, you are not eligible to meet the hiring criteria. Application cannot be submitted.'
+                print(alert_message)
+                # print(request.FILES)
+                # dictio = dict(request.POST)
+                # # dictio['level_education'] = request.POST.getlist('level_education')
+                # # print(dictio)
+                # # response = requests.post(f"http://54.159.186.219:8000/profileidcard/{id}",   files=request.FILES)
+                # response = requests.post(f"http://127.0.0.1:3000/hm_upload_account/{id}",   data = dictio,files=request.FILES)
+                # # print(response)
+                # # print(response.status_code)
+                # # print(response.text)
+                # uidd = (response.text[1:-1])
+                # if response.status_code != 200:
+                #     alert_message = 'Sorry, you are not eligible to meet the hiring criteria. Application cannot be submitted.'
+
+                # # if get["otp"] == data['user_otp']:
+                context['alert_message'] = alert_message
+                return render(request,"hm_upload_acc.html",context)
+                
+        else:
+            pass
+            
+        # context = {'response': response, 'region': response,'all':al,'key':mydata,
+        #             'country': countryname,'states': states,'hiring_manager':hiring_manager,
+        #             'alert_message': alert_message}
         return render(request,"hm_upload_acc.html",context)
     except:
         return render(request,"hm_upload_acc.html")
@@ -188,6 +302,16 @@ def admin_dashboard(request,id):
         mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]
         access = mydata['access_Privileges']  
         idd = mydata['aid']
+
+    #Notification
+    if requests.get(f"http://127.0.0.1:3000/notification_data/{idd}") == None:
+        notification=""
+        
+    else:
+        notification = requests.get(f"http://127.0.0.1:3000/notification_data/{idd}")
+        notification_data = json.loads(notification.text)
+        
+
     #hiring manager
     if requests.get(f"http://127.0.0.1:3000/hm_my_data/{idd}").json()[0]['hiring_manager'] == None:
         hm_data =""
@@ -224,6 +348,7 @@ def admin_dashboard(request,id):
         aff_data =""
     else:
         aff_data = jsondec.decode(requests.get(f"http://127.0.0.1:3000/hm_my_data/{idd}").json()[0]['affiliate_marketing'])
+    
 
     context={
         'key':mydata,
@@ -235,6 +360,7 @@ def admin_dashboard(request,id):
         'sales_data':sales_data,
         'aff_data':aff_data,
         'access':access,
+        'notification' : notification_data,
     }
     return render(request,"hm_admin_dashboard.html",context)
 
@@ -392,10 +518,22 @@ def local_admin_upload(request,id,uid):
         # return redirect("/Dashboard_profile_finder/{value}")
     else:
         return redirect("/hiring_manager/signin")
-    mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
+    try:
+        mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0] 
+        my_user = requests.get(f"http://127.0.0.1:3000/hm_my_users_data/{id}").json()
+        access = "" 
+        idd = id
+    except:
+        mydata = requests.get(f"http://127.0.0.1:3000/single_users_data/{id}").json()[0]
+        access = mydata['access_Privileges']  
+        print(access)
+        idd = mydata['aid']
+    # mydata = requests.get(f"http://127.0.0.1:3000/hm_my_data/{id}").json()[0]  
     # local_admin(request,id)
     pm_data = requests.get(f"http://127.0.0.1:3000/pm_myid/{uid}").json()[0] 
+   
     education  = jsondec.decode(pm_data['level_education'])
+   
     study = jsondec.decode(pm_data['field_study']) 
     #country api 
     neww=[]
@@ -417,6 +555,7 @@ def local_admin_upload(request,id,uid):
         'response': response,
         'region': response,
         'all':al,
+        'access':access,
         'country': countryname,'states': states
     }
 
@@ -424,7 +563,19 @@ def local_admin_upload(request,id,uid):
         response = requests.post(f"http://127.0.0.1:3000/profile_manager_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
         print(response.status_code)
         if response.status_code == 200:
+            data={
+                'noter_id':id,
+                'not_message':"Hiring Manager Verified Your Account",
+                'notify_id': uid,
+            }
+            notify=requests.post("http://127.0.0.1:3000/notification_update/",data=data)
+            if notify.status_code == 200:
+                status_up=requests.post(f"http://127.0.0.1:3000/pm_notify_status_true/{uid}")
+                print(status_up.status_code)
+
             return redirect(f"/hiring_manager/hm_local_admin/{id}")
+        else:
+            pass
     return render(request,"hm_LocaladminDoc.html",context)
 
 def ad_provider(request,id):
@@ -551,7 +702,16 @@ def ad_provider_doc(request,id):
             response = requests.post(f"http://127.0.0.1:3000/ad_provider_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
             print(response.status_code)
             if response.status_code == 200:
-                return redirect(f"/hiring_manager/hm_ad_provider/{id}")
+                data={
+                'noter_id':id,
+                'not_message':"Hiring Manager Verified Your Account",
+                'notify_id': uid,
+                }
+                notify=requests.post("http://127.0.0.1:3000/notification_update/",data=data)
+                if notify.status_code == 200:
+                    status_up=requests.post(f"http://127.0.0.1:3000/ad_pro_notify_status_true/{uid}")
+                    print(status_up.status_code)
+                    return redirect(f"/hiring_manager/hm_ad_provider/{id}")
 
     return render(request,"hm_adproviderdoc.html",context)
 
@@ -672,7 +832,16 @@ def ad_distributor_doc(request,id):
         response = requests.post(f"http://127.0.0.1:3000/ad_distributor_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
         print(response.status_code)
         if response.status_code == 200:
-            return redirect(f"/hiring_manager/hm_ad_distributor/{id}")
+            data={
+                'noter_id':id,
+                'not_message':"Hiring Manager Verified Your Account",
+                'notify_id': uid,
+            }
+            notify=requests.post("http://127.0.0.1:3000/notification_update/",data=data)
+            if notify.status_code == 200:
+                status_up=requests.post(f"http://127.0.0.1:3000/ad_dis_notify_status_true/{uid}")
+                print(status_up.status_code)
+                return redirect(f"/hiring_manager/hm_ad_distributor/{id}")
 
     return render(request,"hm_addistributordoc.html",context)
 
@@ -788,7 +957,16 @@ def sales_doc(request,id):
         response = requests.post(f"http://127.0.0.1:3000/sales_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
         print(response.status_code)
         if response.status_code == 200:
-            return redirect(f"/hiring_manager/hm_sales_person/{id}")
+            data={
+                'noter_id':id,
+                'not_message':"Hiring Manager Verified Your Account",
+                'notify_id': uid,
+            }
+            notify=requests.post("http://127.0.0.1:3000/notification_update/",data=data)
+            if notify.status_code == 200:
+                status_up=requests.post(f"http://127.0.0.1:3000/sm_notify_status_true/{uid}")
+                print(status_up.status_code)
+                return redirect(f"/hiring_manager/hm_sales_person/{id}")
 
     return render(request,"hm_sales_person_doc.html",context)
 
@@ -907,6 +1085,15 @@ def affiliate_marketing_doc(request,id):
             response = requests.post(f"http://127.0.0.1:3000/affiliate_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
             print(response.status_code)
             if response.status_code == 200:
+                data={
+                'noter_id':id,
+                'not_message':"Hiring Manager Verified Your Account",
+                'notify_id': uid,
+            }
+                notify=requests.post("http://127.0.0.1:3000/notification_update/",data=data)
+                if notify.status_code == 200:
+                    status_up=requests.post(f"http://127.0.0.1:3000/am_notify_status_true/{uid}")
+                    print(status_up.status_code)
                 return redirect(f"/hiring_manager/hm_affiliate_marketing/{id}")
 
         return render(request,"hm_affiliate_marketing_upload.html",context)
@@ -1022,6 +1209,15 @@ def private_investigator_doc(request,id):
         response = requests.post(f"http://127.0.0.1:3000/private_investigator_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
         print(response.status_code)
         if response.status_code == 200:
+            data={
+                'noter_id':id,
+                'not_message':"Hiring Manager Verified Your Account",
+                'notify_id': uid,
+            }
+            notify=requests.post("http://127.0.0.1:3000/notification_update/",data=data)
+            if notify.status_code == 200:
+                status_up=requests.post(f"http://127.0.0.1:3000/pi_notify_status_true/{uid}")
+                print(status_up.status_code)
             return redirect(f"/hiring_manager/hm_private_investigator/{id}")
 
     return render(request,"hm_private_investigator_upload.html",context)
@@ -1136,6 +1332,15 @@ def hiring_manager_doc(request,id):
         response = requests.post(f"http://127.0.0.1:3000/hiring_upload_account/{request.POST['uid']}",data=request.POST,files = request.FILES)
         print(response.status_code)
         if response.status_code == 200:
+            data={
+                'noter_id':id,
+                'not_message':"Hiring Manager Verified Your Account",
+                'notify_id': uid,
+            }
+            notify=requests.post("http://127.0.0.1:3000/notification_update/",data=data)
+            if notify.status_code == 200:
+                status_up=requests.post(f"http://127.0.0.1:3000/hm_notify_status_true/{uid}")
+                print(status_up.status_code)
             return redirect(f"/hiring_manager/hm_hiring_manager/{id}")
         
     return render(request,"hm_hiring_manager_doc.html",context)

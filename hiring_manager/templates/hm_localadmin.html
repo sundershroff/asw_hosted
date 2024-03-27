@@ -100,7 +100,7 @@
              <td data-label = "Complaints">{{i.personal_country}}</td>
              {% if i.id_card == None %}
              <td data-label = "Status"><strong class="pending">Pending</strong></i></td>
-{% else %}
+            {% else %}
              <td data-label = "Status"><strong class="pending" style="
               background-color: cornsilk;
               color: green;
@@ -109,7 +109,7 @@
              <td data-label = "Actions">
               <form method="POST">
                 {% csrf_token %}
-                {% if i.id_card %}
+              {% if i.id_card == None %}
              <button type="button" value="{{i.uid}}" name="uid" style="
              border: 1px transparent;
              background-color: transparent;
@@ -121,7 +121,7 @@
        border: 1px transparent;
        background-color: transparent;
        opacity:30%;
-   "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}/{{i.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#"></i></button></a>
+   "> <a href="/hiring_manager/hm_local_admin_upload/{{key.uid}}/{{i.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></button></a>
 
          {% endif %}      
         </form>

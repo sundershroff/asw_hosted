@@ -30,10 +30,27 @@ import json
 jsondec = json.decoder.JSONDecoder()
 all_url = "http://127.0.0.1:3000/"
 
+def createaccount(request):
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+        name = (x.get("name"))
+        neww.append(name)
+    countryname = json.dumps(neww)
+
+    context = {'response': response, 'region': response,'all':al,
+                                            'country': countryname,'states': states,}
+
+    return render(request,"pi_createaccount.html",context)
+
 def signin(request):
     value = request.COOKIES.get('private_investigator')
     print(value)
     error = ""
+    context = {'error':error}
     if request.method == "POST":
         print(request.POST)
         # response = requests.post("http://54.159.186.219:8000/signin/",data=request.POST)
@@ -43,10 +60,49 @@ def signin(request):
         uidd = (response.text[1:-1])
         print(uidd)
         if response.status_code == 200:
-        # if get["otp"] == data['user_otp']:
-            response = redirect(f"/pi_admin_dashboard/{uidd}")
-            response.set_cookie("private_investigator",uidd)
-            return response
+            my = requests.get(f"http://127.0.0.1:3000/pi_my_data/{uidd}").json()[0]
+            user_otp = my.get('user_otp')
+            hm=my.get('hiring_manager')
+            if user_otp is not None:
+                id_card_data = my.get('id_card')
+                if id_card_data is not None:
+                    if hm is not None:
+                        response = redirect(f"/pi_admin_dashboard/{uidd}")
+                        response.set_cookie("private_investigator",uidd)
+                        return response
+                    else:
+                        return redirect(f"/pi_complete_profile/{uidd}")
+                elif id_card_data is None:
+                    print("error")
+                    alert_message="You are under Verification Process...."
+                    context['alert_message'] = alert_message
+                    return render(request,"pi_signin.html",context)
+                
+                
+            elif user_otp is None:
+                delete_hm = requests.delete("http://127.0.0.1:3000/pi_delete_data/",data=request.POST)
+                if delete_hm.status_code == 204:
+                    print("Data deleted successfully")
+                elif delete_hm.status_code == 404:
+                    print("Data not found")
+                else:
+                    print("Error occurred:")
+
+            else:
+                pass
+            # return redirect(f"/hiring_manager/hm_admin_dashboard/{uid}")
+        elif response.status_code == 401:
+            delete_hm = requests.delete("http://127.0.0.1:3000/pi_delete_data/",data=request.POST)
+            if delete_hm.status_code == 204:
+                print("Data deleted successfully")
+                error="Not Registered...Please click Create an Account"
+            elif delete_hm.status_code == 404:
+                print("Data not found")
+            else:
+                print("Error occurred:", delete_hm.status_code)
+        elif response.status_code == 404:
+            error="User Doesn't Exists"
+            
         else:
             error = "YOUR EMAILID OR PASSWORD IS INCORRECT"
         
@@ -59,16 +115,20 @@ def signup(request):
     if request.method == "POST":
         
         if request.POST['password'] == request.POST['confirm_password']:
-                # response = requests.post('http://54.159.186.219:8000/signup/',data=request.POST)
-                response = requests.post(all_url+'pi_signup/',data=request.POST)
-                print(response.status_code)
-                print(response.text)
-                uidd = (response.text[1:-1])
-                print(uidd)
-                if response.status_code == 302:
-                   error = "User Already Exist"
-                else:
-                   return redirect(f"/pi_otpcheck/{uidd}")      
+            # response = requests.post('http://54.159.186.219:8000/signup/',data=request.POST)
+            response = requests.post(all_url+'pi_signup/',data=request.POST)
+            print(response.status_code)
+            print(response.text)
+            uidd = (response.text[1:-1])
+            print(uidd)
+            if response.status_code == 200:
+                return redirect(f"/pi_otpcheck/{uidd}") 
+            elif response.status_code == 302:
+                error = "User Already Exist"
+                return redirect(f"/pi_signin")
+            else:
+                    pass
+                   
     context = {'error':error}
         
     return render(request,'pi_signup.html',context)
@@ -143,7 +203,7 @@ def complete_profile(request,id):
                 'country': countryname,'states': states,'hiring_manager':hiring_manager}
 
     if request.method == "POST":
-        # print(request.POST)
+        uid=request.POST['hiring_manger']
         dictio = dict(request.POST)
         print(dictio)
         # response = requests.post(f"http://54.159.186.219:8000/profilepicture/{id}",files=request.FILES)
@@ -154,8 +214,17 @@ def complete_profile(request,id):
         uidd = (response.text[1:-1])
         print(uidd)
         if response.status_code == 200:
+            data={
+                        'noter_id':id,
+                        'not_message':"{id} selected you as his/her Hiring Manager",
+                        'notify_id': uid,
+                    }
+            notify=requests.post("http://127.0.0.1:3000/notification_update/",data=data)
+            if notify.status_code == 200:
+                status_up=requests.post(f"http://127.0.0.1:3000/pm_notify_status_true/{uid}")
+                print(status_up.status_code)
         # if get["otp"] == data['user_otp']:
-            return redirect(f"/pi_admin_dashboard/{uidd}")
+            return redirect("/pi_signin")
         # else:
             # return HttpResponse("INVALID data")
     return render(request,"uploadprofile.html",context)
@@ -178,6 +247,13 @@ def admin_dashboard(request,id):
             return redirect("/pi_signin")
         my = requests.get(f"http://127.0.0.1:3000/pi_my_data/{id}").json()[0]
         pf_users = requests.get("http://127.0.0.1:3000/alluserdata/").json()
+        #Notification
+        if requests.get(f"http://127.0.0.1:3000/notification_data/{id}") == None:
+            notification=""
+            
+        else:
+            notification = requests.get(f"http://127.0.0.1:3000/notification_data/{id}")
+            notification_data = json.loads(notification.text)
         # print(pf_users)
         my_client = requests.get(f"http://127.0.0.1:3000/pi_my_clients/{id}").json()[id]
         filtered_clients = []
@@ -269,6 +345,7 @@ def admin_dashboard(request,id):
                  'pending':len(pending),
                 'total_ratings':total_ratings,
                 'filtered_clients':filtered_clients,
+                'notification' : notification_data
 
                  }
         return render(request,"admin_dashboard.html",context)

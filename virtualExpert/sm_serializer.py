@@ -47,6 +47,7 @@ class salesmanagerSerializer(serializers.Serializer):
     company_pan_no = serializers.CharField()
     arn_no =serializers.CharField()
     pan_card =serializers.CharField()
+    notification_status=serializers.CharField()
 
 
 
@@ -56,6 +57,7 @@ class SignupSerializer(serializers.Serializer):
     mobile = serializers.CharField()
     password = serializers.CharField()
     otp = serializers.IntegerField()
+    full_name = serializers.CharField()
     created_date = serializers.CharField()
     
     def create(self, data):
@@ -64,6 +66,7 @@ class SignupSerializer(serializers.Serializer):
             email = data['email'],
             mobile = data['mobile'],
             password = data['password'],
+            full_name = data['full_name'],
             otp = data['otp'],
             created_date = data['created_date'],
         )

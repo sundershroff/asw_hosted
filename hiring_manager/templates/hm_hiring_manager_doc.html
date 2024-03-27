@@ -165,7 +165,7 @@
   
             <div class="col-lg-8">
               <label class="form-label">Personal Address<span>*</span></label>
-                <input type="text" value="{{hiring_my_data.personal_address}}" name="personal_address" class="form-control" placeholder="Address">
+                <input type="text" value="{{hiring_my_data.house_number}},{{hiring_my_data.street_name}},{{hiring_my_data.pin_code}}," name="personal_address" class="form-control" placeholder="Address">
             </div> 
               
             </div>
@@ -281,7 +281,7 @@
        
                              <input type="file" value="{{hiring_my_data.ex_cer}}" name="ex_cer" style="
                              opacity: 0;
-                             position: absolute;">
+                             position: absolute;margin-top: -281px;">
                        
        
                          </div>                      </div>
@@ -486,7 +486,7 @@ opacity: 0;
 
                     </div>
                      <header>Verification Image By Hiring Manager </header>
-                     <input type="file" id="capimg" style="opacity: 0%;position:absolute;height: 0%;" name="verification_img" required>
+                     <input type="file" id="capimg" style="opacity: 0%;position:absolute;height: 20%;" name="verification_img" required>
 <input type="hidden" id="required" required>
                      <!-- <input type="file" name="sign_document" style="
 position: absolute;

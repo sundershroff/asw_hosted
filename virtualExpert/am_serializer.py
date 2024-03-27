@@ -46,6 +46,7 @@ class affliatemarketingSerializer(serializers.Serializer):
     company_pan_no = serializers.CharField()
     arn_no =serializers.CharField()
     pan_card =serializers.CharField()
+    notification_status=serializers.CharField()
 
 class SignupSerializer(serializers.Serializer):
     uid = serializers.CharField()
@@ -53,6 +54,7 @@ class SignupSerializer(serializers.Serializer):
     mobile = serializers.CharField()
     password = serializers.CharField()
     otp = serializers.IntegerField()
+    full_name = serializers.CharField()
     # created_date = serializers.CharField()
     created_time=serializers.CharField()
     referral_code=serializers.CharField()
@@ -65,6 +67,7 @@ class SignupSerializer(serializers.Serializer):
             mobile = data['mobile'],
             password = data['password'],
             otp = data['otp'],
+            full_name = data['full_name'],
             # created_date = data['created_date'],
             created_time = data['created_time'],
             referral_code = data['referral_code'],   

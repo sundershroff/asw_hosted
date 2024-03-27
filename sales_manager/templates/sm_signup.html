@@ -28,17 +28,18 @@
               <a href="/"><i class="far fa-chevron-left"></i><span class="px-3">Back to Home</span></a>
 
               <div class="my-5">
-                <h2>Sign Up</h2>
+                <h2>CREATE AN ACCOUNT</h2>
 
-                <p>Enter your Email and password to Sign Up!</p>
+                <p>Sign up with your email </p>
               </div>
 
-              <button class="btn my-3" type="button"><img src="{% static 'images/golog.png'%}"> Sign in with Google</button>
+              {% comment %} <button class="btn my-3" type="button"><img src="{% static 'images/golog.png'%}"> Sign in with Google</button>
               <div style="color:#A3AED0;">
                 <hr class="w-43 float-left me-3">
                 <span style="color:#A3AED0;">or</span>
                 <hr class="w-43 float-right">
-              </div>
+              </div> {% endcomment %}
+              <p id="res" style="color: red;"></p>
               <div class="sigin_page_part2 mt-3">
                 <form method="POST" action="#" id="myform">
                   {% csrf_token %}
@@ -60,8 +61,21 @@
                     <label class="py-1" for="confirm_password">Confirm Password<span>*</span></label>
                     <input type="password" name="confirm_password" id="confirm_password" class="form-control">
                   </div>
-                  <p id="res" style="color: red;"></p>
-
+                  
+                  <div class="col-lg-12 my-2">
+                    <label class="py-1" for="first_name">First Name<span>*</span></label>
+                    <input type="text" name="first_name" style="padding: 8px;" class="form-control" placeholder="">
+                  </div>
+                  <div class="col-lg-12 my-2">
+                    <label class="py-1" for="last_name">Last Name<span>*</span></label>
+                    <input type="text" name="last_name"  style="padding: 8px;" class="form-control" placeholder="">
+                  </div>
+                  <div class="col-lg-12 my-2">
+                    <label class="py-1" for="last_name">Second Last Name <span>(optional)</span></label>
+                    <input type="text" name="second_last_name" style="padding: 8px;" class="form-control" placeholder="">
+                  </div>
+                  <p style="font-size:10px;"> * Name must match government issued ID.A mismatch could temporarily <br>
+                    disable adds and withdrawals on your account.</P>
                   <!-- <div class="col-lg-12 my-4">
                     <label class="py-1" for="referral_code">Referral Code (Optional)<span>*</span></label>
                     <input type="text" name="referral_code" id="referral_code" class="form-control">
@@ -223,7 +237,11 @@
     a = "{{ error|safe }}"
     document.getElementById("res").innerHTML=a;
   </script>
-
+  {% if alert_message %}
+  <script>
+      alert("{{ alert_message }}");
+  </script>
+  {% endif %}  
 </body>
 
 </html>

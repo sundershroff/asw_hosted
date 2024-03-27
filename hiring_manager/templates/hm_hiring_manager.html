@@ -120,19 +120,19 @@
 
 
       {% if "Upload Hiringmanager document" in access %}          
-                {% if i.id_card == None %}
+            {% if i.id_card == None %}
                 
                 <button type="submit" value="{{i.uid}}" name="uid" style="
                 border: 1px transparent;
                 background-color: transparent;
-                "> <a href="/hiring_manager/hm_sales_person_doc/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></button></a>
+                "> <a href="/hiring_manager/hm_hiring_manager_doc/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#compmodal"></i></button></a>
                 {% else %}    
             
             <button type="none" style="
             border: 1px transparent;
             background-color: transparent;
             opacity:30%;
-            "> <a href="/hiring_manager/hm_sales_person/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#"></i></button></a>
+            "> <a href="/hiring_manager/hm_hiring_manager_doc/{{key.uid}}"><i class="fa-solid fa-cloud-arrow-up locl_adm_action" data-bs-toggle="modal" data-bs-target="#"></i></button></a>
             {% endif %} 
             
     {% else %} 

@@ -13,20 +13,39 @@ jsondec = json.decoder.JSONDecoder()
 def dashboard(request):
     return render(request,"dashboard.html")
 
+def createaccount(request):
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+        name = (x.get("name"))
+        neww.append(name)
+    countryname = json.dumps(neww)
+
+    context = {'response': response, 'region': response,'all':al,
+                                            'country': countryname,'states': states,}
+
+    return render(request,"ad_pro_createaccount.html",context)
+
 def signup(request):
     error = ""
     if request.method == "POST":
         if request.POST['password'] == request.POST['confirm_password']:
-                # response = requests.post('http://54.159.186.219:8000/signup/',data=request.POST)
-                response = requests.post("http://127.0.0.1:3000/ad_pro_signup/",data=request.POST)
-                print(response.status_code)
-                print(response.text)
-                uidd = (response.text[1:-1])
-                print(uidd)
-                if response.status_code == 200:
-                   return redirect(f"/ad_provider/otp/{uidd}")
-                elif response.status_code == 302:
-                    error = "User Already Exist"
+            # response = requests.post('http://54.159.186.219:8000/signup/',data=request.POST)
+            response = requests.post("http://127.0.0.1:3000/ad_pro_signup/",data=request.POST)
+            print(response.status_code)
+            print(response.text)
+            uidd = (response.text[1:-1])
+            print(uidd)
+            if response.status_code == 200:
+                return redirect(f"/ad_provider/otp/{uidd}")
+            elif response.status_code == 302:
+                error = "User Already Exist"                
+                return redirect("/ad_provider/signin/")                    
+            else:
+                pass
         else:
             print("password doesn't match")
     context = {'error':error}
@@ -36,6 +55,7 @@ def signin(request):
     value = request.COOKIES.get('ad_provider')
     print(value)
     error = ""
+    context = {'error':error}
     if request.method == "POST":
         print(request.POST)
         # response = requests.post("http://54.159.186.219:8000/signin/",data=request.POST)
@@ -54,9 +74,48 @@ def signin(request):
         print(access_Privileges)
         print("main/user")
         if response.status_code == 200:
-            response = redirect(f"/ad_provider/ad_provider_admin_dashboard/{uid}")
-            response.set_cookie("ad_provider",uid)
-            return response
+            mydata = requests.get(f"http://127.0.0.1:3000/ad_pro_my_data/{uid}").json()[0]
+            user_otp = mydata.get('user_otp')
+            if user_otp is not None:
+                id_card_data = mydata.get('id_card')
+                hm=mydata.get('hiring_manager')
+                if id_card_data is None:
+                    if hm is not None:
+                        alert_message="You are under Verification Process...."
+                        context['alert_message'] = alert_message
+                        return render(request,"ad_provider_signin.html",context)
+                        
+                    else:
+                        return redirect(f"/ad_provider/upload_acc/{uid}")
+                
+                elif id_card_data is not None:
+                    res = redirect(f"/ad_provider/ad_provider_admin_dashboard/{uid}")
+                    res.set_cookie("Ad_Provider",uid)
+                    return res
+                
+            elif user_otp is None:
+                delete_hm = requests.delete("http://127.0.0.1:3000/ad_pro_delete/",data=request.POST)
+                if delete_hm.status_code == 204:
+                    print("Data deleted successfully")
+                elif delete_hm.status_code == 404:
+                    print("Data not found")
+                else:
+                    print("Error occurred:")
+
+            else:
+                pass
+            # return redirect(f"/hiring_manager/hm_admin_dashboard/{uid}")
+        elif response.status_code == 401:
+            delete_hm = requests.delete("http://127.0.0.1:3000/ad_pro_delete/",data=request.POST)
+            if delete_hm.status_code == 204:
+                print("Data deleted")
+                error="Not Registered...Please click Create an Account"
+            elif delete_hm.status_code == 404:
+                print("Data not found")
+            else:
+                print("Error occurred:", delete_hm.status_code)
+        elif response.status_code == 404:
+            error="User Doesn't Exists"
         else:
           error = "YOUR EMAILID OR PASSWORD IS INCORRECT"
     context = {'error':error}
@@ -130,7 +189,7 @@ def upload_acc(request,id):
                     'sales_manager' : sales_manager}
 
         if request.method == "POST":
-            # print(request.POST)
+            uid=request.POST['hiring_manager']
             # print(request.FILES)
             dictio = dict(request.POST)
             print(dictio)
@@ -141,9 +200,18 @@ def upload_acc(request,id):
             print(response.text)
             uidd = (response.text[1:-1])
             if response.status_code == 200:
+                data={
+                        'noter_id':id,
+                        'not_message':"{id} selected you as his/her Hiring Manager",
+                        'notify_id': uid,
+                    }
+                notify=requests.post("http://127.0.0.1:3000/notification_update/",data=data)
+                if notify.status_code == 200:
+                    status_up=requests.post(f"http://127.0.0.1:3000/pm_notify_status_true/{uid}")
+                    print(status_up.status_code)
             # if get["otp"] == data['user_otp']:
 
-                return redirect(f"/ad_provider/ad_provider_admin_dashboard/{uidd}")
+                return redirect("/ad_provider/signin/")
             else:
                 pass
         return render(request,"ad_ptovider_upload_acc.html",context)
@@ -177,6 +245,15 @@ def admin_dashboard(request,id):
         access = mydata['access_Privileges']
         print(mydata['aid'])
         idd = mydata['aid']
+
+    #Notification
+    if requests.get(f"http://127.0.0.1:3000/notification_data/{idd}") == None:
+        notification=""
+        
+    else:
+        notification = requests.get(f"http://127.0.0.1:3000/notification_data/{idd}")
+        notification_data = json.loads(notification.text)
+
     all_profile_finder = requests.get("http://127.0.0.1:3000/alluserdata/").json()
     all_data=requests.get("http://127.0.0.1:3000/all_pro_ads_data/").json()
 
@@ -201,6 +278,7 @@ def admin_dashboard(request,id):
         'all_data':new,
         'result': result,
         'user_access': "",
+        'notification' : notification_data
     }
     
     for dict_data in all_data:

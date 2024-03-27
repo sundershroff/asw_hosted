@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse,JsonResponse
 
 
@@ -43,6 +43,8 @@ def pm_signup(request):
                     'email': request.data["email"],
                     'mobile': request.data["mobile"],
                     'password': request.data["password"],
+                    'first_name': request.POST['first_name'],
+                    'last_name': request.POST['last_name'],
                     'uid': pm_extension.id_generate(),
                     'otp': pm_extension.otp_generate(),
                     'created_date':str(x.strftime("%d"))+" "+str(x.strftime("%B"))+","+str(x.year)
@@ -688,3 +690,46 @@ def pm_forget_password_otp(request, id):
                 return Response({"Invalid Json Format (OR) Invalid Key"}, status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
+
+@api_view(['DELETE'])
+def pm_delete_data(request):   
+    try:
+        print(request.data['email'])
+        data_to_delete = pm_serializer.Profilemanager.objects.get(email = request.data['email'])
+
+        if data_to_delete:
+            data_to_delete.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response({"message": "Data not found"}, status=status.HTTP_404_NOT_FOUND)
+    except:
+        return Response({"Server Error"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+# Notification status change       
+@api_view(["POST"])
+def pm_notify_status_true(request,id):
+    try:
+        print(id)
+        user=get_object_or_404(Profilemanager,uid=id)
+        print(user)
+        user.notification_status=True
+        user.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(["POST"])
+def pm_notify_status_false(request,id):
+    try:
+        print(id)
+        user=get_object_or_404(Profilemanager,uid=id)
+        print(user)
+        user.notification_status=False
+        user.save()
+        return Response("success",status=status.HTTP_200_OK)
+    except:
+        return Response("nostatus",status=status.HTTP_400_BAD_REQUEST)

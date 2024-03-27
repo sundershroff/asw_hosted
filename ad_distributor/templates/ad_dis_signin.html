@@ -77,7 +77,7 @@
                     <input type="submit" class="form-control" value="Sign In">
                   </div>
                   <div class="col-lg-12 my-5">
-                    <p style="color:#2B3674;">Not Registered Yet? <span><a href="/ad_distributor/signup/" style="color:#9B51E0;">Create an Account</a></span></p>
+                    <p style="color:#2B3674;">Not Registered Yet? <span><a href="/ad_distributor/create_account/" style="color:#9B51E0;">Create an Account</a></span></p>
                   </div>
                  
 
@@ -213,7 +213,11 @@
       document.getElementById("res").innerHTML=a;
   
     </script>
-  
+    {% if alert_message %}
+    <script>
+        alert("{{ alert_message }}");
+    </script>
+    {% endif %}  
 </body>
 
 </html>

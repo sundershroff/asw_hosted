@@ -148,7 +148,9 @@ urlpatterns = [
     # forget password
     path('pi_forget_password/',pi_views_api.pi_forget_password),
     path('pi_forget_password_otp/<id>',pi_views_api.pi_forget_password_otp),
-
+    path('pi_delete_data/',pi_views_api.pi_delete_data),
+    path('pi_notify_status_true/<id>',pi_views_api.pi_notify_status_true),
+    path('pi_notify_status_false/<id>',pi_views_api.pi_notify_status_false),
 
 
 
@@ -178,6 +180,9 @@ urlpatterns = [
     # Forget password
     path('pm_forget_password/',pm_views_api.pm_forget_password),
     path('pm_forget_password_otp/<id>',pm_views_api.pm_forget_password_otp),
+    path('pm_delete_data/',pm_views_api.pm_delete_data),
+    path('pm_notify_status_true/<id>',pm_views_api.pm_notify_status_true),
+    path('pm_notify_status_false/<id>',pm_views_api.pm_notify_status_false),
     
     
 
@@ -215,6 +220,10 @@ urlpatterns = [
     
     path('hm_forget_password/',hm_views_api.hm_forget_password),
     path('hm_forget_password_otp/<id>',hm_views_api.hm_forget_password_otp),
+    path('hm_delete_data/',hm_views_api.hm_delete_data),
+    path('hm_notify_status_true/<id>',hm_views_api.hm_notify_status_true),
+    path('hm_notify_status_false/<id>',hm_views_api.hm_notify_status_false),
+    
     
 
 
@@ -235,6 +244,9 @@ urlpatterns = [
     path("single_users_data/<id>",sm_views_api.single_users_data),
     path('sales_forget_password/',sm_views_api.sales_forget_password),
     path('sales_forget_password_otp/<id>',sm_views_api.sales_forget_password_otp),
+    path('sm_delete_data/',sm_views_api.sm_delete_data),
+    path('sm_notify_status_true/<id>',sm_views_api.sm_notify_status_true),
+    path('sm_notify_status_false/<id>',sm_views_api.sm_notify_status_false),
     
     # ad_pro_ads
     path("adprovider_ads/",sm_views_api.adprovider_ads),
@@ -288,6 +300,9 @@ urlpatterns = [
     path('aff_forget_password_otp/<id>',am_views.aff_forget_password_otp),
     path('date_date/<id>',am_views.date_date),
     path('my_profile_finder_data/',am_views.my_profile_finder_data),
+    path('am_delete_data/',am_views.am_delete_data),
+    path('am_notify_status_true/<id>',am_views.am_notify_status_true),
+    path('am_notify_status_false/<id>',am_views.am_notify_status_false),
 
    
 
@@ -316,6 +331,9 @@ urlpatterns = [
     path('ad_pro_forget_password/',ad_pro_views.ad_pro_forget_password),
     path('ad_pro_forget_password_otp/<id>',ad_pro_views.ad_pro_forget_password_otp),
     path('update_coin_value/<id>',ad_pro_views.update_coin_value),
+    path('ad_pro_delete/',ad_pro_views.ad_pro_delete),
+    path('ad_pro_notify_status_true/<id>',ad_pro_views.ad_pro_notify_status_true),
+    path('ad_pro_notify_status_false/<id>',ad_pro_views.ad_pro_notify_status_false),
 
 
 #//////////ad distributor///////////
@@ -344,6 +362,17 @@ urlpatterns = [
     path('ad_dis_forget_password/',ad_dis_views.ad_dis_forget_password),
     path('ad_dis_forget_password_otp/<id>',ad_dis_views.ad_dis_forget_password_otp),
     path('update_coin_value/<id>',ad_dis_views.update_coin_value) ,
+    path('ad_dis_delete/',ad_dis_views.ad_dis_delete),
+    path('ad_dis_notify_status_true/<id>',ad_dis_views.ad_dis_notify_status_true),
+    path('ad_dis_notify_status_false/<id>',ad_dis_views.ad_dis_notify_status_false),
+
+#//////////Notification in API///////////
+    path('notification_update/',hm_views_api.notification_up),
+    path('notification_data/<id>',hm_views_api.notification_data),
+    path('notification_delete/<id>',hm_views_api.hm_notify_delete),
+    path('delete_all_notification/<id>',hm_views_api.delete_all_notification),
+
+
 #####################################------------------------------------------------###################     
 
 
@@ -353,9 +382,11 @@ urlpatterns = [
 
 ##################-----------------------------------------------############################
     path('', pm_views.dashboard),
+
 #///////profle manager//////
     path('profile_manager/signup/', pm_views.signup),
     path('profile_manager/signin/', pm_views.signin),
+    path('profile_manager/create_account/', pm_views.createaccount),
     path('profile_manager/otp/<id>', pm_views.otp),
     path('profile_manager/profile_picture/<id>', pm_views.profile_picture),
     path('profile_manager/upload_acc/<id>', pm_views.upload_acc),
@@ -381,6 +412,7 @@ urlpatterns = [
     #///////sales manager//////
     path('sales_manager/signup/', sm_views.signup),
     path('sales_manager/signin/', sm_views.signin),
+    path('sales_manager/create_account/', sm_views.createaccount),
     path('sales_manager/otp/<id>', sm_views.otp),
     path('sales_manager/profile_picture/<id>', sm_views.profile_picture),
     path('sales_manager/sm_upload_profile/<id>', sm_views.upload_acc),
@@ -456,6 +488,7 @@ urlpatterns = [
     path('ad_provider/signup/', ad_provider_views.signup),
     path('ad_provider/signin/', ad_provider_views.signin),
     path('ad_provider/otp/<id>', ad_provider_views.otp),
+    path('ad_provider/createaccount/', ad_provider_views.createaccount),
     path('ad_provider/profile_picture/<id>', ad_provider_views.profile_picture),
     path('ad_provider/upload_acc/<id>', ad_provider_views.upload_acc),
     path('ad_provider/ad_provider_admin_dashboard/<id>', ad_provider_views.admin_dashboard),
@@ -491,6 +524,7 @@ urlpatterns = [
     path('ad_distributor/signup/', ad_distributor_views.signup),
     path('ad_distributor/signin/', ad_distributor_views.signin),
     path('ad_distributor/otp/<id>', ad_distributor_views.otp),
+    path('ad_distributor/create_account/', ad_distributor_views.createaccount),
     path('ad_distributor/profile_picture/<id>', ad_distributor_views.profile_picture),
     path('ad_distributor/upload_acc/<id>', ad_distributor_views.upload_acc),
     path('ad_distributor/ad_distributor_admin_dashboard/<id>', ad_distributor_views.admin_dashboard),
@@ -525,6 +559,7 @@ urlpatterns = [
     path('affiliate_marketing/signup/', af_views.signup),
     path('affiliate_marketing/signin/', af_views.signin),
     path('affiliate_marketing/otp/<id>', af_views.otp),
+    path('affiliate_marketing/create_account/', af_views.createaccount),
     path('affiliate_marketing/profile_picture/<id>', af_views.profile_picture),
     path('affiliate_marketing/af_uploadprofile/<id>', af_views.upload_acc),
     path('affiliate_marketing/af_profile/<id>', af_views.profile),
@@ -544,6 +579,7 @@ urlpatterns = [
 #///////////////////private investagator////////////////////
     path('pi_signin', pi_views.signin),
     path('pi_signup', pi_views.signup),
+    path('pi_createaccount/', pi_views.createaccount),
     path('pi_otpcheck/<id>', pi_views.opt_check),
     path('pi_profilepicture/<id>', pi_views.profile_picture),
     path('pi_complete_profile/<id>', pi_views.complete_profile),

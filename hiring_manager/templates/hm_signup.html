@@ -45,34 +45,34 @@
                 <form method="POST" action=" " id="myform">
                   {% csrf_token %}
                   <div class="col-lg-12 my-2">
-                    <label class="py-1" for="eamil">Email<span>*</span></label>
+                    <label class="py-1" for="email">Email<span>*</span></label>
                     <input type="text" name="email" id="email" class="form-control" style="padding: 5px;" placeholder="example@gmail.com" autofocus>
                   </div>
                   <div class="col-lg-12 my-2">
                     <label class="py-1" for="mobile">Mobile<span>*</span></label>
-                    <input type="number" name="mobile" id="mobile" style="padding: 8px;" class="form-control" placeholder="Enter your mobile number">
+                    <input type="number" name="mobile" id="mobile" style="padding: 8px;" class="form-control" placeholder="">
                   </div> 
 
                   <div class="col-lg-12 my-2">
                     <label class="py-1" for="password">Password<span>*</span></label>
-                    <input type="password" name="password" id="password" style="padding: 8px;" class="form-control" placeholder="Choose your password">
+                    <input type="password" name="password" id="password" style="padding: 8px;" class="form-control" placeholder="">
                   </div>
 
                   <div class="col-lg-12 my-2">
                     <label class="py-1" for="confirm_password">Confirm Password<span>*</span></label>
-                    <input type="password" name="confirm_password" style="padding: 8px;" id="confirm_password" class="form-control" placeholder="Confirm your password">
+                    <input type="password" name="confirm_password" style="padding: 8px;" id="confirm_password" class="form-control" placeholder="">
                   </div>
                   <div class="col-lg-12 my-2">
                     <label class="py-1" for="first_name">First Name<span>*</span></label>
-                    <input type="text" name="first_name" style="padding: 8px;" class="form-control" placeholder="Enter your name">
+                    <input type="text" name="first_name" style="padding: 8px;" class="form-control" placeholder="">
                   </div>
                   <div class="col-lg-12 my-2">
                     <label class="py-1" for="last_name">Last Name<span>*</span></label>
-                    <input type="text" name="last_name"  style="padding: 8px;" class="form-control" placeholder="Enter your last name">
+                    <input type="text" name="last_name"  style="padding: 8px;" class="form-control" placeholder="">
                   </div>
                   <div class="col-lg-12 my-2">
                     <label class="py-1" for="last_name">Second Last Name <span>(optional)</span></label>
-                    <input type="text" name="last_name" style="padding: 8px;" class="form-control" placeholder="Enter your second last name">
+                    <input type="text" name="second_last_name" style="padding: 8px;" class="form-control" placeholder="">
                   </div>
                   <p style="font-size:10px;"> * Name must match government issued ID.A mismatch could temporarily <br>
                     disable adds and withdrawals on your account.</P>
@@ -237,6 +237,11 @@
       a = "{{ error|safe }}"
       document.getElementById("res").innerHTML=a;
     </script>
+    {% if alert_message %}
+    <script>
+        alert("{{ alert_message }}");
+    </script>
+    {% endif %}  
 </body>
 
 </html>

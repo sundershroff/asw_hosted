@@ -1,6 +1,6 @@
 
 from rest_framework import serializers
-from virtualExpert.models import hiringmanager,users
+from virtualExpert.models import hiringmanager,users, Notification
 
 class hiringmanagerSerializer(serializers.Serializer):
     # User ID
@@ -22,6 +22,7 @@ class hiringmanagerSerializer(serializers.Serializer):
     office_city = serializers.CharField()
     office_address = serializers.CharField()
 
+    my_hiring_manager = serializers.CharField()
     first_name = serializers.CharField()
     last_name = serializers.CharField()
     personal_country = serializers.CharField()
@@ -48,7 +49,7 @@ class hiringmanagerSerializer(serializers.Serializer):
     field_study = serializers.CharField()
     school_colege = serializers.CharField()
     completed_year = serializers.CharField()
-    sch_colg_location = serializers.CharField()
+    study_location = serializers.CharField()
     degree_cer = serializers.CharField()
     skills = serializers.CharField()
 
@@ -72,7 +73,7 @@ class hiringmanagerSerializer(serializers.Serializer):
 
     gst_number = serializers.CharField()
     gst_certificate = serializers.CharField()
-
+    notification_status=serializers.CharField()
 
 class SignupSerializer(serializers.Serializer):
     uid = serializers.CharField()
@@ -119,7 +120,6 @@ class upload_acc_Serializer(serializers.Serializer):
     office_country = serializers.CharField()
     office_city = serializers.CharField()
     office_address = serializers.CharField()
-
     personal_country = serializers.CharField()
     personal_city = serializers.CharField()
     personal_dob = serializers.CharField()
@@ -128,7 +128,7 @@ class upload_acc_Serializer(serializers.Serializer):
     street_name = serializers.CharField()
     pin_code = serializers.CharField()
     my_hiring_manager = serializers.CharField()
-    # id_card = serializers.CharField()
+    # # id_card = serializers.CharField()
     aadhaar_no = serializers.CharField()
     aadhaar_card = serializers.CharField()
     pan_no = serializers.CharField()
@@ -137,7 +137,6 @@ class upload_acc_Serializer(serializers.Serializer):
     drive_licence = serializers.CharField()
     drive_licence_date = serializers.CharField()
     licence_state = serializers.CharField()
-    
     past_applied_date = serializers.CharField()
     past_applied_position = serializers.CharField()
     # citizen_country = serializers.CharField()
@@ -145,7 +144,7 @@ class upload_acc_Serializer(serializers.Serializer):
     govtjob_end_date = serializers.CharField()
     judgment_felony = serializers.CharField()
     notary_lic_no =  serializers.CharField()
-    notary_issued = serializers.CharField()
+    # notary_issued = serializers.CharField()
     notary_state = serializers.CharField()
     level_education = serializers.CharField()
     field_study = serializers.CharField()
@@ -154,7 +153,6 @@ class upload_acc_Serializer(serializers.Serializer):
     study_location = serializers.CharField()
     degree_cer = serializers.CharField()
     skills = serializers.CharField()
-
     work_job_title = serializers.CharField()
     work_company_name = serializers.CharField()
     work_start_date = serializers.CharField()
@@ -167,13 +165,11 @@ class upload_acc_Serializer(serializers.Serializer):
     # work_job_location = serializers.CharField()
     curent_busines = serializers.CharField()
     past_business = serializers.CharField()
-    
     mariyo_work_type = serializers.CharField()
     company_name = serializers.CharField()
     company_address = serializers.CharField()
     company_phone = serializers.CharField()
     company_email = serializers.CharField()
-
     gst_number = serializers.CharField()
     gst_certificate = serializers.CharField()
 
@@ -182,13 +178,11 @@ class upload_acc_Serializer(serializers.Serializer):
         instance.office_country = data['office_country']
         instance.office_city = data['office_city']
         instance.office_address = data['office_address']
-    
-        
         instance.personal_country = data['personal_country']
         instance.personal_city = data['personal_city']
         instance.personal_dob = data['personal_dob']
         instance.personal_age = data['personal_age']
-        instance.house_numbe = data['house_numbe']
+        instance.house_number = data['house_number']
         instance.street_name = data['street_name']
         instance.pin_code = data['pin_code']
         # instance.personal_address = data['personal_address']
@@ -207,7 +201,7 @@ class upload_acc_Serializer(serializers.Serializer):
         instance.govtjob_end_date = data['govtjob_end_date']
         instance.judgment_felony = data['judgment_felony']
         instance.notary_lic_no =  data['notary_lic_no']
-        instance.notary_issued = data['notary_issued']
+        # instance.notary_issued = data['notary_issued']
         instance.notary_state = data['notary_state']
         instance.my_hiring_manager = data['my_hiring_manager']
         # instance.id_card = data['id_card']
@@ -225,12 +219,11 @@ class upload_acc_Serializer(serializers.Serializer):
         instance.work_end_date = data['work_end_date']
         instance.final_salary = data['final_salary']
         instance.reason_leaving = data['reason_leaving']
-
-        instance.work_review_y = data['work_review_yr']
+        instance.work_review_y = data['work_review_y']
         instance.expr_certi = data['expr_certi']
         instance.curent_busines = data['curent_busines']
         instance.past_business = data['past_business']
-        instance.mariyo_work_type = data['mariyo_work_typee']
+        instance.mariyo_work_type = data['mariyo_work_type']
         instance.company_name = data['company_name']
         instance.company_address = data['company_address']
         instance.company_phone = data['company_phone']
@@ -880,3 +873,29 @@ class OTP1Serializer(serializers.Serializer):
         instance.user_otp1 = data['user_otp1']
         instance.save()
         return instance
+    
+
+# Notification Seralizers
+    
+class notificationSerializer(serializers.Serializer):
+    not_id=serializers.CharField()
+    noter_id=serializers.CharField()
+    not_message=serializers.CharField()
+    notify_id=serializers.CharField()
+    
+    def create(self,data):
+        return Notification.objects.create(
+        not_id = data['not_id'],
+        noter_id = data['noter_id'],
+        not_message = data['not_message'],
+        notify_id = data['notify_id'],
+        )
+
+
+class notificationlistSerializer(serializers.Serializer):
+    not_id=serializers.CharField()
+    noter_id=serializers.CharField()
+    not_message=serializers.CharField()
+    notify_id=serializers.CharField()
+    notify_date= serializers.DateField()
+    is_read=serializers.CharField()

@@ -52,11 +52,14 @@ class adproviderSerializer(serializers.Serializer):
     company_pan_no = serializers.CharField()
     arn_no =serializers.CharField()
     pan_card =serializers.CharField()
-
+    notification_status=serializers.CharField()
+    
 class SignupSerializer(serializers.Serializer):
     uid = serializers.CharField()
     email = serializers.EmailField()
     mobile = serializers.CharField()
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
     password = serializers.CharField()
     otp = serializers.IntegerField()
     created_date = serializers.CharField()
@@ -66,6 +69,8 @@ class SignupSerializer(serializers.Serializer):
             uid = data['uid'],
             email = data['email'],
             mobile = data['mobile'],
+            first_name = data['first_name'],
+            last_name = data['last_name'],
             password = data['password'],
             otp = data['otp'],
             created_date = data['created_date'],

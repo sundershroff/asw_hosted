@@ -9,7 +9,9 @@
  
 }
 
-
+#not_del:hover{
+	background-color:#ecebeb;
+}
 
 .dash_par1{
 	display:flex;

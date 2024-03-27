@@ -61,7 +61,7 @@ class Profilemanager(models.Model):
      # forget Password otps
     otp1 = models.IntegerField(null=True)
     user_otp1 = models.IntegerField(null=True)
-
+    notification_status=models.BooleanField(default=False,null=True)
 #/////Hiring manager/////
 class hiringmanager(models.Model):
     # User ID
@@ -144,7 +144,7 @@ class hiringmanager(models.Model):
 
     gst_number = models.TextField(null=True)
     gst_certificate = models.TextField(null=True)
-    
+    notification_status=models.BooleanField(default=False,null=True)
     # arn_no =models.TextField(null=True)
     
     
@@ -178,7 +178,7 @@ class hiringmanager(models.Model):
     otp1 = models.IntegerField(null=True)
     user_otp1 = models.IntegerField(null=True)
    #deioces
-
+ 
 #/////sales manager/////
 class salesmanager(models.Model):
     # User ID
@@ -207,7 +207,7 @@ class salesmanager(models.Model):
     #signed document
     sign_document = models.TextField(null=True)
     verification_img = models.TextField(null=True)
-
+    notification_status=models.BooleanField(default=False,null=True)
  #new qualification
     level_education = models.TextField(null=True)
     field_study = models.TextField(null=True)
@@ -322,6 +322,7 @@ class ad_provider(models.Model):
     arn_no =models.TextField(null=True)
     pan_card =models.TextField(null=True)
     
+    notification_status=models.BooleanField(default=False,null=True)
     #signed document
     sign_document = models.TextField(null=True)
     verification_img = models.TextField(null=True)
@@ -383,7 +384,8 @@ class ad_distributor(models.Model):
     company_pan_no = models.TextField(null=True)
     arn_no =models.TextField(null=True)
     pan_card =models.TextField(null=True)
-    
+
+    notification_status=models.BooleanField(default=False,null=True)
     #created on 
     created_date = models.TextField(null=True)
 
@@ -444,7 +446,7 @@ class affliate_marketing(models.Model):
     #created on 
     created_date = models.DateField(null=True, auto_now_add=True)
     created_time = models.TextField(null=True)
-
+    notification_status=models.BooleanField(default=False,null=True)
 
 # ///ad_distributor AD Creation Model////
 class Create_ads(models.Model):
@@ -522,3 +524,13 @@ class users(models.Model):
     creator =  models.TextField(null=True)
     location = models.TextField(null=True)
     my_client = models.TextField(null=True)
+
+
+# Notification table
+class Notification(models.Model):
+    not_id=models.TextField(null=True)
+    noter_id=models.TextField(null=True)
+    not_message=models.TextField(null=True)
+    notify_id=models.TextField(null=True)
+    is_read=models.BooleanField(default=False,null=True)
+    notify_date=models.DateField(auto_now_add=True,null=True)

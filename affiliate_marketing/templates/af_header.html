@@ -1,8 +1,23 @@
 {% load static %}
 
 <div class="dash_par1" style="background:white;">
-
-  <i class="fa-regular fa-bell"></i>
+{% comment %} {% if notification%} {% endcomment %}
+<form method="POST" id="notifyform" style="position: relative;display: inline-block;">
+  {% csrf_token %}
+  <input type="hidden" id="notify_id" name="notify" value="{{key.uid}}" style="position: absolute;z-index:1;padding: 10px 20px;width:50px;">
+  <input type="hidden" value="1" id="notify_message">
+  <button type="button" data-bs-toggle="modal" data-bs-target="#note" onclick="submitForm()" style="border:none;background-color:white;position: relative;z-index: 2;">
+      <i class="fa-regular fa-bell"></i> 
+  </button>
+</form>
+{% comment %} {% else %}
+<i class="fa-regular fa-bell"></i>
+{% endif %} {% endcomment %}
+{% if key.notification_status == "True"%}
+    <i class="fa-solid fa-circle pe-2" style="color: rgb(27 137 28);font-size:8px; position:absolute; right:134px;margin-bottom: 21px;z-index: 3;"></i>
+{% else%}
+  <i class="fa-solid fa-circle pe-2" style="color: white;font-size:8px; position:absolute; right:132px;margin-bottom: 21px;z-index: 3;"></i>
+{% endif %}
 
 <div class="dash_brd_img1" style="display: contents;">
   {% if access == "" %}
@@ -29,3 +44,122 @@ display: block;
  </div>
  <i class="bi bi-list fa-solid mobile-nav-toggle fa-bars" id="dashnavclick"></i>
 </div>  
+
+  <!--  Models-->
+
+  <div class="modal fade" id="note" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="border:none;">
+          <h4 class="modal-title" id="exampleModalLabel" style="font-weight:700;" >Notification</h4>
+          <button type="button" id="closeModalButton" style="border:none;background-color:white;" data-bs-dismiss="modal" ><i class="fas fa-times-circle" style="color:black;"></i></button>
+          {% comment %} <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> {% endcomment %}
+        </div>
+        <div class="modal-body">
+         {% if notification %}
+         <table class="table table-hover" id='notifyTable'>
+          <tbody>
+            {% for i in notification %}
+            <tr>
+              <td><i class="fa-solid fa-message" style="color:#7B61FF;"></i></td>
+              <td></td>
+              <td>{{i.not_message}}</td>
+              <td></td>
+              <td><button onClick="deleteNotify(event)" id="not_del" data-not-id="{{i.not_id}}" style="border:none;background-color:white;"><i class="fa-solid fa-delete-left" style="color:#7B61FF;"></i> </button></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+         </table>
+         
+          {% comment %} <div class="report_modal">
+            
+          </div> {% endcomment %}
+         <div class="modal-footer" style="border:none;">
+          <button onClick="deleteAll(event)" id="del_not" data-notity-id="{{key.uid}}" style="border:none;background-color:white;">
+             Clear All </button>  
+          </div>
+        {% else %}
+        <p> No Notifications</p>
+        {% endif %}  
+        </div>
+       
+      </div>
+    </div>
+  </div>
+
+   <!--  Models Over-->
+   <script>
+    document.getElementById('closeModalButton').addEventListener('click', function() {
+      $('#note').modal('hide'); 
+      location.reload();
+    });
+  </script>
+    
+  <script>
+    function submitForm() { 
+        var formData = new FormData(document.getElementById("notifyform"));
+        var id = document.getElementById("notify_id").value;  
+        
+        fetch('/ad_pro_notify_status_false/' + id , {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {                 
+                console.log("Form submitted successfully");                  
+            } else {
+              
+                console.error("Form submission failed");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
+
+<script>
+  function deleteNotify(event) {
+    var notId = event.currentTarget.getAttribute('data-not-id');
+    delete_notify(notId);
+  }
+
+   function delete_notify(notId) {
+  
+  var xhr = new XMLHttpRequest();
+  var url = "/notification_delete/" + notId; 
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+     
+      console.log(xhr.responseText);
+      window.location.reload();
+    }
+  };
+  xhr.send();
+}
+</script>
+
+<script>
+function deleteAll(event) {
+  var notId = event.currentTarget.getAttribute('data-notity-id');
+  delete_notify(notId); 
+}
+
+ function delete_notify(notId) {
+
+var xhr = new XMLHttpRequest();
+var url = "/delete_all_notification/" + notId; 
+xhr.open("POST", url, true);
+xhr.setRequestHeader("Content-Type", "application/json");
+xhr.onreadystatechange = function() {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+          
+    console.log(xhr.responseText);
+    window.location.reload();
+  }
+};
+xhr.send();
+}
+</script>

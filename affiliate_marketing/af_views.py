@@ -8,10 +8,27 @@ from django.contrib.auth import logout
 
 jsondec = json.decoder.JSONDecoder()
 
+def createaccount(request):
+    neww=[]
+    response = requests.get('https://api.first.org/data/v1/countries').json()
+    all = requests.get('https://countriesnow.space/api/v0.1/countries/states').json()
+    states = json.dumps(all["data"])
+    al = (all["data"])
+    for x in al:
+        name = (x.get("name"))
+        neww.append(name)
+    countryname = json.dumps(neww)
+
+    context = {'response': response, 'region': response,'all':al,
+                                            'country': countryname,'states': states,}
+
+    return render(request,"af_createaccount.html",context)
+
 def signin(request):
     value = request.COOKIES.get('afilliate')
     print(value)
     error = ""
+    context = {'error':error}
     if request.method == "POST":
         print(request.POST)
         # response = requests.post("http://54.159.186.219:8000/signin/",data=request.POST)
@@ -28,9 +45,35 @@ def signin(request):
             access_Privileges = ""
             uid = uidd
         if response.status_code == 200:
-            response = redirect(f"/affiliate_marketing/af_marketingdashboard/{uid}")
-            response.set_cookie("afilliate",uid)
-            return response
+            mydata = requests.get(f"http://127.0.0.1:3000/my_aff_data/{uid}").json()[0]
+            id_card_data = mydata.get('id_card')
+            hm = mydata.get('hiring_manager')
+            if id_card_data is None:
+                if hm is not None: 
+                    alert_message="You are under Verification Process...."
+                    context['alert_message'] = alert_message
+                    return render(request,"af_signin.html",context)
+                    
+                else:
+                    return redirect(f"/affiliate_marketing/af_uploadprofile/{uid}")
+                
+            elif id_card_data is not None:
+                response = redirect(f"/affiliate_marketing/af_marketingdashboard/{uid}")
+                response.set_cookie("afilliate",uid)
+                return response
+                
+            
+        elif response.status_code == 401:
+            delete_hm = requests.delete("http://127.0.0.1:3000/am_delete_data/",data=request.POST)
+            if delete_hm.status_code == 204:
+                print("Data deleted successfully")
+                error="Not Registered...Please click Create an Account"
+            elif delete_hm.status_code == 404:
+                print("Data not found")
+            else:
+                print("Error occurred:", delete_hm.status_code)
+        elif response.status_code == 404:
+            error="User Doesn't Exists"    
         else:
           error = "YOUR EMAILID OR PASSWORD IS INCORRECT"
     context = {'error':error}
@@ -51,7 +94,9 @@ def signup(request):
                 'email': request.POST["email"],
                 'mobile': request.POST["mobile"],
                 'password': request.POST["password"],
-                'referral_code':referral_code
+                'referral_code':referral_code,
+                'full_name': request.POST['first_name']+request.POST['last_name'],
+
             }
             print(data)
             # response = requests.post('http://54.159.186.219:8000/signup/',data=request.POST)
@@ -63,7 +108,10 @@ def signup(request):
             if response.status_code == 200:
                 return redirect(f"/affiliate_marketing/otp/{uidd}")
             elif response.status_code == 302:
-                error = "User Already Exist"
+                error = "User Already Exist"  
+                return redirect("/affiliate_marketing/signin/")     
+            else:
+                pass
         else:
             print("password doesn't match")
     context = {'error':error}
@@ -133,7 +181,7 @@ def upload_acc(request,id):
         context = {'response': response, 'region': response,'all':al,
                         'country': countryname,'states': states,'hiring_manager':hiring_manager}
         if request.method == "POST":
-            # print(request.POST)
+            uid=request.POST['hiring_manager']
             # print(request.FILES)
             dictio = dict(request.POST)
             print(dictio)
@@ -144,8 +192,17 @@ def upload_acc(request,id):
             print(response.text)
             uidd = (response.text[1:-1])
             if response.status_code == 200:
+                data={
+                        'noter_id':id,
+                        'not_message':"{id} selected you as his/her Hiring Manager",
+                        'notify_id': uid,
+                    }
+                notify=requests.post("http://127.0.0.1:3000/notification_update/",data=data)
+                if notify.status_code == 200:
+                    status_up=requests.post(f"http://127.0.0.1:3000/pm_notify_status_true/{uid}")
+                    print(status_up.status_code)
             # if get["otp"] == data['user_otp']:
-                return redirect(f"/affiliate_marketing/af_marketingdashboard/{uidd}")
+                return redirect("/affiliate_marketing/signin/")
             else:
                 pass
         return render(request,"af_uploadprofile.html",context)
@@ -169,7 +226,13 @@ def admin_dashboard(request,id):
         return redirect("/affiliate_marketing/signin/")
     try:
         access = ""
-
+        #Notification
+        if requests.get(f"http://127.0.0.1:3000/notification_data/{id}") == None:
+            notification_data=""
+            
+        else:
+            notification = requests.get(f"http://127.0.0.1:3000/notification_data/{id}")
+            notification_data = json.loads(notification.text)
         if request.method == "POST":
             new=[]
             
@@ -221,7 +284,9 @@ def admin_dashboard(request,id):
                 'all_profile_finder':all_profile_finder[::-1],
                 'all_data':new[::-1],
                 'all_date':all_date, 
-                'access' : access  
+                'access' : access,
+                'notification' :notification_data
+
             }
             
         else:
@@ -230,6 +295,13 @@ def admin_dashboard(request,id):
             all_profile_finder = requests.get("http://127.0.0.1:3000/alluserdata/").json()
             all_aff_details=requests.get("http://127.0.0.1:3000/all_aff_details").json()
             all_profile_data=requests.get("http://127.0.0.1:3000/my_profile_finder_data/").json()
+            #Notification
+            if requests.get(f"http://127.0.0.1:3000/notification_data/{id}") == None:
+                notification=""
+                
+            else:
+                notification = requests.get(f"http://127.0.0.1:3000/notification_data/{id}")
+                notification_data = json.loads(notification.text)
 
             for p in all_profile_data:
                 h=p.get("referral_code")
@@ -250,6 +322,7 @@ def admin_dashboard(request,id):
                 'all_profile_finder':all_profile_finder[::-1],
                 'all_data':new[::-1],
                 'access':access,
+                'notification' :notification_data
                            
             }
         return render(request,"af_marketingdashboard.html",context)
@@ -262,6 +335,13 @@ def admin_dashboard(request,id):
             print("all_profilefinders",all_profile_finder)
             all_profile_data=requests.get("http://127.0.0.1:3000/my_profile_finder_data/").json()
             access = mydata['access_Privileges']
+            #Notification
+            if requests.get(f"http://127.0.0.1:3000/notification_data/{id}") == None:
+                notification_data=""
+                
+            else:
+                notification = requests.get(f"http://127.0.0.1:3000/notification_data/{id}")
+                notification_data = json.loads(notification.text)
             # all_date=requests.get(f"http://127.0.0.1:3000/date_in_range/{id}").json()
             # print(all_date)
             for p in all_profile_data:
@@ -305,6 +385,7 @@ def admin_dashboard(request,id):
                 'all_data':new[::-1],
                 'all_date':all_date, 
                 'access':access,  
+                'notification' :notification_data
             }
             
         else:
@@ -314,6 +395,13 @@ def admin_dashboard(request,id):
             all_aff_details=requests.get("http://127.0.0.1:3000/all_aff_details").json()
             all_profile_data=requests.get("http://127.0.0.1:3000/my_profile_finder_data/").json()
             access = mydata['access_Privileges']
+            #Notification
+            if requests.get(f"http://127.0.0.1:3000/notification_data/{id}") == None:
+                notification_data=""
+                
+            else:
+                notification = requests.get(f"http://127.0.0.1:3000/notification_data/{id}")
+                notification_data = json.loads(notification.text)
             for p in all_profile_data:
                 h=p.get("referral_code")
                 if h == id:
@@ -333,6 +421,7 @@ def admin_dashboard(request,id):
                 'all_profile_finder':all_profile_finder[::-1],
                 'all_data':new[::-1],
                 'access':access,
+                'notification' :notification_data
                             
 
                 
