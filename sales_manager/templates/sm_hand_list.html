@@ -143,10 +143,9 @@
              
              <td data-label ="Actions"> <form action="" method="POST" enctype="multipart/form-data"> {%csrf_token%} <a href="/sales_manager/sm_client_details/{{i.uid}}"> <button type="submit" class="btn btn-outline-light" name="view_client" value="{{i.uid}}"><img src="{% static 'images/More.png'%}"></button></a><span class="pe-3"></span></form>
               
-              <form action="" method="POST" enctype="multipart/form-data">
-              {%csrf_token%}
+              
               {% if i.active_status == False %}
-              <td><button  data-bs-toggle="modal" data-bs-target="#activateModal" style="color: #7B61FF;border-color:#7B61FF;border-radius:5px;border-width:1px;background-color: #FFF;" name="active" value="{{i.email}}"> Activate </button></form></td>
+              <td><button  data-bs-toggle="modal" data-bs-target="#activateModal" style="color: #7B61FF;border-color:#7B61FF;border-radius:5px;border-width:1px;background-color: #FFF;" name="copy_id" value="{{i.uid}}" onclick="copyvalue(this)"> Activate </button></td>
               {% elif i.active_status == True %}
               <td data-label = "Actions"> <i class="fa-solid fa-circle pe-2" style="color:green;font-size:10px"></i><span style="color: #000;"> <b>Activate</b></span> </td>
 
@@ -340,7 +339,7 @@
       </div>
     </div>
 </div>
-{% comment %} <!-- <div class="modal fade modal-md px-4" id="activateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+ <div class="modal fade modal-md px-4" id="activateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header border-0">
@@ -371,13 +370,15 @@
       <div class="modal-footer border-0" style="background-color:#f5f5f5">
        <div class="prof_personal_activate ">
         <button class="prof_personal_filbtn1 my-3" type="cancel">Cancel</button>
-        <button class="prof_personal_filbtn2 my-3" type="submit">Validate</button>
+        <button id="active_id" class="prof_personal_filbtn2 my-3" name="active" value="" type="submit">Validate</button>
        </div>
       </div>
   </form>
     </div>
   </div>
 </div> 
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function(event) {
     function OTPInput() {
@@ -483,11 +484,19 @@ height: 16px;
 </style>
 
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+<script>
+  function copyvalue(button) {
+   
+          var buttonValue = button.value;
+         
+          document.getElementById('active_id').value = buttonValue;
+      console.log(buttonValue);
+  }
+</script>
 
  
-  <script src="{% static 'js/main.js'%}"></script>
+<script src="{% static 'js/main.js'%}"></script>
 
 
 </body>

@@ -782,10 +782,25 @@ def hand_list(request,id):
         
         elif 'active' in request.POST:
             a=request.POST["active"]
-            print(a)
-            # active_response = requests.post(f"http://127.0.0.1:3000/active_satus/{a}", data=request.POST)
-            response = requests.post(f"http://127.0.0.1:3000/client_otp_active/{idd}", data=request.POST )
-            print(response)
+            new=[]
+            new.append(request.POST["otp1"])
+            new.append(request.POST["otp2"])
+            new.append(request.POST["otp3"])
+            new.append(request.POST["otp4"])
+            new.append(request.POST["otp5"])
+            new.append(request.POST["otp6"])
+            
+            data = {
+                'user_otp':int(''.join(new).strip())
+            
+            }
+            print(data)
+            response = requests.post(f"http://127.0.0.1:3000/client_otp_active/{a}", data=data)
+            print(response.status_code)
+            if response.status_code == 200:
+                activate=requests.post(f"http://127.0.0.1:3000/active_satus/{a}")
+                print(activate)
+            return redirect(f"/sales_manager/sm_hand_list/{id}")    
 
         elif 'uid' in request.POST:
             print(request.POST)
@@ -952,8 +967,9 @@ def ads_list(request,id):
             print(request.POST['semail'])
 
             response=requests.post(f"http://127.0.0.1:3000/sendmail/{request.POST['semail']}",data=request.POST)
-
-        
+            if response.status_code == 200:
+                return redirect(f"/sales_manager/sm_ads_list/{id}")
+       
         else:        
             print(request.POST)
             data={
@@ -968,7 +984,6 @@ def ads_list(request,id):
             
             response = requests.post(f"http://127.0.0.1:3000/add_client_activities/{request.POST['client_name']}", data =data)
             print(response.status_code)
-            print(response.text)
             return redirect(f"/sales_manager/sm_ads_list/{id}")
     return render(request,"sm_ads_list.html",context)
 

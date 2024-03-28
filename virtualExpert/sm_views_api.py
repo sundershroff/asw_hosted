@@ -19,7 +19,9 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.permissions import IsAuthenticated,AllowAny
 import datetime
 import yagmail
+import logging
 
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 all_image_url = "http://127.0.0.1:3000/"
@@ -375,43 +377,18 @@ def add_client_data(request,id):
                 return Response({"sserializer issue"}, status=status.HTTP_403_FORBIDDEN)        
     except:
         return Response({"Invalid Data"}, status=status.HTTP_400_BAD_REQUEST)
-@api_view(["POST"])
-def client_otp_active(request,id):
-            
-    print(request.POST)
-       
-    userdata=models.ad_client.objects.get(email=request.POST["active"])
-    print(userdata)
-    otp = sm_extension.otp_client_generate()
-    print(otp)
-    email=request.POST['active']
-    sender = 'abijithmailforjob@gmail.com'
-    password = 'kgqzxinytwbspurf'
-    subject = "Marriyo client OTP"
-    content = f"""
-    OTP : {otp}
-    """
-    yagmail.SMTP(sender, password).send(
-        to=email,
-        subject=subject,
-        contents=content
-    )
-    print("send email")
-    data={
-        'otp': otp,
-        'email':email,
-    }
-    print(data)
-    basicdetailsserializer = sm_serializer.update_clientotp_serializer(data=data,instance=userdata,partial=True)
-    print(basicdetailsserializer)
-    if basicdetailsserializer.is_valid():
-        basicdetailsserializer.save()
-        print("done")
-        return Response("otp save",status=status.HTTP_200_OK)
     
-    if otp == request.POST['user_otp']:
+@api_view(["POST"])
+def client_otp_active(request,id): 
+    
+    user_otp=int(request.POST['user_otp'])
+    userdata = get_object_or_404(models.ad_client,uid = id)
+    otp = userdata.otp 
+    # print("otp" , type(otp))    
+    if otp == user_otp:
+        
         data={
-            'user_otp':request.POST['user_otp']
+            'user_otp':user_otp
         }
         # print(otp_client)
         basicdetailsserializer = sm_serializer.OTPclientSerializer(data=data,instance=userdata,partial=True)
@@ -419,8 +396,12 @@ def client_otp_active(request,id):
         if basicdetailsserializer.is_valid():
             basicdetailsserializer.save()
             print("done")
+            return Response({"saved"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"serializer issue"}, status=status.HTTP_403_FORBIDDEN)
+
     else:
-        print("otp.....")
+        return Response({"invalid"}, status=status.HTTP_403_FORBIDDEN)
 
 
 @api_view(['GET'])
@@ -434,24 +415,38 @@ def all_client_data(request):
 @api_view(['POST'])
 def add_client_activities(request,id):
     try:
-        # print(request.POST)
-        print('hii')
-        # print(request.POST)
-        
-        data = {
+        print(request.POST)
+        userdata=get_object_or_404(models.ad_client,uid = id)
+        print(userdata.email)
+        e_mail=userdata.email
+        otp = sm_extension.otp_client_generate()
+        print(otp)
+        email = e_mail
+        sender = 'abijithmailforjob@gmail.com'
+        password = 'kgqzxinytwbspurf'
+        subject = "Marriyo client OTP"
+        content = f"""
+        OTP : {otp}
+        """
+        yagmail.SMTP(sender, password).send(
+        to=email,
+        subject=subject,
+        contents=content
+        )
+        logger.info("Email sent successfully")
+        print("send email")
+        data={
+            'otp': otp,
+            'email':email,
             'types_of_activities': request.POST['types_of_activities'],
             'date': request.POST['date'] ,
             'time': request.POST['time'] ,
             'notes': request.POST['notes'],
-            # 'status':request.POST["status"],
-        
-        }
+
+            }
         print(data)
-        userdata=models.ad_client.objects.get(uid=id)
-        print(userdata)
+       
         basicdetailsserializer = sm_serializer.client_activities_serializer(data=data,instance=userdata, partial=True)
-        print(basicdetailsserializer)
-        print("done")
         if basicdetailsserializer.is_valid():
             basicdetailsserializer.save()
             print("Valid Data")
@@ -459,8 +454,9 @@ def add_client_activities(request,id):
         else:
             print("serializers")
             return Response({"sserializer issue"}, status=status.HTTP_403_FORBIDDEN)
-    except:
-        return Response({"invalid"}, status=status.HTTP_403_FORBIDDEN)
+    except Exception as e:
+        logger.error(f"Error sending email: {e}")
+        return Response({"Error sending email"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 @api_view(['POST'])
@@ -514,15 +510,15 @@ def sendmail(request,id):
         print(user)
         user.status=True
         user.save()
-        return Response("success")
+        return Response("success",status=status.HTTP_200_OK)
     except:
-        return Response("nostatus")
+        return Response("nostatus",status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 # clent_active status
 @api_view(["POST"])
 def active_satus(request,id):
     try:
-        user=get_object_or_404(models.ad_client,email=id)
+        user=get_object_or_404(models.ad_client,uid=id)
         print(user)
         user.active_status=True
         user.save()

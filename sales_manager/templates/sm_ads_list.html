@@ -103,7 +103,7 @@
     <div class="locl_adm_sec2 px-4 my-5">
       <h5 style="color:#6E717A">Upcoming Tasks</h5>
       {% for i in all_client_data %}
-      {%if i.status == False %}
+      {% if i.status == False %}
       {% if i.types_of_activities %}
      
       <div class="row rowbg">
@@ -123,7 +123,7 @@
         <div class="col-lg-4 col-md-4"></div>
 
         <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
-          <form action="" method="POST" > {%csrf_token%} 
+          <form action="" method="POST" > {% csrf_token %} 
             <button class="btn_end" type="submit" name="semail" value="{{i.uid}}" >Call Now</button>
           </form>
         </div>
@@ -140,8 +140,8 @@
         <div class="col-lg-4 col-md-4"></div>
 
         <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
-          <form action="" method="POST" > {%csrf_token%} 
-            <button class="btn_end" type="submit" name="semail" value="{{i.uid}}" >View Location</button>
+          <form action="" method="POST" > {% csrf_token %} 
+            <button class="btn_end"  name="semail" value="{{i.uid}}" >View Location</button>
           </form>
         </div>
         {% elif i.types_of_activities == "Email" %}
@@ -157,11 +157,11 @@
         <div class="col-lg-4 col-md-4"></div>
 
         <div class="col-lg-2 col-md-2 justify-content-end btn_padding">
-        <form action="" method="POST" > {%csrf_token%} 
+        <form action="" method="POST" > {% csrf_token %} 
           <button class="btn_end" type="submit" name="semail" value="{{i.uid}}" >Send Email</button>
         </form> 
         </div>
-          {%endif%} 
+          {% endif %} 
       <!-- <div class="col-lg-4 col-md-4">
         <span ><b>{{i.client_name}}</b><br>  
           <span class="task_button_text">{{i.types_of_activities}}<br>
@@ -174,9 +174,9 @@
 
     </div>
    
-    {%endif%}
-    {%endif%}
-    {%endfor%}<br>
+    {% endif %}
+    {% endif %}
+    {% endfor %}<br>
 
     
     <h5 style="color:#6E717A">Completed Tasks</h5><br>
@@ -362,7 +362,7 @@
       </div>
     </div>
   </div>
-
+<!-- modal ADD New Client  -->
   <div class="modal fade modal-md px-4" id="AddnewClient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
     <div class="modal-dialog">
       <div class="modal-content">
@@ -384,6 +384,7 @@
                
               </select>
              </div>
+            
               <span><b>Activities Details</b></span>
            
              <div class="my-4">
@@ -449,7 +450,7 @@
       <p>OTP will sent to your email ID / Phone Number <br><br>
         Please enter the One-Time Password to verify your account</p><br>
 <form action="" method="POST" >
-  {%csrf_token%}
+  {% csrf_token %}
      <center><div class="activateModal">
       <div id="otp" class="inputs d-flex flex-row justify-content-center mt-4 mb-4 w-50 ms-auto me-auto user_otp"> 
         <input class="m-2 me-0 text-center form-control rounded" name="otp1" placeholder="--" type="text" id="user_otp" maxlength="1" /> 

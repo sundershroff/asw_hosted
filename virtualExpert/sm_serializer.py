@@ -209,7 +209,7 @@ class add_client_serializer(serializers.Serializer):
         )
     
 class update_clientotp_serializer(serializers.Serializer):
-    otp = serializers.IntegerField()
+    
    
     def update(self, instance, data):
         instance.otp = data['otp']
@@ -231,6 +231,7 @@ class client_activities_serializer(serializers.Serializer):
     date=serializers.CharField()
     time=serializers.CharField()
     notes=serializers.CharField()
+    otp = serializers.IntegerField()
     # status=serializers.BooleanField()
 
 
@@ -240,6 +241,7 @@ class client_activities_serializer(serializers.Serializer):
         instance.date=data["date"]
         instance.time=data["time"]
         instance.notes=data["notes"]
+        instance.otp = data['otp']
         # instance.status=data["status"]
         instance.save()
         return instance
